@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sports.com.persistance.mapper.AcademyMapper">
+
+	<select id="getAcaList" resultType="AcademyDTO">
+		SELECT ACA_NO, ACA_NAME FROM ACADEMY
+	</select>
+	
+	<select id="getAccountList" resultType="AcademyDTO">
+		SELECT ACA_NO, ACA_NAME FROM ACADEMY
+	</select>
+	
+	<insert id="AccountInsert" parameterType="AcademyDTO">
+		INSERT INTO ACADEMY (ACA_NO, ACA_NAME, ACA_AREA1, ACA_AREA2)
+		VALUES ('326', '1번학원', '서울시', '강서구' )
+	</insert>
+</mapper>
