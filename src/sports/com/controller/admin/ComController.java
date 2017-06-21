@@ -1,4 +1,4 @@
-package sports.com.controller;
+package sports.com.controller.admin;
 
 import java.util.List;
 
