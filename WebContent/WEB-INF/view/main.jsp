@@ -17,7 +17,7 @@
 </head>
 <body>
 ㅇㅋ요!장총명 깃허브 수정 테스트<br>
-수정테스트 1 입니다
+수정테스트 1 입니다<!-- 장총명 test2 -->
 수정 1에서 에러나고 수정 2 테스트
 <%for(TestDTO testDTO : list){ %>
 	<%=testDTO.getAb() %>&nbsp;|&nbsp;<%=testDTO.getBc() %>
