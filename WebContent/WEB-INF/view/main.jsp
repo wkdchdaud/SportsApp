@@ -22,5 +22,6 @@
 <%for(TestDTO testDTO : list){ %>
 	<%=testDTO.getAb() %>&nbsp;|&nbsp;<%=testDTO.getBc() %>
 <%} %>
+<!-- ÀÌÇÊ¿ø -->
 </body>
 </html>
