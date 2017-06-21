@@ -27,6 +27,7 @@ public class ComController {
 	public String busimain(HttpSession session, HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws Exception {
 		log.info("Wellcom user/usermain");
+		System.out.println("test");
 		List<TestDTO> list = comService.getCommentList();
 		model.addAttribute("list",list);
 		return "/main";
