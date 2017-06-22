@@ -16,7 +16,7 @@
 <head>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Bootstrap Admin Template : Binary Admin</title>
+    <title>모두의 스포츠</title>
 	<!-- BOOTSTRAP STYLES-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FONTAWESOME STYLES-->
@@ -38,7 +38,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Binary admin</a> 
+                <a class="navbar-brand" href="index.html">모두의 스포츠</a> 
             </div>
   <div style="color: white;
 padding: 15px 50px 5px 50px;
@@ -53,7 +53,57 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="login.html" class="
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
 				
+					<!-- 우리가 사용할 메뉴 시작  -->
 					
+					<!--  회원관리 -->		
+					<li>
+                        <a  href="ui.jsp"><i class="fa fa-desktop fa-3x"></i> 회원관리</a>
+                    </li>
+                    
+                    <!--  권한관리 -->
+                    <li>
+                        <a  href="ui.html"><i class="fa fa-desktop fa-3x"></i> 권한관리</a>
+                    </li>
+                    
+                    <!--주문관리-->
+                      <li>
+                        <a  href="table.html"><i class="fa fa-table fa-3x"></i> 주문관리</a>
+                    </li>
+                    
+                    <!--학원관리-->
+                    <li>
+                        <a  href="table.html"><i class="fa fa-table fa-3x"></i> 학원관리</a>
+                    </li>
+                    
+                    <!--스포츠용품리스트관리  -->
+                    <li>
+                        <a href="table.html"><i class="fa fa-table fa-3x"></i> Table Examples</a>
+                    </li>
+                    
+					<!--매출분석정보-->
+					<li>
+                        <a   href="chart.html"><i class="fa fa-bar-chart-o fa-3x"></i> 매출분석정보</a>
+                    </li>
+                    
+                  
+					
+					   <li>
+                        <a href="#"><i class="fa fa-sitemap fa-3x"></i> 커뮤니티 관리<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">공지사항</a>
+                            </li>
+                            <li>
+                                <a href="#">Q&A</a>
+                            </li>
+                         </ul>
+                        </li>
+					
+					
+					
+					
+					
+					<!-- 우리가 사용하지 않고 갖다가 쓸 메뉴  -->
                     <li>
                         <a class="active-menu"  href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
                     </li>
@@ -63,17 +113,17 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="login.html" class="
                     <li>
                         <a  href="tab-panel.html"><i class="fa fa-qrcode fa-3x"></i> Tabs & Panels</a>
                     </li>
-						   <li  >
-                        <a   href="chart.html"><i class="fa fa-bar-chart-o fa-3x"></i> Morris Charts</a>
+						   <li>
+                        <a href="chart.html"><i class="fa fa-bar-chart-o fa-3x"></i> Morris Charts</a>
                     </li>	
-                      <li  >
-                        <a  href="table.html"><i class="fa fa-table fa-3x"></i> Table Examples</a>
+                      <li>
+                        <a href="table.html"><i class="fa fa-table fa-3x"></i> Table Examples</a>
                     </li>
                     <li  >
-                        <a  href="form.html"><i class="fa fa-edit fa-3x"></i> Forms </a>
+                        <a href="form.html"><i class="fa fa-edit fa-3x"></i> Forms </a>
                     </li>				
 					 <li  >
-                        <a   href="login.html"><i class="fa fa-bolt fa-3x"></i> Login</a>
+                        <a href="login.html"><i class="fa fa-bolt fa-3x"></i> Login</a>
                     </li>	
                      <li  >
                         <a   href="registeration.html"><i class="fa fa-laptop fa-3x"></i> Registeration</a>
