@@ -24,8 +24,8 @@ if (rlist==null){
 <script type="text/javascript">
 
 //상세보기 이동
-function doDetail(seq){
-	location.href="/admin/Acdemy/AccountInfo.do?nSeq="+ seq;
+function doDetail(aca_no){ 
+	location.href="/accountinfo.do?aca_no="+ aca_no;
 }
 
 </script>	
@@ -43,7 +43,7 @@ function doDetail(seq){
 	<td width="100" align="center">주소2</td>
 </tr>
 <%
-for (int i=0;i<rlist.size();i++){
+for (int i=0; i<rlist.size(); i++){
 	AcademyDTO aDTO = rlist.get(i);
 
 	if (aDTO==null){
@@ -52,27 +52,20 @@ for (int i=0;i<rlist.size();i++){
 	
 %>
 <tr>
+
+	
 	<td align="center">
-	 <%
-	//공지글이라면, [공지]표시 
-	if (CmmUtil.nvl(aDTO.getAca_no()).equals("1")){
-		out.print("<b>[공지]</b>");
-		 
-	//공지글이 아니라면, 글번호 보여주기 		
-	}else{
-		out.print(CmmUtil.nvl(aDTO.getAca_no()));
-			
-	}
-	%>
-	</td>
+	<%=CmmUtil.nvl(aDTO.getAca_no())%>
+		</td>
 	<td align="center">
-		<a href="javascript:doDetail('<%=CmmUtil.nvl(aDTO.getAca_no())%>');">
-		<%=CmmUtil.nvl(aDTO.getAca_name()) %></a>
-	</td>
-	<td align="center"><%=CmmUtil.nvl(aDTO.getAca_area1())%></td>
-	<td align="center"><%=CmmUtil.nvl(aDTO.getAca_area2())%></td>
-<%-- 	<td align="center"><%=CmmUtil.nvl(aDTO.getUser_name()) %></td>
-	<td align="center"><%=CmmUtil.nvl(aDTO.getReg_dt()) %></td> --%>
+	<a href="javascript:doDetail('<%=CmmUtil.nvl(aDTO.getAca_no())%>');">
+	<%=CmmUtil.nvl(aDTO.getAca_name()) %></a>
+	<%-- <a href=\"accountinfo?aca_no=<%=CmmUtil.nvl(aDTO.getAca_name()) %>"><%=CmmUtil.nvl(aDTO.getAca_name()) %></a> --%>
+		</td>
+	<td align="center">
+	<%=CmmUtil.nvl(aDTO.getAca_area1())%></td>
+	<td align="center">
+	<%=CmmUtil.nvl(aDTO.getAca_area2())%></td>
 </tr>
 <%
 }
