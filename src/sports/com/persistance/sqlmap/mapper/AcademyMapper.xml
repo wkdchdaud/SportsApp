@@ -12,6 +12,11 @@
 	
 	<insert id="AccountInsert" parameterType="AcademyDTO">
 		INSERT INTO ACADEMY (ACA_NO, ACA_NAME, ACA_AREA1, ACA_AREA2)
-		VALUES (2334, #{aca_name}, #{aca_area1}, #{aca_area2} )
+		VALUES (#{aca_no}, #{aca_name}, #{aca_area1}, #{aca_area2} )
 	</insert>
+	
+	<select id="getAccountInfo" resultType="AcademyDTO">
+		SELECT ACA_NO, ACA_NAME, ACA_AREA1, ACA_AREA2 FROM ACADEMY
+		WHERE ACA_NO = #{aca_no}
+	</select>
 </mapper>

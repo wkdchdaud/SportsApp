@@ -13,5 +13,7 @@ import sports.com.dto.AcademyDTO;
 		List<AcademyDTO> getAccountList() throws Exception;
 
 		void AccountInsert(AcademyDTO aDTO) throws Exception;
+
+		AcademyDTO getAccountInfo(AcademyDTO aDTO) throws Exception;
 }
 

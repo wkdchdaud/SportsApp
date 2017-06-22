@@ -11,6 +11,9 @@ public interface IAcademyService {
 	List<AcademyDTO> getAccountList() throws Exception;
 	
 	void AccountInsert(AcademyDTO aDTO) throws Exception;
+	
+	AcademyDTO getAccountInfo(AcademyDTO aDTO) throws Exception;
+
 
 
 }
