@@ -7,11 +7,11 @@
 	</select>
 	
 	<select id="getAccountList" resultType="AcademyDTO">
-		SELECT ACA_NO, ACA_NAME FROM ACADEMY
+		SELECT ACA_NO, ACA_NAME, ACA_AREA1, ACA_AREA2 FROM ACADEMY
 	</select>
 	
 	<insert id="AccountInsert" parameterType="AcademyDTO">
 		INSERT INTO ACADEMY (ACA_NO, ACA_NAME, ACA_AREA1, ACA_AREA2)
-		VALUES ('327', '1번학원', '서울시', '강서구' )
+		VALUES (2334, #{aca_name}, #{aca_area1}, #{aca_area2} )
 	</insert>
 </mapper>
