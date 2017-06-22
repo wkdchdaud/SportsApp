@@ -82,7 +82,7 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="login.html" class="
                     
 					<!--매출분석정보-->
 					<li>
-                        <a   href="chart.html"><i class="fa fa-bar-chart-o fa-3x"></i> 매출분석정보</a>
+                        <a   href="chart.jsp"><i class="fa fa-bar-chart-o fa-3x"></i> 매출분석정보</a>
                     </li>
                     
                   
@@ -114,7 +114,7 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="login.html" class="
                         <a  href="tab-panel.html"><i class="fa fa-qrcode fa-3x"></i> Tabs & Panels</a>
                     </li>
 						   <li>
-                        <a href="chart.html"><i class="fa fa-bar-chart-o fa-3x"></i> Morris Charts</a>
+                        <a href="chart.jsp"><i class="fa fa-bar-chart-o fa-3x"></i> Morris Charts</a>
                     </li>	
                       <li>
                         <a href="table.html"><i class="fa fa-table fa-3x"></i> Table Examples</a>

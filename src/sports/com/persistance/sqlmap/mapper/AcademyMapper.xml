@@ -12,6 +12,6 @@
 	
 	<insert id="AccountInsert" parameterType="AcademyDTO">
 		INSERT INTO ACADEMY (ACA_NO, ACA_NAME, ACA_AREA1, ACA_AREA2)
-		VALUES ('326', '1번학원', '서울시', '강서구' )
+		VALUES ('327', '1번학원', '서울시', '강서구' )
 	</insert>
 </mapper>

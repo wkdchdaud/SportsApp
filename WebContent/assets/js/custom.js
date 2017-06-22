@@ -67,7 +67,7 @@
                 }],
                 xkey: 'y',
                 ykeys: ['a', 'b'],
-                labels: ['Series A', 'Series B'],
+                labels: ['년도', '시팔'],
                 hideHover: 'auto',
                 resize: true
             });
