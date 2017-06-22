@@ -41,7 +41,7 @@
                 <a class="navbar-brand" href="main.jsp">모두의 스포츠</a> 
             </div>
   <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;">
- Last access : 30 May 2014 &nbsp; <a href="login.html" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+ Last access : 30 May 2014 &nbsp; <a href="login.jsp" class="btn btn-danger square-btn-adjust">Logout</a> </div>
         </nav>   
            <!-- /. NAV TOP  -->
                 <nav class="navbar-default navbar-side" role="navigation">
@@ -60,22 +60,22 @@
                     
                     <!--  권한관리 -->
                     <li>
-                        <a  href="ui.html"><i class="fa fa-desktop fa-3x"></i> 권한관리</a>
+                        <a  href="ui.jsp"><i class="fa fa-desktop fa-3x"></i> 권한관리</a>
                     </li>
                     
                     <!--주문관리-->
                       <li>
-                        <a  href="table.html"><i class="fa fa-table fa-3x"></i> 주문관리</a>
+                        <a  href="table.jsp"><i class="fa fa-table fa-3x"></i> 주문관리</a>
                     </li>
                     
                     <!--학원관리-->
                     <li>
-                        <a  href="table.html"><i class="fa fa-table fa-3x"></i> 학원관리</a>
+                        <a  href="table.jsp"><i class="fa fa-table fa-3x"></i> 학원관리</a>
                     </li>
                     
                     <!--스포츠용품리스트관리  -->
                     <li>
-                        <a href="table.html"><i class="fa fa-table fa-3x"></i> Table Examples</a>
+                        <a href="table.jsp"><i class="fa fa-table fa-3x"></i> Table Examples</a>
                     </li>
                     
 					<!--매출분석정보-->
@@ -103,28 +103,28 @@
 					
 					<!-- 우리가 사용하지 않고 갖다가 쓸 메뉴  -->
                     <li>
-                        <a class="active-menu"  href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                        <a class="active-menu"  href="index.jsp"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
                     </li>
                      <li>
-                        <a  href="ui.html"><i class="fa fa-desktop fa-3x"></i> UI Elements</a>
+                        <a  href="ui.jsp"><i class="fa fa-desktop fa-3x"></i> UI Elements</a>
                     </li>
                     <li>
-                        <a  href="tab-panel.html"><i class="fa fa-qrcode fa-3x"></i> Tabs & Panels</a>
+                        <a  href="tab-panel.jsp"><i class="fa fa-qrcode fa-3x"></i> Tabs & Panels</a>
                     </li>
 						   <li>
                         <a href="chart.jsp"><i class="fa fa-bar-chart-o fa-3x"></i> Morris Charts</a>
                     </li>	
                       <li>
-                        <a href="table.html"><i class="fa fa-table fa-3x"></i> Table Examples</a>
+                        <a href="table.jsp"><i class="fa fa-table fa-3x"></i> Table Examples</a>
                     </li>
                     <li  >
-                        <a href="form.html"><i class="fa fa-edit fa-3x"></i> Forms </a>
+                        <a href="form.jsp"><i class="fa fa-edit fa-3x"></i> Forms </a>
                     </li>				
 					 <li  >
-                        <a href="login.html"><i class="fa fa-bolt fa-3x"></i> Login</a>
+                        <a href="login.jsp"><i class="fa fa-bolt fa-3x"></i> Login</a>
                     </li>	
                      <li  >
-                        <a   href="registeration.html"><i class="fa fa-laptop fa-3x"></i> Registeration</a>
+                        <a   href="registeration.jsp"><i class="fa fa-laptop fa-3x"></i> Registeration</a>
                     </li>	
 					                   
                     <li>
@@ -155,7 +155,7 @@
                         </ul>
                       </li>  
                   <li  >
-                        <a  href="blank.html"><i class="fa fa-square-o fa-3x"></i> Blank Page</a>
+                        <a  href="blank.jsp"><i class="fa fa-square-o fa-3x"></i> Blank Page</a>
                     </li>	
                 </ul>
                

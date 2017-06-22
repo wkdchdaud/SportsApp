@@ -1,4 +1,4 @@
-﻿<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="sports.com.dto.TestDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -72,9 +72,9 @@ font-size: 25px; "> 매출 데이터 분석 &nbsp;
                 <div class="row">
                     <div class="col-md-12" align="center" >
                      <!-- <h2 style="text-align: center;">매출데이터분석</h2> -->
-											  <button data-toggle="dropdown" class="btn btn-info dropdown-toggle" style="width: 200px; float: center; ">매출 분석 <span class="caret"></span></button>
+											  <button data-toggle="dropdown" class="btn btn-info dropdown-toggle" style="width: 200px; float: center; ">연관성 분석 <span class="caret"></span></button>
 											  <ul class="dropdown-menu">
-												<li><a href="#">매출 분석</a></li>
+												<li><a href="chart.jsp">매출 분석</a></li>
 												<li class="divider"></li>
 												<li><a href="chart1.jsp">연관성 분석</a></li>
 												<li class="divider"></li>
@@ -84,10 +84,6 @@ font-size: 25px; "> 매출 데이터 분석 &nbsp;
 						
                      <div style="text-align: center;">
                         <span class="label label-success"><a href="#" style="color: white; text-decoration: none; font-size: 12px" >일별</a></span>
-                        &nbsp;
-                        <span class="label label-success"><a href="#" style="color: white; text-decoration: none; font-size: 12px">주별</a></span>
-                        &nbsp;
-                        <span class="label label-success"><a href="#" style="color: white; text-decoration: none; font-size: 12px">월별</a></span>
                         &nbsp;
                         <span class="label label-success"><a href="#" style="color: white; text-decoration: none; font-size: 12px" >분기별</a></span>
                         &nbsp;
@@ -102,7 +98,7 @@ font-size: 25px; "> 매출 데이터 분석 &nbsp;
                                     
                     <div class="panel panel-default">
                     
-                        <div class="panel-heading" style="text-align: center;">2017 / 05 / 27 ~
+                        <div class="panel-heading" style="text-align: center;">2017 / 03 ~ 
 <span class="btn btn-warning"> <a href="#" class="datepicker" style="color: white; text-decoration: none; font-size: 12px">달력</a></span>          
              
  </div>
@@ -114,37 +110,37 @@ font-size: 25px; "> 매출 데이터 분석 &nbsp;
                     </div>
                      <div class="panel panel-default" style="text-align: center;">
                         <div class="panel-heading">
-                          	 매출 종목 순위
+                          	 연관성 분석 상세
                         </div>
                         <div class="panel-body">
-                            <div class="table-responsive">
+                            <div class="table-responsive" >
                                 <table class="table table-striped table-bordered table-hover" >
                                     <thead>
                                         <tr>
-                                            <th>순위</th>
-                                            <th>종목</th>
+                                            <th style="text-align: center">2017년 3월</th>
+                                            <th align="center" style="text-align: center">태권도복</th>
+                                            <th align="center" style="text-align: center">태권도화</th>
+                                            <th align="center" style="text-align: center">운동매트</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td>태권도</td>
+                                            <td>태권도띠<br/>(65%)</td>
+                                            <td>태권도복<br/>(77%)</td>
+                                            <td>격파용송판<br/>(75%)</td>
                                         </tr>
                                         <tr>
                                             <td>2</td>
-                                            <td>축구</td>
+                                            <td>태권도화<br/>(45%)</td>
+                                            <td>태권도띠<br/>(51%)</td>
+                                            <td>발차기매트<br/>(67%)</td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
-                                            <td>헬스장</td>
-                                        </tr>
-                                         <tr>
-                                            <td>4</td>
-                                            <td>농구</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>합기도</td>
+                                            <td>헤드기어<br/>(36%)</td>
+                                            <td>격파용송판<br/>(27%)</td>
+                                            <td>격투용샌드백<br/>(42%)</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -216,31 +212,18 @@ font-size: 25px; "> 매출 데이터 분석 &nbsp;
                Morris.Bar({
                    element: 'morris-bar-chart',
                    data: [{
-                       y: '05.27',
+                       y: '태권도복',
                        a: 100
                    }, {
-                       y: '05.28',
+                       y: '태권도화',
                        a: 75
                    }, {
-                       y: '05.29',
+                       y: '운동매트',
                        a: 50
-                   }, {
-                       y: '05.30',
-                       a: 75
-                   }, {
-                       y: '06.01',
-                       a: 50
-                   }, {
-                       y: '06.02',
-                       a: 75
-                   }, {
-                       y: '06.03',
-                       a: 100
                    }],
                    xkey: 'y',
                    ykeys: ['a'],
                    labels: ['매출'],
-                   hideHover: 'auto',
                    resize: true
                });
 

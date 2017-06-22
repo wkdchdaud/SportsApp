@@ -14,6 +14,8 @@ import sports.com.dto.UserDTO;
 import sports.com.service.IAnalysisService;
 import sports.com.service.IUserService;
 import sports.com.util.CmmUtil;
+import sports.com.dto.R_testDTO;
+
 
 public class DataAnalysisController {
 	private Logger log = Logger.getLogger(this.getClass());
@@ -21,9 +23,12 @@ public class DataAnalysisController {
 	@Resource(name="UserService")
 	private IAnalysisService analysisService;
 	
-//	@RequestMapping(value="/admin/data_ana",method=RequestMethod.GET)
-//	public String sales_info(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception
-//	{
-//		
-//	}
+	@RequestMapping(value="/admin/data_ana",method=RequestMethod.GET)
+	public String sales_info(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception
+	{
+		log.info("R PromGramming Start!");
+//		List<R_testDTO> list = analysisService.getAlalysisList();
+		
+		return "asd";
+	}
 }
