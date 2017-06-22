@@ -26,13 +26,14 @@ public class AcademyService implements IAcademyService{
 		
 	@Override
 	public List<AcademyDTO> getAccountList() throws Exception {
-		System.out.println("acc ���� start");
+		System.out.println("acc 서비스 start");
+		System.out.println("아카데미DTO 클래스는 "+AcademyDTO.class);
 		return academyMapper.getAcaList();
 	}
-	
+	 
 	@Override
 	public void AccountInsert(AcademyDTO aDTO) throws Exception {
-		System.out.println("acc ���� start");
+		System.out.println("거래처 등록 서비스 start");
 		academyMapper.AccountInsert(aDTO);
 }
 }

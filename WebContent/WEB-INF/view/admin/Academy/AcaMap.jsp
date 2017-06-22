@@ -31,7 +31,7 @@
     </script>
 <br>
 <%for(AcademyDTO academyDTO : list){ %>
-	<%=academyDTO.getAca_no() %>&nbsp;|&nbsp;<%=academyDTO.getAca_name() %>
+	<%=academyDTO.getAca_no() %>&nbsp; <%=academyDTO.getAca_name() %></br>
 <%} %>
 </body>
 </html>
