@@ -8,6 +8,7 @@
 	
 	<select id="getAccountList" resultType="AcademyDTO">
 		SELECT ACA_NO, ACA_NAME, ACA_AREA1, ACA_AREA2 FROM ACADEMY
+		ORDER BY CAST(ACA_NO AS UNSIGNED)
 	</select>
 	
 	<insert id="AccountInsert" parameterType="AcademyDTO">

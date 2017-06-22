@@ -81,7 +81,7 @@ public class AcademyController {
 		
 		
 		//로직 끝나고 보여줄 JSP파일
-		return "/admin/Academy/AccountManagement";
+		return "/admin/Academy/AccountManagement2";
 	}
 	
 	@RequestMapping("accountreg")
