@@ -92,10 +92,10 @@ public class AcademyController {
 			/*
 			 * 게시판 글 등록되기 위해 사용되는 form객체의 하위 input 객체 등을 받아오기 위해 사용함
 			 * */
-			String aca_no = CmmUtil.nvl(request.getParameter("aca_no")); //���̵�
-			String aca_name = CmmUtil.nvl(request.getParameter("aca_name")); //����
-			String aca_area1 = CmmUtil.nvl(request.getParameter("aca_area1")); //������ ����
-			String aca_area2 = CmmUtil.nvl(request.getParameter("aca_area2")); //������ ����
+			String aca_no = CmmUtil.nvl(request.getParameter("aca_no")); 
+			String aca_name = CmmUtil.nvl(request.getParameter("aca_name")); 
+			String aca_area1 = CmmUtil.nvl(request.getParameter("aca_area1")); 
+			String aca_area2 = CmmUtil.nvl(request.getParameter("aca_area2")); 
 	
 			/*
 			 * #######################################################
