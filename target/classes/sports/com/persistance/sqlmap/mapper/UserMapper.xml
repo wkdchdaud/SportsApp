@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sports.com.persistance.mapper.UserMapper">
+	<select id="join_proc" resultType="UserDTO">
+		INSERT INTO USER_INFO
+		 (USER_ID, PASSWORD, USER_NAME, EMAIL, EMAIL_FIRST, TEL, AUTH, REG_USER_NO, REG_DT)
+		VALUES
+		 (#{user_id},#{pwd},#{name},#{email},'N',#{tel},'A','1',NOW())
+	</select>
+</mapper>
