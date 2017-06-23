@@ -27,9 +27,5 @@ public class SHAUtill {
 	public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		String a = encryption("aba");
 		System.out.println("암호화 : " + a);
-		AES_256 aes = new AES_256();
-		aes.AES256Util("aaa");
-		String b = aes.encrypt(a);
-		System.out.println(b);
 	}
 }
