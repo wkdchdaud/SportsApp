@@ -1,4 +1,4 @@
-package sports.com.controller.admin;
+package sports.com.controller.user;
 
 import java.util.List;
 
@@ -17,21 +17,21 @@ import sports.com.dto.TestDTO;
 import sports.com.service.IComService;
 
 @Controller
-public class ComController {
+public class TestController {
 	private Logger log = Logger.getLogger(this.getClass());
 	
-//	@Resource(name = "ComService")
-//	private IComService comService;
-//	
-////	@RequestMapping(value="main",method=RequestMethod.GET)
-////	public String busimain(HttpSession session, HttpServletRequest request, HttpServletResponse response,
-////			ModelMap model) throws Exception {
-////		log.info("Wellcom user/usermain");
-////		System.out.println("test");
-////		List<TestDTO> list = comService.getCommentList();
-////		model.addAttribute("list",list);
-////		return "/main";
-////	}
-////	
+	@Resource(name = "ComService")
+	private IComService comService;
+	
+	@RequestMapping(value="main",method=RequestMethod.GET)
+	public String busimain(HttpSession session, HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception {
+		log.info("Wellcom user/usermain");
+		System.out.println("test");
+		List<TestDTO> list = comService.getCommentList();
+		model.addAttribute("list",list);
+		return "/main";
+	}
+	
 	
 }

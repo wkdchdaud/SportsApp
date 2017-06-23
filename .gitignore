@@ -1,2 +1,6 @@
 /build/
+<<<<<<< HEAD
+=======
 .classpath
+>>>>>>> refs/remotes/sports/test
+/target/
