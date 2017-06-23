@@ -32,6 +32,72 @@ public class TestController {
 		model.addAttribute("list",list);
 		return "/main";
 	}
+	@RequestMapping(value="ui",method=RequestMethod.GET)
+	public String Ui(HttpSession session, HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception {
+		log.info("Wellcom user/usermain");
+		System.out.println("test");
+		List<TestDTO> list = comService.getCommentList();
+		model.addAttribute("list",list);
+		return "/ui";
+	}
 	
+	@RequestMapping(value="ui1",method=RequestMethod.GET)
+	public String Ui1(HttpSession session, HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception {
+		log.info("Wellcom user/usermain");
+		System.out.println("test");
+		List<TestDTO> list = comService.getCommentList();
+		model.addAttribute("list",list);
+		return "/ui1";
+	}
 	
+	@RequestMapping(value="table",method=RequestMethod.GET)
+	public String Table(HttpSession session, HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception {
+		log.info("Wellcom user/usermain");
+		System.out.println("test");
+		List<TestDTO> list = comService.getCommentList();
+		model.addAttribute("list",list);
+		return "/table";
+	}
+	
+	@RequestMapping(value="accountmanagement2",method=RequestMethod.GET)
+	public String account(HttpSession session, HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception {
+		log.info("Wellcom user/usermain");
+		System.out.println("test");
+		List<TestDTO> list = comService.getCommentList();
+		model.addAttribute("list",list);
+		return "/accountmanagement2";
+	}
+	
+	@RequestMapping(value="table1",method=RequestMethod.GET)
+	public String table1(HttpSession session, HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception {
+		log.info("Wellcom user/usermain");
+		System.out.println("test");
+		List<TestDTO> list = comService.getCommentList();
+		model.addAttribute("list",list);
+		return "/table1";
+	}
+	
+	@RequestMapping(value="chart1",method=RequestMethod.GET)
+	public String chart1(HttpSession session, HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception {
+		log.info("Wellcom user/usermain");
+		System.out.println("test");
+		List<TestDTO> list = comService.getCommentList();
+		model.addAttribute("list",list);
+		return "/chart1";
+	}
+	@RequestMapping(value="chart2",method=RequestMethod.GET)
+	public String chart2(HttpSession session, HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception {
+		log.info("Wellcom user/usermain");
+		System.out.println("test");
+		List<TestDTO> list = comService.getCommentList();
+		model.addAttribute("list",list);
+		return "/chart2";
+	}
 }

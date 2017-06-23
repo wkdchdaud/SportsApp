@@ -27,7 +27,10 @@
     <link href="assets/css/custom.css" rel="stylesheet" />
      <!-- GOOGLE FONTS-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-
+	<script type="text/javascript">
+		var ndate = document.getElementById("nowDate");
+		var d = new Date();
+	</script>
 </head>
 <body>
     <div id="wrapper">
@@ -39,10 +42,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="main.jsp">모두의 스포츠</a> 
+                <a class="navbar-brand" href="main.do">모두의 스포츠</a> 
             </div>
-  <div  style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;">
-  &nbsp; <a href="login.html" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+  <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;" id="nowDate">2017년 6월 23일
+  <a href="login.html" class="btn btn-danger square-btn-adjust">Logout</a> </div>
         </nav>   
            <!-- /. NAV TOP  -->
                 <nav class="navbar-default navbar-side" role="navigation">
@@ -56,32 +59,32 @@
 					
 					<!--  회원관리 -->		
 					<li>
-                        <a  href="ui.jsp"><i class="fa fa-desktop fa-3x"></i> 회원관리</a>
+                        <a href="ui.do"><i class="fa fa-desktop fa-3x"></i> 회원관리</a>
                     </li>
                     
                     <!--  권한관리 -->
                     <li>
-                        <a  href="ui.html"><i class="fa fa-desktop fa-3x"></i> 권한관리</a>
+                        <a  href="ui1.do"><i class="fa fa-desktop fa-3x"></i> 권한관리</a>
                     </li>
                     
                     <!--주문관리-->
                       <li>
-                        <a  href="table.html"><i class="fa fa-table fa-3x"></i> 주문관리</a>
+                        <a href="table.do"><i class="fa fa-table fa-3x"></i> 주문관리</a>
                     </li>
                     
                     <!--학원관리-->
                     <li>
-                        <a  href="table.html"><i class="fa fa-table fa-3x"></i> 학원관리</a>
+                        <a  href="accountmanagement.do"><i class="fa fa-table fa-3x"></i> 학원관리</a>
                     </li>
                     
                     <!--스포츠용품리스트관리  -->
                     <li>
-                        <a href="table.html"><i class="fa fa-table fa-3x"></i> Table Examples</a>
+                        <a href="table1.do"><i class="fa fa-table fa-3x"></i> 스포츠 용품 리스트 관리</a>
                     </li>
                     
 					<!--매출분석정보-->
 					<li>
-                        <a   href="chart.jsp"><i class="fa fa-bar-chart-o fa-3x"></i> 매출분석정보</a>
+                        <a   href="chart1.do"><i class="fa fa-bar-chart-o fa-3x"></i> 매출분석정보</a>
                     </li>
                     
                   
@@ -119,37 +122,25 @@
                     
                     
                     <!-- <div class="col-md-3 col-sm-12 col-xs-12 "> -->
+                        <div class="panel panel-default">
+                        <div class="panel-heading" style="text-align: center">
+						일 매출
+                        </div>
+                        <div class="panel-body">
+                            <div id="morris-line-chart"></div>
+                        </div>
+                    </div>    
                     <div class="panel panel-primary text-center no-boder bg-color-green">
                         <div class="panel-body">
                             <i class="fa fa-bar-chart-o fa-5x"></i>
-                            <h3>120 GB </h3>
+                            <h3>372,000$ </h3>
                         </div>
                         <div class="panel-footer back-footer-green">
-                           Disk Space Available
+                           실시간 금일 매출 금액 
                             
                         </div>
                     </div>
-                    <div class="panel panel-primary text-center no-boder bg-color-red">
-                        <div class="panel-body">
-                            <i class="fa fa-edit fa-5x"></i>
-                            <h3>20,000 </h3>
-                        </div>
-                        <div class="panel-footer back-footer-red">
-                            Articles Pending
-                            
-                        </div>
-                    </div>                         
                         <div class="panel ">
-          <div class="main-temp-back">
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-xs-6" > <i class="fa fa-cloud fa-3x"></i> 서울시 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;강서구 </div>
-                <div class="col-xs-6">
-                  <div class="text-temp"> 31° </div>
-                </div>
-              </div>
-            </div>
-          </div>
           
         </div>
 			
@@ -161,12 +152,12 @@
   <div class="panel panel-primary text-center no-boder bg-color-green">
                         <div class="panel-body">
                             <i class="fa fa-comments-o fa-5x"></i>
-                            <h4>200 New Comments </h4>
-                             <h4>See All Comments  </h4>
+                            <h4>고객센터 문의 </h4>
+                             <h4>답변을 기다리는 문의</h4>
                         </div>
                         <div class="panel-footer back-footer-green">
                              <i class="fa fa-rocket fa-5x"></i>
-                            Lorem ipsum dolor sit amet sit sit, consectetur adipiscing elitsit sit gthn ipsum dolor sit amet ipsum dolor sit amet
+                           <a href="#" style="text-decoration: none; color: white;">바로이동</a>
                             
                         </div>
                     </div>
@@ -177,14 +168,7 @@
                     
                       
                                <div class="col-md-9 col-sm-12 col-xs-12" style="width: 1310px">       -->               
-                 <div class="panel panel-default">
-                        <div class="panel-heading" style="text-align: center">
-						일 매출
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-bar-chart"></div>
-                        </div>
-                    </div>           
+                    
                     
             <!--     </div>
                 
@@ -194,7 +178,7 @@
                  <!-- /. ROW  -->
              
                    <!-- 채팅 패널 시작 -->
-                    <div class="chat-panel panel panel-default chat-boder chat-panel-head" style="width: 1293px" >
+                    <div class="chat-panel panel panel-default chat-boder chat-panel-head" style="width: 1580px" >
                         <div class="panel-heading">
                             <i class="fa fa-comments fa-fw"></i>
 							실시간 문의
@@ -367,130 +351,7 @@
                     }
                 });
 
-                /*====================================
-                MORRIS BAR CHART
-             ======================================*/
-                Morris.Bar({
-                    element: 'morris-bar-chart',
-                    data: [{
-                        y: '4567',
-                        a: 100,
-                        b: 90
-                    }, {
-                        y: '1234',
-                        a: 75,
-                        b: 65
-                    }, {
-                        y: '1233',
-                        a: 50,
-                        b: 40
-                    }, {
-                        y: '2009',
-                        a: 75,
-                        b: 65
-                    }, {
-                        y: '2010',
-                        a: 50,
-                        b: 40
-                    }, {
-                        y: '2011',
-                        a: 75,
-                        b: 65
-                    }, {
-                        y: '2012',
-                        a: 100,
-                        b: 90
-                    }],
-                    xkey: 'y',
-                    ykeys: ['a', 'b'],
-                    labels: ['년도', '시팔'],
-                    hideHover: 'auto',
-                    resize: true
-                });
-
-                /*====================================
-              MORRIS DONUT CHART
-           ======================================*/
-                Morris.Donut({
-                    element: 'morris-donut-chart',
-                    data: [{
-                        label: "Download Sales",
-                        value: 12
-                    }, {
-                        label: "In-Store Sales",
-                        value: 30
-                    }, {
-                        label: "Mail-Order Sales",
-                        value: 20
-                    }],
-                    resize: true
-                });
-
-                /*====================================
-             MORRIS AREA CHART
-          ======================================*/
-
-                Morris.Area({
-                    element: 'morris-area-chart',
-                    data: [{
-                        period: '2010 Q1',
-                        iphone: 2666,
-                        ipad: null,
-                        itouch: 2647
-                    }, {
-                        period: '2010 Q2',
-                        iphone: 2778,
-                        ipad: 2294,
-                        itouch: 2441
-                    }, {
-                        period: '2010 Q3',
-                        iphone: 4912,
-                        ipad: 1969,
-                        itouch: 2501
-                    }, {
-                        period: '2010 Q4',
-                        iphone: 3767,
-                        ipad: 3597,
-                        itouch: 5689
-                    }, {
-                        period: '2011 Q1',
-                        iphone: 6810,
-                        ipad: 1914,
-                        itouch: 2293
-                    }, {
-                        period: '2011 Q2',
-                        iphone: 5670,
-                        ipad: 4293,
-                        itouch: 1881
-                    }, {
-                        period: '2011 Q3',
-                        iphone: 4820,
-                        ipad: 3795,
-                        itouch: 1588
-                    }, {
-                        period: '2011 Q4',
-                        iphone: 15073,
-                        ipad: 5967,
-                        itouch: 5175
-                    }, {
-                        period: '2012 Q1',
-                        iphone: 10687,
-                        ipad: 4460,
-                        itouch: 2028
-                    }, {
-                        period: '2012 Q2',
-                        iphone: 8432,
-                        ipad: 5713,
-                        itouch: 1791
-                    }],
-                    xkey: 'period',
-                    ykeys: ['iphone', 'ipad', 'itouch'],
-                    labels: ['iPhone', 'iPad', 'iPod Touch'],
-                    pointSize: 2,
-                    hideHover: 'auto',
-                    resize: true
-                });
-
+             
                 /*====================================
         MORRIS LINE CHART
      ======================================*/
@@ -526,8 +387,8 @@
                         b: 90
                     }],
                     xkey: 'y',
-                    ykeys: ['a', 'b'],
-                    labels: ['Series A', 'Series B'],
+                    ykeys: ['a'],
+                    labels: ['매출  '],
                     hideHover: 'auto',
                     resize: true
                 });
