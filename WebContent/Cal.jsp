@@ -23,6 +23,5 @@
 </head>
 <body>
 <input type="text" class="datepicker" />
-<!-- asdoji -->
 </body>
 </html>
