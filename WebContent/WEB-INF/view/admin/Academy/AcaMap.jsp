@@ -30,8 +30,8 @@
         }
     </script>
 <br>
-<%for(AcademyDTO academyDTO : list){ %>
+<%-- <%for(AcademyDTO academyDTO : list){ %>
 	<%=academyDTO.getAca_no() %>&nbsp; <%=academyDTO.getAca_name() %></br>
-<%} %>
+<%} %> --%>
 </body>
 </html>
