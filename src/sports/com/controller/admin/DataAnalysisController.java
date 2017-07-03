@@ -32,11 +32,7 @@ public class DataAnalysisController {
 		log.info("R PromGramming Start!");
 		
 		List<R_testDTO> R_list = analysisService.getAnalysisList();
-<<<<<<< HEAD
-		
 //		System.out.println("R_list.get(0): "+ R_list.get(0).getPrice());
-=======
->>>>>>> refs/remotes/origin/LHM3
 		RUtil LJYheartbit = new RUtil();
 		
 		double qwe = LJYheartbit.R_list(R_list);

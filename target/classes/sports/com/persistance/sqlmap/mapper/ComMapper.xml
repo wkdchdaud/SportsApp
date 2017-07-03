@@ -4,7 +4,7 @@
 	<select id="getCommentList" resultType="TestDTO">
 		SELECT AB, BC FROM AB
 	</select>
-	
+<!-- 	
 	<insert id="tran1">
 		INSERT INTO USER_INFO(USER_ID,PASSWORD,USER_NAME,EMAIL,TEL)
 		VALUES ('abc111','111111','kim','aaa@naver.com','1111')
@@ -13,5 +13,5 @@
 	<insert id="tran2">
 		INSERT INTO USER_INFO(USER_ID,PASSWORD,USER_NAME,EMAIL,TEL)
 		VALUES ('abc112','2222','yun','a1aa@naver.com')
-	</insert>
+	</insert> -->
 </mapper>
