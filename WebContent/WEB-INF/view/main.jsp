@@ -27,6 +27,10 @@
     <link href="assets/css/custom.css" rel="stylesheet" />
      <!-- GOOGLE FONTS-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+	<script type="text/javascript">
+		var ndate = document.getElementById("nowDate");
+		var d = new Date();
+	</script>
 </head>
 <body>
     <div id="wrapper">
@@ -38,10 +42,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="main.jsp">모두의 스포츠</a> 
+                <a class="navbar-brand" href="main.do">모두의 스포츠</a> 
             </div>
-  <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;">
- Last access : 30 May 2014 &nbsp; <a href="login.html" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+  <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;" id="nowDate">2017년 6월 23일
+  <a href="login.html" class="btn btn-danger square-btn-adjust">Logout</a> </div>
         </nav>   
            <!-- /. NAV TOP  -->
                 <nav class="navbar-default navbar-side" role="navigation">
@@ -55,32 +59,32 @@
 					
 					<!--  회원관리 -->		
 					<li>
-                        <a  href="ui.jsp"><i class="fa fa-desktop fa-3x"></i> 회원관리</a>
+                        <a href="ui.do"><i class="fa fa-desktop fa-3x"></i> 회원관리</a>
                     </li>
                     
                     <!--  권한관리 -->
                     <li>
-                        <a  href="ui.html"><i class="fa fa-desktop fa-3x"></i> 권한관리</a>
+                        <a  href="ui1.do"><i class="fa fa-desktop fa-3x"></i> 권한관리</a>
                     </li>
                     
                     <!--주문관리-->
                       <li>
-                        <a  href="table.html"><i class="fa fa-table fa-3x"></i> 주문관리</a>
+                        <a href="table.do"><i class="fa fa-table fa-3x"></i> 주문관리</a>
                     </li>
                     
                     <!--학원관리-->
                     <li>
-                        <a  href="table.html"><i class="fa fa-table fa-3x"></i> 학원관리</a>
+                        <a  href="accountmanagement.do"><i class="fa fa-table fa-3x"></i> 학원관리</a>
                     </li>
                     
                     <!--스포츠용품리스트관리  -->
                     <li>
-                        <a href="table.html"><i class="fa fa-table fa-3x"></i> Table Examples</a>
+                        <a href="table1.do"><i class="fa fa-table fa-3x"></i> 스포츠 용품 리스트 관리</a>
                     </li>
                     
 					<!--매출분석정보-->
 					<li>
-                        <a   href="chart.jsp"><i class="fa fa-bar-chart-o fa-3x"></i> 매출분석정보</a>
+                        <a   href="chart1.do"><i class="fa fa-bar-chart-o fa-3x"></i> 매출분석정보</a>
                     </li>
                     
                   
@@ -96,67 +100,6 @@
                             </li>
                          </ul>
                         </li>
-					
-					
-					
-					
-					
-					<!-- 우리가 사용하지 않고 갖다가 쓸 메뉴  -->
-                    <li>
-                        <a class="active-menu"  href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
-                    </li>
-                     <li>
-                        <a  href="ui.html"><i class="fa fa-desktop fa-3x"></i> UI Elements</a>
-                    </li>
-                    <li>
-                        <a  href="tab-panel.html"><i class="fa fa-qrcode fa-3x"></i> Tabs & Panels</a>
-                    </li>
-						   <li>
-                        <a href="chart.jsp"><i class="fa fa-bar-chart-o fa-3x"></i> Morris Charts</a>
-                    </li>	
-                      <li>
-                        <a href="table.html"><i class="fa fa-table fa-3x"></i> Table Examples</a>
-                    </li>
-                    <li  >
-                        <a href="form.html"><i class="fa fa-edit fa-3x"></i> Forms </a>
-                    </li>				
-					 <li  >
-                        <a href="login.html"><i class="fa fa-bolt fa-3x"></i> Login</a>
-                    </li>	
-                     <li  >
-                        <a   href="registeration.html"><i class="fa fa-laptop fa-3x"></i> Registeration</a>
-                    </li>	
-					                   
-                    <li>
-                        <a href="#"><i class="fa fa-sitemap fa-3x"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="#">Second Level Link</a>
-                            </li>
-                            <li>
-                                <a href="#">Second Level Link</a>
-                            </li>
-                            <li>
-                                <a href="#">Second Level Link<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="#">Third Level Link</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Third Level Link</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Third Level Link</a>
-                                    </li>
-
-                                </ul>
-                               
-                            </li>
-                        </ul>
-                      </li>  
-                  <li  >
-                        <a  href="blank.html"><i class="fa fa-square-o fa-3x"></i> Blank Page</a>
-                    </li>	
                 </ul>
                
             </div>
@@ -167,280 +110,82 @@
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>Admin Dashboard</h2>   
-                        <h5>Welcome Jhon Deo , Love to see you back. </h5>
+                     <h2>스포츠 용품업자를 위한 온라인 납품 어플리케이션 구현</h2>   
+                        <h5>앱 디자인 나오기전 임시 메인화면</h5>
                     </div>
                 </div>              
                  <!-- /. ROW  -->
                   <hr />
-                <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-6">           
-			<div class="panel panel-back noti-box">
-                <span class="icon-box bg-color-red set-icon">
-                    <i class="fa fa-envelope-o"></i>
-                </span>
-                <div class="text-box" >
-                    <p class="main-text">120 New</p>
-                    <p class="text-muted">Messages</p>
-                </div>
-             </div>
-		     </div>
-                    <div class="col-md-3 col-sm-6 col-xs-6">           
-			<div class="panel panel-back noti-box">
-                <span class="icon-box bg-color-green set-icon">
-                    <i class="fa fa-bars"></i>
-                </span>
-                <div class="text-box" >
-                    <p class="main-text">30 Tasks</p>
-                    <p class="text-muted">Remaining</p>
-                </div>
-             </div>
-		     </div>
-                    <div class="col-md-3 col-sm-6 col-xs-6">           
-			<div class="panel panel-back noti-box">
-                <span class="icon-box bg-color-blue set-icon">
-                    <i class="fa fa-bell-o"></i>
-                </span>
-                <div class="text-box" >
-                    <p class="main-text">240 New</p>
-                    <p class="text-muted">Notifications</p>
-                </div>
-             </div>
-		     </div>
-                    <div class="col-md-3 col-sm-6 col-xs-6">           
-			<div class="panel panel-back noti-box">
-                <span class="icon-box bg-color-brown set-icon">
-                    <i class="fa fa-rocket"></i>
-                </span>
-                <div class="text-box" >
-                    <p class="main-text">3 Orders</p>
-                    <p class="text-muted">Pending</p>
-                </div>
-             </div>
-		     </div>
-			</div>
                  <!-- /. ROW  -->
                 <hr />                
-                <div class="row">
-                    <div class="col-md-6 col-sm-12 col-xs-12">           
-			<div class="panel panel-back noti-box">
-                <span class="icon-box bg-color-blue">
-                    <i class="fa fa-warning"></i>
-                </span>
-                <div class="text-box" >
-                    <p class="main-text">52 Important Issues to Fix </p>
-                    <p class="text-muted">Please fix these issues to work smooth</p>
-                    <p class="text-muted">Time Left: 30 mins</p>
-                    <hr />
-                    <p class="text-muted">
-                          <span class="text-muted color-bottom-txt"><i class="fa fa-edit"></i>
-                               Lorem ipsum dolor sit amet, consectetur adipiscing elit gthn. 
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit gthn. 
-                               </span>
-                    </p>
-                </div>
-             </div>
-		     </div>
+          <!--       <div class="row" style="display: inline;"> -->
                     
                     
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel back-dash">
-                               <i class="fa fa-dashboard fa-3x"></i><strong> &nbsp; SPEED</strong>
-                             <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing sit ametsit amet elit ftr. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                        </div>
-                       
-                    </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12 ">
-                        <div class="panel ">
-          <div class="main-temp-back">
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-xs-6"> <i class="fa fa-cloud fa-3x"></i> Newyork City </div>
-                <div class="col-xs-6">
-                  <div class="text-temp"> 10° </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-                     <div class="panel panel-back noti-box">
-                <span class="icon-box bg-color-green set-icon">
-                    <i class="fa fa-desktop"></i>
-                </span>
-                <div class="text-box" >
-                    <p class="main-text">Display</p>
-                    <p class="text-muted">Looking Good</p>
-                </div>
-             </div>
-			
-    </div>
-                        
-        </div>
-                 <!-- /. ROW  -->
-                <div class="row"> 
-                    
-                      
-                               <div class="col-md-9 col-sm-12 col-xs-12">                     
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Bar Chart Example
+                    <!-- <div class="col-md-3 col-sm-12 col-xs-12 "> -->
+                        <div class="panel panel-default">
+                        <div class="panel-heading" style="text-align: center">
+						일 매출
                         </div>
                         <div class="panel-body">
-                            <div id="morris-bar-chart"></div>
+                            <div id="morris-line-chart"></div>
                         </div>
-                    </div>            
-                </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12">                       
+                    </div>    
                     <div class="panel panel-primary text-center no-boder bg-color-green">
                         <div class="panel-body">
                             <i class="fa fa-bar-chart-o fa-5x"></i>
-                            <h3>120 GB </h3>
+                            <h3>372,000$ </h3>
                         </div>
                         <div class="panel-footer back-footer-green">
-                           Disk Space Available
+                           실시간 금일 매출 금액 
                             
                         </div>
                     </div>
-                    <div class="panel panel-primary text-center no-boder bg-color-red">
-                        <div class="panel-body">
-                            <i class="fa fa-edit fa-5x"></i>
-                            <h3>20,000 </h3>
-                        </div>
-                        <div class="panel-footer back-footer-red">
-                            Articles Pending
-                            
-                        </div>
-                    </div>                         
-                        </div>
-                
-           </div>
-                 <!-- /. ROW  -->
-                <div class="row" >
-                    <div class="col-md-3 col-sm-12 col-xs-12">
+                        <div class="panel ">
+          
+        </div>
+			
+    <!-- </div> -->
+                        
+        <!-- </div> -->
+                        <!-- <div class="row" > -->
+                    <!-- <div class="col-md-3 col-sm-12 col-xs-12"> -->
   <div class="panel panel-primary text-center no-boder bg-color-green">
                         <div class="panel-body">
                             <i class="fa fa-comments-o fa-5x"></i>
-                            <h4>200 New Comments </h4>
-                             <h4>See All Comments  </h4>
+                            <h4>고객센터 문의 </h4>
+                             <h4>답변을 기다리는 문의</h4>
                         </div>
                         <div class="panel-footer back-footer-green">
                              <i class="fa fa-rocket fa-5x"></i>
-                            Lorem ipsum dolor sit amet sit sit, consectetur adipiscing elitsit sit gthn ipsum dolor sit amet ipsum dolor sit amet
+                           <a href="#" style="text-decoration: none; color: white;">바로이동</a>
                             
                         </div>
                     </div>
-                    </div>
-                    <div class="col-md-9 col-sm-12 col-xs-12">
-               
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                           Responsive Table Example
-                        </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                             <th>User No.</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>100090</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                            <td>100090</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                            <td>100090</td>
-                                        </tr>
-                                         <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>100090</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                            <td>100090</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                            <td>100090</td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    </div>
-                </div>
+                    <!-- </div> -->
+                <!-- </div> -->
                  <!-- /. ROW  -->
-                <div class="row">
-                    <div class="col-md-6 col-sm-12 col-xs-12">
-                   
-                    <div class="chat-panel panel panel-default chat-boder chat-panel-head" >
+               <!--  <div class="row"> 
+                    
+                      
+                               <div class="col-md-9 col-sm-12 col-xs-12" style="width: 1310px">       -->               
+                    
+                    
+            <!--     </div>
+                
+           </div> -->
+                 <!-- /. ROW  -->
+
+                 <!-- /. ROW  -->
+             
+                   <!-- 채팅 패널 시작 -->
+                    <div class="chat-panel panel panel-default chat-boder chat-panel-head" style="width: 1580px" >
                         <div class="panel-heading">
                             <i class="fa fa-comments fa-fw"></i>
-                            Chat Box
-                            <div class="btn-group pull-right">
+							실시간 문의
+	                            <div class="btn-group pull-right">
                                 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-chevron-down"></i>
                                 </button>
-                                <ul class="dropdown-menu slidedown">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-refresh fa-fw"></i>Refresh
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-check-circle fa-fw"></i>Available
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-times fa-fw"></i>Busy
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-clock-o fa-fw"></i>Away
-                                        </a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-sign-out fa-fw"></i>Sign Out
-                                        </a>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
 
@@ -451,12 +196,12 @@
                                         <img src="assets/img/1.png" alt="User" class="img-circle" />
                                     </span>
                                     <div class="chat-body">                                        
-                                            <strong >Jack Sparrow</strong>
+                                            <strong >강서구 열혈 태권도장</strong>
                                             <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i>12 mins ago
+                                                <i class="fa fa-clock-o fa-fw"></i>12분 전
                                             </small>                                      
                                         <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                            배송이 얼마나 걸릴까요?
                                         </p>
                                     </div>
                                 </li>
@@ -468,11 +213,12 @@
                                     <div class="chat-body clearfix">
                                         
                                             <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i>13 mins ago</small>
-                                            <strong class="pull-right">Jhonson Deed</strong>
+                                                <i class="fa fa-clock-o fa-fw"></i>13분 전</small>
+                                            <strong class="pull-right">강동구 새마을 휘트니스</strong>
                                       
                                         <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                            	물건은 잘받았습니다. 다른 바벨들도 구매 하고 싶은데요 
+                                            	a204제품 혹시 발주 가능하신가요?
                                         </p>
                                     </div>
                                 </li>
@@ -482,12 +228,12 @@
                                     </span>
                                     <div class="chat-body clearfix">
                                         
-                                            <strong >Jack Sparrow</strong>
+                                            <strong >천호동 호랑이 태권도</strong>
                                             <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i>14 mins ago</small>
+                                                <i class="fa fa-clock-o fa-fw"></i>14분 전</small>
                                         
                                         <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                           태권도띠 이니셜 다 대문자로 부탁드립니다.
                                         </p>
                                     </div>
                                 </li>
@@ -498,11 +244,12 @@
                                     <div class="chat-body clearfix">
                                       
                                             <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i>15 mins ago</small>
-                                            <strong class="pull-right">Jhonson Deed</strong>
+                                                <i class="fa fa-clock-o fa-fw"></i>15분 전</small>
+                                                
+                                            <strong class="pull-right">성수동 풋살</strong>
                                        
                                         <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                            선수 유니폼 이니셜 다 소문자로 부탁합니다.
                                         </p>
                                     </div>
                                 </li>
@@ -511,12 +258,12 @@
                                         <img src="assets/img/1.png" alt="User" class="img-circle" />
                                     </span>
                                     <div class="chat-body">                                        
-                                            <strong >Jack Sparrow</strong>
+                                            <strong >영등포구 백호 합기도장</strong>
                                             <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i>12 mins ago
+                                                <i class="fa fa-clock-o fa-fw"></i>17분 전
                                             </small>                                      
                                         <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                            띠 200개 주문 한거 내일모레 받고싶습니다 연락주세요 010-2312-2426
                                         </p>
                                     </div>
                                 </li>
@@ -527,11 +274,11 @@
                                     <div class="chat-body clearfix">
                                         
                                             <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i>13 mins ago</small>
-                                            <strong class="pull-right">Jhonson Deed</strong>
+                                                <i class="fa fa-clock-o fa-fw"></i>13분 전 </small>
+                                            <strong class="pull-right">강서구 새마을 복싱장 </strong>
                                       
                                         <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                            	혹시 배송은 얼마나 걸리는지 알수있을까요
                                         </p>
                                     </div>
                                 </li>
@@ -543,40 +290,12 @@
                                 <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message to send..." />
                                 <span class="input-group-btn">
                                     <button class="btn btn-warning btn-sm" id="btn-chat">
-                                        Send
+                                        보내기
                                     </button>
                                 </span>
                             </div>
-                        </div>
-
-                    </div>
                     
                 </div>
-                    <div class="col-md-6 col-sm-12 col-xs-12">
-                         <div class="panel panel-default">
-                        <div class="panel-heading">
-                           Label Examples
-                        </div>
-                        <div class="panel-body">
-                            <span class="label label-default">Default</span>
-<span class="label label-primary">Primary</span>
-<span class="label label-success">Success</span>
-<span class="label label-info">Info</span>
-<span class="label label-warning">Warning</span>
-<span class="label label-danger">Danger</span>
-                        </div>
-                    </div>
-                         
-                         <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Donut Chart Example
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-donut-chart"></div>
-                        </div>
-                    </div>
-                      
-                    </div>
                 </div>     
                  <!-- /. ROW  -->           
     </div>
@@ -585,6 +304,7 @@
          <!-- /. PAGE WRAPPER  -->
         </div>
      <!-- /. WRAPPER  -->
+     <!-- </div> -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
     <script src="assets/js/jquery-1.10.2.js"></script>
@@ -596,8 +316,101 @@
      <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
     <script src="assets/js/morris/morris.js"></script>
       <!-- CUSTOM SCRIPTS -->
-    <script src="assets/js/custom.js"></script>
-    
+    <!-- <script src="assets/js/custom.js"></script> -->
+    <script type="text/javascript">
+
+    /*=============================================================
+        Authour URI: www.binarycart.com
+        Version: 1.1
+        License: MIT
+        
+        http://opensource.org/licenses/MIT
+
+        100% To use For Personal And Commercial Use.
+       
+        ========================================================  */
+
+    (function ($) {
+        "use strict";
+        var mainApp = {
+
+            main_fun: function () {
+                /*====================================
+                METIS MENU 
+                ======================================*/
+                $('#main-menu').metisMenu();
+
+                /*====================================
+                  LOAD APPROPRIATE MENU BAR
+               ======================================*/
+                $(window).bind("load resize", function () {
+                    if ($(this).width() < 768) {
+                        $('div.sidebar-collapse').addClass('collapse')
+                    } else {
+                        $('div.sidebar-collapse').removeClass('collapse')
+                    }
+                });
+
+             
+                /*====================================
+        MORRIS LINE CHART
+     ======================================*/
+                Morris.Line({
+                    element: 'morris-line-chart',
+                    data: [{
+                        y: '2006',
+                        a: 100,
+                        b: 90
+                    }, {
+                        y: '2007',
+                        a: 75,
+                        b: 65
+                    }, {
+                        y: '2008',
+                        a: 50,
+                        b: 40
+                    }, {
+                        y: '2009',
+                        a: 75,
+                        b: 65
+                    }, {
+                        y: '2010',
+                        a: 50,
+                        b: 40
+                    }, {
+                        y: '2011',
+                        a: 75,
+                        b: 65
+                    }, {
+                        y: '2012',
+                        a: 100,
+                        b: 90
+                    }],
+                    xkey: 'y',
+                    ykeys: ['a'],
+                    labels: ['매출  '],
+                    hideHover: 'auto',
+                    resize: true
+                });
+               
+         
+            },
+
+            initialization: function () {
+                mainApp.main_fun();
+
+            }
+
+        }
+        // Initializing ///
+
+        $(document).ready(function () {
+            mainApp.main_fun();
+        });
+
+    }(jQuery));
+
+</script>
    
 </body>
 </html>

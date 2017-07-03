@@ -30,9 +30,12 @@ public class DataAnalysisController {
 	public String sales_info(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception
 	{
 		log.info("R PromGramming Start!");
+		
 		List<R_testDTO> R_list = analysisService.getAnalysisList();
+		
 //		System.out.println("R_list.get(0): "+ R_list.get(0).getPrice());
 		RUtil LJYheartbit = new RUtil();
+		
 		double qwe = LJYheartbit.R_list(R_list);
 		
 		System.out.println("컨트롤러 R 통한 값 ++++ :::: " +qwe); 
