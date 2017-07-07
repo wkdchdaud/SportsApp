@@ -74,11 +74,8 @@
                     
                     <!--학원관리-->
                     <li>
-<<<<<<< HEAD
                         <a  href="accountmanagement.do"><i class="fa fa-table fa-3x"></i> 학원관리</a>
-=======
                         <a  href="/accountmanagement.do"><i class="fa fa-table fa-3x"></i> 학원관리</a>
->>>>>>> refs/remotes/origin/LHM3
                     </li>
                     
                     <!--스포츠용품리스트관리  -->
