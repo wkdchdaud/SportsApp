@@ -2,21 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sports.com.persistance.mapper.NoticeMapper">
 	<select id="getNoticeList" resultType="NoticeDTO">
-		SELECT NOTICE_NO, TITLE, CONTENTS, NOTICE_YN , REG_USER_NO, TO_CHAR(REG_DT, 'YYYY-MM-DD') AS REG_DT, 
-		CHG_USER_NO, CHG_DT FROM NOTICE_INFO  ORDER BY NOTICE_YN, REG_DT DESC
+		SELECT NOTICE_NO, TITLE, CONTENTS, NOTICE_YN , REG_USER_NO, DATE_FORMAT(REG_DT, '%Y-%m-%d') AS REG_DT, 
+		CHG_USER_NO, USER_NO, CHG_DT FROM NOTICE_INFO_A  ORDER BY NOTICE_YN, REG_DT DESC
 	</select>
 	
-	<insert id="getNoticeInfo" parameterType="NoticeDTO">
-		INSERT INTO NOTICE_INFO
+	<insert id="InsertNoticeInfo" parameterType="NoticeDTO">
+		INSERT INTO NOTICE_INFO_A
 			(
-				NOTICE_NO,, TITLE, NOTICE_YN, CONTENTS, USER_NO, READ_CNT,
+				NOTICE_NO, TITLE, NOTICE_YN, CONTENTS, USER_NO,
 				REG_USER_NO, REG_DT, CHG_USER_NO, CHG_DT 				
 			)
 		VALUES(
-			(SELECT NVL(MAX(A.NOTICE_NO),0)+1 FROM NOTICE_INFO A),
-			#{TITLE}, #{NOTICE_YN}, #{CONTENTS}, #{USER_NO}, 0, #{USER_NO}, SYSDATE, #{USER_NO}, SYSDATE	
+			(SELECT IFNULL(MAX(A.NOTICE_NO),0)+1 FROM NOTICE_INFO_A A),
+			#{TITLE}, #{NOTICE_YN}, #{CONTENTS}, #{USER_NO}, #{USER_NO}, NOW(), #{USER_NO}, NOW()	
 		)	
 	</insert>
+	
+	<select id="getNoticeDetailInfo" resultType="NoticeDTO">
+		SELECT NOTICE_NO, TITLE, CONTENTS, NOTICE_YN , REG_USER_NO, DATE_FORMAT(REG_DT, '%Y-%m-%d') AS REG_DT, 
+		CHG_USER_NO, CHG_DT FROM NOTICE_INFO_A  
+		WHERE NOTICE_NO=#{NOTICE_NO} 
+		ORDER BY NOTICE_YN, REG_DT DESC
+	</select>
+	
+	<update id="deleteNoticeInfo" parameterType="NoticeDTO">
+		DELETE FROM NOTICE_INFO_A 
+		WHERE NOTICE_NO = #{NOTICE_NO}
+	</update>
+	
+	<update id="updateNoticeInfo" parameterType="NoticeDTO">
+		UPDATE NOTICE_INFO_A 
+		SET TITLE=#{TITLE}, CONTENTS=#{CONTENTS}, NOTICE_YN=#{NOTICE_YN} WHERE NOTICE_NO = #{NOTICE_NO}
+	</update>
+	
 	
 	
 </mapper>
