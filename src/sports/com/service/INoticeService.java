@@ -17,4 +17,6 @@ public interface INoticeService {
 	void updateNoticeInfo(NoticeDTO nDTO) throws Exception;
 	
 	void deleteNoticeInfo(NoticeDTO nDTO) throws Exception;
+
+	List<NoticeDTO> getNoticeDetailInfo(NoticeDTO nDTO) throws Exception;
 }
