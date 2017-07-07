@@ -5,6 +5,8 @@ public class R_testDTO {
 	String name="";
 	int price=0;
 	String sale_date="";
+	int sum_price=0;
+	
 	public String getName() {
 		return name;
 	}
@@ -23,5 +25,10 @@ public class R_testDTO {
 	public void setSale_date(String sale_date) {
 		this.sale_date = sale_date;
 	}
+	public int getSum_price() {
+		return sum_price;
+	}
+
+	
 	
 }
