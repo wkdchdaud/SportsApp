@@ -39,9 +39,7 @@
 	</tr>
 
 	<tr>
-		<td colspan="2" align="center"><input type="button" onclick="location.href='/admin/notice/NoticeList.do'" value="돌아가기"/>
-						<input type="button" onclick="location.href='/admin/notice/NoticeDelete.do?notice_no=<%= nDTO.getNOTICE_NO() %>'" value="삭제"/>
-						<input type="button" onclick="location.href='/admin/notice/NoticeEditInfo.do?notice_no=<%= nDTO.getNOTICE_NO() %>'" value="수정"/>
+		<td colspan="2" align="center"><input type="button" onclick="location.href='/user/notice/NoticeList.do'" value="돌아가기"/>
 		</td>
 	</tr>
 <%} %>		

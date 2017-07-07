@@ -35,9 +35,9 @@
 	<tr>
 		<td align="center"><%=nDTO.getNOTICE_NO() %></td>
 		<%if(nDTO.getNOTICE_YN().equals("1")){%>
-		<td align="center"><a href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO() %>"><font color="orange"><b><%=nDTO.getTITLE() %></b></font></a></td>
+		<td align="center"><a href="/user/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO() %>"><font color="orange"><b><%=nDTO.getTITLE() %></b></font></a></td>
 		<%}else{ %>	
-		<td align="center"><a href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO() %>"><%=nDTO.getTITLE() %></a></td>
+		<td align="center"><a href="/user/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO() %>"><%=nDTO.getTITLE() %></a></td>
 		<%} %>
 		<td align="center"><%=nDTO.getREG_DT() %></td>
 		<td align="center"><%=nDTO.getUSER_NO() %></td>
@@ -45,14 +45,7 @@
 <%} %>
 
 </table>
-<table>
-<col width="570px">
-	<tr>
-		<td align="right">
-			<input type="button" onclick="location.href='/admin/notice/NoticeReg.do'" value="글쓰기"/>
-		</td>
-	</tr>
-</table>
+
 
 
 </body>

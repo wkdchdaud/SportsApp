@@ -9,7 +9,7 @@ public interface NoticeMapper {
 
 	List<NoticeDTO> getNoticeList() throws Exception;
 
-	NoticeDTO InsertNoticeInfo(NoticeDTO nDTO) throws Exception;
+	void InsertNoticeInfo(NoticeDTO nDTO) throws Exception;
 
 	NoticeDTO getNoticeInfo(NoticeDTO nDTO) throws Exception;
 
@@ -18,5 +18,7 @@ public interface NoticeMapper {
 	void updateNoticeInfo(NoticeDTO nDTO) throws Exception;
 
 	void deleteNoticeInfo(NoticeDTO nDTO) throws Exception;
+
+	List<NoticeDTO> getNoticeDetailInfo(NoticeDTO nDTO)throws Exception;
 
 }

@@ -45,4 +45,9 @@ public class NoticeService implements INoticeService{
 	public void deleteNoticeInfo(NoticeDTO nDTO) throws Exception {
 		noticeMapper.deleteNoticeInfo(nDTO);
 	}
+
+	@Override
+	public List<NoticeDTO> getNoticeDetailInfo(NoticeDTO nDTO) throws Exception {
+		return noticeMapper.getNoticeDetailInfo(nDTO);
+	}
 }

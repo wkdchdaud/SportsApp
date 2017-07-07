@@ -45,7 +45,7 @@
                 <a class="navbar-brand" href="main.do">모두의 스포츠</a> 
             </div>
   <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;" id="nowDate">2017년 6월 23일
-  <a href="login.html" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+  <a href="/user/user_logout.do" class="btn btn-danger square-btn-adjust">Logout</a> </div>
         </nav>   
            <!-- /. NAV TOP  -->
                 <nav class="navbar-default navbar-side" role="navigation">
