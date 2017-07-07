@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert 장총명 here</title>
+<title>Insert 장총명 here이현묵</title>
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 	    <link rel="stylesheet" href="assets/css/datepicker.css">
@@ -23,6 +23,5 @@
 </head>
 <body>
 <input type="text" class="datepicker" />
-<!-- asdoji -->
 </body>
 </html>

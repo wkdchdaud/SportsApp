@@ -22,6 +22,11 @@ if (rlist==null){
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>거래처 관리</title>
+    
+    <!-- 푸드트럭 css -->
+        <link rel="stylesheet" href="assets/css/style.css?ver=2">
+ 
+    
 	<!-- BOOTSTRAP STYLES-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FONTAWESOME STYLES-->
@@ -105,7 +110,11 @@ function doDetail(aca_no){
                         <a href="#"><i class="fa fa-sitemap fa-3x"></i> 커뮤니티 관리<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
+<<<<<<< HEAD
                                 <a href="#">공지사항</a>
+=======
+                                <a href="#">Secdfgdfgdfgdfgdfgdfgdfgink</a>
+>>>>>>> refs/remotes/origin/LHM3
                             </li>
                             <li>
                                 <a href="#">Q&A</a>
@@ -151,6 +160,16 @@ function doDetail(aca_no){
                                         </tr>
                                     </thead>
                                     <tbody>
+			<div class="section">
+                <div class='tb_fs'>
+                	<div class='tb_section ranking'>
+                        <span class='w31'>학원 No.</span>
+                        <span class='w31'>학원명</span>
+                        <span class='w31'>ㅇㅇ</span>
+                        <span class='w31'>ㄹㄹ</span>
+                    </div>
+<div class='tb_section'>
+						</div>
                                     <%
 for (int i=0; i<rlist.size(); i++){
 	AcademyDTO aDTO = rlist.get(i);
@@ -160,13 +179,31 @@ for (int i=0; i<rlist.size(); i++){
 	}
 	
 %>
-                                        <tr class="odd gradeX">
+
+
+							<span class="sc_head"></span> <span class="sc_desc"><%=CmmUtil.nvl(aDTO.getAca_no())%></span>
+						
+						
+							<span class="sc_head"></span> <span class="sc_desc">
+							<a href="javascript:doDetail('<%=CmmUtil.nvl(aDTO.getAca_no())%>');"><%=CmmUtil.nvl(aDTO.getAca_name()) %></span>
+						
+						
+						
+							<span class="sc_head"></span>
+							<span class="sc_desc"><%=CmmUtil.nvl(aDTO.getAca_area1())%> <%=CmmUtil.nvl(aDTO.getAca_area2())%></span>
+
+					
+					
+						
+
+
+                                       <%--  <tr class="odd gradeX">
                                             <td>
                                             <%=CmmUtil.nvl(aDTO.getAca_no())%></td>
                                             <td>
                                             <a href="javascript:doDetail('<%=CmmUtil.nvl(aDTO.getAca_no())%>');"><%=CmmUtil.nvl(aDTO.getAca_name()) %></a></td>
                                             <td><%=CmmUtil.nvl(aDTO.getAca_area1())%> <%=CmmUtil.nvl(aDTO.getAca_area2())%></td>
-                                        </tr>
+                                        </tr> --%>
                                         <% } %>
                                         
                                     </tbody>
@@ -178,289 +215,7 @@ for (int i=0; i<rlist.size(); i++){
                     <!--End Advanced Tables -->
                 </div>
             </div>
-                <!-- /. ROW  -->
-            <!-- <div class="row">
-                <div class="col-md-6">
-                    Kitchen Sink
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Kitchen Sink
-                        </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                     End  Kitchen Sink
-                </div>
-                <div class="col-md-6">
-                       Basic Table 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Basic Table
-                        </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                      End  Basic Table 
-                </div>
-            </div>
-                /. ROW 
-            <div class="row">
-                <div class="col-md-6">
-                         Striped Rows Table 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Striped Rows Table
-                        </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                     End  Striped Rows Table 
-                </div>
-                <div class="col-md-6">
-                       Bordered Table 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Bordered Table
-                        </div>
-                        /.panel-heading
-                        <div class="panel-body">
-                            <div class="table-responsive table-bordered">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                      End  Bordered Table 
-                </div>
-            </div>
-                /. ROW 
-            <div class="row">
-                <div class="col-md-6">
-                        Hover Rows 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Hover Rows
-                        </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    End  Hover Rows 
-                </div>
-                <div class="col-md-6">
-                        Context Classes 
-                    <div class="panel panel-default">
-                       
-                        <div class="panel-heading">
-                            Context Classes
-                        </div>
-                        
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="success">
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr class="info">
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr class="warning">
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                        <tr class="danger">
-                                            <td>4</td>
-                                            <td>John</td>
-                                            <td>Smith</td>
-                                            <td>@jsmith</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                     end  Context Classes 
-                </div>
-            </div>
-                /. ROW 
-        </div>
-               
-    </div>
-             /. PAGE INNER 
-            </div>
- -->         <!-- /. PAGE WRAPPER  -->
+                
      <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
@@ -479,7 +234,7 @@ for (int i=0; i<rlist.size(); i++){
     </script>
          <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
-    
+    <a href="/accountreg.do" class="btn btn-success">등록</a>
    
 </body>
 </html>
