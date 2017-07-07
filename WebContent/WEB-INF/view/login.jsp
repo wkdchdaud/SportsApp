@@ -1,9 +1,12 @@
+
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>wkdchdua</title>
+    <title>Free Bootstrap Admin Template : Binary Admin</title>
 	<!-- BOOTSTRAP STYLES-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FONTAWESOME STYLES-->
@@ -44,11 +47,8 @@
                                             <input type="password" class="form-control"  placeholder="Your Password" />
                                         </div>
                                     <div class="form-group">
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" /> Remember me
-                                            </label>
                                             <span class="pull-right">
-                                                   <a href="#" >Forget password ? </a> 
+                                                   <a href="#" >아이디 찾기</a> / <a href="#">비밀번호 찾기</a> 
                                             </span>
                                         </div>
                                      
@@ -78,3 +78,4 @@
    
 </body>
 </html>
+>>>>>>> refs/remotes/origin/Jegal
