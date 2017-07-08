@@ -20,7 +20,7 @@ import sports.com.service.IComService;
 public class ComController {
 	private Logger log = Logger.getLogger(this.getClass());
 	
-	@Resource(name = "ComService")
+/*	@Resource(name = "ComService")
 	private IComService comService;
 	
 	@RequestMapping(value="main",method=RequestMethod.GET)
@@ -32,5 +32,5 @@ public class ComController {
 		model.addAttribute("list",list);
 		return "/main";
 	}
-	
+	*/
 }
