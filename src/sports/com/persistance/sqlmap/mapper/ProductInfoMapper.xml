@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sports.com.persistance.mapper.ProductInfoMapper">
+
+<select id ="getProductInfolist" resultType="ProductInfoDTO">
+
+SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
+
+</select>
+
+
+<select id ="getProductInfoDetail" resultType="ProductInfoDTO">
+
+SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS FROM PRODUCT_INFO WHERE prod_no = #{prod_no}
+
+</select>
+
+
+
+
+</mapper>

@@ -7,7 +7,7 @@
     <!-- mysql Connection Pool -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 	    <property name="driverClass" value="com.mysql.jdbc.Driver" />
-	    <property name="jdbcUrl" value="jdbc:mysql://192.168.0.2:3306/sports?useSSL=false&amp;serverTimezone=Asia/Seoul" />
+	    <property name="jdbcUrl" value="jdbc:mysql://192.168.0.29:3306/sports?useSSL=false&amp;serverTimezone=Asia/Seoul" />
 	    <property name="user" value="sports" />
 	    <property name="password" value="12345" />
 	    <property name="initialPoolSize" value="5" />
