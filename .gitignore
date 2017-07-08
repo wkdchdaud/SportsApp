@@ -17,6 +17,7 @@
 .mtj.tmp/
 
 # Package Files #
+context-datasource.xml
 *.jar
 *.war
 *.ear
