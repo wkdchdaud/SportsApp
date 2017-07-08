@@ -51,7 +51,7 @@
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
 				
-					<!-- 우리가 사용할 메뉴 시작  -->
+					<!-- 우리가 사용할 메뉴 시작a  -->
 					
 					<!--  회원관리 -->		
 					<li>
