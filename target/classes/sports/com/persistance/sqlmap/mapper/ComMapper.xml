@@ -4,7 +4,7 @@
 	<select id="getCommentList" resultType="TestDTO">
 		SELECT * FROM academy;
 	</select>
-<!-- 	
+<!-- 	임시
 	<insert id="tran1">
 		INSERT INTO USER_INFO(USER_ID,PASSWORD,USER_NAME,EMAIL,TEL)
 		VALUES ('abc111','111111','kim','aaa@naver.com','1111')
