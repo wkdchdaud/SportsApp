@@ -28,6 +28,30 @@ public class ProductInfoService implements IProductInfoService {
 		
 		return productInfoMapper.getProductInfoDetail(productInfoDTO);
 	}
+
+
+	@Override
+	public void ProductInfoInsert(ProductInfoDTO productInfoDTO) throws Exception {
+		
+		 productInfoMapper.ProductInfoInsert(productInfoDTO);
+		
+	}
+
+
+	@Override
+	public void ProductInfoDelect(ProductInfoDTO productInfoDTO) throws Exception {
+		
+		productInfoMapper.ProductInfoDelect(productInfoDTO);
+		
+	}
+
+
+	@Override
+	public void ProductInfoUpdate(ProductInfoDTO productInfoDTO) throws Exception {
+		
+		productInfoMapper.ProductInfoUpdate(productInfoDTO);
+		
+	}
 	
 
 }

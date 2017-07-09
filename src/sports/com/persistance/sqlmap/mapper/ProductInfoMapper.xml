@@ -15,7 +15,28 @@ SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS FROM PRODUCT_INFO WHERE pro
 
 </select>
 
+<insert id ="ProductInfoInsert" parameterType="ProductInfoDTO">
+
+INSERT INTO PRODUCT_INFO (PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS) VALUES(8,#{prod_name},#{prod_price},#{prod_contents})
+
+</insert>
 
 
+<delete id="ProductInfoDelect" parameterType="ProductInfoDTO">
+		DELETE FROM PRODUCT_INFO
+		WHERE PROD_NO = #{prod_no}	
+	</delete>
+	
+	
+<update id="ProductInfoUpdate" parameterType="ProductInfoDTO">
+	
+		UPDATE PRODUCT_INFO
+		SET	PROD_NAME = #{prod_name},
+			PROD_PRICE = #{prod_price},
+			PROD_CONTENTS = #{prod_contents}
+		WHERE PROD_NO = #{prod_no}	
+	
+	</update>
+	
 
 </mapper>

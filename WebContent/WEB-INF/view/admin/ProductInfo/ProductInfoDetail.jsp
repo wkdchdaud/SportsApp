@@ -15,11 +15,32 @@ if (rList==null) {
 	rList = new ArrayList<ProductInfoDTO>();
 }
 %> 
+	<%
+
+			for (ProductInfoDTO aDTO : rList) {
+			
+				if (aDTO==null) {
+					aDTO = new ProductInfoDTO();
+				}
+		%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+<%-- function Delete() {
+		
+		if(confirm("삭제하시겠습니까?") ==true){
+			location.href="/admin/ProductInfo/ProductInfoDelete.do?prod_no1=<%=CmmUtil.nvl(aDTO.getProd_no())%>";
+			
+		}
+		eles{
+			return;
+		}
+		} --%>
+</script>
 </head>
 <body>
 
@@ -32,13 +53,7 @@ if (rList==null) {
 			<td width="200" align="center">제품내용</td>
 		</tr>
 		
-		<%
-			for (ProductInfoDTO aDTO : rList) {
-
-				if (aDTO==null) {
-					aDTO = new ProductInfoDTO();
-				}
-		%>
+	
 		
 		<tr>
 		
@@ -48,11 +63,18 @@ if (rList==null) {
 			<td align="center"><%=CmmUtil.nvl(aDTO.getProd_contents()) %></td>
 		</tr>
 		
-		<%
-		}
-		%>
+	
 		
 	</table>
+           
+<input type="button" value="삭제" OnClick="location.href='/admin/ProductInfo/ProductInfoDelete.do?prod_no1=<%=aDTO.getProd_no() %>'" />
+<input type="button" value="수정" OnClick="location.href='/admin/ProductInfo/ProductInfoUpdateForm.do?prod_no1=<%=aDTO.getProd_no() %>'" />
+<input type="button" value="목록" OnClick="location.href='/admin/ProductInfo/List.do' " />
 
+<%
+}
+%>
+		
+		
 </body>
 </html>
