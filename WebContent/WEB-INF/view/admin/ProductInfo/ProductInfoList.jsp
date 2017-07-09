@@ -51,9 +51,13 @@ if (rList==null) {
 		}
 		%>
 		
+		<tr align="center">
+
+
+		
 	</table>
 
-
+<input type=button value="등록" OnClick="location.href='/admin/ProductInfo/ProductInfoReg.do' ">
 
 
 
