@@ -13,16 +13,16 @@
     <title>모두의 스포츠</title>
     
 	<!-- BOOTSTRAP STYLES-->
-    <link href="/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
     
      <!-- FONTAWESOME STYLES-->
-    <link href="/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
     
      <!-- MORRIS CHART STYLES-->
-    <link href="/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
     
      <!-- CUSTOM STYLES-->
-    <link href="/assets/css/custom.css" rel="stylesheet" />
+    <link href="assets/css/custom.css" rel="stylesheet" />
     
      <!-- GOOGLE FONTS-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
@@ -40,16 +40,15 @@
                 </button>
                 <a class="navbar-brand" href="main.do">모두의 스포츠</a> 
             </div>
-  <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;"> 
+  <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;">매출 데이터 분석 
   </div>
         </nav>   
-           
-           <!-- 사이드 네비바 시작 -->
+           <!-- /. NAV TOP  -->
                 <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
 				<li class="text-center">
-                    <img src="/assets/img/find_user.png" class="user-image img-responsive"/>
+                    <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
 				
 					<!-- 우리가 사용할 메뉴 시작  -->
@@ -85,40 +84,40 @@
                     </li>
                     
                   
-					<!-- 커뮤니티 -->
-					<li>
+					
+					   <li>
                         <a href="#"><i class="fa fa-sitemap fa-3x"></i> 커뮤니티 관리<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="#">공지사항</a>
                             </li>
                             <li>
-                                <a href="#">QnA</a>
+                                <a href="#">Q&A</a>
                             </li>
-                        </ul>
-                   </li>
+                         </ul>
+                        </li>
                 </ul>
                
             </div>
             
         </nav>  
-        <!-- 사이드 네비 바 끝  -->
-        
+        <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
             	<div id="page-inner">
-               
-               	 	<div class="row">
-                    	<div class="col-md-12">
-                     	<h2>매출 데이터 분석</h2>   
+                <div class="row">
+                    <div class="col-md-12">
+                     <h2>매출 데이터 분석</h2>   
                        
-                    	</div>
-                	</div>          
-                	<!--  진정 본문 시작 -->    
+                    </div>
+                </div>              
                  <!-- /. ROW  -->
-                 
                   <hr />
-                  
-                  <!-- 모리스 바 차트 영역 시작 -->
+                 <!-- /. ROW  -->
+                <hr />                
+          <!--       <div class="row" style="display: inline;"> -->
+                    
+                    
+                    <!-- <div class="col-md-3 col-sm-12 col-xs-12 "> -->
                      <div class="panel panel-default">
                         <div class="panel-heading" style="text-align: center">
 						일 매출
@@ -127,60 +126,8 @@
                         <div class="panel-body">
                             <div id="morris-bar-chart"></div>
                         </div>
-                        </div>  
-                   <!-- 모리스 바 차트 영역 끝 -->
                         
-                        <!--테이블 시작   -->
-                            <div class="row">
-                				<div class="col-md-12">
-                    				<div class="panel panel-default">
-                        				<div class="panel-heading" style="text-align: center">매출 종목 순위
-                        				</div>
-                        
-                        				<div class="panel-body">
-                            				<div class="table-responsive">
-                                				<table class="table table-striped table-bordered table-hover" id="dataTables-example" style="text-align: center">
-                                    				<thead>
-                                        				<tr>
-				                                            <th style="text-align: center">순위</th>
-				                                            <th style="text-align: center">종목</th>
-                                        				</tr>
-                                    				</thead>
-                                    				<tbody>
-														<tr>
-															<td>1</td>
-															<td></td>
-														</tr>
-														
-														<tr>
-															<td>2</td>
-															<td></td>
-														</tr>
-														
-														<tr>
-															<td>3</td>
-															<td></td>
-														</tr>
-														
-														<tr>
-															<td>4</td>
-															<td></td>
-														</tr>
-														
-														<tr>
-															<td>5</td>
-															<td></td>
-														</tr>
-														
-                                    				</tbody>
-                                				</table>
-                            				</div>
-                        				</div>
-                    				</div>
-                				</div>
-            				</div>
-                        <!-- 테이블 끝 -->
-                      
+                    </div>    
                  <!-- /. ROW  -->           
     			</div>
              <!-- /. PAGE INNER  -->
@@ -192,17 +139,17 @@
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     
     <!-- JQUERY SCRIPTS -->
-    <script src="/assets/js/jquery-1.10.2.js"></script>
+    <script src="assets/js/jquery-1.10.2.js"></script>
    
     <!-- BOOTSTRAP SCRIPTS -->
-    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
     
     <!-- METISMENU SCRIPTS -->
-    <script src="/assets/js/jquery.metisMenu.js"></script>
+    <script src="assets/js/jquery.metisMenu.js"></script>
   
     <!-- MORRIS CHART SCRIPTS -->
-    <script src="/assets/js/morris/raphael-2.1.0.min.js"></script>
-    <script src="/assets/js/morris/morris.js"></script>
+    <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="assets/js/morris/morris.js"></script>
     <!-- CUSTOM SCRIPTS -->
     <!-- <script src="assets/js/custom.js"></script> -->
     

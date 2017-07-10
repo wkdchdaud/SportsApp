@@ -27,7 +27,7 @@ public class DataAnalysisController {
 	@Resource(name="AnalysisService")
 	private IAnalysisService analysisService;
 	
-	
+	/*매출 분석 시작*/
 	@RequestMapping(value="sales/List" , method=RequestMethod.GET)
 	public String sales_Info(HttpSession session, HttpServletRequest request, HttpServletResponse response, ModelMap model ) throws Exception{
 		System.out.println("로그인포 시작 : ");
@@ -44,17 +44,21 @@ public class DataAnalysisController {
 		
 		
 	}
-	
+
+	/*연관성 분석 시작
+	 * 고객이 구매완료한물품에 대하여 리스트를 불러오고
+	 * 그거를 R util에 가져가서 rUtil 에서 aruels를 활용하여 적용하고
+	 * 그결과값을 내보내는 거지 */ 
 	@RequestMapping(value="/admin/Analysis/AnalysisList",method=RequestMethod.GET)
 	public String relation_Info(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception
 	{
 		log.info("R PromGramming Start!");
-		
+//		연관성분석 
 		List<R_testDTO> R_list = analysisService.getAnalysisList();
 //		System.out.println("R_list.get(0): "+ R_list.get(0).getPrice());
-		RUtil LJYheartbit = new RUtil();
+		RUtil auels_util = new RUtil();
 		
-		double qwe = LJYheartbit.R_list(R_list);
+		double qwe = auels_util.R_list(R_list);
 		
 		System.out.println("R Apriori 알고리즘 으로 나온 값 :::: " +qwe); 
 		
