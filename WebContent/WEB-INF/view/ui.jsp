@@ -19,7 +19,6 @@
 </head>
 <body>
     <div id="wrapper">
-       
         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -40,7 +39,7 @@
 				<li class="text-center">
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
-				
+					
 					<!-- 우리가 사용할 메뉴 시작  -->
 					
 					<!--  회원관리 -->		
