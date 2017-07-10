@@ -33,7 +33,7 @@ if (rList==null) {
 <body>
 
 
-<form action="/admin/ProductInfo/ProductInfoUpdate.do" method='GET'>
+<form action="/admin/ProductInfo/ProductInfoUpdate.do" method='post'>
 <table border="1">
 
 <input type="hidden" name="prod_no" value="<%=CmmUtil.nvl(aDTO.getProd_no()) %>"/>
@@ -57,11 +57,14 @@ if (rList==null) {
 
 <td colspan="2">
 &nbsp;
-
+</td>
+</tr>
+</table>
 <input type=submit value="등록"> 
 <input type=button value="취소" OnClick="location.href='/admin/ProductInfo/List.do' ">
 <%
 			}
 			%>
+			</form>
 </body>
 </html>

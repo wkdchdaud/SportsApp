@@ -123,10 +123,12 @@ public class ProductInfoController {
 		
 		 ProductInfoDTO rdto = new ProductInfoDTO();
 		 
-		 
+
+
+		
 	   
-		 String prod_name =CmmUtil.nvl(request.getParameter("prod_name"));
-		 System.out.println("PROD_NAME  : " + CmmUtil.nvl(request.getParameter("prod_name")));
+		 String prod_name = CmmUtil.nvl(request.getParameter("prod_name"));
+		 System.out.println("PROD_NAME  : " +  CmmUtil.nvl(request.getParameter("prod_name")));
 		 
 		 String prod_price =CmmUtil.nvl(request.getParameter("prod_price"));
 		 System.out.println("PROD_PRICE  : " + CmmUtil.nvl(request.getParameter("prod_price")));
@@ -253,7 +255,7 @@ public class ProductInfoController {
 	
 	
 	
-	@RequestMapping(value="admin/ProductInfo/ProductInfoUpdate",method=RequestMethod.GET)
+	@RequestMapping(value="admin/ProductInfo/ProductInfoUpdate",method=RequestMethod.POST)
 	public String ProductInfoUpdate(HttpServletRequest request, HttpServletResponse response, 
 			ModelMap model) throws Exception {
 		
@@ -274,8 +276,8 @@ public class ProductInfoController {
 		 String prod_no =CmmUtil.nvl(request.getParameter("prod_no"));
 		 System.out.println("PROD_no1  : " + prod_no);
 		 
-		 String prod_name =CmmUtil.nvl(request.getParameter("prod_name"));
-		 System.out.println("PROD_NAME  : " + CmmUtil.nvl(request.getParameter("prod_name")));
+		 String prod_name = CmmUtil.nvl(request.getParameter("prod_name"));
+		 System.out.println("PROD_NAME  : " +  CmmUtil.nvl(request.getParameter("prod_name")));
 		 
 		 String prod_price =CmmUtil.nvl(request.getParameter("prod_price"));
 		 System.out.println("PROD_PRICE  : " + CmmUtil.nvl(request.getParameter("prod_price")));
