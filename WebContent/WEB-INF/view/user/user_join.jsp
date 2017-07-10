@@ -1,27 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
 	function ck(f) {
 		if(f.id.value == ""){
 			f.id.focus();
-			alert("¾ÆÀÌµğ");
+			alert("ì•„ì´ë””");
 			return false;
 		}
 		
 		if(f.pwd.value == ""){
 			f.pwd.focus();
-			alert("ºñ¹Ğ¹øÈ£");
+			alert("ë¹„ë°€ë²ˆí˜¸");
 			return false;
 		}
 		
 		if(f.pwdck.value == ""){
 			f.pwdck.focus();
-			alert("ºñ¹Ğ¹øÈ£È®ÀÎ");
+			alert("ë¹„ë°€ë²ˆí˜¸í™•ì¸");
 			return false;
 		}
 		
@@ -29,19 +29,19 @@
 			f.pwd.value="";
 			f.pwdck.value="";
 			f.pwd.focus();
-			alert("ºñ¹Ğ¹øÈ£ÀÏÄ¡");
+			alert("ë¹„ë°€ë²ˆí˜¸ì¼ì¹˜");
 			return false;
 		}
 		
 		if(f.name.value == ""){
 			f.name.focus();
-			alert("ÀÌ¸§");
+			alert("ì´ë¦„");
 			return false;
 		}
 		
 		if(f.name.value == ""){
 			f.name.focus();
-			alert("ÀÌ¸§");
+			alert("ì´ë¦„");
 			return false;
 		}
 		
@@ -53,7 +53,7 @@
 		
 		if(f.tel.value == ""){
 			f.tel.focus();
-			alert("¹ö³ë");
+			alert("ë²„ë…¸");
 			return false;
 		}
 		
@@ -66,39 +66,39 @@
 <form action="/user/join_proc.do" name="f" onsubmit="return ck(this)" method="post">
 <table border="1">
 	<tr>
-		<td align="center">¾ÆÀÌµğ</td>
+		<td align="center">ì•„ì´ë””</td>
 		<td><input type="text" name="id"/></td>
 	</tr>
 	
 	<tr>
-		<td align="center">ºñ¹Ğ¹øÈ£</td>
+		<td align="center">ë¹„ë°€ë²ˆí˜¸</td>
 		<td><input type="password" name="pwd"/></td>
 	</tr>
 	
 	<tr>
-		<td align="center">ºñ¹Ğ¹øÈ£ È®ÀÎ</td>
+		<td align="center">ë¹„ë°€ë²ˆí˜¸ í™•ì¸</td>
 		<td><input type="password" name="pwdck"/></td>
 	</tr>
 	
 	<tr>
-		<td align="center">ÀÌ¸§</td>
+		<td align="center">ì´ë¦„</td>
 		<td><input type="text" name="name"/></td>
 	</tr>
 	
 	<tr>
-		<td align="center">ÀÌ¸ŞÀÏ</td>
+		<td align="center">ì´ë©”ì¼</td>
 		<td><input type="text" name="email"/></td>
 	</tr>
 	
 	<tr>
-		<td align="center">¿¬¶ôÃ³</td>
+		<td align="center">ì—°ë½ì²˜</td>
 		<td><input type="text" name="tel"/></td>
 	</tr>
 	
 	<tr>
 		<td colspan="2" align="center">
-			<input type="submit" value="°¡ÀÔ"/>
-			<input type="button" value="Ãë¼Ò"/>
+			<input type="submit" value="ê°€ì…"/>
+			<input type="button" value="ì·¨ì†Œ"/>
 		</td>
 	</tr>
 </table>
