@@ -3,18 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="sports.com.dto.R_testDTO"%>
 <%@page import="java.util.List"%>
-
-<% List<R_testDTO> sale_list = (List<R_testDTO>) request.getAttribute("sales_list"); 
-
-out.print("sale_list.size() : "+ sale_list.size());
-out.print("sale_list.get(0) : "+ sale_list.get(0).getSum_price());
-out.print("sale_list.get(1) : "+ sale_list.get(1).getSum_price());
-out.print("sale_list.get(2) : "+ sale_list.get(2).getSum_price());
-out.print("sale_list.get(3) : "+ sale_list.get(3).getSum_price());
-
-
-%>
-
+<% List<R_testDTO> sale_list = (List<R_testDTO>) request.getAttribute("sales_list");  %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -22,32 +11,21 @@ out.print("sale_list.get(3) : "+ sale_list.get(3).getSum_price());
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>모두의 스포츠</title>
+    
 	<!-- BOOTSTRAP STYLES-->
     <link href="/assets/css/bootstrap.css" rel="stylesheet" />
+    
      <!-- FONTAWESOME STYLES-->
     <link href="/assets/css/font-awesome.css" rel="stylesheet" />
+    
      <!-- MORRIS CHART STYLES-->
     <link href="/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
-        <!-- CUSTOM STYLES-->
+    
+     <!-- CUSTOM STYLES-->
     <link href="/assets/css/custom.css" rel="stylesheet" />
+    
      <!-- GOOGLE FONTS-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-     <!-- datepicker -->
-<!--    <link rel="stylesheet" href="assets/css/datepicker.css">
-
-	
-	<script>
-		$(function() {
-			$(".datepicker").datepicker({
-				dateFormat : "yymmdd",
-				monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월',],
-				dayNamesMin : ['일','월','화','수','목','금','토'],
-				changeMonth : true,
-				changeYear : true,
-				showMonthAfterYear : true,
-			});
-		});
-	</script> -->
 
 </head>
 <body>
@@ -60,127 +38,175 @@ out.print("sale_list.get(3) : "+ sale_list.get(3).getSum_price());
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">모두의 스포츠</a> 
+                <a class="navbar-brand" href="main.do">모두의 스포츠</a> 
             </div>
-  <div style="color: white;
-padding: 15px 50px 5px 50px;
-text-align: center;
-font-size: 25px; "> 매출 데이터 분석 &nbsp; 
- </div>
+  <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;"> 
+  </div>
         </nav>   
-           <!-- /. NAV TOP  -->
-		<!-- 네비바 일단 다지움  -->
-        <!-- /. NAV SIDE  -->
-        <div id="page-wrapper" >
-            <div id="page-inner">
-                <div class="row">
-                    <div class="col-md-12" align="center" >
-                     <!-- <h2 style="text-align: center;">매출데이터분석</h2> -->
-											  <button data-toggle="dropdown" class="btn btn-info dropdown-toggle" style="width: 200px; float: center; ">매출 분석 <span class="caret"></span></button>
-											  <ul class="dropdown-menu">
-												<li><a href="chart1.do">매출 분석</a></li>
-												<li class="divider"></li>
-												<li><a href="chart2.do">연관성 분석</a></li>
-												<li class="divider"></li>
-												<li><a href="#">장바구니 분석</a></li>
-											  </ul>
-					</div>
-						
-                     <div style="text-align: center;">
-                        <span class="label label-success"><a href="#" style="color: white; text-decoration: none; font-size: 12px" >일별</a></span>
-                        &nbsp;
-                        <span class="label label-success"><a href="#" style="color: white; text-decoration: none; font-size: 12px">주별</a></span>
-                        &nbsp;
-                        <span class="label label-success"><a href="#" style="color: white; text-decoration: none; font-size: 12px">월별</a></span>
-                        &nbsp;
-                        <span class="label label-success"><a href="#" style="color: white; text-decoration: none; font-size: 12px" >분기별</a></span>
-                        &nbsp;
-                        <span class="label label-success"><a href="#" style="color: white; text-decoration: none; font-size: 12px">연도별</a></span>
-                    </div>
-                </div>
-                 <!-- /. ROW  -->
-                 <hr />
-             
-                <div class="row"> 
-                 <div class="col-md-6 col-sm-12 col-xs-12">  
-                                    
-                    <div class="panel panel-default">
+           
+           <!-- 사이드 네비바 시작 -->
+                <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+				<li class="text-center">
+                    <img src="/assets/img/find_user.png" class="user-image img-responsive"/>
+					</li>
+				
+					<!-- 우리가 사용할 메뉴 시작  -->
+					
+					<!--  회원관리 -->		
+					<li>
+                        <a href="ui.do"><i class="fa fa-desktop fa-3x"></i> 회원관리</a>
+                    </li>
                     
-                        <div class="panel-heading" style="text-align: center;">2017 / 05 / 27 ~
-<span class="btn btn-warning"> <a href="#" class="datepicker" style="color: white; text-decoration: none; font-size: 12px">달력</a></span>          
-             
- </div>
-                        <div class="panel-body">
-                            <div id="morris-bar-chart">
-                            </div>
+                    <!--  권한관리 -->
+                    <li>
+                        <a  href="ui1.do"><i class="fa fa-desktop fa-3x"></i> 권한관리</a>
+                    </li>
+                    
+                    <!--주문관리-->
+                      <li>
+                        <a href="table.do"><i class="fa fa-table fa-3x"></i> 주문관리</a>
+                    </li>
+                    
+                    <!--학원관리-->
+                    <li>
+                        <a  href="accountmanagement.do"><i class="fa fa-table fa-3x"></i> 학원관리</a>
+                    </li>
+                    
+                    <!--스포츠용품리스트관리  -->
+                    <li>
+                        <a href="table1.do"><i class="fa fa-table fa-3x"></i> 스포츠 용품 리스트 관리</a>
+                    </li>
+                    
+					<!--매출분석정보-->
+					<li>
+                        <a   href="chart1.do"><i class="fa fa-bar-chart-o fa-3x"></i> 매출분석정보</a>
+                    </li>
+                    
+                  
+					<!-- 커뮤니티 -->
+					<li>
+                        <a href="#"><i class="fa fa-sitemap fa-3x"></i> 커뮤니티 관리<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">공지사항</a>
+                            </li>
+                            <li>
+                                <a href="#">QnA</a>
+                            </li>
+                        </ul>
+                   </li>
+                </ul>
+               
+            </div>
+            
+        </nav>  
+        <!-- 사이드 네비 바 끝  -->
+        
+        <div id="page-wrapper" >
+            	<div id="page-inner">
+               
+               	 	<div class="row">
+                    	<div class="col-md-12">
+                     	<h2>매출 데이터 분석</h2>   
+                       
                     	</div>
-                    	
-                    </div>
-                     <div class="panel panel-default" style="text-align: center;">
-                        <div class="panel-heading">
-                          	 매출 종목 순위
+                	</div>          
+                	<!--  진정 본문 시작 -->    
+                 <!-- /. ROW  -->
+                 
+                  <hr />
+                  
+                  <!-- 모리스 바 차트 영역 시작 -->
+                     <div class="panel panel-default">
+                        <div class="panel-heading" style="text-align: center">
+						일 매출
                         </div>
+                        
                         <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" >
-                                    <thead>
-                                        <tr>
-                                            <th>순위</th>
-                                            <th>종목</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>태권도</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>축구</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>헬스장</td>
-                                        </tr>
-                                         <tr>
-                                            <td>4</td>
-                                            <td>농구</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>합기도</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <div id="morris-bar-chart"></div>
                         </div>
-                    </div>
-                                
-                </div>
-           </div>
-                 <!-- /. ROW  -->
-             
-                 <!-- /. ROW  -->
-    </div>
+                        </div>  
+                   <!-- 모리스 바 차트 영역 끝 -->
+                        
+                        <!--테이블 시작   -->
+                            <div class="row">
+                				<div class="col-md-12">
+                    				<div class="panel panel-default">
+                        				<div class="panel-heading" style="text-align: center">매출 종목 순위
+                        				</div>
+                        
+                        				<div class="panel-body">
+                            				<div class="table-responsive">
+                                				<table class="table table-striped table-bordered table-hover" id="dataTables-example" style="text-align: center">
+                                    				<thead>
+                                        				<tr>
+				                                            <th style="text-align: center">순위</th>
+				                                            <th style="text-align: center">종목</th>
+                                        				</tr>
+                                    				</thead>
+                                    				<tbody>
+														<tr>
+															<td>1</td>
+															<td></td>
+														</tr>
+														
+														<tr>
+															<td>2</td>
+															<td></td>
+														</tr>
+														
+														<tr>
+															<td>3</td>
+															<td></td>
+														</tr>
+														
+														<tr>
+															<td>4</td>
+															<td></td>
+														</tr>
+														
+														<tr>
+															<td>5</td>
+															<td></td>
+														</tr>
+														
+                                    				</tbody>
+                                				</table>
+                            				</div>
+                        				</div>
+                    				</div>
+                				</div>
+            				</div>
+                        <!-- 테이블 끝 -->
+                      
+                 <!-- /. ROW  -->           
+    			</div>
              <!-- /. PAGE INNER  -->
             </div>
          <!-- /. PAGE WRAPPER  -->
         </div>
      <!-- /. WRAPPER  -->
+     <!-- </div> -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    
     <!-- JQUERY SCRIPTS -->
     <script src="/assets/js/jquery-1.10.2.js"></script>
-      <!-- BOOTSTRAP SCRIPTS -->
+   
+    <!-- BOOTSTRAP SCRIPTS -->
     <script src="/assets/js/bootstrap.min.js"></script>
+    
     <!-- METISMENU SCRIPTS -->
     <script src="/assets/js/jquery.metisMenu.js"></script>
-     <!-- MORRIS CHART SCRIPTS -->
-     <script src="/assets/js/morris/raphael-2.1.0.min.js"></script>
+  
+    <!-- MORRIS CHART SCRIPTS -->
+    <script src="/assets/js/morris/raphael-2.1.0.min.js"></script>
     <script src="/assets/js/morris/morris.js"></script>
-      <!-- CUSTOM SCRIPTS -->
-      <!-- 데이트 피커 하려고 해놨던애 -->
-<!-- 	<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script> -->
-   <script type="text/javascript">
+    <!-- CUSTOM SCRIPTS -->
+    <!-- <script src="assets/js/custom.js"></script> -->
+    
+    <script type="text/javascript">
 
    /*=============================================================
        Authour URI: www.binarycart.com
@@ -223,16 +249,16 @@ font-size: 25px; "> 매출 데이터 분석 &nbsp;
                        y: '<%=sale_list.get(0).getSale_date()%>',
                        a: <%=sale_list.get(0).getSum_price()%>
                    }, {
-                       y: '05.28',
+                       y: '<%=sale_list.get(1).getSale_date()%>',
                        a: <%=sale_list.get(1).getSum_price()%>
                    }, {
-                       y: '05.29',
+                       y: '<%=sale_list.get(2).getSale_date()%>',
                        a: <%=sale_list.get(2).getSum_price()%>
                    }, {
-                       y: '05.30',
+                       y: '<%=sale_list.get(3).getSale_date()%>',
                        a: <%=sale_list.get(3).getSum_price()%>
                    }, {
-                       y: '06.01',
+                       y: '<%=sale_list.get(4).getSale_date()%>',
                        a: <%=sale_list.get(4).getSum_price()%>
                    }],
                    xkey: 'y',
@@ -264,7 +290,7 @@ font-size: 25px; "> 매출 데이터 분석 &nbsp;
        });
 
    }(jQuery));
-
-   </script>
+</script>
+   
 </body>
 </html>

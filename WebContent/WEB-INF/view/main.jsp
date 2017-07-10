@@ -94,7 +94,7 @@
                         <a href="#"><i class="fa fa-sitemap fa-3x"></i> 커뮤니티 관리<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">공지사항</a>
+                                <a href="/admin/notice/NoticeList.do">공지사항</a>
                             </li>
                             <li>
                                 <a href="#">Q&A</a>
