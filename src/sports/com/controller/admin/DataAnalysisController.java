@@ -3,6 +3,7 @@ package sports.com.controller.admin;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -26,8 +27,26 @@ public class DataAnalysisController {
 	@Resource(name="AnalysisService")
 	private IAnalysisService analysisService;
 	
+	
+	@RequestMapping(value="sales/List" , method=RequestMethod.GET)
+	public String sales_Info(HttpSession session, HttpServletRequest request, HttpServletResponse response, ModelMap model ) throws Exception{
+		System.out.println("로그인포 시작 : ");
+		log.info(Logger.getLogger(this.toString()));
+		
+		List<R_testDTO> sales_list = analysisService.getSalesInfo();
+		
+		model.addAttribute("sales_list", sales_list);
+		
+		System.out.println("로그인포 끝 !!!!");
+		
+		
+		return "/admin/Analysis/saleList";
+		
+		
+	}
+	
 	@RequestMapping(value="/admin/Analysis/AnalysisList",method=RequestMethod.GET)
-	public String sales_info(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception
+	public String relation_Info(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception
 	{
 		log.info("R PromGramming Start!");
 		
@@ -44,4 +63,6 @@ public class DataAnalysisController {
 		
 		return "asd";
 	}
+	
+	
 }
