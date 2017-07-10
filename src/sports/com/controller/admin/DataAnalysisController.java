@@ -3,6 +3,7 @@ package sports.com.controller.admin;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -26,23 +27,42 @@ public class DataAnalysisController {
 	@Resource(name="AnalysisService")
 	private IAnalysisService analysisService;
 	
+	
+	@RequestMapping(value="sales/List" , method=RequestMethod.GET)
+	public String sales_Info(HttpSession session, HttpServletRequest request, HttpServletResponse response, ModelMap model ) throws Exception{
+		System.out.println("로그인포 시작 : ");
+		log.info(Logger.getLogger(this.toString()));
+		
+		List<R_testDTO> sales_list = analysisService.getSalesInfo();
+		
+		model.addAttribute("sales_list", sales_list);
+		
+		System.out.println("로그인포 끝 !!!!");
+		
+		
+		return "/admin/Analysis/saleList";
+		
+		
+	}
+	
 	@RequestMapping(value="/admin/Analysis/AnalysisList",method=RequestMethod.GET)
-	public String sales_info(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception
+	public String relation_Info(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception
 	{
 		log.info("R PromGramming Start!");
 		
 		List<R_testDTO> R_list = analysisService.getAnalysisList();
-		
 //		System.out.println("R_list.get(0): "+ R_list.get(0).getPrice());
 		RUtil LJYheartbit = new RUtil();
 		
 		double qwe = LJYheartbit.R_list(R_list);
 		
-		System.out.println("컨트롤러 R 통한 값 ++++ :::: " +qwe); 
+		System.out.println("R Apriori 알고리즘 으로 나온 값 :::: " +qwe); 
 		
 		model.addAttribute("R_test",R_list);
 		
 		
 		return "asd";
 	}
+	
+	
 }

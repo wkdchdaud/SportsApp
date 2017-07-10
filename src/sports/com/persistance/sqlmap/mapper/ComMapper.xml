@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sports.com.persistance.mapper.ComMapper">
 	<select id="getCommentList" resultType="TestDTO">
-		SELECT AB, BC FROM AB
+		SELECT * FROM ACADEMY;
 	</select>
-	
+<!-- 	
 	<insert id="tran1">
 		INSERT INTO USER_INFO(USER_ID,PASSWORD,USER_NAME,EMAIL,TEL)
 		VALUES ('abc111','111111','kim','aaa@naver.com','1111')
@@ -13,5 +13,5 @@
 	<insert id="tran2">
 		INSERT INTO USER_INFO(USER_ID,PASSWORD,USER_NAME,EMAIL,TEL)
 		VALUES ('abc112','2222','yun','a1aa@naver.com')
-	</insert>
+	</insert> -->
 </mapper>

@@ -19,6 +19,11 @@ public class AnalysisService implements IAnalysisService{
 	private Logger log = Logger.getLogger(this.getClass());
 	
 	@Override
+		public List<R_testDTO> getSalesInfo() throws Exception{
+			return analysisMapper.getSalesInfo();
+		}
+	
+	@Override
 		public List<R_testDTO> getAnalysisList() throws Exception{
 			return analysisMapper.getAnalysis();
 		}

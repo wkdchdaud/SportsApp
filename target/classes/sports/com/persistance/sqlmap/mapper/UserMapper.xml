@@ -1,10 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sports.com.persistance.mapper.UserMapper">
-	<select id="join_proc" resultType="UserDTO">
+	<insert id="join_proc">
 		INSERT INTO USER_INFO
-		 (USER_ID, PASSWORD, USER_NAME, EMAIL, EMAIL_FIRST, TEL, AUTH, REG_USER_NO, REG_DT)
+		 (USER_NO,USER_ID, PASSWORD, USER_NAME, EMAIL, EMAIL_FIRST, TEL, AUTH, DELETE_YN, REG_USER_NO, REG_DT)
 		VALUES
-		 (#{user_id},#{pwd},#{name},#{email},'N',#{tel},'A','1',NOW())
+		 (#{user_no},#{user_id},#{password},#{user_name},#{email},'N',#{tel},'U','N',#{user_no},NOW())
+	</insert>
+	
+	<select id="get_Max_Userno" resultType="UserDTO">
+		SELECT IFNULL(MAX(USER_NO),10000000) +1 AS USER_NO FROM USER_INFO
 	</select>
+	
+	<select id="login_proc" resultType="UserDTO" parameterType="UserDTO">
+		SELECT USER_NO, USER_ID, AUTH FROM USER_INFO
+		 WHERE USER_ID = #{user_id} and PASSWORD = #{pwd}
+	</select>
+	
+	<select id="getUser_list" resultType="UserDTO">
+		SELECT USER_NO, USER_ID, USER_NAME, EMAIL, TEL FROM USER_INFO
+	</select>
+	
+	<select id="getUser_info" resultType="UserDTO" parameterType="UserDTO">
+		SELECT USER_NO, USER_ID, USER_NAME, EMAIL, EMAIL_FIRST, TEL, AUTH, DELETE_YN
+		 FROM USER_INFO
+		WHERE USER_NO = #{user_no}
+	</select>
+	
+	<update id="update_User" parameterType="UserDTO">
+		UPDATE USER_INFO
+		 SET PASSWORD = #{password},
+		USER_NAME = #{user_name},
+		 TEL = #{tel},
+		USER_ID = #{user_id},
+		 EMAIL = #{email}
+		WHERE USER_NO = #{user_no}
+	</update>
+	
+	<update id="update_User_NP" parameterType="UserDTO">
+		UPDATE USER_INFO
+		 SET USER_NAME = #{user_name},
+		TEL = #{tel},
+		 USER_ID = #{user_id},
+		EMAIL = #{email}
+		 WHERE USER_NO = #{user_no}
+	</update>
+	
+	<delete id="delete_user" parameterType="UserDTO">
+		DELETE FROM USER_INFO
+		 WHERE USER_NO = #{user_no}
+	</delete>
+	
+	<update id="update_emailCK" parameterType="UserDTO">
+		UPDATE USER_INFO
+		 SET EMAIL_FIRST = 'Y'
+		WHERE USER_NO = #{user_no}
+	</update>
 </mapper>
