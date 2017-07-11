@@ -32,14 +32,14 @@ System.out.println("ss_user_no: " + ss_user_no);
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Q&A 상세</title>
+<title>Q&A 답글 상세</title>
 <script type="text/javascript">
 
-function doEdit() {
+function doAnswerEdit() {
 	
 	if ("<%=edit%>"==2) {
 		
-		location.href="/admin/QA/QAEdit.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>";
+		location.href="/admin/QA/QAAnswerEdit.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>";
 		
 	} else if ("<%=edit%>"==3) {
 		
@@ -53,12 +53,12 @@ function doEdit() {
 	
 }
 
-function doDelete() {
+function doAnswerDelete() {
 	
 	if ("<%=edit%>"==2) {
 		
 		if (confirm("작성한 게시글을 삭제하시겠습니까?")) {
-			location.href="/admin/QA/QADelete.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>";
+			location.href="/admin/QA/QAAnswerDelete.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>";
 		}
 		
 	} else if ("<%=edit%>"==3) {
@@ -111,8 +111,8 @@ function doList() {
 	
 		<tr>
 			<td align="center" colspan="4">
-				<input type="button" value="답글" onclick="location.href='/admin/QA/QAAnswerReg.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>&answer_yn=<%=CmmUtil.nvl(rDTO.getAnswer_yn())%>' "/>
-				<input type="button" value="삭제" onclick="location.href='javascript:doDelete();' "/>
+				<input type="button" value="수정" onclick="location.href='javascript:doAnswerEdit();' "/>
+				<input type="button" value="삭제" onclick="location.href='javascript:doAnswerDelete();' "/>
 				<input type="button" value="목록" onclick="location.href='javascript:doList();' "/>
 			</td>
 		</tr>	

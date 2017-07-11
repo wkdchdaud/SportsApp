@@ -41,4 +41,24 @@ public class QAService implements IQAService {
 		qaMapper.deleteQADetail(qaDTO);
 	}
 	
+	@Override
+	public void insertQAAnswerDetail(QADTO qaDTO) throws Exception {
+		qaMapper.insertQAAnswerDetail(qaDTO);
+	}
+	
+	@Override
+	public QADTO getQAAnswerDetail(QADTO qaDTO) throws Exception {
+		return qaMapper.getQAAnswerDetail(qaDTO);
+	}
+	
+	@Override
+	public void updateQAAnswerDetail(QADTO qaDTO) throws Exception {
+		qaMapper.updateQAAnswerDetail(qaDTO);
+	}
+	
+	@Override
+	public void deleteQAAnswerDetail(QADTO qaDTO) throws Exception {
+		qaMapper.deleteQAAnswerDetail(qaDTO);
+	}
+	
 }

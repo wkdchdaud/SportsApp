@@ -3,8 +3,8 @@ package sports.com.dto;
 public class QADTO {
 
 	private String qa_no; 
-	private String answer; 
-	private String user_no; 
+	private String q_no;
+	private String answer_yn;
 	private String secret_yn;	
 	private String title;	
 	private String contents; 
@@ -33,20 +33,20 @@ public class QADTO {
 		this.qa_no = qa_no;
 	}
 	
-	public String getAnswer() {
-		return answer;
+	public String getQ_no() {
+		return q_no;
 	}
 	
-	public void setAnswer(String answer) {
-		this.answer = answer;
+	public void setQ_no(String q_no) {
+		this.q_no = q_no;
 	}
 	
-	public String getUser_no() {
-		return user_no;
+	public String getAnswer_yn() {
+		return answer_yn;
 	}
 	
-	public void setUser_no(String user_no) {
-		this.user_no = user_no;
+	public void setAnswer_yn(String answer_yn) {
+		this.answer_yn = answer_yn;
 	}
 	
 	public String getSecret_yn() {
