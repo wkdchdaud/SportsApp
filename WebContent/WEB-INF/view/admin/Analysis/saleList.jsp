@@ -4,6 +4,7 @@
 <%@page import="sports.com.dto.R_testDTO"%>
 <%@page import="java.util.List"%>
 <% List<R_testDTO> sale_list = (List<R_testDTO>) request.getAttribute("sales_list");
+ List<R_testDTO> rank_list = (List<R_testDTO>) request.getAttribute("rank_list");
 %>
 
 <!DOCTYPE html>
@@ -12,8 +13,45 @@
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>모두의 스포츠</title>
-    
+    <!-- 데이트피커 -->
+ 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" type="text/css" />  
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script> -->
+
+<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>  
+
 <%@include file="/inc/head.jsp"%>
+
+<script>
+/*  네비바 화면에따른 오픈 클로즈 */
+
+$(function() {
+    $(window).bind("load resize", function () {
+        if ($(this).width() < 768) {
+            $('div.sidebar-collapse').addClass('collapse')
+        } else {
+            $('div.sidebar-collapse').removeClass('collapse')
+        }
+    });
+
+    $( "#testDatepicker" ).datepicker({
+    	dateFormat: 'yy-mm-dd',
+    	changeMonth:true,
+    	changeYear:true,
+    	selectOtherMonths:true,
+    	showOtherMonths:true,
+    	/* altField : '#getdate' */
+    	});
+
+    /*  datepicker 시작 */
+
+});
+
+
+</script>
 </head>
 <body>
     <div id="wrapper">
@@ -40,13 +78,33 @@
                
                	 	<div class="row">
                     	<div class="col-md-12">
-                     	<h2>매출 데이터 분석</h2>   
-                       
+                     	<center><h2>매출 데이터 분석</h2></center>   
+                     	<hr/>
                     	</div>
-                	</div>          
-                	<!--  진정 본문 시작 -->    
-                 <!-- /. ROW  -->
-                 
+                	</div>        
+                	  						<center><div class="btn-group">
+											  <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" style="width: 150px">매출 분석 정보 <span class="caret"></span></button>
+											  <ul class="dropdown-menu">
+												<li><a href="#">연관성 분석</a></li>
+												<li class="divider"></li>
+												<li><a href="#">장바구니 분석</a></li>
+											  </ul>
+											</div></center>
+											<br/>
+											<center>
+											 <a href="#" class="btn btn-warning btn-xs">일별</a>
+											 <a href="#" class="btn btn-warning btn-xs">주별</a>
+											 <a href="#" class="btn btn-warning btn-xs">월별</a>
+											 <a href="#" class="btn btn-warning btn-xs">분기별</a>
+											 <a href="#" class="btn btn-warning btn-xs">연도별</a>
+											</center>
+					<br/>						
+					
+					<!-- 데이트 피커 달력 버튼  input으로만 가능하다.-->
+					<center><input type="button" class="btn btn-success btn-sm" id="testDatepicker" value="날짜 설정"></a></center>
+					
+                	<!--  진정 본문 시작 -->   
+                	 
                   <hr />
                   
                   <!-- 모리스 바 차트 영역 시작 -->
@@ -58,7 +116,7 @@
                         <div class="panel-body">
                             <div id="morris-bar-chart"></div>
                         </div>
-                        </div>  
+                     </div>  
                    <!-- 모리스 바 차트 영역 끝 -->
                         
                         <!--테이블 시작   -->
@@ -80,27 +138,27 @@
                                     				<tbody>
 														<tr>
 															<td>1</td>
-															<td></td>
+															<td><%= rank_list.get(0).getSum_price() %></td>
 														</tr>
 														
 														<tr>
 															<td>2</td>
-															<td></td>
+															<td><%= rank_list.get(1).getSum_price() %></td>
 														</tr>
 														
 														<tr>
 															<td>3</td>
-															<td></td>
+															<td><%= rank_list.get(2).getSum_price() %></td>
 														</tr>
 														
 														<tr>
 															<td>4</td>
-															<td></td>
+															<td><%= rank_list.get(3).getSum_price() %></td>
 														</tr>
 														
 														<tr>
 															<td>5</td>
-															<td></td>
+															<td><%= rank_list.get(4).getSum_price() %></td>
 														</tr>
 														
                                     				</tbody>
@@ -122,8 +180,8 @@
      <!-- </div> -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     
-    <!-- JQUERY SCRIPTS -->
-    <script src="/assets/js/jquery-1.10.2.js"></script>
+    <!-- JQUERY SCRIPTS 맨위로 올렸음  -->
+    <!-- <script src="/assets/js/jquery-1.10.2.js"></script> -->
    
     <!-- BOOTSTRAP SCRIPTS -->
     <script src="/assets/js/bootstrap.min.js"></script>
@@ -134,93 +192,69 @@
     <!-- MORRIS CHART SCRIPTS -->
     <script src="/assets/js/morris/raphael-2.1.0.min.js"></script>
     <script src="/assets/js/morris/morris.js"></script>
-    <!-- CUSTOM SCRIPTS -->
-    <!-- <script src="assets/js/custom.js"></script> -->
+    <!-- moris sample data CUSTOM SCRIPTS 이거 셋팅 안해주니까 네비바가 걍열려있네 -->
+   <!-- <script src="/assets/js/custom.js"></script> --> 
     
     <script type="text/javascript">
-
-   /*=============================================================
-       Authour URI: www.binarycart.com
-       Version: 1.1
-       License: MIT
-       
-       http://opensource.org/licenses/MIT
-
-       100% To use For Personal And Commercial Use.
-      
-       ========================================================  */
-
-   (function ($) {
-       "use strict";
-       var mainApp = {
-
-           main_fun: function () {
-               /*====================================
-               METIS MENU 
-               ======================================*/
-               $('#main-menu').metisMenu();
-
-               /*====================================
-                 LOAD APPROPRIATE MENU BAR
-              ======================================*/
-               $(window).bind("load resize", function () {
-                   if ($(this).width() < 100) {
-                       $('div.sidebar-collapse').addClass('collapse')
-                   } else {
-                       $('div.sidebar-collapse').removeClass('collapse')
-                   }
-               });
-
-               /*====================================
-               MORRIS BAR CHART
-            ======================================*/
-               Morris.Bar({
-                   element: 'morris-bar-chart',
-                   data: [{
-                       y: '<%=sale_list.get(0).getSale_date()%>',
-                       a: <%=sale_list.get(0).getSum_price()%>
-                   }, {
-                       y: '<%=sale_list.get(1).getSale_date()%>',
-                       a: <%=sale_list.get(1).getSum_price()%>
-                   }, {
-                       y: '<%=sale_list.get(2).getSale_date()%>',
-                       a: <%=sale_list.get(2).getSum_price()%>
-                   }, {
-                       y: '<%=sale_list.get(3).getSale_date()%>',
-                       a: <%=sale_list.get(3).getSum_price()%>
-                   }, {
-                       y: '<%=sale_list.get(4).getSale_date()%>',
-                       a: <%=sale_list.get(4).getSum_price()%>
-                   }],
-                   xkey: 'y',
-                   ykeys: ['a'],
-                   labels: ['매출'],
-                   hideHover: 'auto',
-                   resize: true
-               });
-
-               /*====================================
-             MORRIS DONUT CHART
-          ======================================*/
-
-
-       
-        
-           },
-
-           initialization: function () {
-               mainApp.main_fun();
-
-           }
-
-       }
-       // Initializing ///
-
-       $(document).ready(function () {
-           mainApp.main_fun();
-       });
-
-   }(jQuery));
+    $(function() {
+    	 Morris.Bar({
+             element: 'morris-bar-chart',
+             data: [{
+                 a: <%=sale_list.get(0).getSum_price()%>,
+                 y: '<%=sale_list.get(0).getSale_date()%>'
+             }, {
+                 a: <%=sale_list.get(1).getSum_price()%>,
+                 y: '<%=sale_list.get(1).getSale_date()%>'
+             }, {
+                 a: <%=sale_list.get(2).getSum_price()%>,
+                 y: '<%=sale_list.get(2).getSale_date()%>'
+             }, {
+                 a: <%=sale_list.get(3).getSum_price()%>,
+                 y: '<%=sale_list.get(3).getSale_date()%>'
+             }, {
+                 a: <%=sale_list.get(4).getSum_price()%>,
+                 y: '<%=sale_list.get(4).getSale_date()%>'
+             }
+             ],
+             xkey: 'y',
+             ykeys: ['a'],
+             labels: ['매출'],
+             resize: true
+         });
+    	 
+      $( "#testDatepicker" ).change(function() {
+    	  $('#morris-bar-chart').html(null);
+    	  var sale_date_mo = $('#testDatepicker').val();
+    	$.ajax({
+    		url: "sale_chart.do",
+    		method: "post",
+    		data: {
+    			'sale_date_mo' : sale_date_mo
+    		},
+    		dataType: "json",
+    		success : function(data){
+    			var dt ="";
+    			var arr = new Array();
+    			$.each(data, function(key, value){
+    				dt={y: value.sale_date, a: value.sum_price}
+    				arr.push(dt)
+    	});
+    			console.log(arr)
+ 				/*  네비바 */
+ 				 Morris.Bar({
+                    element: 'morris-bar-chart',
+                    data: arr,
+                    xkey: 'y',
+                    ykeys: ['a'],
+                    labels: ['매출'],
+                    hideHover: 'auto',
+                    resize: true
+              
+                });
+ 			 }      
+ 				 });   
+    });
+      });
 </script>
    
 </body>

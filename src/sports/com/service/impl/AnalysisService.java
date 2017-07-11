@@ -21,15 +21,20 @@ public class AnalysisService implements IAnalysisService{
 	private Logger log = Logger.getLogger(this.getClass());
 	
 	@Override
-		public Map<String, Object> getSalesInfo() throws Exception{
-		Map<String, Object> map= new HashMap<String, Object>();
-		
-		map.put("sale_Info", analysisMapper.getSalesInfo() );
-		map.put("sale_Rank", analysisMapper.getSaleRank());
-		
-			return map;
+		public List<R_testDTO> getSalesInfo() throws Exception{
+		//Map<String, Object> map= new HashMap<String, Object>();
+		//map.put("sale_Info", analysisMapper.getSalesInfo() );
+	    //map.put("sale_Rank", analysisMapper.getSaleRank());
+			analysisMapper.getSalesInfo();
+			
+			return 	analysisMapper.getSalesInfo();
 		}
-	
+		@Override 
+		public List<R_testDTO> getSaleRank() throws Exception{
+			
+			return analysisMapper.getSaleRank();
+		}
+		
 	@Override
 		public List<R_testDTO> getAnalysisList() throws Exception{
 			return analysisMapper.getAnalysis();

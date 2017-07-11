@@ -3,7 +3,7 @@
 <mapper namespace="sports.com.persistance.mapper.AnalysisMapper">
 
 <select id="getSalesInfo" resultType="R_testDTO">
-	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE, SALE_DATE 
+	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE, SALE_DATE
 	FROM R_TEST 
 	WHERE SALE_DATE BETWEEN DATE_ADD(SALE_DATE, INTERVAL -6 DAY) AND NOW() 
 	GROUP BY SALE_DATE 
@@ -11,11 +11,11 @@
 </select>
 
 <select id="getSaleRank" resultType="R_TestDTO">
-	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE, SALE_DATE 
+	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE, SALE_DATE
 	FROM R_TEST 
 	WHERE SALE_DATE BETWEEN DATE_ADD(SALE_DATE, INTERVAL -6 DAY) AND NOW() 
 	GROUP BY SALE_DATE 
-	ORDER BY SUM_PRICE;
+	ORDER BY SUM_PRICE DESC;
 </select>
 
 <select id="getAnalysis" resultType="R_testDTO">

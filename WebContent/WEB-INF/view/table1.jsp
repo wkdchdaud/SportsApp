@@ -5,6 +5,19 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <script src="assets/js/jquery-1.10.2.js"></script>
+<script>
+$(function(){
+	   alert("dsd");
+		$.ajax({
+			url : 'rTest.do',
+			method : 'post' ,
+			success : function(data){
+					console.log(data);
+			}
+		})
+	})
+</script>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Free Bootstrap Admin Template : Binary Admin</title>
@@ -223,7 +236,6 @@
      <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
-    <script src="assets/js/jquery-1.10.2.js"></script>
       <!-- BOOTSTRAP SCRIPTS -->
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- METISMENU SCRIPTS -->
@@ -237,7 +249,6 @@
             });
     </script>
          <!-- CUSTOM SCRIPTS -->
-    <script src="assets/js/custom.js"></script>
     
    
 </body>

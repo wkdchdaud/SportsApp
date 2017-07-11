@@ -1,6 +1,18 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+   <script>
+   $(function(){
+	   alert("dsd");
+		$.ajax({
+			url : 'rTest.do',
+			method : 'post' ,
+			success : function(data){
+					console.log(data);
+			}
+		})
+	})
+   </script>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Free Bootstrap Admin Template : Binary Admin</title>
@@ -844,8 +856,6 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="login.html" class="
                 $('#dataTables-example').dataTable();
             });
     </script>
-         <!-- CUSTOM SCRIPTS -->
-    <script src="assets/js/custom.js"></script>
     
    
 </body>
