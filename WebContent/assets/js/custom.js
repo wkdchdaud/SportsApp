@@ -37,15 +37,15 @@
             Morris.Bar({
                 element: 'morris-bar-chart',
                 data: [{
-                    y: '2006',
+                    y: '4567',
                     a: 100,
                     b: 90
                 }, {
-                    y: '2007',
+                    y: '1234',
                     a: 75,
                     b: 65
                 }, {
-                    y: '2008',
+                    y: '1233',
                     a: 50,
                     b: 40
                 }, {
@@ -67,7 +67,7 @@
                 }],
                 xkey: 'y',
                 ykeys: ['a', 'b'],
-                labels: ['Series A', 'Series B'],
+                labels: ['년도', '시팔'],
                 hideHover: 'auto',
                 resize: true
             });

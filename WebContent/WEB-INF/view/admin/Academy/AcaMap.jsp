@@ -25,13 +25,13 @@
         function initMap() {
             map = new naver.maps.Map('map', {
                 center: new naver.maps.LatLng(37.55013056, 126.8434417),
-                zoom: 12
+                zoom: 13
             });
         }
     </script>
 <br>
-<%for(AcademyDTO academyDTO : list){ %>
-	<%=academyDTO.getAca_no() %>&nbsp;|&nbsp;<%=academyDTO.getAca_name() %>
-<%} %>
+<%-- <%for(AcademyDTO academyDTO : list){ %>
+	<%=academyDTO.getAca_no() %>&nbsp; <%=academyDTO.getAca_name() %></br>
+<%} %> --%>
 </body>
 </html>

@@ -85,7 +85,7 @@ function calBytes(str){
 </script>	
 </head>
 <body onload="doOnload();">
-<form name="f" method="post" action="/notice/NoticeInsert.do" target= "ifrPrc" onsubmit="return doSubmit(this);">
+<form name="f" method="post" action="AcademyInsert.do" target= "ifrPrc" onsubmit="return doSubmit(this);">
 	<table border="1">
 		<col width="100px" />
 		<col width="500px" />

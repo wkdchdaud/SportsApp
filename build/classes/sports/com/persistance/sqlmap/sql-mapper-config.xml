@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
-
 <configuration>
     <typeAliases>
     	<typeAlias type="sports.com.dto.TestDTO" alias="TestDTO"/>
     	<typeAlias type="sports.com.dto.UserDTO" alias="UserDTO"/>
     	<typeAlias type="sports.com.dto.AcademyDTO" alias="AcademyDTO"/>
+    	<typeAlias type="sports.com.dto.R_testDTO" alias="R_testDTO"/>
+    	<typeAlias type="sports.com.dto.QADTO" alias="QADTO"/>
 		<!-- <typeAlias type="ac.kr.ft.com.dto.MenuComDTO" alias="MenuComDTO"/> -->
     </typeAliases>
 </configuration>

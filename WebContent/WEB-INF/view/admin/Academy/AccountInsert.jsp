@@ -90,14 +90,16 @@ function calBytes(str){
 		<col width="100px" />
 		<col width="500px" />
 		<tr>
-			<td align="center">제목</td>
-			<td><input type="text" name="title" maxlength="100" style="width: 450px" /></td>
+			<td align="center">학원 No.</td>
+			<td><input type="text" name="aca_no"/></td>
+		<tr>
+			<td>학원 이름</td><td><input type="text" name="aca_name" /> </td>
 		</tr>
 		<tr>
-			<td align="center">공지글 여부</td>
-			<td>예<input type="radio" name="noticeYn" value="1" />
-			        아니오<input type="radio" name="noticeYn" value="2" />
-			</td>
+			      <td> 학원 주소1</td><td><input type="text" name="aca_area1"/> </td>
+		</tr>
+		<tr>
+			      <td> 학원 주소2</td><td><input type="text" name="aca_area2"/> </td>
 		</tr>
 		<tr>
 			<td colspan="2">
