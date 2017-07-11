@@ -3,7 +3,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="sports.com.dto.R_testDTO"%>
 <%@page import="java.util.List"%>
-<% List<R_testDTO> sale_list = (List<R_testDTO>) request.getAttribute("sales_list");  %>
+<% List<R_testDTO> sale_list = (List<R_testDTO>) request.getAttribute("sales_list");
+%>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -12,21 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>모두의 스포츠</title>
     
-	<!-- BOOTSTRAP STYLES-->
-    <link href="/assets/css/bootstrap.css" rel="stylesheet" />
-    
-     <!-- FONTAWESOME STYLES-->
-    <link href="/assets/css/font-awesome.css" rel="stylesheet" />
-    
-     <!-- MORRIS CHART STYLES-->
-    <link href="/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
-    
-     <!-- CUSTOM STYLES-->
-    <link href="/assets/css/custom.css" rel="stylesheet" />
-    
-     <!-- GOOGLE FONTS-->
-   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-
+<%@include file="/inc/head.jsp"%>
 </head>
 <body>
     <div id="wrapper">
@@ -45,64 +32,8 @@
         </nav>   
            
            <!-- 사이드 네비바 시작 -->
-                <nav class="navbar-default navbar-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="main-menu">
-				<li class="text-center">
-                    <img src="/assets/img/find_user.png" class="user-image img-responsive"/>
-					</li>
-				
-					<!-- 우리가 사용할 메뉴 시작  -->
-					
-					<!--  회원관리 -->		
-					<li>
-                        <a href="ui.do"><i class="fa fa-desktop fa-3x"></i> 회원관리</a>
-                    </li>
-                    
-                    <!--  권한관리 -->
-                    <li>
-                        <a  href="ui1.do"><i class="fa fa-desktop fa-3x"></i> 권한관리</a>
-                    </li>
-                    
-                    <!--주문관리-->
-                      <li>
-                        <a href="table.do"><i class="fa fa-table fa-3x"></i> 주문관리</a>
-                    </li>
-                    
-                    <!--학원관리-->
-                    <li>
-                        <a  href="accountmanagement.do"><i class="fa fa-table fa-3x"></i> 학원관리</a>
-                    </li>
-                    
-                    <!--스포츠용품리스트관리  -->
-                    <li>
-                        <a href="table1.do"><i class="fa fa-table fa-3x"></i> 스포츠 용품 리스트 관리</a>
-                    </li>
-                    
-					<!--매출분석정보-->
-					<li>
-                        <a   href="chart1.do"><i class="fa fa-bar-chart-o fa-3x"></i> 매출분석정보</a>
-                    </li>
-                    
-                  
-					<!-- 커뮤니티 -->
-					<li>
-                        <a href="#"><i class="fa fa-sitemap fa-3x"></i> 커뮤니티 관리<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="#">공지사항</a>
-                            </li>
-                            <li>
-                                <a href="#">QnA</a>
-                            </li>
-                        </ul>
-                   </li>
-                </ul>
-               
-            </div>
-            
-        </nav>  
-        <!-- 사이드 네비 바 끝  -->
+               <%@include file="/inc/side_nav.jsp"%>
+       	   <!-- 사이드 네비 바 끝  -->
         
         <div id="page-wrapper" >
             	<div id="page-inner">

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import sports.com.dto.UserDTO;
 import sports.com.service.IAnalysisService;
@@ -19,6 +20,7 @@ import sports.com.util.RUtil;
 import sports.com.dto.R_testDTO;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class DataAnalysisController {
@@ -29,12 +31,12 @@ public class DataAnalysisController {
 	
 	/*매출 분석 시작*/
 	@RequestMapping(value="sales/List" , method=RequestMethod.GET)
-	public String sales_Info(HttpSession session, HttpServletRequest request, HttpServletResponse response, ModelMap model ) throws Exception{
+	public @ResponseBody String sales_Info(HttpSession session, HttpServletRequest request, HttpServletResponse response, ModelMap model ) throws Exception{
 		System.out.println("로그인포 시작 : ");
 		log.info(Logger.getLogger(this.toString()));
 		
-		List<R_testDTO> sales_list = analysisService.getSalesInfo();
-		
+		Map<String, Object> sales_list = analysisService.getSalesInfo();
+		/*맵 처리 해주자 형변환 하라는데 무슨소릴까 서비스랑도 다봐야 할지도*/
 		model.addAttribute("sales_list", sales_list);
 		
 		System.out.println("로그인포 끝 !!!!");

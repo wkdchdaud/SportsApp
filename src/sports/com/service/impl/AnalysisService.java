@@ -1,6 +1,8 @@
 package sports.com.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -19,8 +21,13 @@ public class AnalysisService implements IAnalysisService{
 	private Logger log = Logger.getLogger(this.getClass());
 	
 	@Override
-		public List<R_testDTO> getSalesInfo() throws Exception{
-			return analysisMapper.getSalesInfo();
+		public Map<String, Object> getSalesInfo() throws Exception{
+		Map<String, Object> map= new HashMap<String, Object>();
+		
+		map.put("sale_Info", analysisMapper.getSalesInfo() );
+		map.put("sale_Rank", analysisMapper.getSaleRank());
+		
+			return map;
 		}
 	
 	@Override
