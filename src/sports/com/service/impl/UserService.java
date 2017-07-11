@@ -10,6 +10,7 @@ import sports.com.dto.UserDTO;
 import sports.com.persistance.mapper.UserMapper;
 import sports.com.service.IUserService;
 import sports.com.util.CmmUtil;
+import sports.com.util.MailUtil;
 
 @Service("UserService")
 public class UserService implements IUserService{
@@ -57,5 +58,78 @@ public class UserService implements IUserService{
 	@Override
 	public void update_emailCK(UserDTO userDTO) throws Exception {
 		userMapper.update_emailCK(userDTO);
+	}
+
+	@Override
+	public boolean email_send_id(UserDTO uDTO) throws Exception {
+		UserDTO userDTO = userMapper.getID_found(uDTO);
+		boolean t_f = false;
+		
+		if(userDTO == null){
+			userDTO = new UserDTO();
+		}
+		
+		if(CmmUtil.nvl(userDTO.getUser_id()).equals("")){
+			t_f = false;
+		}else{
+			String ck = CmmUtil.getNan();
+			userDTO.setEmail_ck(ck);
+			userMapper.email_send_id(userDTO);
+			
+			String subject = "인증번호 입니다.";
+			String body = "인증번호 : " + ck;
+			MailUtil.sendMail(userDTO.getEmail(), subject, body);
+			
+			subject = null;
+			body = null;
+			t_f = true;
+		}
+		
+		userDTO = null;
+		return t_f;
+	}
+
+	@Override
+	public UserDTO getUser_ID(UserDTO userDTO) throws Exception {
+		return userMapper.getUser_ID(userDTO);
+	}
+
+	@Override
+	public boolean email_send_pw(UserDTO uDTO) throws Exception {
+		UserDTO userDTO = userMapper.getpw_found(uDTO);
+		boolean t_f = false;
+		
+		if(userDTO == null){
+			userDTO = new UserDTO();
+		}
+		
+		if(CmmUtil.nvl(userDTO.getUser_no()).equals("")){
+			t_f = false;
+		}else{
+			String ck = CmmUtil.getNan();
+			userDTO.setEmail_ck(ck);
+			userMapper.email_send_pw(userDTO);
+			
+			String subject = "인증번호 입니다.";
+			String body = "인증번호 : " + ck;
+			MailUtil.sendMail(userDTO.getEmail(), subject, body);
+			
+			subject = null;
+			body = null;
+			t_f = true;
+		}
+		
+		userDTO = null;
+		return t_f;
+	}
+
+	@Override
+	public UserDTO get_pwfound(UserDTO userDTO) throws Exception {
+		return userMapper.get_pwfound(userDTO);
+	}
+
+	@Override
+	public void password_change(UserDTO userDTO) throws Exception {
+		userMapper.password_change(userDTO);
 	}
 }

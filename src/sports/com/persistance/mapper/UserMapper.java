@@ -26,5 +26,18 @@ public interface UserMapper {
 
 	void update_emailCK(UserDTO userDTO) throws Exception;
 
+	UserDTO getID_found(UserDTO uDTO) throws Exception;
+
+	void email_send_id(UserDTO userDTO) throws Exception;
+
+	UserDTO getUser_ID(UserDTO userDTO) throws Exception;
+
+	UserDTO getpw_found(UserDTO uDTO) throws Exception;
+
+	UserDTO get_pwfound(UserDTO userDTO) throws Exception;
+
+	void email_send_pw(UserDTO userDTO) throws Exception;
+
+	void password_change(UserDTO userDTO) throws Exception;
 
 }

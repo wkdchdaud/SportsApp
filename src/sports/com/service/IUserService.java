@@ -22,4 +22,15 @@ public interface IUserService {
 
 	void update_emailCK(UserDTO userDTO) throws Exception;
 
+	boolean email_send_id(UserDTO uDTO) throws Exception;
+
+	UserDTO getUser_ID(UserDTO userDTO) throws Exception;
+
+	boolean email_send_pw(UserDTO uDTO) throws Exception;
+
+	UserDTO get_pwfound(UserDTO userDTO) throws Exception;
+
+	void password_change(UserDTO userDTO) throws Exception;
+
+
 }

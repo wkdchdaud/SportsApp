@@ -62,7 +62,7 @@ function onSubmit(f) {
                                         </div>
                                     <div class="form-group">
                                             <span class="pull-right">
-                                                   <a href="#" >아이디 찾기</a> / <a href="#">비밀번호 찾기</a> 
+                                                   <a href="/user/id_found.do" >아이디 찾기</a> / <a href="/user/pw_found.do">비밀번호 찾기</a> 
                                             </span>
                                         </div>
                                      

@@ -52,14 +52,20 @@ public class UserController {
 		userDTO.setTel(CmmUtil.nvl(request.getParameter("tel")));
 		UserDTO uDTO = userService.join_proc(userDTO);
 		
+		String subject = "회원가입을 축하합니다.";
+		String body = "http://localhost:8080/user/user_ck.do?uNo="+CmmUtil.nvl(uDTO.getUser_no());
+		
+		MailUtil.sendMail(CmmUtil.nvl(request.getParameter("email")), subject, body);
+		
 		model.addAttribute("msg1", "회원가입 성공하였습니다.");
 		model.addAttribute("msg2", "이메일 인증을 완료해주세요.");
 		model.addAttribute("url", "/main.do");
 		
-		MailUtil.sendMail(CmmUtil.nvl(request.getParameter("email")), "회원가입을 축하합니다.", 
-				"http://localhost:8080/user/user_ck.do?uNo="+CmmUtil.nvl(uDTO.getUser_no()));
 		
 		userDTO = null;
+		subject = null;
+		body = null;
+		
 		log.info("welcome /user/join_proc end");
 		return "/redirect2";
 	}
@@ -226,7 +232,142 @@ public class UserController {
 		model.addAttribute("msg","이메일 인증이 완료되었습니다.");
 		model.addAttribute("url","/main.do");
 		
+		userDTO = null;
+		
 		log.info("welcome /user/user_ck end");
+		return "/redirect";
+	}
+	
+	@RequestMapping(value="/user/id_found",method=RequestMethod.GET)
+	public String id_found_form(HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception{
+		log.info("welcome /user/id_found_form start");
+		return "/user/id_found";
+	}
+	
+	@RequestMapping(value="/user/email_ID",method=RequestMethod.POST)
+	public String email_send_ID(HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception{
+		log.info("welcome /user/email_send_test start");
+		UserDTO uDTO = new UserDTO();
+		uDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
+		uDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
+		
+		if(userService.email_send_id(uDTO)){
+			model.addAttribute("msg","T");
+		}else{
+			model.addAttribute("msg","F");
+		}
+		
+		log.info("welcome /user/email_send_test end");
+		return "/user/ch_json";
+	}
+	
+	@RequestMapping(value="/user/id_result",method=RequestMethod.POST)
+	public String id_found_proc(HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception{
+		log.info("welcome /user/id_found_proc start");
+		UserDTO userDTO = new UserDTO();
+		userDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
+		userDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
+		userDTO.setEmail_ck(CmmUtil.nvl(request.getParameter("email_ck")));
+		
+		UserDTO uDTO = userService.getUser_ID(userDTO);
+		if(uDTO == null){
+			uDTO = new UserDTO();
+		}
+		
+		String rurl = "";
+		
+		if(CmmUtil.nvl(uDTO.getUser_id()).equals("")){
+			model.addAttribute("msg","인증번호가 틀렸습니다.");
+			model.addAttribute("url","/user/id_found.do");
+			rurl = "/redirect";
+		}else{
+			model.addAttribute("uDTO",uDTO);
+			rurl = "/user/id_result";
+		}
+		
+		userDTO = null;
+		uDTO = null;
+		log.info("welcome /user/id_found_proc end");
+		return rurl;
+	}
+	
+	@RequestMapping(value="/user/pw_found",method=RequestMethod.GET)
+	public String pw_found_form(HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception{
+		log.info("welcome /user/pw_found_form start");
+		return "/user/pw_found";
+	}
+	
+	@RequestMapping(value="/user/email_pw",method=RequestMethod.POST)
+	public String email_send_pw(HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception{
+		log.info("welcome /user/email_send_pw start");
+		
+		UserDTO uDTO = new UserDTO();
+		uDTO.setUser_id(CmmUtil.nvl(request.getParameter("id")));
+		uDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
+		uDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
+		
+		if(userService.email_send_pw(uDTO)){
+			model.addAttribute("msg","T");
+		}else{
+			model.addAttribute("msg","F");
+		}
+		
+		log.info("welcome /user/email_send_pw end");
+		return "/user/ch_json";
+	}
+	
+	@RequestMapping(value="/user/pw_change",method=RequestMethod.POST)
+	public String pw_change_form(HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception{
+		log.info("welcome /user/pw_change_form start");
+		UserDTO userDTO = new UserDTO();
+		userDTO.setUser_id(CmmUtil.nvl(request.getParameter("id")));
+		userDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
+		userDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
+		userDTO.setEmail_ck(CmmUtil.nvl(request.getParameter("email_ck")));
+		
+		UserDTO uDTO = userService.get_pwfound(userDTO);
+		if(uDTO == null){
+			uDTO = new UserDTO();
+		}
+		
+		String rurl = "";
+		
+		if(CmmUtil.nvl(uDTO.getUser_no()).equals("")){
+			model.addAttribute("msg","인증번호가 틀렸습니다.");
+			model.addAttribute("url","/user/pw_found.do");
+			rurl = "/redirect";
+		}else{
+			model.addAttribute("uDTO",uDTO);
+			rurl = "/user/pw_change";
+		}
+		
+		userDTO = null;
+		uDTO = null;
+		log.info("welcome /user/pw_change_form end");
+		return rurl;
+	}
+	
+	@RequestMapping(value="/user/pw_change_proc",method=RequestMethod.POST)
+	public String pw_change_proc(HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception{
+		log.info("welcome /user/pw_change_proc start");
+		UserDTO userDTO = new UserDTO();
+		userDTO.setUser_no(CmmUtil.nvl(request.getParameter("user_no")));
+		userDTO.setPassword(CmmUtil.nvl(request.getParameter("password")));
+		
+		userService.password_change(userDTO);
+		
+		model.addAttribute("msg", "비밀번호가 변경되었습니다.");
+		model.addAttribute("url","/user/user_login.do");
+		
+		userDTO = null;
+		log.info("welcome /user/pw_change_proc end");
 		return "/redirect";
 	}
 }
