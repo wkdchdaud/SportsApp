@@ -4,44 +4,85 @@
 
 	<!-- 게시판 리스트 쿼리 -->
 	<select id="getQAList" resultType="QADTO">
-		SELECT QA.QA_NO, QA.TITLE, QA.SECRET_YN, QA.USER_NO, DATE_FORMAT(QA.REG_DT, '%Y-%M-%D') AS REG_DT
+		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, QA.REG_USER_NO, DATE_FORMAT(QA.REG_DT, '%Y-%M-%D') AS REG_DT
 	    FROM QA_INFO_A QA
-	 	ORDER BY QA.SECRET_YN, QA.REG_DT DESC
+	 	ORDER BY QA.Q_NO DESC, QA.ANSWER_YN
 	</select>
 	
-	<!-- 게시판 등록 쿼리 -->
+	<!-- 게시글 등록 쿼리 -->
 	<insert id="insertQADetail" parameterType="QADTO">
-		INSERT INTO QA_INFO_A
-		(QA_NO, ANSWER, TITLE, SECRET_YN, CONTENTS, USER_NO, FILE_NAME, FILE_PATH, REG_USER_NO, REG_DT, CHG_USER_NO, CHG_DT)
+		<!-- INSERT INTO QA_INFO_A
+		(QA_NO, Q_NO, ANSWER_YN, SECRET_YN, TITLE, CONTENTS, FILE_NAME, FILE_PATH, REG_USER_NO, REG_DT, CHG_USER_NO, CHG_DT)
 		VALUES
 		(
-		(SELECT IFNULL(MAX(QA.QA_NO),0)+1 FROM QA_INFO_A QA),
-		'N', #{title}, #{secret_yn}, #{contents}, #{user_no}, #{file_name}, #{file_path}, #{user_no}, NOW(), #{user_no}, NOW()
+		(SELECT IFNULL(MAX(QA.QA_NO),0)+1 FROM QA_INFO_A QA), (SELECT IFNULL(MAX(QA.QA_NO),0)+1 FROM QA_INFO_A QA), 
+		'N', #{secret_yn}, #{title}, #{contents}, #{file_name}, #{file_path}, #{reg_user_no}, NOW(), #{reg_user_no}, NOW()
+		) -->
+		INSERT INTO QA_INFO_A
+		(QA_NO, Q_NO, ANSWER_YN, SECRET_YN, TITLE, CONTENTS, REG_USER_NO, REG_DT, CHG_USER_NO, CHG_DT)
+		VALUES
+		(
+		(SELECT IFNULL(MAX(QA.QA_NO),0)+1 FROM QA_INFO_A QA), (SELECT IFNULL(MAX(QA.QA_NO),0)+1 FROM QA_INFO_A QA), 
+		'N', #{secret_yn}, #{title}, #{contents}, #{reg_user_no}, NOW(), #{reg_user_no}, NOW()
 		)
 	</insert>
 	
-	<!-- 게시판 상세 쿼리 -->
+	<!-- 게시글 상세 쿼리 -->
 	<select id="getQADetail" resultType="QADTO" parameterType="QADTO">
-		SELECT QA.QA_NO, QA.TITLE, QA.SECRET_YN, QA.USER_NO, CONTENTS, DATE_FORMAT(QA.REG_DT, '%Y-%M-%D') AS REG_DT
+		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, QA.CONTENTS, QA.REG_USER_NO, DATE_FORMAT(QA.REG_DT, '%Y-%M-%D') AS REG_DT
 	    FROM QA_INFO_A QA
 	    WHERE QA.QA_NO = #{qa_no}
 	</select>
 	
-	<!-- 게시판 수정 쿼리 -->
+	<!-- 게시글 수정 쿼리 -->
 	<update id="updateQADetail" parameterType="QADTO">
 		UPDATE QA_INFO_A
-		SET	TITLE = #{title},
-			SECRET_YN = #{secret_yn},
+		SET SECRET_YN = #{secret_yn},	
+			TITLE = #{title},
 			CONTENTS = #{contents},
-			CHG_USER_NO = #{user_no},
+			CHG_USER_NO = #{reg_user_no},
 			CHG_DT = NOW()
-		WHERE QA_NO = #{qa_no}	
+		WHERE QA_NO = #{qa_no}	AND ANSWER_YN = 'N'
 	</update>
 
-	<!-- 게시판 삭제 쿼리 -->
+	<!-- 게시글 삭제 쿼리 -->
 	<delete id="deleteQADetail" parameterType="QADTO">
 		DELETE FROM QA_INFO_A
 		WHERE QA_NO = #{qa_no}	
+	</delete>
+	
+	<!-- 답글 등록 쿼리 -->
+	<insert id="insertQAAnswerDetail" parameterType="QADTO">
+		INSERT INTO QA_INFO_A
+		(QA_NO, Q_NO, ANSWER_YN, SECRET_YN, TITLE, CONTENTS, FILE_NAME, FILE_PATH, REG_USER_NO, REG_DT, CHG_USER_NO, CHG_DT)
+		VALUES
+		(
+		(SELECT IFNULL(MAX(QA.QA_NO),0)+1 FROM QA_INFO_A QA), #{q_no}, 'Y', #{secret_yn}, #{title}, #{contents}, #{file_name}, #{file_path}, #{reg_user_no}, NOW(), #{reg_user_no}, NOW()
+		)
+	</insert>
+	
+	<!-- 답글 상세 쿼리 -->
+	<select id="getQAAnswerDetail" resultType="QADTO" parameterType="QADTO">
+		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, CONTENTS, QA.REG_USER_NO, DATE_FORMAT(QA.REG_DT, '%Y-%M-%D') AS REG_DT
+	    FROM QA_INFO_A QA
+	    WHERE QA.QA_NO = #{qa_no}
+	</select>
+	
+	<!-- 답글 수정 쿼리 -->
+	<update id="updateQAAnswerDetail" parameterType="QADTO">
+		UPDATE QA_INFO_A
+		SET	SECRET_YN = #{secret_yn},
+			TITLE = #{title},
+			CONTENTS = #{contents},
+			CHG_USER_NO = #{reg_user_no},
+			CHG_DT = NOW()
+		WHERE QA_NO = #{qa_no} AND ANSWER_YN = 'Y'
+	</update>
+
+	<!-- 답글 삭제 쿼리 -->
+	<delete id="deleteQAAnswerDetail" parameterType="QADTO">
+		DELETE FROM QA_INFO_A
+		WHERE QA_NO = #{qa_no} AND ANSWER_YN = 'Y'
 	</delete>
 	
 </mapper>

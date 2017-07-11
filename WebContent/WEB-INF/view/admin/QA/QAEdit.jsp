@@ -2,20 +2,23 @@
     pageEncoding="UTF-8"%>
 <%@ page import="sports.com.util.CmmUtil" %>
 <%@ page import="sports.com.dto.QADTO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 <%
 QADTO rDTO = (QADTO)request.getAttribute("rDTO");
 
-if (rDTO==null){
+List<QADTO> rList = (List<QADTO>) request.getAttribute("rList");
+
+if (rDTO==null) {
 	rDTO = new QADTO();
 }
 
 int access = 1; 
 
-if (CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO")).equals(CmmUtil.nvl(rDTO.getUser_no()))) {
+if (CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO")).equals(CmmUtil.nvl(rDTO.getReg_user_no()))) {
 	access = 2;
 }
 %> 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -142,7 +145,7 @@ function calBytes(str) {
 		</tr>
 		
 		<tr>
-			<td colspan="2"><textarea name="contents" style="width: 550px; height: 400px"><%=CmmUtil.nvl(rDTO.getContents()) %></textarea></td>
+			<td colspan="2"><textarea name="contents" style="width: 550px; height: 400px"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("\r\n", "<br/>") %></textarea></td>
 		</tr>
 		
 		<tr>
@@ -153,13 +156,12 @@ function calBytes(str) {
 		<tr>
 			<td align="center" colspan="2">
 				<input type="submit" value="수정" />
-				<input type="reset" value="초기화" />
-				<input type="button" value="취소" onclick="location.href='/admin/QA/QADetail.do' "/>
+				<input type="button" value="이전으로" onclick="location.href='/admin/QA/QADetail.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>' "/>
 			</td>
 		</tr>
-				
+			
 	</table>
-	
+
 </form>	
 
 </body>

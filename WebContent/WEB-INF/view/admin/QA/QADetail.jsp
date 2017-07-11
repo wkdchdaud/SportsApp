@@ -11,6 +11,7 @@ if (rDTO==null) {
 	rDTO = new QADTO();
 }
 
+String qa_no = CmmUtil.nvl(request.getParameter("qa_no"));
 String ss_user_no = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO"));
 
 int edit = 1;
@@ -19,16 +20,15 @@ if (ss_user_no.equals("")) {
 	
 	edit = 3;
 	
-} else if (ss_user_no.equals(CmmUtil.nvl(rDTO.getUser_no()))) {
+} else if (ss_user_no.equals(CmmUtil.nvl(rDTO.getReg_user_no()))) {
 	
 	edit = 2;
 	
 }
 
-System.out.println("user_no: " + CmmUtil.nvl(rDTO.getUser_no()));
+System.out.println("user_no: " + CmmUtil.nvl(rDTO.getReg_user_no()));
 System.out.println("ss_user_no: " + ss_user_no);
 %>   
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
@@ -94,14 +94,6 @@ function doList() {
 		</tr>
 	
 		<tr>
-			<td align="center">비밀글 여부</td>
-			<td colspan="3">
-				예 <input type="radio" name="secret_yn" value="1" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "1") %> />
-				아니오 <input type="radio" name="secret_yn" value="2" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "2") %> />
-			</td>
-		</tr>
-	
-		<tr>
 			<td align="center">작성자</td>
 			<td><%=CmmUtil.nvl(rDTO.getUser_name())%></td>
 			<td align="center">작성일</td>
@@ -119,7 +111,7 @@ function doList() {
 	
 		<tr>
 			<td align="center" colspan="4">
-				<input type="button" value="수정" onclick="location.href='javascript:doEdit();' "/>
+				<input type="button" value="답글" onclick="location.href='/admin/QA/QAAnswerReg.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>&answer_yn=<%=CmmUtil.nvl(rDTO.getAnswer_yn())%>' "/>
 				<input type="button" value="삭제" onclick="location.href='javascript:doDelete();' "/>
 				<input type="button" value="목록" onclick="location.href='javascript:doList();' "/>
 			</td>

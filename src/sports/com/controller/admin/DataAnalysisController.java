@@ -3,12 +3,15 @@ package sports.com.controller.admin;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import sports.com.dto.UserDTO;
 import sports.com.service.IAnalysisService;
@@ -17,7 +20,9 @@ import sports.com.util.CmmUtil;
 import sports.com.util.RUtil;
 import sports.com.dto.R_testDTO;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class DataAnalysisController {
@@ -26,16 +31,72 @@ public class DataAnalysisController {
 	@Resource(name="AnalysisService")
 	private IAnalysisService analysisService;
 	
+	
+	/*매출 분석 정보 시작*/
+	@RequestMapping(value="sales/List" , method=RequestMethod.GET)
+	public String sales_Info(HttpSession session, HttpServletRequest request, HttpServletResponse response, ModelMap model ) throws Exception{
+		System.out.println("로그인포 시작 : ");
+		log.info(Logger.getLogger(this.toString()));
+		
+		//Map<String, Object> sales_list = analysisService.getSalesInfo();
+		/*맵 처리 해주자 형변환 하라는데 무슨소릴까 서비스랑도 다봐야 할지도*/
+		//model.addAttribute("sales_list", sales_list);
+
+		List<R_testDTO> rList = analysisService.getSaleRank();
+		List<R_testDTO> sList = analysisService.getSalesInfo();
+				
+		if(rList == null){
+			rList = new ArrayList<R_testDTO>();
+		}
+		
+		if(sList == null){
+			sList = new ArrayList<R_testDTO>();
+		}
+		
+		model.addAttribute("sales_list", sList);
+		model.addAttribute("rank_list", rList);
+		
+		rList = null;
+		sList = null;
+		
+		System.out.println("로그인포 끝 !!!!");
+		
+		return "/admin/Analysis/saleList";
+	}
+
+	/*매출분석정보 차트 값 아작스 구현 */
+	@RequestMapping(value="sales/sale_chart")
+	public @ResponseBody List<R_testDTO> sale_chart(@RequestParam(value= "sale_date_mo") String word) throws Exception
+	{
+		System.out.println("word : " + word);
+		List<R_testDTO> sList = analysisService.getSalesInfo();
+		
+		
+		return sList;
+	}
+/*	Json으로 데이터 받기 예제
+	@RequestMapping(value = "rTest")
+	public @ResponseBody List<R_testDTO> rtest() throws Exception{
+		List<R_testDTO> rList = analysisService.getSaleRank();
+
+		return rList;
+	}
+		
+	/*연관성 분석 시작
+	 * 고객이 구매완료한물품에 대하여 리스트를 불러오고
+	 * 그거를 R util에 가져가서 rUtil 에서 aruels를 활용하여 적용하고
+	 * 그결과값을 내보내는 거지 */ 
+	
 	@RequestMapping(value="/admin/Analysis/AnalysisList",method=RequestMethod.GET)
-	public String sales_info(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception
+	public String relation_Info(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception
 	{
 		log.info("R PromGramming Start!");
-		
+//		연관성분석 
 		List<R_testDTO> R_list = analysisService.getAnalysisList();
 //		System.out.println("R_list.get(0): "+ R_list.get(0).getPrice());
-		RUtil LJYheartbit = new RUtil();
+		RUtil auels_util = new RUtil();
 		
-		double qwe = LJYheartbit.R_list(R_list);
+		double qwe = auels_util.R_list(R_list);
 		
 		System.out.println("R Apriori 알고리즘 으로 나온 값 :::: " +qwe); 
 		
@@ -44,4 +105,6 @@ public class DataAnalysisController {
 		
 		return "asd";
 	}
+	
+	
 }
