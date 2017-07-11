@@ -22,10 +22,10 @@ if (CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO")).equals(CmmUtil.
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Q&A 수정</title>
+<title>Q&A 답글 수정</title>
 <script type="text/javascript">
 
-function doOnload() {
+<%-- function doOnload() {
 	
 	if ("<%=access%>"=="1") {
 		
@@ -34,7 +34,7 @@ function doOnload() {
 		
 	}
 	
-}
+} --%>
 
 function doSubmit(f) {
 	
@@ -122,7 +122,7 @@ function calBytes(str) {
 </head>
 <body onload="doOnload();">
 
-<form name="f" method="post" action="/admin/QA/QAUpdate.do" enctype="multipart/form-data" onsubmit="return doSubmit(this);">
+<form name="f" method="post" action="/admin/QA/QAAnswerUpdate.do" enctype="multipart/form-data" onsubmit="return doSubmit(this);">
 
 <input type="hidden" name="qa_no" value="<%=CmmUtil.nvl(request.getParameter("qa_no")) %>" />
 	
@@ -156,7 +156,7 @@ function calBytes(str) {
 		<tr>
 			<td align="center" colspan="2">
 				<input type="submit" value="수정" />
-				<input type="button" value="이전으로" onclick="location.href='/admin/QA/QADetail.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>' "/>
+				<input type="button" value="이전으로" onclick="location.href='/admin/QA/QAAnswerDetail.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>' "/>
 			</td>
 		</tr>
 			

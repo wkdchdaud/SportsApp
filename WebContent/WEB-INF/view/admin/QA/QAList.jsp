@@ -13,16 +13,21 @@ List<QADTO> rList =	(List<QADTO>) request.getAttribute("rList");
 if (rList==null) {
 	rList = new ArrayList<QADTO>();
 }
+
+int cnt = 1;
 %>        
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Q&A 리스트</title>
+<title>Q&A 목록</title>
 <script type="text/javascript">
 
-function doDetail(no) {
-	location.href="/admin/QA/QADetail.do?qa_no=" + no;
+function doDetail(qa_no) {
+	location.href="/admin/QA/QADetail.do?qa_no=" + qa_no ;
+}
+
+function doAnswerDetail(qa_no, answer_yn) {
+	location.href="/admin/QA/QAAnswerDetail.do?qa_no=" + qa_no;
 }
 
 </script>
@@ -45,10 +50,9 @@ function doDetail(no) {
 	<table border="1" width="600px">
 	
 		<tr>
-			<td width="100" align="center">글번호</td>
-			<td width="250" align="center">제목</td>
-			<td width="100" align="center">작성자</td>
-			<td width="150" align="center">작성일</td>
+			<th width="250" align="center">제목</th>
+			<th width="100" align="center">작성자</th>
+			<th width="150" align="center">작성일</th>
 		</tr>
 		
 		<%
@@ -60,13 +64,22 @@ function doDetail(no) {
 		%>
 		
 		<tr>
-			<td align="center"><%=CmmUtil.nvl(rDTO.getQa_no()) %></td>
 			<td align="center">
+			<% if (CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")) {%>
+			
+				<a href="javascript:doAnswerDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');"><%=CmmUtil.nvl(rDTO.getTitle()) %></a>
+				<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {
+					out.println("<b>[SECRET]</b>");
+				}%>
+				
+			<%} else {%>
+			
 				<a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');"><%=CmmUtil.nvl(rDTO.getTitle()) %></a>
 				<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {
 					out.println("<b>[SECRET]</b>");
-				}
-				%>
+				}%>
+				
+			<%} %>	
 			</td>
 			<td align="center"><%=CmmUtil.nvl(rDTO.getUser_name()) %></td>
 			<td align="center"><%=CmmUtil.nvl(rDTO.getReg_dt()) %></td>

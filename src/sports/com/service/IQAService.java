@@ -16,4 +16,12 @@ public interface IQAService {
 	
 	void deleteQADetail(QADTO qaDTO) throws Exception;
 	
+	void insertQAAnswerDetail(QADTO qaDTO) throws Exception;
+	
+	QADTO getQAAnswerDetail(QADTO qaDTO) throws Exception;
+	
+	void updateQAAnswerDetail(QADTO qaDTO) throws Exception;
+	
+	void deleteQAAnswerDetail(QADTO qaDTO) throws Exception;
+	
 }

@@ -7,34 +7,17 @@
 <%
 QADTO rDTO = (QADTO)request.getAttribute("rDTO");
 
-List<QADTO> rList = (List<QADTO>) request.getAttribute("rList");
-
 if (rDTO==null) {
 	rDTO = new QADTO();
 }
 
-int access = 1; 
-
-if (CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO")).equals(CmmUtil.nvl(rDTO.getReg_user_no()))) {
-	access = 2;
-}
-%> 
+String SESSION_USER_NO = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO"));
+%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Q&A 수정</title>
+<title>Q&A 답글 등록</title>
 <script type="text/javascript">
-
-function doOnload() {
-	
-	if ("<%=access%>"=="1") {
-		
-		alert("본인이 작성한 게시글만 수정 가능합니다.");
-		location.href="/admin/QA/QAList.do";
-		
-	}
-	
-}
 
 function doSubmit(f) {
 	
@@ -46,7 +29,7 @@ function doSubmit(f) {
 		
 	}
 	
-	if (calBytes(f.title.value) > 200) {
+	if (calBytes(f.title.value) > 100) {
 		
 		alert("제목은 최대 100Bytes까지만 입력 가능합니다.");
 		f.title.focus();
@@ -98,7 +81,7 @@ function calBytes(str) {
 
 	var onechar;
 	
-	for (i=0; i<strCnt; i++) {
+	for (i=0;i<strCnt;i++) {
 		
 		onechar = tmpStr.charAt(i);
 		
@@ -118,13 +101,14 @@ function calBytes(str) {
 	
 }
 
-</script>	
+</script>
 </head>
-<body onload="doOnload();">
+<body>
 
-<form name="f" method="post" action="/admin/QA/QAUpdate.do" enctype="multipart/form-data" onsubmit="return doSubmit(this);">
+<form name="f" method="post" action="/admin/QA/QAAnswerInsert.do" enctype="multipart/form-data" onsubmit="return doSubmit(this);">
 
-<input type="hidden" name="qa_no" value="<%=CmmUtil.nvl(request.getParameter("qa_no")) %>" />
+<input type="hidden" name="q_no" value="<%=CmmUtil.nvl(rDTO.getQ_no()) %>" />
+<input type="hidden" name="title" value="<b>[RE]</b> <%=CmmUtil.nvl(rDTO.getTitle()) %>" />
 	
 	<table border="1">
 	
@@ -133,7 +117,7 @@ function calBytes(str) {
 		
 		<tr>
 			<td align="center">제목</td>
-			<td><input type="text" name="title" maxlength="100" value="<%=CmmUtil.nvl(rDTO.getTitle()) %>" style="width: 450px" /></td>
+			<td><b>[RE] </b><%=CmmUtil.nvl(rDTO.getTitle()) %></td>
 		</tr>
 		
 		<tr>
@@ -145,9 +129,9 @@ function calBytes(str) {
 		</tr>
 		
 		<tr>
-			<td colspan="2"><textarea name="contents" style="width: 550px; height: 400px"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("\r\n", "<br/>") %></textarea></td>
+			<td colspan="2"><textarea name="contents" style="width:550px; height:400px"></textarea></td>
 		</tr>
-		
+			
 		<tr>
 			<td align="center">첨부파일</td>
 			<td><input type="file" name="file_name" style="width:450px" /></td>
@@ -155,14 +139,14 @@ function calBytes(str) {
 		
 		<tr>
 			<td align="center" colspan="2">
-				<input type="submit" value="수정" />
-				<input type="button" value="이전으로" onclick="location.href='/admin/QA/QADetail.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>' "/>
+				<input type="submit" value="등록" />
+				<input type="button" value="목록" onclick="location.href='/admin/QA/QAList.do' "/>
 			</td>
 		</tr>
-			
+				
 	</table>
-
-</form>	
+	
+</form>
 
 </body>
 </html>
