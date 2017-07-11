@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sports.com.persistance.mapper.ProductInfoMapper">
+
+<select id ="getProductInfolist" resultType="ProductInfoDTO">
+
+SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
+
+</select>
+
+
+<select id ="getProductInfoDetail" resultType="ProductInfoDTO">
+
+SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS FROM PRODUCT_INFO WHERE prod_no = #{prod_no}
+
+</select>
+
+<insert id ="ProductInfoInsert" parameterType="ProductInfoDTO">
+
+INSERT INTO PRODUCT_INFO (PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS) VALUES(8,#{prod_name},#{prod_price},#{prod_contents})
+
+</insert>
+
+
+<delete id="ProductInfoDelect" parameterType="ProductInfoDTO">
+		DELETE FROM PRODUCT_INFO
+		WHERE PROD_NO = #{prod_no}	
+	</delete>
+	
+	
+<update id="ProductInfoUpdate" parameterType="ProductInfoDTO">
+	
+		UPDATE PRODUCT_INFO
+		SET	PROD_NAME = #{prod_name},
+			PROD_PRICE = #{prod_price},
+			PROD_CONTENTS = #{prod_contents}
+		WHERE PROD_NO = #{prod_no}	
+	
+	</update>
+	
+
+</mapper>

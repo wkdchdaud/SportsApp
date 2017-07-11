@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sports.com.persistance.mapper.QAMapper">
+
+	<!-- 게시판 리스트 쿼리 -->
+	<select id="getQAList" resultType="QADTO">
+		SELECT QA.QA_NO, QA.TITLE, QA.SECRET_YN, QA.USER_NO, DATE_FORMAT(QA.REG_DT, '%Y-%M-%D') AS REG_DT
+	    FROM QA_INFO_A QA
+	 	ORDER BY QA.SECRET_YN, QA.REG_DT DESC
+	</select>
+	
+	<!-- 게시판 등록 쿼리 -->
+	<insert id="insertQADetail" parameterType="QADTO">
+		INSERT INTO QA_INFO_A
+		(QA_NO, ANSWER, TITLE, SECRET_YN, CONTENTS, USER_NO, FILE_NAME, FILE_PATH, REG_USER_NO, REG_DT, CHG_USER_NO, CHG_DT)
+		VALUES
+		(
+		(SELECT IFNULL(MAX(QA.QA_NO),0)+1 FROM QA_INFO_A QA),
+		'N', #{title}, #{secret_yn}, #{contents}, #{user_no}, #{file_name}, #{file_path}, #{user_no}, NOW(), #{user_no}, NOW()
+		)
+	</insert>
+	
+	<!-- 게시판 상세 쿼리 -->
+	<select id="getQADetail" resultType="QADTO" parameterType="QADTO">
+		SELECT QA.QA_NO, QA.TITLE, QA.SECRET_YN, QA.USER_NO, CONTENTS, DATE_FORMAT(QA.REG_DT, '%Y-%M-%D') AS REG_DT
+	    FROM QA_INFO_A QA
+	    WHERE QA.QA_NO = #{qa_no}
+	</select>
+	
+	<!-- 게시판 수정 쿼리 -->
+	<update id="updateQADetail" parameterType="QADTO">
+		UPDATE QA_INFO_A
+		SET	TITLE = #{title},
+			SECRET_YN = #{secret_yn},
+			CONTENTS = #{contents},
+			CHG_USER_NO = #{user_no},
+			CHG_DT = NOW()
+		WHERE QA_NO = #{qa_no}	
+	</update>
+
+	<!-- 게시판 삭제 쿼리 -->
+	<delete id="deleteQADetail" parameterType="QADTO">
+		DELETE FROM QA_INFO_A
+		WHERE QA_NO = #{qa_no}	
+	</delete>
+	
+</mapper>
