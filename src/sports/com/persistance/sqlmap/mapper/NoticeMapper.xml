@@ -9,13 +9,12 @@
 	<insert id="InsertNoticeInfo" parameterType="NoticeDTO">
 		INSERT INTO NOTICE_INFO_A
 			(
-				NOTICE_NO, TITLE, NOTICE_YN, CONTENTS, USER_NO,
+				 TITLE, NOTICE_YN, CONTENTS, USER_NO,
 				REG_USER_NO, REG_DT, CHG_USER_NO, CHG_DT 				
 			)
 		VALUES(
-			(SELECT IFNULL(MAX(A.NOTICE_NO),0)+1 FROM NOTICE_INFO_A A),
 			#{TITLE}, #{NOTICE_YN}, #{CONTENTS}, #{USER_NO}, #{USER_NO}, NOW(), #{USER_NO}, NOW()	
-		)	
+			)	
 	</insert>
 	
 	<select id="getNoticeDetailInfo" resultType="NoticeDTO">

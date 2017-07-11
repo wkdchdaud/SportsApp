@@ -7,6 +7,11 @@
 
 <%
 	List<NoticeDTO> nList = (List<NoticeDTO>) request.getAttribute("nList");
+	if(nList == null){
+		nList = new ArrayList<NoticeDTO>();
+	}
+	
+	
 %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -46,7 +51,8 @@
 					class="btn btn-danger square-btn-adjust">Logout</a>
 			</div>
 		</nav>
-		<!-- /. NAV TOP  -->
+		
+			<!-- 사이드 메뉴 바 -->
 		<nav class="navbar-default navbar-side" role="navigation">
 			<div class="sidebar-collapse">
 				<ul class="nav" id="main-menu">
@@ -92,7 +98,9 @@
 			</div>
 
 		</nav>
-		<!-- /. NAV SIDE  -->
+		
+		<!-- 사이드 메뉴바 끝 -->
+		
 		<div id="page-wrapper">
 			<div id="page-inner">
 				<div class="row">
@@ -116,46 +124,50 @@
 										<table class="table">
 											<thead>
 												<tr>
-													<th><font size="2px">글번호</font></th>
-													<th><font size="2px">제목</font></th>
-													<th><font size="2px">작성자</font></th>
-													<th><font size="2px">작성일</font></th>
+													<th style="width:100px"><font size="2px">글번호</font></th>
+													<th style="width:500px"><font size="2px">제목</font></th>
+													<th style="width:200px"><font size="2px">작성자</font></th>
+													<th style="width:100px"><font size="2px">작성일</font></th>
 												</tr>
 											</thead>
 											<tbody>
 												<%
 													for (NoticeDTO nDTO : nList) {
+														String title = CmmUtil.nvl(nDTO.getTITLE());
+														if(title.length()>=14){
+															title = title.substring(0,14)+"...";
+														}
 												%>
-												<tr><% if (nDTO.getNOTICE_YN().equals("1")) { %>
-													<td ><font color="orange"><b><%=nDTO.getNOTICE_NO()%></b></font></td>
+												<tr ><% if (nDTO.getNOTICE_YN().equals("1")) { %>
+													<td><font color="orange"><b><%=nDTO.getNOTICE_NO()%></b></font></td>
 													<%}else{ %>
 													<td><%=nDTO.getNOTICE_NO()%></td>
 													
 													<%}
 														if (nDTO.getNOTICE_YN().equals("1")) {
 													%>
-													<td><a
+													<td ><a
 														href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>"><font
-															color="orange"><b><%=nDTO.getTITLE()%></b></font></a></td>
+															color="orange"><b><%=title%></b></font></a></td>
 													<%
 														} else {
 													%>
-													<td><a
-														href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>"><%=nDTO.getTITLE()%></a></td>
+													<td ><a
+														href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>"><%=title%></a></td>
 													<%
 														}
 													%>
 													
 													<%	if (nDTO.getNOTICE_YN().equals("1")) { %>
-													<td><font color="orange"><b><%=nDTO.getUSER_NO()%></b></font></td>
+													<td ><font color="orange"><b><%=nDTO.getUSER_NO()%></b></font></td>
 													<%}else{ %>
-													<td><%=nDTO.getUSER_NO()%></td>
+													<td ><%=nDTO.getUSER_NO()%></td>
 													<%} %>
 													
 													<% if (nDTO.getNOTICE_YN().equals("1")) { %>
-													<td><font color="orange"><b><%=nDTO.getREG_DT()%></b></font></td>
+													<td ><font color="orange"><b><%=nDTO.getREG_DT()%></b></font></td>
 													<%}else{ %>
-													<td><%=nDTO.getREG_DT()%></td>
+													<td ><%=nDTO.getREG_DT()%></td>
 													<%} %>
 												</tr>
 												<%
@@ -171,14 +183,12 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 			<!-- /. ROW  -->
 		</div>
 		<!-- /. PAGE INNER  -->
 	</div>
 	<!-- /. PAGE WRAPPER  -->
-	</div>
 	<!-- /. WRAPPER  -->
 	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
 	<!-- JQUERY SCRIPTS -->
@@ -188,7 +198,7 @@
 	<!-- METISMENU SCRIPTS -->
 	<script src="/assets/js/jquery.metisMenu.js"></script>
 	<!-- CUSTOM SCRIPTS -->
-	<script src="/assets/js/custom.js"></script>
+	<!-- <script src="/assets/js/custom.js"></script> -->
 
 </body>
 </html>
