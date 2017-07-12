@@ -66,10 +66,16 @@ public class DataAnalysisController {
 
 	/*매출분석정보 차트 값 아작스 구현 */
 	@RequestMapping(value="sales/sale_chart")
-	public @ResponseBody List<R_testDTO> sale_chart(@RequestParam(value= "sale_date_mo") String word) throws Exception
+	public @ResponseBody List<R_testDTO> sale_chart(@RequestParam(value= "sale_date_mo") String day_date) throws Exception
 	{
-		System.out.println("word : " + word);
-		List<R_testDTO> sList = analysisService.getSalesInfo();
+		System.out.println("word : " + day_date);
+		
+		R_testDTO rdto= new R_testDTO();
+		rdto.setSale_date(day_date);
+		
+		log.info("겟 세일데이트  :" + rdto.getSale_date());
+		
+		List<R_testDTO> sList = analysisService.sale_chart(rdto);
 		
 		
 		return sList;

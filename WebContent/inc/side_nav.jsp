@@ -1,6 +1,29 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page import="sports.com.util.CmmUtil"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <nav class="navbar-default navbar-side" role="navigation">
+<% 
+	String user_id = CmmUtil.nvl((String)session.getAttribute("user_id"));
+	String auth = CmmUtil.nvl((String)session.getAttribute("auth"));
+%>
+<nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="main.do">모두의 스포츠</a> 
+            </div>
+  <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;" id="nowDate">2017년 6월 23일
+  <%if(user_id.equals("")){ %>
+  <a href="/user/user_login.do" class="btn btn-danger square-btn-adjust">Login</a> </div>
+  <%}else{ %>
+  <a href="/user/user_logout.do" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+  <% }%>
+        </nav>   
+           <!-- /. NAV TOP  -->
+                <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
 				<li class="text-center">
@@ -26,7 +49,7 @@
                     
                     <!--학원관리-->
                     <li>
-                        <a  href="accountmanagement.do"><i class="fa fa-table fa-3x"></i> 학원관리</a>
+                        <a  href="/accountmanagement.do"><i class="fa fa-table fa-3x"></i> 학원관리</a>
                     </li>
                     
                     <!--스포츠용품리스트관리  -->
@@ -40,18 +63,18 @@
                     </li>
                     
                   
-					<!-- 커뮤니티 -->
-					<li>
+					
+					   <li>
                         <a href="#"><i class="fa fa-sitemap fa-3x"></i> 커뮤니티 관리<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="#">공지사항</a>
                             </li>
                             <li>
-                                <a href="#">QnA</a>
+                                <a href="#">Q&A</a>
                             </li>
-                        </ul>
-                   </li>
+                         </ul>
+                        </li>
                 </ul>
                
             </div>

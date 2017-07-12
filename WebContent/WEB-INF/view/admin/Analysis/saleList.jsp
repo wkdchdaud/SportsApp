@@ -19,8 +19,6 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   
-<!-- <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script> -->
-
 <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>  
 
 <%@include file="/inc/head.jsp"%>
@@ -55,23 +53,10 @@ $(function() {
 </head>
 <body>
     <div id="wrapper">
-        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="main.do">모두의 스포츠</a> 
-            </div>
-  <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;"> 
-  </div>
-        </nav>   
-           
-           <!-- 사이드 네비바 시작 -->
+
+           <!-- 사이드 네비바 및 헤더 부분 시작 -->
                <%@include file="/inc/side_nav.jsp"%>
-       	   <!-- 사이드 네비 바 끝  -->
+       	   <!-- 사이드 네비바 및 헤더 부분 끝  -->
         
         <div id="page-wrapper" >
             	<div id="page-inner">
@@ -138,27 +123,27 @@ $(function() {
                                     				<tbody>
 														<tr>
 															<td>1</td>
-															<td><%= rank_list.get(0).getSum_price() %></td>
+															<td><%= rank_list.get(0).getName() %></td>
 														</tr>
 														
 														<tr>
 															<td>2</td>
-															<td><%= rank_list.get(1).getSum_price() %></td>
+															<td><%= rank_list.get(1).getName() %></td>
 														</tr>
 														
 														<tr>
 															<td>3</td>
-															<td><%= rank_list.get(2).getSum_price() %></td>
+															<td><%= rank_list.get(2).getName() %></td>
 														</tr>
 														
 														<tr>
 															<td>4</td>
-															<td><%= rank_list.get(3).getSum_price() %></td>
+															<td><%= rank_list.get(3).getName() %></td>
 														</tr>
 														
 														<tr>
 															<td>5</td>
-															<td><%= rank_list.get(4).getSum_price() %></td>
+															<td><%= rank_list.get(4).getName() %></td>
 														</tr>
 														
                                     				</tbody>
@@ -200,20 +185,26 @@ $(function() {
     	 Morris.Bar({
              element: 'morris-bar-chart',
              data: [{
-                 a: <%=sale_list.get(0).getSum_price()%>,
+                 a: '<%=sale_list.get(0).getSum_price()%>',
                  y: '<%=sale_list.get(0).getSale_date()%>'
              }, {
-                 a: <%=sale_list.get(1).getSum_price()%>,
+                 a: '<%=sale_list.get(1).getSum_price()%>',
                  y: '<%=sale_list.get(1).getSale_date()%>'
              }, {
-                 a: <%=sale_list.get(2).getSum_price()%>,
+                 a: '<%=sale_list.get(2).getSum_price()%>',
                  y: '<%=sale_list.get(2).getSale_date()%>'
              }, {
-                 a: <%=sale_list.get(3).getSum_price()%>,
+                 a: '<%=sale_list.get(3).getSum_price()%>',
                  y: '<%=sale_list.get(3).getSale_date()%>'
              }, {
-                 a: <%=sale_list.get(4).getSum_price()%>,
+                 a: '<%=sale_list.get(4).getSum_price()%>',
                  y: '<%=sale_list.get(4).getSale_date()%>'
+             }, {
+                 a: '<%=sale_list.get(5).getSum_price()%>',
+                 y: '<%=sale_list.get(5).getSale_date()%>'
+             }, {
+                 a: '<%=sale_list.get(6).getSum_price()%>',
+                 y: '<%=sale_list.get(6).getSale_date()%>'
              }
              ],
              xkey: 'y',
@@ -236,6 +227,9 @@ $(function() {
     			var dt ="";
     			var arr = new Array();
     			$.each(data, function(key, value){
+/*     				if(value.sum_price==null){
+    					dt={y : "2000-11-11", a:0}
+    				} */
     				dt={y: value.sale_date, a: value.sum_price}
     				arr.push(dt)
     	});

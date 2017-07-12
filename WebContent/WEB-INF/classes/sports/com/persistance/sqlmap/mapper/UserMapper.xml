@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sports.com.persistance.mapper.UserMapper">
+	<insert id="join_proc" parameterType="UserDTO">
+		INSERT INTO USER_INFO
+		 (USER_NO,USER_ID, PASSWORD, USER_NAME, EMAIL, EMAIL_FIRST, TEL, AUTH, DELETE_YN, REG_USER_NO, REG_DT)
+		VALUES
+		 (#{user_no},#{user_id},#{password},#{user_name},#{email},'N',#{tel},'U','N',#{user_no},NOW())
+	</insert>
+	
+	<select id="get_Max_Userno" resultType="UserDTO">
+		SELECT IFNULL(MAX(USER_NO),10000000) +1 AS USER_NO FROM USER_INFO
+	</select>
+	
+	<select id="login_proc" resultType="UserDTO" parameterType="UserDTO">
+		SELECT USER_NO, USER_ID, AUTH FROM USER_INFO
+		 WHERE USER_ID = #{user_id} and PASSWORD = #{password}
+	</select>
+	
+	<select id="getUser_list" resultType="UserDTO">
+		SELECT USER_NO, USER_ID, USER_NAME, EMAIL, TEL FROM USER_INFO
+	</select>
+	
+	<select id="getUser_info" resultType="UserDTO" parameterType="UserDTO">
+		SELECT USER_NO, USER_ID, USER_NAME, EMAIL, EMAIL_FIRST, TEL, AUTH, DELETE_YN
+		 FROM USER_INFO
+		WHERE USER_NO = #{user_no}
+	</select>
+	
+	<update id="update_User" parameterType="UserDTO">
+		UPDATE USER_INFO
+		 SET PASSWORD = #{password},
+		USER_NAME = #{user_name},
+		 TEL = #{tel},
+		USER_ID = #{user_id},
+		 EMAIL = #{email}
+		WHERE USER_NO = #{user_no}
+	</update>
+	
+	<update id="update_User_NP" parameterType="UserDTO">
+		UPDATE USER_INFO
+		 SET USER_NAME = #{user_name},
+		TEL = #{tel},
+		 USER_ID = #{user_id},
+		EMAIL = #{email}
+		 WHERE USER_NO = #{user_no}
+	</update>
+	
+	<delete id="delete_user" parameterType="UserDTO">
+		DELETE FROM USER_INFO
+		 WHERE USER_NO = #{user_no}
+	</delete>
+	
+	<update id="update_emailCK" parameterType="UserDTO">
+		UPDATE USER_INFO
+		 SET EMAIL_FIRST = 'Y'
+		WHERE USER_NO = #{user_no}
+	</update>
+	
+	<select id="getID_found" parameterType="UserDTO" resultType="UserDTO">
+		SELECT USER_ID, EMAIL FROM USER_INFO
+		 WHERE USER_NAME = #{user_name} AND EMAIL = #{email}
+	</select>
+	
+	<update id="email_send_id" parameterType="UserDTO">
+		UPDATE USER_INFO
+		 SET EMAIL_CK = #{email_ck}
+		WHERE USER_ID = #{user_id}
+	</update>
+	
+	<select id="getUser_ID" parameterType="UserDTO" resultType="UserDTO">
+		SELECT USER_ID FROM USER_INFO
+		 WHERE USER_NAME = #{user_name} AND EMAIL = #{email} AND EMAIL_CK = #{email_ck}
+	</select>
+	
+	<select id="getpw_found" parameterType="UserDTO" resultType="UserDTO">
+		SELECT USER_NO, EMAIL FROM USER_INFO
+		 WHERE USER_ID = #{user_id} AND USER_NAME = #{user_name} AND EMAIL = #{email}
+	</select>
+	
+	<select id="get_pwfound" parameterType="UserDTO" resultType="UserDTO">
+		SELECT USER_NO FROM USER_INFO
+		 WHERE USER_NAME = #{user_name} AND EMAIL = #{email} AND EMAIL_CK = #{email_ck} AND USER_ID = #{user_id}
+	</select>
+	
+	<update id="email_send_pw" parameterType="UserDTO">
+		UPDATE USER_INFO
+		 SET EMAIL_CK = #{email_ck}
+		WHERE USER_NO = #{user_no}
+	</update>
+	
+	<update id="password_change" parameterType="UserDTO">
+		UPDATE USER_INFO
+		 SET PASSWORD = #{password}
+		WHERE USER_NO = #{user_no}
+	</update>
+</mapper>

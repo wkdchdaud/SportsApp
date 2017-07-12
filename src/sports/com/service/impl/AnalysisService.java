@@ -19,20 +19,24 @@ public class AnalysisService implements IAnalysisService{
 	private AnalysisMapper analysisMapper;
 	
 	private Logger log = Logger.getLogger(this.getClass());
-	
-	@Override
-		public List<R_testDTO> getSalesInfo() throws Exception{
-		//Map<String, Object> map= new HashMap<String, Object>();
-		//map.put("sale_Info", analysisMapper.getSalesInfo() );
-	    //map.put("sale_Rank", analysisMapper.getSaleRank());
-			analysisMapper.getSalesInfo();
-			
-			return 	analysisMapper.getSalesInfo();
+		/*매출 분석 정보 시작 */
+
+	// 매출분석정보 처음 접속시 뿌려지는 모리스 js 값과 테이블값
+		@Override
+			public List<R_testDTO> getSalesInfo() throws Exception{
+				
+				return 	analysisMapper.getSalesInfo();
 		}
 		@Override 
 		public List<R_testDTO> getSaleRank() throws Exception{
 			
 			return analysisMapper.getSaleRank();
+		}
+		
+		@Override
+		public List<R_testDTO> sale_chart(R_testDTO rdto) throws Exception{
+			
+			return analysisMapper.sale_chart(rdto);
 		}
 		
 	@Override

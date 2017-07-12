@@ -2,24 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sports.com.persistance.mapper.AnalysisMapper">
 
+<!-- 매출 분석 정보 처음 띄울 모리스 js 데이터 -->
 <select id="getSalesInfo" resultType="R_testDTO">
 	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE, SALE_DATE
 	FROM R_TEST 
-	WHERE SALE_DATE BETWEEN DATE_ADD(SALE_DATE, INTERVAL -6 DAY) AND NOW() 
+	WHERE SALE_DATE BETWEEN DATE_ADD(NOW(), INTERVAL -7 DAY) AND NOW() 
 	GROUP BY SALE_DATE 
 	ORDER BY SALE_DATE;
 </select>
 
-<select id="getSaleRank" resultType="R_TestDTO">
-	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE, SALE_DATE
+<!-- 매출 분석 정보 처음 띄울 테이블 매출 종목 순위 데이터 -->
+<select id="getSaleRank" resultType="R_testDTO">
+  	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE, SALE_DATE, NAME
 	FROM R_TEST 
-	WHERE SALE_DATE BETWEEN DATE_ADD(SALE_DATE, INTERVAL -6 DAY) AND NOW() 
-	GROUP BY SALE_DATE 
+	WHERE SALE_DATE BETWEEN DATE_ADD(NOW(), INTERVAL -7 DAY) AND NOW() 
+	GROUP BY NAME 
 	ORDER BY SUM_PRICE DESC;
 </select>
 
+<!-- 아작스 매출 분석 정보 모리스 js 일별 -->
+<select id="sale_chart" resultType="R_testDTO" parameterType="R_testDTO">
+	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE, SALE_DATE
+	FROM R_TEST 
+	WHERE SALE_DATE BETWEEN DATE_ADD(#{sale_date}, INTERVAL -7 DAY) AND #{sale_date} 
+	GROUP BY SALE_DATE 
+	ORDER BY SALE_DATE;
+</select>
+
+<!-- 매출 분석 정보 처음 띄울 테이블 매출 종목 순위 데이터 -->
+<select id="sale_table" resultType="R_testDTO">
+  	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE, SALE_DATE, NAME
+	FROM R_TEST 
+	WHERE SALE_DATE BETWEEN DATE_ADD(#{sale_date}, INTERVAL -7 DAY) AND #{sale_date} 
+	GROUP BY NAME 
+	ORDER BY SUM_PRICE DESC;
+</select>
+
+
+
 <select id="getAnalysis" resultType="R_testDTO">
-SELECT NAME, PRICE, SALE_DATE FROM R_TEST
+SELECT NAME, PRICE, SALE_DATE FROM R_TEST;
 </select>
 
 </mapper>
