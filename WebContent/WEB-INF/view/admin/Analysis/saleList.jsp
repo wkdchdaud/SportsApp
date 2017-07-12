@@ -44,11 +44,9 @@ $(function() {
     	/* altField : '#getdate' */
     	});
 
+    alert($("#star_val").text());
     /*  datepicker 시작 */
-
 });
-
-
 </script>
 </head>
 <body>
@@ -76,6 +74,7 @@ $(function() {
 											  </ul>
 											</div></center>
 											<br/>
+											<div id="star_val">
 											<center>
 											 <a href="#" class="btn btn-warning btn-xs">일별</a>
 											 <a href="#" class="btn btn-warning btn-xs">주별</a>
@@ -83,6 +82,7 @@ $(function() {
 											 <a href="#" class="btn btn-warning btn-xs">분기별</a>
 											 <a href="#" class="btn btn-warning btn-xs">연도별</a>
 											</center>
+											</div>
 					<br/>						
 					
 					<!-- 데이트 피커 달력 버튼  input으로만 가능하다.-->
@@ -120,7 +120,7 @@ $(function() {
 				                                            <th style="text-align: center">종목</th>
                                         				</tr>
                                     				</thead>
-                                    				<tbody>
+                                    				<tbody id="table_date_ajax">
 														<tr>
 															<td>1</td>
 															<td><%= rank_list.get(0).getName() %></td>
@@ -181,6 +181,67 @@ $(function() {
    <!-- <script src="/assets/js/custom.js"></script> --> 
     
     <script type="text/javascript">
+    
+    /* 모리스 js 매출 분석 정보 달력 클릭시 마다 바뀌는 함수*/
+    function sale_moris_day(sale_date_mo){
+  	  $.ajax({
+  		url: "sale_chart.do",
+  		method: "post",
+  		data: {
+  			'sale_date_mo' : sale_date_mo
+  		},
+  		dataType: "json",
+  		success : function(data){
+  			var dt ="";
+  			var arr = new Array();
+  			$.each(data, function(key, value){
+/*     				if(value.sum_price==null){
+  					dt={y : "2000-11-11", a:0}
+  				} */
+  				dt={y: value.sale_date, a: value.sum_price}
+  				arr.push(dt)
+  											});
+  			console.log(arr)
+				/*  네비바 */
+				 Morris.Bar({
+                  element: 'morris-bar-chart',
+                  data: arr,
+                  xkey: 'y',
+                  ykeys: ['a'],
+                  labels: ['매출'],
+                  hideHover: 'auto',
+                  resize: true
+            
+              });
+			}			      
+		});   
+    }
+    /* 모리스 js 매출 분석 정보 달력 클릭시 마다 바뀌는 함수 끝*/
+    
+    /* 매출분석 정보 테이블마다 바뀌는 함수 */
+    function sale_table_day(sale_date_mo){
+    	$.ajax({
+    		url : "sale_table.do",
+    		method : "post",
+    		data : {
+    			'sale_date_mo': sale_date_mo
+    		},
+    		dataType:"json",
+    		success:function(data){
+    		var cont= "";
+    		var cnt= 1;
+    		$.each(data, function(key, value){
+    			cont +="<tr> <td>"+ cnt +"</td><td>"+value.name+"</td></tr>";
+    			cnt++;
+    			
+    		})
+    		$('#table_date_ajax').html(cont);
+    		console.log(data);
+    		}
+    	});
+    }
+    
+    /* 매출분석 정보 테이블마다 바뀌는 함수끝 */
     $(function() {
     	 Morris.Bar({
              element: 'morris-bar-chart',
@@ -215,40 +276,17 @@ $(function() {
     	 
       $( "#testDatepicker" ).change(function() {
     	  $('#morris-bar-chart').html(null);
+    	  $('#table_date_ajax').html(null);
     	  var sale_date_mo = $('#testDatepicker').val();
-    	$.ajax({
-    		url: "sale_chart.do",
-    		method: "post",
-    		data: {
-    			'sale_date_mo' : sale_date_mo
-    		},
-    		dataType: "json",
-    		success : function(data){
-    			var dt ="";
-    			var arr = new Array();
-    			$.each(data, function(key, value){
-/*     				if(value.sum_price==null){
-    					dt={y : "2000-11-11", a:0}
-    				} */
-    				dt={y: value.sale_date, a: value.sum_price}
-    				arr.push(dt)
-    	});
-    			console.log(arr)
- 				/*  네비바 */
- 				 Morris.Bar({
-                    element: 'morris-bar-chart',
-                    data: arr,
-                    xkey: 'y',
-                    ykeys: ['a'],
-                    labels: ['매출'],
-                    hideHover: 'auto',
-                    resize: true
-              
-                });
- 			 }      
- 				 });   
+    	/* 모리스 js 함수 호출   */
+    	sale_moris_day(sale_date_mo);
+    	/* 모리스 js 끝  */
+    	
+    	/* 테이블 아작스 실행 */
+		sale_table_day(sale_date_mo);    	
+    	/* 테이블 아작스 끝 */
     });
-      });
+  });
 </script>
    
 </body>

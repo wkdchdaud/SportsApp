@@ -41,10 +41,12 @@ public class DataAnalysisController {
 		//Map<String, Object> sales_list = analysisService.getSalesInfo();
 		/*맵 처리 해주자 형변환 하라는데 무슨소릴까 서비스랑도 다봐야 할지도*/
 		//model.addAttribute("sales_list", sales_list);
-
-		List<R_testDTO> rList = analysisService.getSaleRank();
+		
+		//매출 분석 정보 처음 모리스 js 값 오늘 날짜
 		List<R_testDTO> sList = analysisService.getSalesInfo();
-				
+		//매출분석 정보 처음 매출 순위 정보 테이블 오늘 날짜 디폴트 
+		List<R_testDTO> rList = analysisService.getSaleRank();
+		
 		if(rList == null){
 			rList = new ArrayList<R_testDTO>();
 		}
@@ -64,7 +66,7 @@ public class DataAnalysisController {
 		return "/admin/Analysis/saleList";
 	}
 
-	/*매출분석정보 차트 값 아작스 구현 */
+	/*매출 분석 정보 모리스js 차트 값 아작스 구현 */
 	@RequestMapping(value="sales/sale_chart")
 	public @ResponseBody List<R_testDTO> sale_chart(@RequestParam(value= "sale_date_mo") String day_date) throws Exception
 	{
@@ -76,10 +78,31 @@ public class DataAnalysisController {
 		log.info("겟 세일데이트  :" + rdto.getSale_date());
 		
 		List<R_testDTO> sList = analysisService.sale_chart(rdto);
-		
+
+		rdto=null;
 		
 		return sList;
 	}
+	
+	//매출 분석 정보 매출 순위 정보 테이블로 아작스 구현
+	@RequestMapping(value="sales/sale_table")
+	public @ResponseBody List<R_testDTO> sale_table(@RequestParam(value="sale_date_mo") String day_date) throws Exception
+	{
+		log.info("day_date : " + day_date);
+		
+		R_testDTO rdto = new R_testDTO();
+		
+		rdto.setSale_date(day_date);
+		
+		List<R_testDTO> tlist = analysisService.sale_table(rdto);
+		
+		log.info("sale_table (세일데이트): "+rdto.getSale_date());
+		
+		rdto=null;
+		
+		return tlist;
+	}
+	
 /*	Json으로 데이터 받기 예제
 	@RequestMapping(value = "rTest")
 	public @ResponseBody List<R_testDTO> rtest() throws Exception{

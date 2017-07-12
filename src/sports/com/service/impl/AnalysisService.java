@@ -19,9 +19,9 @@ public class AnalysisService implements IAnalysisService{
 	private AnalysisMapper analysisMapper;
 	
 	private Logger log = Logger.getLogger(this.getClass());
+		
 		/*매출 분석 정보 시작 */
-
-	// 매출분석정보 처음 접속시 뿌려지는 모리스 js 값과 테이블값
+		// 매출분석정보 처음 접속시 뿌려지는 모리스 js 값과 테이블값
 		@Override
 			public List<R_testDTO> getSalesInfo() throws Exception{
 				
@@ -33,16 +33,23 @@ public class AnalysisService implements IAnalysisService{
 			return analysisMapper.getSaleRank();
 		}
 		
+		//아작스 일별 매출 분석 정보 모리스 js
 		@Override
 		public List<R_testDTO> sale_chart(R_testDTO rdto) throws Exception{
 			
 			return analysisMapper.sale_chart(rdto);
 		}
 		
-	@Override
-		public List<R_testDTO> getAnalysisList() throws Exception{
-			return analysisMapper.getAnalysis();
+		//아작스 일별 매출 분석 정보 테이블 매출 순위 
+		@Override public List<R_testDTO> sale_table(R_testDTO rdto) throws Exception{
+			
+			return analysisMapper.sale_table(rdto);
 		}
+		/*연관성분석*/
+		@Override
+			public List<R_testDTO> getAnalysisList() throws Exception{
+				return analysisMapper.getAnalysis();
+			}
 		
 	}
 
