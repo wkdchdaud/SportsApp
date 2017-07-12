@@ -10,7 +10,7 @@
 	}
 %><%-- <%for(TestDTO testDTO : list){ %>
 	<%=testDTO.getAb() %>&nbsp;|&nbsp;<%=testDTO.getBc() %>
-<%} %> --%>
+<%} %> --%><!-- 장총명 젠킨슨에 깃허브 올라간거 확인 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
