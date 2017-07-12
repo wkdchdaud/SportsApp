@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+ <!-- 
+ # Log4j Setting file
+log4j.rootLogger=INFO, DEBUG,console
+
+# Daily file log
+log4j.appender.logfile=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.logfile.File=C:/Data/Log/data.log
+log4j.appender.logfile.DatePattern='.'yyyy-MM-dd
+log4j.appender.logfile.layout=org.apache.log4j.PatternLayout
+log4j.appender.logfile.layout.ConversionPattern=[%d{HH:mm:ss}][%-5p](%F:%L)-%m%n
+
+# Console log
+log4j.appender.console=org.apache.log4j.ConsoleAppender
+log4j.appender.console.layout=org.apache.log4j.PatternLayout
+log4j.appender.console.layout.ConversionPattern=%-5p%l -%m%n
+
+# log level and appender
+log4j.logger.name.of.the.package.one=DEBUG, console
+log4j.logger.name.of.the.package.two=INFO, logfile
+ 
+ -->
+    <!-- Appenders -->
+    <appender name="logfile" class="org.apache.log4j.DailyRollingFileAppender">
+    	<param name="File" value="C:/Data/Log/data.log" />
+    	<param name="DatePattern" value="'.'yyyy-MM-dd" />
+    	<layout class="org.apache.log4j.PatternLayout">
+	    	<param name="ConversionPattern" value="[%d{HH:mm:ss}][%-5p](%F:%L)-%m%n" />
+    	</layout>
+    </appender>
+    
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p%l -%m%n" />
+        </layout>  
+    </appender>
+     
+    <!-- Application Loggers -->
+    <logger name="name.of.the.package.one">
+        <level value="DEBUG" />
+        <appender-ref ref="console"/>
+    </logger>
+    
+    <logger name="name.of.the.package.two">
+        <level value="INFO" />
+        <appender-ref ref="logfile"/>
+    </logger>
+</log4j:configuration>
