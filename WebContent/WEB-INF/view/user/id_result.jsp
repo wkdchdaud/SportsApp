@@ -1,3 +1,4 @@
+<%@page import="sports.com.util.AES256Util"%>
 <%@page import="sports.com.util.CmmUtil"%>
 <%@page import="sports.com.dto.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -15,7 +16,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>아이디 : <%=CmmUtil.nvl(uDTO.getUser_id()) %></h1>
+<h1>아이디 : <%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getUser_id())) %></h1>
 <a href="/user/user_login.do">로그인</a><br/>
 <a href="/user/pw_found.do">비밀번호 찾기</a>
 </body>

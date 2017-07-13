@@ -62,6 +62,7 @@
 	function ck(msg) {
 		if(msg == "T"){
 			var f = document.getElementById("f");
+			f.id.readOnly = true;
 			f.name.readOnly = true;
 			f.email.readOnly = true;
 			alert('인증번호를 발송하였습니다.');
