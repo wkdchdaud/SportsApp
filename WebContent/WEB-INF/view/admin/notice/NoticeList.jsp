@@ -253,7 +253,7 @@ function edit(){
 									value="글쓰기" /> 
 									<input type="button" onclick="edit()"
 									value="편집" /> 
-									<input type="button" onclick="delete(this.form)"
+									<input type="submit" 
 									id="delete" value="삭제" />
 							</form>
 						</div>

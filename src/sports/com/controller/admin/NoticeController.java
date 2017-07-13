@@ -182,7 +182,7 @@ public class NoticeController {
 	}
 	
 	
-	@RequestMapping(value="/admin/notice/NoticeCheckboxDelete",method=RequestMethod.GET)
+	@RequestMapping(value="/admin/notice/NoticeCheckboxDelete",method=RequestMethod.POST)
 	public String NoticeCheckboxDelete(HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws Exception{
 		log.info("welcome /admin/NoticeCheckboxDelete");
@@ -198,10 +198,6 @@ public class NoticeController {
 			noticeService.deleteNoticeInfo(nDTO);
 	
 		}
-		
-		
-		
-		
 		
 		model.addAttribute("msg","삭제완료");
 		model.addAttribute("url","/admin/notice/NoticeList.do");
