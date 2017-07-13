@@ -181,5 +181,28 @@ public class NoticeController {
 		return "/admin/notice/redirect";
 	}
 	
+	
+	@RequestMapping(value="/admin/notice/NoticeCheckboxDelete",method=RequestMethod.POST)
+	public String NoticeCheckboxDelete(HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception{
+		log.info("welcome /admin/NoticeCheckboxDelete");
+		
+		String[] deleteSelect = request.getParameterValues("deleteSelect");
+		
+		NoticeDTO nDTO = new NoticeDTO();
+		
+		for(int i =0; i<deleteSelect.length;i++){
+		
+			nDTO.setNOTICE_NO(deleteSelect[i]);
+		
+			noticeService.deleteNoticeInfo(nDTO);
+	
+		}
+		
+		model.addAttribute("msg","삭제완료");
+		model.addAttribute("url","/admin/notice/NoticeList.do");
+		
+		return "/admin/notice/redirect";
+	}
 }
 

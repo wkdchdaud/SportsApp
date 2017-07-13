@@ -3,7 +3,7 @@
 <mapper namespace="sports.com.persistance.mapper.NoticeMapper">
 	<select id="getNoticeList" resultType="NoticeDTO">
 		SELECT NOTICE_NO, TITLE, CONTENTS, NOTICE_YN , REG_USER_NO, DATE_FORMAT(REG_DT, '%Y-%m-%d') AS REG_DT, 
-		CHG_USER_NO, USER_NO, CHG_DT FROM NOTICE_INFO_A  ORDER BY NOTICE_YN, REG_DT DESC
+		CHG_USER_NO, USER_NO, CHG_DT FROM NOTICE_INFO_A  ORDER BY NOTICE_YN, NOTICE_NO DESC
 	</select>
 	
 	<insert id="InsertNoticeInfo" parameterType="NoticeDTO">
