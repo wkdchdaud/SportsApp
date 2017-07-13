@@ -1,3 +1,4 @@
+<%@page import="sports.com.util.AES256Util"%>
 <%@page import="sports.com.util.CmmUtil"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
@@ -39,10 +40,10 @@
 		%>
 		<tr>
 			<td><%=CmmUtil.nvl(uDTO.getUser_no()) %></td>
-			<td><a href="/user/user_info.do?user_no=<%=CmmUtil.nvl(uDTO.getUser_no())%>"><%=CmmUtil.nvl(uDTO.getUser_id()) %></a></td>
-			<td><%=CmmUtil.nvl(uDTO.getUser_name()) %></td>
-			<td><%=CmmUtil.nvl(uDTO.getEmail()) %></td>
-			<td><%=CmmUtil.nvl(uDTO.getTel()) %></td>
+			<td><a href="/user/user_info.do?user_no=<%=CmmUtil.nvl(uDTO.getUser_no())%>"><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getUser_id())) %></a></td>
+			<td><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getUser_name())) %></td>
+			<td><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getEmail())) %></td>
+			<td><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getTel())) %></td>
 		</tr>
 		<% }%>
 	
