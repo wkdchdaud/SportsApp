@@ -10,6 +10,7 @@ public class ProductInfoDTO {
 	private String reg_dt;
 	private String chg_user_no;
 	private String chg_dt;
+	
 	public String getProd_no() {
 		return prod_no;
 	}

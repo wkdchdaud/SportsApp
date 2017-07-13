@@ -52,6 +52,29 @@ public class ProductInfoService implements IProductInfoService {
 		productInfoMapper.ProductInfoUpdate(productInfoDTO);
 		
 	}
+
+
+	@Override
+	public List<ProductInfoDTO> getAllSearch(ProductInfoDTO bDTO) throws Exception {
 	
+		return productInfoMapper.getAllSearch(bDTO);
+	}
+
+
+	@Override
+	public List<ProductInfoDTO> getHighpriceSearch(ProductInfoDTO bDTO) throws Exception {
+	
+		return productInfoMapper.getHighpriceSearch(bDTO);
+	}
+
+
+	@Override
+	public List<ProductInfoDTO> getLowpriceSearch(ProductInfoDTO bDTO) throws Exception {
+
+		return productInfoMapper.getLowpriceSearch(bDTO);
+	}
+
+
+
 
 }
