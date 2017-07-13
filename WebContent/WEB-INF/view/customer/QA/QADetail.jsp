@@ -14,17 +14,67 @@ if (rDTO==null) {
 String qa_no = CmmUtil.nvl(request.getParameter("qa_no"));
 String ss_user_no = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO"));
 
+int edit = 1;
+
+if (ss_user_no.equals("")) {
+	
+	edit = 3;
+	
+} else if (ss_user_no.equals(CmmUtil.nvl(rDTO.getReg_user_no()))) {
+	
+	edit = 2;
+	
+}
+
 System.out.println("user_no: " + CmmUtil.nvl(rDTO.getReg_user_no()));
 System.out.println("ss_user_no: " + ss_user_no);
 %>   
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Q&A 답글 상세(스포츠 학원 사업자)</title>
+<title>Q&A 상세(스포츠 학원 사업자)</title>
 <script type="text/javascript">
 
+function doEdit() {
+	
+	if ("<%=edit%>"==2) {
+		
+		location.href="/customer/QA/QAEdit.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>";
+		
+	} else if ("<%=edit%>"==3) {
+		
+		alert("로그인을 하시기 바랍니다.");
+		
+	} else {
+		
+		alert("본인이 작성한 게시글만 수정 가능합니다.");
+		
+	}
+	
+}
+
+function doDelete() {
+	
+	if ("<%=edit%>"==2) {
+		
+		if (confirm("작성한 게시글을 삭제하시겠습니까?")) {
+			location.href="/customer/QA/QADelete.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>";
+		}
+		
+	} else if ("<%=edit%>"==3) {
+		
+		alert("로그인을 하시기 바랍니다.");
+		
+	} else {
+		
+		alert("본인이 작성한 게시글만 삭제 가능합니다.");
+		
+	}
+	
+}
+
 function doList() {
-	location.href="/user/QA/QAList.do";
+	location.href="/customer/QA/QAList.do";
 }
 
 </script>	
@@ -61,7 +111,9 @@ function doList() {
 	
 		<tr>
 			<td align="center" colspan="4">
-				<input type="button" value="목록" onclick="location.href='javascript:doList();' "/>
+				<input type="button" value="수정" onclick="location.href='javascript:doEdit();' " />
+				<input type="button" value="삭제" onclick="location.href='javascript:doDelete();' " />
+				<input type="button" value="목록" onclick="location.href='javascript:doList();' " />
 			</td>
 		</tr>	
 		

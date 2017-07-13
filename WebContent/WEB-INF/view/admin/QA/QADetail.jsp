@@ -111,9 +111,9 @@ function doList() {
 	
 		<tr>
 			<td align="center" colspan="4">
-				<input type="button" value="답글" onclick="location.href='/admin/QA/QAAnswerReg.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>&answer_yn=<%=CmmUtil.nvl(rDTO.getAnswer_yn())%>' "/>
-				<input type="button" value="삭제" onclick="location.href='javascript:doDelete();' "/>
-				<input type="button" value="목록" onclick="location.href='javascript:doList();' "/>
+				<input type="button" value="답글" onclick="location.href='/admin/QA/QAAnswerReg.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>&answer_yn=<%=CmmUtil.nvl(rDTO.getAnswer_yn())%>' " />
+				<input type="button" value="삭제" onclick="location.href='javascript:doDelete();' " />
+				<input type="button" value="목록" onclick="location.href='javascript:doList();' " />
 			</td>
 		</tr>	
 		

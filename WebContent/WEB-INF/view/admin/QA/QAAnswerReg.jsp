@@ -140,7 +140,7 @@ function calBytes(str) {
 		<tr>
 			<td align="center" colspan="2">
 				<input type="submit" value="등록" />
-				<input type="button" value="목록" onclick="location.href='/admin/QA/QAList.do' "/>
+				<input type="button" value="목록" onclick="location.href='/admin/QA/QAList.do' " />
 			</td>
 		</tr>
 				

@@ -19,13 +19,13 @@ import sports.com.service.IQAService;
 import sports.com.util.CmmUtil;
 
 @Controller
-public class UserQAController {
+public class CustomerQAController {
 	private Logger log = Logger.getLogger(this.getClass());
 	
 	@Resource(name = "QAService") 
 	private IQAService qaService;
 	
-	@RequestMapping(value="user/QA/QAList", method=RequestMethod.GET)
+	@RequestMapping(value="customer/QA/QAList", method=RequestMethod.GET)
 	public String QAList(HttpServletRequest request, HttpServletResponse response, 
 			ModelMap model) throws Exception {
 		
@@ -43,11 +43,11 @@ public class UserQAController {
 		
 		log.info(this.getClass().getName() + ".QAList end!");
 		
-		return "/user/QA/QAList";
+		return "/customer/QA/QAList";
 		
 	}
 	
-	@RequestMapping(value="user/QA/QAReg", method=RequestMethod.GET)
+	@RequestMapping(value="customer/QA/QAReg", method=RequestMethod.GET)
 	public String QAReg(HttpServletRequest request, HttpServletResponse response, 
 			ModelMap model) throws Exception {
 		
@@ -55,11 +55,11 @@ public class UserQAController {
 		
 		log.info(this.getClass().getName() + ".QAReg end!");
 		
-		return "/user/QA/QAReg";
+		return "/customer/QA/QAReg";
 		
 	}
 	
-	@RequestMapping(value="user/QA/QAInsert", method=RequestMethod.POST)
+	@RequestMapping(value="customer/QA/QAInsert", method=RequestMethod.POST)
 	public String QAInsert(HttpSession session, HttpServletRequest request, HttpServletResponse response, 
 			ModelMap model) throws Exception {
 		
@@ -92,14 +92,14 @@ public class UserQAController {
 			qaService.insertQADetail(qaDTO);
 
 			msg = "게시글 등록에 성공하였습니다.";
-			url = "/user/QA/QAList.do";
+			url = "/customer/QA/QAList.do";
 			
 			qaDTO = null;
 			
 		} catch (Exception e) {
 					
 			msg = "게시글 등록에 실패하였습니다." + e.toString();
-			url = "/user/QA/QAList.do";
+			url = "/customer/QA/QAList.do";
 			
 			log.info(e.toString());
 			e.printStackTrace();
@@ -117,7 +117,7 @@ public class UserQAController {
 		
 	}	
 	
-	@RequestMapping(value="user/QA/QADetail", method=RequestMethod.GET)
+	@RequestMapping(value="customer/QA/QADetail", method=RequestMethod.GET)
 	public String QADetail(HttpServletRequest request, HttpServletResponse response, 
 			ModelMap model) throws Exception {
 		
@@ -146,11 +146,11 @@ public class UserQAController {
 		
 		log.info(this.getClass().getName() + ".QADetail end!");
 		
-		return "/user/QA/QADetail";
+		return "/customer/QA/QADetail";
 		
 	}
 	
-	@RequestMapping(value="user/QA/QAEdit", method=RequestMethod.GET)
+	@RequestMapping(value="customer/QA/QAEdit", method=RequestMethod.GET)
 	public String QAEdit(HttpServletRequest request, HttpServletResponse response, 
 			ModelMap model) throws Exception {
 		
@@ -180,11 +180,11 @@ public class UserQAController {
 		
 		log.info(this.getClass().getName() + ".QAEdit end!");
 		
-		return "/user/QA/QAEdit";
+		return "/customer/QA/QAEdit";
 		
 	}
 	
-	@RequestMapping(value="user/QA/QAUpdate", method=RequestMethod.POST)
+	@RequestMapping(value="customer/QA/QAUpdate", method=RequestMethod.POST)
 	public String QAUpdate(HttpSession session, HttpServletRequest request, HttpServletResponse response, 
 			ModelMap model) throws Exception {
 		
@@ -226,7 +226,7 @@ public class UserQAController {
 			qaService.updateQADetail(qaDTO);
 			
 			msg = "게시글 수정에 성공하였습니다.";
-			url = "/user/QA/QADetail.do?qa_no=" + qa_no;
+			url = "/customer/QA/QADetail.do?qa_no=" + qa_no;
 			
 			qaDTO = null;
 			
@@ -235,7 +235,7 @@ public class UserQAController {
 			String qa_no = CmmUtil.nvl(request.getParameter("qa_no")); 
 			
 			msg = "게시글 수정에 실패하였습니다."+ e.toString();
-			url = "/user/QA/QADetail.do?qa_no=" + qa_no;
+			url = "/customer/QA/QADetail.do?qa_no=" + qa_no;
 			
 			log.info(e.toString());
 			e.printStackTrace();
@@ -253,7 +253,7 @@ public class UserQAController {
 		
 	}	
 	
-	@RequestMapping(value="user/QA/QADelete", method=RequestMethod.GET)
+	@RequestMapping(value="customer/QA/QADelete", method=RequestMethod.GET)
 	public String QADelete(HttpSession session, HttpServletRequest request, HttpServletResponse response, 
 			ModelMap model) throws Exception {
 		
@@ -275,14 +275,14 @@ public class UserQAController {
 			qaService.deleteQADetail(qaDTO);
 			
 			msg = "게시글 삭제에 성공하였습니다.";
-			url = "/user/QA/QAList.do";
+			url = "/customer/QA/QAList.do";
 			
 			qaDTO = null;
 			
 		} catch (Exception e) {
 			
 			msg = "게시글 삭제에 실패하였습니다."+ e.toString();
-			url = "/user/QA/QADetail.do";
+			url = "/customer/QA/QADetail.do";
 			
 			log.info(e.toString());
 			e.printStackTrace();
@@ -300,7 +300,7 @@ public class UserQAController {
 		
 	}	
 	
-	@RequestMapping(value="user/QA/QAAnswerDetail", method=RequestMethod.GET)
+	@RequestMapping(value="customer/QA/QAAnswerDetail", method=RequestMethod.GET)
 	public String QAAnswerDetail(HttpServletRequest request, HttpServletResponse response, 
 			ModelMap model) throws Exception {
 		
@@ -329,7 +329,7 @@ public class UserQAController {
 		
 		log.info(this.getClass().getName() + ".QAAnswerDetail end!");
 		
-		return "/user/QA/QAAnswerDetail";
+		return "/customer/QA/QAAnswerDetail";
 		
 	}
 

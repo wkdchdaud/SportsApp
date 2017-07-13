@@ -25,7 +25,7 @@ if (CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO")).equals(CmmUtil.
 <title>Q&A 답글 수정(스포츠 용품업자)</title>
 <script type="text/javascript">
 
-<%-- function doOnload() {
+function doOnload() {
 	
 	if ("<%=access%>"=="1") {
 		
@@ -34,7 +34,7 @@ if (CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO")).equals(CmmUtil.
 		
 	}
 	
-} --%>
+}
 
 function doSubmit(f) {
 	
@@ -157,7 +157,7 @@ function calBytes(str) {
 		<tr>
 			<td align="center" colspan="2">
 				<input type="submit" value="수정" />
-				<input type="button" value="이전으로" onclick="location.href='/admin/QA/QAAnswerDetail.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>' "/>
+				<input type="button" value="이전으로" onclick="location.href='/admin/QA/QAAnswerDetail.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>' " />
 			</td>
 		</tr>
 			
