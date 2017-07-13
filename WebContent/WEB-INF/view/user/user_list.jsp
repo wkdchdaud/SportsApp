@@ -1,3 +1,4 @@
+<%@page import="sports.com.util.CmmUtil"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="sports.com.dto.UserDTO"%>
@@ -37,11 +38,11 @@
 				}
 		%>
 		<tr>
-			<td><%=uDTO.getUser_no() %></td>
-			<td><a href="/user/user_info.do?user_no=<%=uDTO.getUser_no()%>"><%=uDTO.getUser_id() %></a></td>
-			<td><%=uDTO.getUser_name() %></td>
-			<td><%=uDTO.getEmail() %></td>
-			<td><%=uDTO.getTel() %></td>
+			<td><%=CmmUtil.nvl(uDTO.getUser_no()) %></td>
+			<td><a href="/user/user_info.do?user_no=<%=CmmUtil.nvl(uDTO.getUser_no())%>"><%=CmmUtil.nvl(uDTO.getUser_id()) %></a></td>
+			<td><%=CmmUtil.nvl(uDTO.getUser_name()) %></td>
+			<td><%=CmmUtil.nvl(uDTO.getEmail()) %></td>
+			<td><%=CmmUtil.nvl(uDTO.getTel()) %></td>
 		</tr>
 		<% }%>
 	

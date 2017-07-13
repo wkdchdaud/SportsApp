@@ -1,5 +1,8 @@
 package sports.com.controller.admin;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -369,5 +372,30 @@ public class UserController {
 		userDTO = null;
 		log.info("welcome /user/pw_change_proc end");
 		return "/redirect";
+	}
+	
+	@RequestMapping(value="/user/id_check",method=RequestMethod.POST)
+	public String id_check(HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception{
+		log.info("welcome /user/id_check start");
+		UserDTO userDTO = new UserDTO();
+		userDTO.setUser_id(CmmUtil.nvl(request.getParameter("id")));
+		
+		UserDTO uDTO = userService.id_check(userDTO);
+		if(uDTO == null){
+			uDTO = new UserDTO();
+		}
+		
+		if(CmmUtil.nvl(uDTO.getUser_id()).equals("")){
+			model.addAttribute("msg","Y");
+		}else{
+			if(CmmUtil.nvl(uDTO.getDelete_yn()).equals("Y")){
+				model.addAttribute("msg","Y");
+			}else{
+				model.addAttribute("msg","N");
+			}
+		}
+		log.info("welcome /user/id_check end");
+		return "/user/ch_json";
 	}
 }

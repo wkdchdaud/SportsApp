@@ -1,3 +1,4 @@
+<%@page import="sports.com.util.CmmUtil"%>
 <%@page import="sports.com.dto.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -12,6 +13,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="/js/user_js.js"></script>
 <script type="text/javascript">
 	function name(f) {
 		if(f.password.value == ""){
@@ -31,13 +33,19 @@
 			f.password.focus();
 			return false;
 		}
+		
+		if(pass_ck(f.password.value)){
+			alert('비밀번호가 조건에 적합하지 않습니다.');
+			f.password.focus();
+			return false;
+		}
 	}
-
+	
 </script>
 </head>
 <body>
 <form action="/user/pw_change_proc.do" onsubmit="return submit_ck(this)" name="f" method="post">
-<input type="hidden" name="user_no" value="<%=uDTO.getUser_no() %>"/>
+<input type="hidden" name="user_no" value="<%=CmmUtil.nvl(uDTO.getUser_no()) %>"/>
 <table border="1">
 	<tr>
 		<td>새 비밀번호</td>
@@ -54,9 +62,13 @@
 	</tr>
 	
 	<tr>
+		<td colspan="2">6~16자 영문 대 소문자, 숫자를 섞어서 사용하세요.</td>
+	</tr>
+	
+	<tr>
 		<td colspan="2" align="center">
 			<input type="submit" value="변경하기"/>
-			<input type="button" value="로그인"/>
+			<input type="button" value="로그인" onclick="location.href='/user/user_login.do'"/>
 		</td>
 	</tr>
 </table>

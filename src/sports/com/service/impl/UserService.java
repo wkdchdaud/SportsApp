@@ -132,4 +132,9 @@ public class UserService implements IUserService{
 	public void password_change(UserDTO userDTO) throws Exception {
 		userMapper.password_change(userDTO);
 	}
+
+	@Override
+	public UserDTO id_check(UserDTO userDTO) throws Exception {
+		return userMapper.id_check(userDTO);
+	}
 }

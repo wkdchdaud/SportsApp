@@ -32,5 +32,7 @@ public interface IUserService {
 
 	void password_change(UserDTO userDTO) throws Exception;
 
+	UserDTO id_check(UserDTO userDTO) throws Exception;
+
 
 }
