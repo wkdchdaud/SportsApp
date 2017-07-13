@@ -21,12 +21,26 @@ System.out.println("리스트는1= "+list.get(0).getAca_lat());
     <meta charset="utf-8">
     <title>학원 밀집도 확인</title>
     
+    
+    	<!-- BOOTSTRAP STYLES-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+     <!-- MORRIS CHART STYLES-->
+   
+        <!-- CUSTOM STYLES-->
+    <link href="assets/css/custom.css" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+     <!-- TABLE STYLES-->
+    <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    
 </head>
 <body>
 <div id="map" style="width:100%;height:700px;"></div>
 
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=b34cca89fa889023148b105f661c797d&libraries=services"></script>
-<script>
+<script type="text/javascript">
 var MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
     MARKER_HEIGHT = 36, // 기본, 클릭 마커의 높이
     OFFSET_X = 12, // 기본, 클릭 마커의 기준 X좌표
@@ -91,12 +105,17 @@ var positions = [  // 마커의 위치
 	<%}%>
     ],
     selectedMarker = null; //클릭한 마커를 담을 변수
- 
-<%--  var aca_name =  [
+
+    
+    
+    
+    
+    //날려버려 씨빨럼아
+<%--   var aca_name =  [{
 	<%
 	for(int i=0; i<Name.size(); i++){ %>
-	new aca_name(<%=Name.get(i).replaceAll(" ","")%>),
-	<%}%>]  --%>
+	new aca_name(<%=Name.get(i)%>),
+	<%}%>}]   --%>
     
 	
 
@@ -104,7 +123,7 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = { 
         center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
-    
+}
 
 var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
@@ -146,7 +165,6 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
         map: map,
         position: position,
         image: normalImage
-        //name : aca_name
     });
     
     
@@ -155,7 +173,13 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
     
     
  // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-    var iwContent = '<div style="padding:5px;"><input type="text" name="123"></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+/*     var iwContent = '<div style="padding:5px;"><input type="text" name="123"></div>',  */
+    var iwContent = 
+    
+    
+    
+    
+    // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
         iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
     // 인포윈도우를 생성합니다
@@ -164,11 +188,7 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
         removable : iwRemoveable
     });
 
-    // 마커에 클릭이벤트를 등록합니다
-    daum.maps.event.addListener(marker, 'click', function() {
-          // 마커 위에 인포윈도우를 표시합니다
-          infowindow.open(map, marker);  
-    });
+
     
     
     // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
@@ -182,10 +202,14 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
  // 마커에 mouseover 이벤트를 등록합니다
     daum.maps.event.addListener(marker, 'mouseover', function() {
 
+    	
+
+    	
         // 클릭된 마커가 없고, mouseover된 마커가 클릭된 마커가 아니면
         // 마커의 이미지를 오버 이미지로 변경합니다
         if (!selectedMarker || selectedMarker !== marker) {
             marker.setImage(overImage);
+
         }
     });
 
@@ -199,37 +223,47 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
         }
     });
 
+    
+    //map을 클릭하면 열려있는 infowindow가 닫힌다.
+    daum.maps.event.addListener(map, 'click', function() {
+	infowindow.close(map,marker);
+    })
 
     // 마커에 click 이벤트를 등록합니다
     daum.maps.event.addListener(marker, 'click', function() {
 	
-    	
-     	
+
+
     	
     	
         // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
         // 마커의 이미지를 클릭 이미지로 변경합니다
-        if (!selectedMarker || selectedMarker !== marker) {
-            
-
+        if (selectedMarker !== marker) {
+        
+        	//selectedMarker가 marker가 아니면
 			
             // 클릭된 마커 객체가 null이 아니면
             // 클릭된 마커의 이미지를 기본 이미지로 변경하고
             !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
+        	
+
 
             // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
             marker.setImage(clickImage);
+            
+
         }
         
       
             	
- for (var i = 0, len = positions.length; i < len; i++) { 
+/*  for (var i = 0, len = positions.length; i < len; i++) { 
     if (positions[i].equals(list.get(i).getAca_lat,list.get(i).getAca_lng))
     	System.out.println("d");
-    	}
+    	} */
     			 
     			 
     			 
+        infowindow.open(map, marker);  
 
         // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
         selectedMarker = marker;
