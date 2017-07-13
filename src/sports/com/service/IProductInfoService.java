@@ -17,5 +17,10 @@ public interface IProductInfoService {
 	
 	void ProductInfoUpdate(ProductInfoDTO productInfoDTO)throws Exception;
 
-    
+	//조건선택 검색
+	List<ProductInfoDTO> getAllSearch(ProductInfoDTO bDTO) throws Exception;
+	List<ProductInfoDTO> getHighpriceSearch(ProductInfoDTO bDTO) throws Exception;
+	List<ProductInfoDTO> getLowpriceSearch(ProductInfoDTO bDTO) throws Exception;
+	
+	
 }

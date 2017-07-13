@@ -18,4 +18,10 @@ public interface ProductInfoMapper {
 	void ProductInfoUpdate(ProductInfoDTO productInfoDTO) throws Exception;
 	
 	
+	
+	List<ProductInfoDTO> getAllSearch(ProductInfoDTO bDTO) throws Exception;
+	List<ProductInfoDTO> getHighpriceSearch(ProductInfoDTO bDTO) throws Exception;
+	List<ProductInfoDTO> getLowpriceSearch(ProductInfoDTO bDTO) throws Exception;
+	
+	
 }
