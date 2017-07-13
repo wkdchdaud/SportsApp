@@ -7,11 +7,9 @@
 
 <%
 	List<NoticeDTO> nList = (List<NoticeDTO>) request.getAttribute("nList");
-	if(nList == null){
+	if (nList == null) {
 		nList = new ArrayList<NoticeDTO>();
 	}
-	
-	
 %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -30,8 +28,55 @@
 	rel='stylesheet' type='text/css' />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공지사항 리스트</title>
+
+<script type="text/javascript">
+
+
+
+function hiddenCheckbox(){
+	
+	var dS = document.getElementsByClassName("deleteSelect");
+		
+		for(var i =0;i<dS.length;i++){
+			dS[i].style.display = "none";
+		}
+		
+		document.getElementById("delete").style.display = "none";
+}
+
+function edit(){
+	
+	var dS = document.getElementsByClassName("deleteSelect");
+		
+	for(var i =0;i<dS.length;i++){
+		if(dS[i].style.display == "none"){
+			dS[i].style.display ="";
+				
+		}else{
+			if(dS[i].style.display == ""){
+				dS[i].style.display ="none";
+				}
+			}
+		}
+	
+	
+	if(document.getElementById("delete").style.display == ""){
+		document.getElementById("delete").style.display = "none";
+		return false;
+	}
+	
+	document.getElementById("delete").style.display = ""
+	
+}
+
+
+</script>
+
+
+
+
 </head>
-<body>
+<body onload="hiddenCheckbox()">
 	<div id="wrapper">
 		<nav class="navbar navbar-default navbar-cls-top " role="navigation"
 			style="margin-bottom: 0">
@@ -51,8 +96,8 @@
 					class="btn btn-danger square-btn-adjust">Logout</a>
 			</div>
 		</nav>
-		
-			<!-- 사이드 메뉴 바 -->
+
+		<!-- 사이드 메뉴 바 -->
 		<nav class="navbar-default navbar-side" role="navigation">
 			<div class="sidebar-collapse">
 				<ul class="nav" id="main-menu">
@@ -82,8 +127,8 @@
 							스포츠 용품 리스트 관리</a></li>
 
 					<!--매출분석정보-->
-					<li><a href="/chart1.do"><i class="fa fa-bar-chart-o fa-3x"></i>
-							매출분석정보</a></li>
+					<li><a href="/chart1.do"><i
+							class="fa fa-bar-chart-o fa-3x"></i> 매출분석정보</a></li>
 
 
 
@@ -98,9 +143,9 @@
 			</div>
 
 		</nav>
-		
+
 		<!-- 사이드 메뉴바 끝 -->
-		
+
 		<div id="page-wrapper">
 			<div id="page-inner">
 				<div class="row">
@@ -115,71 +160,102 @@
 
 					<div class="col-md-7">
 						<div class="panel panel-default" style="width: 100%">
-							<div class="panel-heading">공지사항 목록</div>
-							<!--    Context Classes  -->
-							<div class="panel panel-default" style="width: 100%">
+							<form name="f" method="post" action="/admin/notice/NoticeCheckboxDelete.do">
+								<div class="panel-heading">공지사항 목록</div>
+								<!--    Context Classes  -->
+								<div class="panel panel-default" style="width: 100%">
 
 
-								<div class="panel-body">
+									<div class="panel-body">
+
 										<table class="table">
 											<thead>
 												<tr>
-													<th style="width:100px"><font size="2px">글번호</font></th>
-													<th style="width:500px"><font size="2px">제목</font></th>
-													<th style="width:200px"><font size="2px">작성자</font></th>
-													<th style="width:100px"><font size="2px">작성일</font></th>
+													<th style="width: 100px"><font size="2px">글번호</font></th>
+													<th style="width: 500px"><font size="2px">제목</font></th>
+													<th style="width: 200px"><font size="2px">작성자</font></th>
+													<th style="width: 100px"><font size="2px">작성일</font></th>
 												</tr>
 											</thead>
 											<tbody>
 												<%
 													for (NoticeDTO nDTO : nList) {
 														String title = CmmUtil.nvl(nDTO.getTITLE());
-														if(title.length()>=14){
-															title = title.substring(0,14)+"...";
+														if (title.length() >= 14) {
+															title = title.substring(0, 14) + "...";
 														}
 												%>
-												<tr ><% if (nDTO.getNOTICE_YN().equals("1")) { %>
-													<td><font color="orange"><b><%=nDTO.getNOTICE_NO()%></b></font></td>
-													<%}else{ %>
-													<td><%=nDTO.getNOTICE_NO()%></td>
-													
-													<%}
+												<tr>
+													<%
 														if (nDTO.getNOTICE_YN().equals("1")) {
 													%>
-													<td ><a
+													<td><font color="orange"> <input
+															type="checkbox" name="deleteSelect" class="deleteSelect"
+															value="<%=nDTO.getNOTICE_NO()%>" /> <b><%=nDTO.getNOTICE_NO()%></b></font></td>
+													<%
+														} else {
+													%>
+													<td><input type="checkbox" name="deleteSelect"
+														class="deleteSelect" value="<%=nDTO.getNOTICE_NO()%>" />
+														<%=nDTO.getNOTICE_NO()%></td>
+
+													<%
+														}
+															if (nDTO.getNOTICE_YN().equals("1")) {
+													%>
+													<td><a
 														href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>"><font
 															color="orange"><b><%=title%></b></font></a></td>
 													<%
 														} else {
 													%>
-													<td ><a
+													<td><a
 														href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>"><%=title%></a></td>
 													<%
 														}
 													%>
-													
-													<%	if (nDTO.getNOTICE_YN().equals("1")) { %>
-													<td ><font color="orange"><b><%=nDTO.getUSER_NO()%></b></font></td>
-													<%}else{ %>
-													<td ><%=nDTO.getUSER_NO()%></td>
-													<%} %>
-													
-													<% if (nDTO.getNOTICE_YN().equals("1")) { %>
-													<td ><font color="orange"><b><%=nDTO.getREG_DT()%></b></font></td>
-													<%}else{ %>
-													<td ><%=nDTO.getREG_DT()%></td>
-													<%} %>
+
+													<%
+														if (nDTO.getNOTICE_YN().equals("1")) {
+													%>
+													<td><font color="orange"><b><%=nDTO.getUSER_NO()%></b></font></td>
+													<%
+														} else {
+													%>
+													<td><%=nDTO.getUSER_NO()%></td>
+													<%
+														}
+													%>
+
+													<%
+														if (nDTO.getNOTICE_YN().equals("1")) {
+													%>
+													<td><font color="orange"><b><%=nDTO.getREG_DT()%></b></font></td>
+													<%
+														} else {
+													%>
+													<td><%=nDTO.getREG_DT()%></td>
+													<%
+														}
+													%>
 												</tr>
 												<%
 													}
 												%>
 											</tbody>
 										</table>
+									</div>
 								</div>
-							</div>
-							<!--  end  Context Classes  -->
-							<input type="button"
-							onclick="location.href='/admin/notice/NoticeReg.do'" value="글쓰기" />
+								<!--  end  Context Classes  -->
+
+								<input type="button"
+									onclick="location.href='/admin/notice/NoticeReg.do'"
+									value="글쓰기" /> 
+									<input type="button" onclick="edit()"
+									value="편집" /> 
+									<input type="button" onclick="delete(this.form)"
+									id="delete" value="삭제" />
+							</form>
 						</div>
 					</div>
 				</div>
