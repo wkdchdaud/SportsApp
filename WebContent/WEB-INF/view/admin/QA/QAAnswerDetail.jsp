@@ -28,7 +28,8 @@ if (ss_user_no.equals("")) {
 
 System.out.println("user_no: " + CmmUtil.nvl(rDTO.getReg_user_no()));
 System.out.println("ss_user_no: " + ss_user_no);
-%>   
+%>
+<!DOCTYPE html>   
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
@@ -47,17 +48,17 @@ function doAnswerEdit() {
 		
 	} else {
 		
-		alert("본인이 작성한 게시글만 수정 가능합니다.");
+		alert("본인이 작성한 답글만 수정 가능합니다.");
 		
 	}
 	
 }
 
 function doAnswerDelete() {
-	
+
 	if ("<%=edit%>"==2) {
 		
-		if (confirm("작성한 게시글을 삭제하시겠습니까?")) {
+		if (confirm("작성한 답글을 삭제하시겠습니까?")) {
 			location.href="/admin/QA/QAAnswerDelete.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>";
 		}
 		
@@ -67,7 +68,7 @@ function doAnswerDelete() {
 		
 	} else {
 		
-		alert("본인이 작성한 게시글만 삭제 가능합니다.");
+		alert("본인이 작성한 답글만 삭제 가능합니다.");
 		
 	}
 	
@@ -111,9 +112,9 @@ function doList() {
 	
 		<tr>
 			<td align="center" colspan="4">
-				<input type="button" value="수정" onclick="location.href='javascript:doAnswerEdit();' "/>
-				<input type="button" value="삭제" onclick="location.href='javascript:doAnswerDelete();' "/>
-				<input type="button" value="목록" onclick="location.href='javascript:doList();' "/>
+				<input type="button" value="수정" onclick="location.href='javascript:doAnswerEdit();' " />
+				<input type="button" value="삭제" onclick="location.href='javascript:doAnswerDelete();' " />
+				<input type="button" value="목록" onclick="location.href='javascript:doList();' " />
 			</td>
 		</tr>	
 		

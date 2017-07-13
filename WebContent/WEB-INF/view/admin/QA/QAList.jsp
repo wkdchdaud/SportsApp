@@ -16,7 +16,8 @@ List<QADTO> rList =	(List<QADTO>) request.getAttribute("rList");
 if (rList==null) {
 	rList = new ArrayList<QADTO>();
 }
-%>        
+%>
+<!DOCTYPE html>        
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -31,18 +32,118 @@ function doAnswerDetail(qa_no, answer_yn) {
 	location.href="/admin/QA/QAAnswerDetail.do?qa_no=" + qa_no;
 }
 
+function hiddenCheckbox() {
+	
+	var dS = document.getElementsByClassName("deleteSelect");
+		
+	for (var i =0; i<dS.length; i++) {
+		dS[i].style.display = "none";
+	}
+		
+	document.getElementById("delete").style.display = "none";
+	document.getElementById("all").style.display = "none";
+	
+}
+
+function edit() {
+	
+	cbox = f.deleteSelect;
+	
+	var dS = document.getElementsByClassName("deleteSelect");
+	
+	for (var i =0; i<dS.length; i++) {
+		
+		if (dS[i].style.display == "none") {
+			
+			dS[i].style.display ="";
+				
+		} else {
+			
+			if (dS[i].style.display == "") {
+				dS[i].style.display ="none";
+			}
+			
+		}
+		
+	}
+	
+	if (cbox.length) { 
+		
+        for(var i = 0; i<cbox.length;i++) {
+            cbox[i].checked="";
+            
+        }
+        
+    } else { 
+    	
+        cbox.checked="";
+        
+    }
+	
+	f.all.checked="";
+	
+	if (document.getElementById("delete").style.display == "") {
+		
+		document.getElementById("delete").style.display = "none";
+		document.getElementById("all").style.display = "none";
+		
+		return;
+		
+	}
+
+	document.getElementById("delete").style.display = "";
+	document.getElementById("all").style.display = "";
+	
+}
+
+function deleteConfirm(f) {
+	
+	if (confirm("선택된 게시글을 삭제하시겠습니까?") == true) { 
+		
+		document.getElementById("f").submit();
+	    
+	} else {  
+		
+	    return;
+	}
+
+}
+
+function allCheck(f) {
+    
+	cbox = f.deleteSelect;
+   
+	if (cbox.length) {
+		
+        for(var i = 0; i<cbox.length;i++) {
+            cbox[i].checked=f.all.checked;
+        }
+        
+    } else { 
+    	
+        cbox.checked=f.all.checked;
+        
+    }
+	
+}
+
 </script>
 </head>
-<body>
+<body onload="hiddenCheckbox();" >
 
 <h2>Q&A</h2>
 <hr/>
 
+<form name="f" id="f" method="post" action="/admin/QA/QACheckboxDelete.do">
+
 	<table width="600px">
 	
 		<tr>
-			<td align="left"><input type="button" value="편집" /></td>
-			<td align="right"><input type="button" onclick="location.href='/admin/QA/QAReg.do'" value="글쓰기" /></td>
+			<td align="left">
+				<input type="button" value="편집" onclick="location.href='javascript:edit(this.form);' " />
+				<input type="button" id="delete" value="삭제" onclick="location.href='javascript:deleteConfirm(this.form);' " />
+			</td>
+			<td align="right"><input type="button" value="글쓰기" onclick="location.href='/admin/QA/QAReg.do' " /></td>
 		</tr>
 		
 	</table>
@@ -52,7 +153,7 @@ function doAnswerDetail(qa_no, answer_yn) {
 	<table border="1" width="600px">
 	
 		<tr>
-			<th width="250" align="center">제목</th>
+			<th width="250" align="center">제목 <input type="checkbox" name="all" id="all" value="전체선택" onclick="allCheck(this.form);" /></th>
 			<th width="100" align="center">작성자</th>
 			<th width="150" align="center">작성일</th>
 		</tr>
@@ -113,8 +214,8 @@ function doAnswerDetail(qa_no, answer_yn) {
 				}
 				%>
 				
-			<%} %>	
-			</td>
+			<%} %>
+			<input type="checkbox" name="deleteSelect" class="deleteSelect" value="<%=rDTO.getQa_no()%>" />
 			<td align="center"><%=CmmUtil.nvl(rDTO.getUser_name()) %></td>
 			<td align="center"><%=CmmUtil.nvl(rDTO.getReg_dt()) %></td>
 		</tr>
@@ -124,6 +225,8 @@ function doAnswerDetail(qa_no, answer_yn) {
 		%>
 		
 	</table>
+	
+</form>
 	
 </body>
 </html>
