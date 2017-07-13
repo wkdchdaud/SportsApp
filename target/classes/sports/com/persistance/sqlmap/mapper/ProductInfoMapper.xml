@@ -4,7 +4,7 @@
 
 <select id ="getProductInfolist" resultType="ProductInfoDTO">
 SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
-ORDER BY PROD_NO+0 DESC;
+ORDER BY PROD_NO+0 DESC LIMIT 6;
 
 </select>
 
@@ -58,7 +58,13 @@ SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO
 
  </select>
 
-
+<!-- 더보기 버튼 구현 -->
+	<select resultType="ProductInfoDTO" id="getReadMore" parameterType="ProductInfoDTO" >
+		SELECT PROD_NO, PROD_NAME, PROD_PRICE
+		FROM PRODUCT_INFO
+		ORDER BY PROD_NO DESC
+		LIMIT 6 OFFSET ${read_more}
+	</select>
 	
 
 </mapper>
