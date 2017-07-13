@@ -28,7 +28,8 @@ if (ss_user_no.equals("")) {
 
 System.out.println("user_no: " + CmmUtil.nvl(rDTO.getReg_user_no()));
 System.out.println("ss_user_no: " + ss_user_no);
-%>   
+%>
+<!DOCTYPE html>   
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
@@ -58,7 +59,7 @@ function doDelete() {
 	if ("<%=edit%>"==2) {
 		
 		if (confirm("작성한 게시글을 삭제하시겠습니까?")) {
-			location.href="/admin/QA/QADelete.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>";
+			location.href="/admin/QA/QADelete.do?q_no=<%=CmmUtil.nvl(rDTO.getQ_no())%>";
 		}
 		
 	} else if ("<%=edit%>"==3) {

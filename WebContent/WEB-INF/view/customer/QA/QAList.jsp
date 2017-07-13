@@ -16,7 +16,8 @@ List<QADTO> rList =	(List<QADTO>) request.getAttribute("rList");
 if (rList==null) {
 	rList = new ArrayList<QADTO>();
 }
-%>        
+%>   
+<!DOCTYPE html>     
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

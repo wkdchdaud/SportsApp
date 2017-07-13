@@ -19,6 +19,7 @@ if (CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO")).equals(CmmUtil.
 	access = 2;
 }
 %> 
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -29,7 +30,7 @@ function doOnload() {
 	
 	if ("<%=access%>"=="1") {
 		
-		alert("본인이 작성한 게시글만 수정 가능합니다.");
+		alert("본인이 작성한 답글만 수정 가능합니다.");
 		location.href="/admin/QA/QAList.do";
 		
 	}

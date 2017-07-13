@@ -16,7 +16,8 @@ String ss_user_no = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO"))
 
 System.out.println("user_no: " + CmmUtil.nvl(rDTO.getReg_user_no()));
 System.out.println("ss_user_no: " + ss_user_no);
-%>   
+%>
+<!DOCTYPE html>   
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">

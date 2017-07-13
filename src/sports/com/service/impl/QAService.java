@@ -42,6 +42,11 @@ public class QAService implements IQAService {
 	}	
 	
 	@Override
+	public void deleteQAList(QADTO qaDTO) throws Exception {
+		qaMapper.deleteQAList(qaDTO);
+	}
+	
+	@Override
 	public void insertQAAnswerDetail(QADTO qaDTO) throws Exception {
 		qaMapper.insertQAAnswerDetail(qaDTO);
 	}
