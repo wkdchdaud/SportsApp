@@ -20,15 +20,15 @@ if (rList==null) {
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Q&A 목록(스포츠 용품업자)</title>
+<title>Q&A 목록(스포츠 학원 사업자)</title>
 <script type="text/javascript">
 
 function doDetail(qa_no) {
-	location.href="/admin/QA/QADetail.do?qa_no=" + qa_no;
+	location.href="/user/QA/QADetail.do?qa_no=" + qa_no;
 }
 
 function doAnswerDetail(qa_no, answer_yn) {
-	location.href="/admin/QA/QAAnswerDetail.do?qa_no=" + qa_no;
+	location.href="/user/QA/QAAnswerDetail.do?qa_no=" + qa_no;
 }
 
 </script>
@@ -41,8 +41,7 @@ function doAnswerDetail(qa_no, answer_yn) {
 	<table width="600px">
 	
 		<tr>
-			<td align="left"><input type="button" value="편집" /></td>
-			<td align="right"><input type="button" onclick="location.href='/admin/QA/QAReg.do'" value="글쓰기" /></td>
+			<td align="right"><input type="button" onclick="location.href='/user/QA/QAReg.do'" value="글쓰기" /></td>
 		</tr>
 		
 	</table>

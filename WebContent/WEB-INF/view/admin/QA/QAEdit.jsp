@@ -22,7 +22,7 @@ if (CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO")).equals(CmmUtil.
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Q&A 수정</title>
+<title>Q&A 수정(스포츠 용품업자)</title>
 <script type="text/javascript">
 
 function doOnload() {

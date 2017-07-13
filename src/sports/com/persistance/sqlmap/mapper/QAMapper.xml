@@ -4,9 +4,9 @@
 
 	<!-- 게시판 리스트 쿼리 -->
 	<select id="getQAList" resultType="QADTO">
-		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, QA.REG_USER_NO, DATE_FORMAT(QA.REG_DT, '%Y-%M-%D') AS REG_DT
+		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, QA.REG_USER_NO, DATE_FORMAT(QA.REG_DT, '%Y-%m-%d %T') AS REG_DT
 	    FROM QA_INFO_A QA
-	 	ORDER BY QA.Q_NO DESC, QA.ANSWER_YN
+	 	ORDER BY QA.Q_NO DESC, QA.ANSWER_YN ASC
 	</select>
 	
 	<!-- 게시글 등록 쿼리 -->
@@ -22,14 +22,14 @@
 		(QA_NO, Q_NO, ANSWER_YN, SECRET_YN, TITLE, CONTENTS, REG_USER_NO, REG_DT, CHG_USER_NO, CHG_DT)
 		VALUES
 		(
-		(SELECT IFNULL(MAX(QA.QA_NO),0)+1 FROM QA_INFO_A QA), (SELECT IFNULL(MAX(QA.QA_NO),0)+1 FROM QA_INFO_A QA), 
+		(SELECT IFNULL(MAX(QA.QA_NO),0)+1 FROM QA_INFO_A QA), (SELECT IFNULL(MAX(QA.Q_NO),0)+1 FROM QA_INFO_A QA), 
 		'N', #{secret_yn}, #{title}, #{contents}, #{reg_user_no}, NOW(), #{reg_user_no}, NOW()
 		)
 	</insert>
 	
 	<!-- 게시글 상세 쿼리 -->
 	<select id="getQADetail" resultType="QADTO" parameterType="QADTO">
-		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, QA.CONTENTS, QA.REG_USER_NO, DATE_FORMAT(QA.REG_DT, '%Y-%M-%D') AS REG_DT
+		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, QA.CONTENTS, QA.REG_USER_NO, DATE_FORMAT(QA.REG_DT, '%Y-%m-%d %T') AS REG_DT
 	    FROM QA_INFO_A QA
 	    WHERE QA.QA_NO = #{qa_no}
 	</select>
@@ -48,7 +48,7 @@
 	<!-- 게시글 삭제 쿼리 -->
 	<delete id="deleteQADetail" parameterType="QADTO">
 		DELETE FROM QA_INFO_A
-		WHERE QA_NO = #{qa_no}	
+		WHERE QA_NO = #{qa_no} 
 	</delete>
 	
 	<!-- 답글 등록 쿼리 -->
@@ -63,7 +63,7 @@
 	
 	<!-- 답글 상세 쿼리 -->
 	<select id="getQAAnswerDetail" resultType="QADTO" parameterType="QADTO">
-		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, CONTENTS, QA.REG_USER_NO, DATE_FORMAT(QA.REG_DT, '%Y-%M-%D') AS REG_DT
+		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, CONTENTS, QA.REG_USER_NO, DATE_FORMAT(QA.REG_DT, '%Y-%m-%d %T') AS REG_DT
 	    FROM QA_INFO_A QA
 	    WHERE QA.QA_NO = #{qa_no}
 	</select>
@@ -76,7 +76,7 @@
 			CONTENTS = #{contents},
 			CHG_USER_NO = #{reg_user_no},
 			CHG_DT = NOW()
-		WHERE QA_NO = #{qa_no} AND ANSWER_YN = 'Y'
+		WHERE Q_NO = #{q_no} AND ANSWER_YN = 'Y'
 	</update>
 
 	<!-- 답글 삭제 쿼리 -->

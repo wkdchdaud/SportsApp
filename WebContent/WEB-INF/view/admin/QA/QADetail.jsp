@@ -32,7 +32,7 @@ System.out.println("ss_user_no: " + ss_user_no);
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Q&A 상세</title>
+<title>Q&A 상세(스포츠 용품업자)</title>
 <script type="text/javascript">
 
 function doEdit() {
