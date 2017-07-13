@@ -7,7 +7,7 @@
 <%@ page import="java.util.HashMap" %> 
 <%
 List<ProductInfoDTO> rList = (List<ProductInfoDTO>) request.getAttribute("DLWKDUS");
-
+/*  */
 if (rList==null) {
    rList = new ArrayList<ProductInfoDTO>();
 }
