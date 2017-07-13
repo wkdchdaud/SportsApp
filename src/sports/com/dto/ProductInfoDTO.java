@@ -10,7 +10,14 @@ public class ProductInfoDTO {
 	private String reg_dt;
 	private String chg_user_no;
 	private String chg_dt;
+	private int read_more;
 	
+	public int getRead_more() {
+		return read_more;
+	}
+	public void setRead_more(int read_more) {
+		this.read_more = read_more;
+	}
 	public String getProd_no() {
 		return prod_no;
 	}

@@ -9,6 +9,9 @@ public interface IProductInfoService {
 	
 	List<ProductInfoDTO> getProductInfoList() throws Exception;
 	
+	//버튼 더보기 구현
+	List<ProductInfoDTO> getReadMore(ProductInfoDTO pdto) throws Exception;
+	
 	List<ProductInfoDTO> getProductInfoDetail(ProductInfoDTO productInfoDTO) throws Exception;
    
 	void ProductInfoInsert(ProductInfoDTO productInfoDTO) throws Exception;
