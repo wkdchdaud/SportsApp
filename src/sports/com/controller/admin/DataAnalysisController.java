@@ -68,14 +68,17 @@ public class DataAnalysisController {
 
 	/*매출 분석 정보 모리스js 차트 값 아작스 구현 */
 	@RequestMapping(value="sales/sale_chart")
-	public @ResponseBody List<R_testDTO> sale_chart(@RequestParam(value= "sale_date_mo") String day_date) throws Exception
+	public @ResponseBody List<R_testDTO> sale_chart(@RequestParam(value= "sale_date_mo") String day_date, @RequestParam(value="cal_day") String cal_day) throws Exception
 	{
-		System.out.println("word : " + day_date);
+		System.out.println("day_date : " + day_date);
+		System.out.println("cal_day : " + cal_day);
 		
 		R_testDTO rdto= new R_testDTO();
 		rdto.setSale_date(day_date);
+		rdto.setCal_day(cal_day);
 		
 		log.info("겟 세일데이트  :" + rdto.getSale_date());
+		log.info("겟 cal_day  :" + rdto.getCal_day());
 		
 		List<R_testDTO> sList = analysisService.sale_chart(rdto);
 
