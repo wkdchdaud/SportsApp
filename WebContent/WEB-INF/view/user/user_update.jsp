@@ -26,7 +26,7 @@
 		<table border="1">
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" value="<%=userDTO.getUser_id()%>" name="user_id" /></td>
+				<td><input type="text" value="<%=CmmUtil.nvl(userDTO.getUser_id())%>" name="user_id" /></td>
 			</tr>
 
 			<tr>
@@ -42,25 +42,25 @@
 			<tr>
 				<td>이름</td>
 				<td>
-					<input type="text" value="<%=userDTO.getUser_name()%>" name="name" /></td>
+					<input type="text" value="<%=CmmUtil.nvl(userDTO.getUser_name())%>" name="name" /></td>
 			</tr>
 
 			<tr>
 				<td>이메일</td>
 				<td>
-					<input type="text" value="<%=userDTO.getEmail()%>" name="email" /></td>
+					<input type="text" value="<%=CmmUtil.nvl(userDTO.getEmail())%>" name="email" /></td>
 			</tr>
 
 			<tr>
 				<td>전화번호</td>
 				<td>
-					<input type="text" value="<%=userDTO.getTel()%>" name="tel" /></td>
+					<input type="text" value="<%=CmmUtil.nvl(userDTO.getTel())%>" name="tel" /></td>
 			</tr>
 
 			<tr>
 				<td colspan="2" align="center">
 					<input type="submit" value="수정" /> 
-					<input type="button" value="취소" />
+					<input type="button" value="취소" onclick="location.href='/user/user_info.do?user_no=<%=CmmUtil.nvl(userDTO.getUser_no()) %>'"/>
 				</td>
 			</tr>
 		</table>
