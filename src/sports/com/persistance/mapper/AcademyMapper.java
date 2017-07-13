@@ -15,5 +15,12 @@ import sports.com.dto.AcademyDTO;
 		void AccountInsert(AcademyDTO aDTO) throws Exception;
 
 		AcademyDTO getAccountInfo(AcademyDTO aDTO) throws Exception;
+		
+		int AcademyUpdateForm(AcademyDTO academyDTO) throws Exception;
+		
+		int AcademyDelete(AcademyDTO academyDTO) throws Exception;
+
+
+
 }
 
