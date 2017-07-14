@@ -361,7 +361,8 @@ public class ProductInfoController {
 			System.out.println("get sele : "+ bDTO.getProd_price());
 			
 			List<ProductInfoDTO> RList = productInfoService.getAllSearch(bDTO);
-			System.out.println("안녕"+RList.size());
+			System.out.println("안녕 : RList size : "+RList.size());
+			
 			if(RList==null){
 				RList = new ArrayList<ProductInfoDTO>();
 				
@@ -389,6 +390,7 @@ public class ProductInfoController {
 			System.out.println("get sele : "+ bDTO.getProd_price());
 			List<ProductInfoDTO> RList = productInfoService.getLowpriceSearch(bDTO);
 			System.out.println("안녕"+RList.size());
+			
 			if(RList==null){
 				RList = new ArrayList<ProductInfoDTO>();
 				
