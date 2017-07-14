@@ -6,7 +6,14 @@ public class R_testDTO {
 	int price=0;
 	String sale_date="";
 	int sum_price=0;
+	String cal_day;
 	
+	public String getCal_day() {
+		return cal_day;
+	}
+	public void setCal_day(String cal_day) {
+		this.cal_day = cal_day;
+	}
 	public String getName() {
 		return name;
 	}

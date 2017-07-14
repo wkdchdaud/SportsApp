@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import sports.com.dto.NoticeDTO;
 import sports.com.dto.QADTO;
 import sports.com.service.IQAService;
 import sports.com.util.CmmUtil;
@@ -203,7 +204,7 @@ public class QAController {
 			String title = CmmUtil.nvl(request.getParameter("title")); 
 			String contents = CmmUtil.nvl(request.getParameter("contents"));
 			
-			contents = contents.replace("\r\n","<br>");
+			contents = contents.replace("\r\n", "<br>");
 			
 			log.info("reg_user_no: " + reg_user_no);
 			log.info("qa_no: " + qa_no);
@@ -264,13 +265,13 @@ public class QAController {
 		
 		try {
 			
-			String qa_no = CmmUtil.nvl(request.getParameter("qa_no"));
+			String q_no = CmmUtil.nvl(request.getParameter("q_no"));
 			
-			log.info("qa_no: "+ qa_no);
+			log.info("q_no: "+ q_no);
 			
 			QADTO qaDTO = new QADTO();
 			
-			qaDTO.setQa_no(qa_no);
+			qaDTO.setQ_no(q_no);
 			
 			qaService.deleteQADetail(qaDTO);
 			
@@ -299,6 +300,35 @@ public class QAController {
 		return "/redirect";
 		
 	}	
+	
+	@RequestMapping(value="/admin/QA/QACheckboxDelete", method=RequestMethod.POST)
+	public String QACheckboxDelete(HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception {
+		
+		log.info(this.getClass().getName() + ".QACheckboxDelete start!");
+		
+		String[] deleteSelect = request.getParameterValues("deleteSelect");
+		String qa_no = CmmUtil.nvl(request.getParameter("qa_no"));
+		
+		QADTO qaDTO = new QADTO();
+		qaDTO.setQa_no(qa_no);
+		
+		for (int i =0; i<deleteSelect.length;i++) {
+		
+			qaDTO.setQa_no(deleteSelect[i]);
+		
+			qaService.deleteQAList(qaDTO);
+	
+		}
+		
+		log.info(this.getClass().getName() + ".QACheckboxDelete end!");
+		
+		model.addAttribute("msg", "선택된 게시글 삭제에 성공하였습니다.");
+		model.addAttribute("url", "/admin/QA/QAList.do");
+		
+		return "/redirect";
+		
+	}
 	
 	@RequestMapping(value="admin/QA/QAAnswerReg", method=RequestMethod.GET)
 	public String QAAnswerReg(HttpServletRequest request, HttpServletResponse response, 
@@ -366,7 +396,7 @@ public class QAController {
 			String title = CmmUtil.nvl(request.getParameter("title"));
 			String contents = CmmUtil.nvl(request.getParameter("contents"));
 			
-			contents = contents.replace("\r\n","<br>");
+			contents = contents.replace("\r\n", "<br>");
 			
 			log.info("reg_user_no: " + reg_user_no);
 			log.info("qa_no: " + qa_no);
@@ -500,7 +530,7 @@ public class QAController {
 			String title = CmmUtil.nvl(request.getParameter("title")); 
 			String contents = CmmUtil.nvl(request.getParameter("contents"));
 			
-			contents = contents.replace("\r\n","<br>");
+			contents = contents.replace("\r\n", "<br>");
 			
 			log.info("reg_user_no: " + reg_user_no);
 			log.info("qa_no: " + qa_no);

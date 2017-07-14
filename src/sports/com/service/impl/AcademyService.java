@@ -42,6 +42,24 @@ public class AcademyService implements IAcademyService{
 		System.out.println("거래처 상세 서비스 start");
 		return academyMapper.getAccountInfo(aDTO);
 	}
+	@Override
+	public boolean AcademyUpdateForm(AcademyDTO aDTO) throws Exception{
+		int a =academyMapper.AcademyUpdateForm(aDTO);
+		if(a != 0){
+			return true;
+		}
+		return false;
+		}
 	
+	@Override
+	public boolean AcademyDelete(AcademyDTO aDTO) throws Exception {
+		int b = academyMapper.AcademyDelete(aDTO);
+		int a = academyMapper.AcademyDelete(aDTO);
+
+		if (a != 0 && b != 0) {
+			return true;
+		}
+		return false;
+	}
 
 }

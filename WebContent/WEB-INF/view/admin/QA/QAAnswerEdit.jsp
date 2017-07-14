@@ -19,22 +19,23 @@ if (CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO")).equals(CmmUtil.
 	access = 2;
 }
 %> 
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Q&A 답글 수정(스포츠 용품업자)</title>
 <script type="text/javascript">
 
-<%-- function doOnload() {
+function doOnload() {
 	
 	if ("<%=access%>"=="1") {
 		
-		alert("본인이 작성한 게시글만 수정 가능합니다.");
+		alert("본인이 작성한 답글만 수정 가능합니다.");
 		location.href="/admin/QA/QAList.do";
 		
 	}
 	
-} --%>
+}
 
 function doSubmit(f) {
 	
@@ -146,7 +147,7 @@ function calBytes(str) {
 		</tr>
 		
 		<tr>
-			<td colspan="2"><textarea name="contents" style="width: 550px; height: 400px"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("\r\n", "<br/>") %></textarea></td>
+			<td colspan="2"><textarea name="contents" style="width: 550px; height: 400px"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("<br>", "\r\n") %></textarea></td>
 		</tr>
 		
 		<tr>
@@ -157,7 +158,7 @@ function calBytes(str) {
 		<tr>
 			<td align="center" colspan="2">
 				<input type="submit" value="수정" />
-				<input type="button" value="이전으로" onclick="location.href='/admin/QA/QAAnswerDetail.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>' "/>
+				<input type="button" value="이전으로" onclick="location.href='/admin/QA/QAAnswerDetail.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>' " />
 			</td>
 		</tr>
 			

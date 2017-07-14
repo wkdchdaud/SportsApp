@@ -3,7 +3,7 @@
 <mapper namespace="sports.com.persistance.mapper.AcademyMapper">
 
 	<select id="getAcaList" resultType="AcademyDTO">
-		SELECT ACA_NO, ACA_NAME FROM ACADEMY
+		SELECT ACA_NO, ACA_NAME, ACA_AREA1, ACA_AREA2, ACA_AREA3, ACA_EVENT1, ACA_EVENT2, ACA_LAT, ACA_LNG FROM ACADEMY
 	</select>
 	
 	<select id="getAccountList" resultType="AcademyDTO">
@@ -12,12 +12,47 @@
 	</select>
 	
 	<insert id="AccountInsert" parameterType="AcademyDTO">
-		INSERT INTO ACADEMY (ACA_NO, ACA_NAME, ACA_AREA1, ACA_AREA2)
-		VALUES (#{aca_no}, #{aca_name}, #{aca_area1}, #{aca_area2} )
+		INSERT INTO ACADEMY (ACA_NAME, ACA_AREA1, ACA_AREA2, ACA_AREA3, ACA_EVENT1, ACA_EVENT2, ACA_LAT, ACA_LNG )
+		VALUES (#{aca_name}, #{aca_area1}, #{aca_area2}, #{aca_area3}, #{aca_event1}, #{aca_event2}, #{aca_lat}, #{aca_lng})
 	</insert>
 	
 	<select id="getAccountInfo" resultType="AcademyDTO">
 		SELECT ACA_NO, ACA_NAME, ACA_AREA1, ACA_AREA2 FROM ACADEMY
 		WHERE ACA_NO = #{aca_no}
 	</select>
+	
+	
+	  <update id="AcademyUpdateForm" parameterType="AcademyDTO">
+   <!--  /* UPDATE EVENT_INFO SET TITLE=#{title}, CONTENTS=#{contents}, FILE_NAME=#{file_name}, FILE_PATH=#{file_path},READ_CNT=#{read_cnt}, REG_USER_NO=#{reg_user_no}, REG_DT=SYSDATE, CHG_USER_NO=#{chg_user_no}, CHG_DT=SYSDATE 
+      WHERE ENT_SEQ = #{ent_seq}*/-->
+      UPDATE ACADEMY SET 
+     	 
+     	ACA_NAME = #{aca_name}, ACA_AREA1 = #{aca_area1}, ACA_AREA2 = #{aca_area2}
+     	
+     	<!-- PAY = #{pay}, NATION = #{nation},
+	 		
+		JAN = #{jan}, FEB = #{feb}, MAR = #{mar}, APR = #{apr}, MAY = #{may}, JUN = #{jun},
+	 		
+		JUL = #{jul}, AUG = #{aug}, SEP = #{sep}, OCT = #{oct}, NOV = #{nov}, DEC = #{dec},
+		
+		FST_EXP = #{fst_exp}, FST_HOST = #{fst_host}, HOSTPH_1 = #{hostph_1}, HOSTPH_2 = #{hostph_2},
+	
+		HOSTPH_3 = #{hostph_3}, FILE_GRP=#{file_grp}, CHG_USER_NAME = #{chg_user_name}, CHG_DT= SYSDATE -->
+     	
+      WHERE ACA_NO = #{aca_no}
+      <!--, LOCAL=#{local}, POPULATION=#{population}, FES_START=#{fes_start},
+      FES_END=#{fes_end}, TRANSFER=#{transfer}, FILE_NAME1=#{file_name1}, FILE_NAME2=#{file_name2}, 
+      FILE_NAME3=#{file_name2},FILE_PATH1= #{file_path1}, FILE_PATH2=#{file_path2}, FILE_PATH3=#{file_path3},
+      FST_EXP= #{fst_exp}, FST_HOST=#{fst_host}, HOSTPH_1=#{hostph_1}, HOSTPH_2=#{hostph_2},
+      HOSTPH_3= #{hostph_3}, HOSTEMAIL_1=#{hostemail_1},HOSTEMAIL_2= #{hostemail_2},REG_USER_NO= #{reg_user_no}, 
+       SYSDATE,PEAKTIME1=#{peaktime1}, PEAKTIME2=#{peaktime2},PEAKTIME=3 #{peaktime3},PEAKTIME4= #{peaktime4}) -->
+   </update>
+   
+   
+		<delete id="AcademyDelete" parameterType="AcademyDTO">
+		DELETE FROM
+		ACADEMY
+		WHERE ACA_NO = #{aca_no}
+	</delete>
+	
 </mapper>

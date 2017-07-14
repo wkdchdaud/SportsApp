@@ -4,32 +4,55 @@
 
 <!-- 매출 분석 정보 처음 띄울 모리스 js 데이터 -->
 <select id="getSalesInfo" resultType="R_testDTO">
-	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE, DATE_FORMAT(SALE_DATE, '%m.%d') AS SALE_DATE
+	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE, DATE_FORMAT(SALE_DATE, '%m월%d일') AS SALE_DATE
 	FROM R_TEST 
-	WHERE SALE_DATE BETWEEN DATE_ADD(NOW(), INTERVAL -7 DAY) AND NOW() 
+	WHERE SALE_DATE BETWEEN DATE_ADD(NOW(), INTERVAL -5 DAY) AND NOW() 
 	GROUP BY SALE_DATE 
 	ORDER BY SALE_DATE;
-</select>
-
-<!-- 매출 분석 정보 처음 띄울 테이블 매출 종목 순위 데이터 -->
-<select id="getSaleRank" resultType="R_testDTO">
-  	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE, SALE_DATE, NAME
-	FROM R_TEST 
-	WHERE SALE_DATE BETWEEN DATE_ADD(NOW(), INTERVAL -6 DAY) AND NOW() 
-	GROUP BY NAME 
-	ORDER BY SUM_PRICE DESC;
 </select>
 
 <!-- 아작스 매출 분석 정보 모리스 js 일별 -->
 <select id="sale_chart" resultType="R_testDTO" parameterType="R_testDTO">
-	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE, DATE_FORMAT(SALE_DATE, '%m.%d') AS SALE_DATE
+	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE,  
+	<if test="cal_day.equals('day')">DATE_FORMAT(SALE_DATE,'%m월%d일') AS SALE_DATE</if>
+	<if test="cal_day.equals('week')">CONCAT(MONTH(SALE_DATE),'월',WEEK(SALE_DATE,5) - WEEK(DATE_SUB(SALE_DATE,INTERVAL DAYOFMONTH(SALE_DATE)-1 DAY),5) + 1,'주') AS SALE_DATE</if>
+	<if test="cal_day.equals('month')">DATE_FORMAT(SALE_DATE,'%Y년%m월') AS SALE_DATE</if>
+	<if test="cal_day.equals('boongi')">CONCAT(DATE_FORMAT(SALE_DATE, '%y년'),QUARTER(SALE_DATE),'분기' )AS SALE_DATE</if>
+	<if test="cal_day.equals('year')">DATE_FORMAT(SALE_DATE,'%Y년') AS SALE_DATE</if>
+	
 	FROM R_TEST 
-	WHERE SALE_DATE BETWEEN DATE_ADD(#{sale_date}, INTERVAL -6 DAY) AND #{sale_date} 
-	GROUP BY SALE_DATE 
+	
+	WHERE <if test="cal_day.equals('day')">SALE_DATE BETWEEN DATE_ADD(#{sale_date}, INTERVAL -4 DAY) AND #{sale_date} </if>
+					<if test="cal_day.equals('week')">YEARWEEK(SALE_DATE) BETWEEN YEARWEEK(DATE_ADD(#{sale_date}, INTERVAL -4 WEEK)) AND YEARWEEK(#{sale_date}) </if>
+					<if test="cal_day.equals('month')">MONTH(SALE_DATE) BETWEEN MONTH(DATE_ADD(#{sale_date}, INTERVAL -4 MONTH)) AND MONTH(#{sale_date}) </if>
+					<if test="cal_day.equals('boongi')">QUARTER(SALE_DATE) BETWEEN QUARTER(DATE_ADD(#{sale_date}, INTERVAL -4 QUARTER)) AND QUARTER(#{sale_date})</if>
+					<if test="cal_day.equals('year')">YEAR(SALE_DATE) BETWEEN YEAR(DATE_ADD(#{sale_date}, INTERVAL -4 YEAR)) AND YEAR(#{sale_date})</if>
+					
+	GROUP BY  <if test="cal_day.equals('day')">SALE_DATE</if> 
+			  <if test="cal_day.equals('week')">YEARWEEK(SALE_DATE)</if>
+			  <if test="cal_day.equals('month')">MONTH(SALE_DATE)</if>
+			  <if test="cal_day.equals('boongi')">QUARTER(SALE_DATE)</if>
+			  <if test="cal_day.equals('year')">YEAR(SALE_DATE)</if>
+			  
 	ORDER BY SALE_DATE;
+
 </select>
 
 <!-- 매출 분석 정보 처음 띄울 테이블 매출 종목 순위 데이터 -->
+<select id="getSaleRank" resultType="R_testDTO">
+  	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE, NAME
+	FROM R_TEST 
+	WHERE SALE_DATE BETWEEN DATE_ADD(NOW(), INTERVAL -5 DAY) AND NOW() 
+	GROUP BY NAME 
+	ORDER BY SUM_PRICE DESC;
+	limit 5;
+</select>
+	<!-- SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE, DATE_FORMAT(SALE_DATE, '%m월%d일') AS SALE_DATE
+	FROM R_TEST 
+	WHERE SALE_DATE BETWEEN DATE_ADD(NOW(), INTERVAL -5 DAY) AND NOW() 
+	GROUP BY SALE_DATE 
+	ORDER BY SALE_DATE; -->
+<!-- 아작스 매출 분석 정보 테이블  -->
 <select id="sale_table" resultType="R_testDTO">
   	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE, SALE_DATE, NAME
 	FROM R_TEST 
@@ -37,6 +60,30 @@
 	GROUP BY NAME 
 	ORDER BY SUM_PRICE DESC
 	limit 5;
+	
+<!-- 	SELECT IFNULL(SUM(PRICE),0) AS SUM_PRICE,  
+	<if test="cal_day.equals('day')">DATE_FORMAT(SALE_DATE,'%m월%d일') AS SALE_DATE</if>
+	<if test="cal_day.equals('week')">CONCAT(MONTH(SALE_DATE),'월',WEEK(SALE_DATE,5) - WEEK(DATE_SUB(SALE_DATE,INTERVAL DAYOFMONTH(SALE_DATE)-1 DAY),5) + 1,'주') AS SALE_DATE</if>
+	<if test="cal_day.equals('month')">DATE_FORMAT(SALE_DATE,'%Y년%m월') AS SALE_DATE</if>
+	<if test="cal_day.equals('boongi')">CONCAT(DATE_FORMAT(SALE_DATE, '%y년'),QUARTER(SALE_DATE),'분기' )AS SALE_DATE</if>
+	<if test="cal_day.equals('year')">DATE_FORMAT(SALE_DATE,'%Y년') AS SALE_DATE</if>
+	
+	FROM R_TEST 
+	
+	WHERE <if test="cal_day.equals('day')">SALE_DATE BETWEEN DATE_ADD(#{sale_date}, INTERVAL -4 DAY) AND #{sale_date} </if>
+					<if test="cal_day.equals('week')">YEARWEEK(SALE_DATE) BETWEEN YEARWEEK(DATE_ADD(#{sale_date}, INTERVAL -4 WEEK)) AND YEARWEEK(#{sale_date}) </if>
+					<if test="cal_day.equals('month')">MONTH(SALE_DATE) BETWEEN MONTH(DATE_ADD(#{sale_date}, INTERVAL -4 MONTH)) AND MONTH(#{sale_date}) </if>
+					<if test="cal_day.equals('boongi')">QUARTER(SALE_DATE) BETWEEN QUARTER(DATE_ADD(#{sale_date}, INTERVAL -4 QUARTER)) AND QUARTER(#{sale_date})</if>
+					<if test="cal_day.equals('year')">YEAR(SALE_DATE) BETWEEN YEAR(DATE_ADD(#{sale_date}, INTERVAL -4 YEAR)) AND YEAR(#{sale_date})</if>
+					
+	GROUP BY  <if test="cal_day.equals('day')">SALE_DATE</if> 
+			  <if test="cal_day.equals('week')">YEARWEEK(SALE_DATE)</if>
+			  <if test="cal_day.equals('month')">MONTH(SALE_DATE)</if>
+			  <if test="cal_day.equals('boongi')">QUARTER(SALE_DATE)</if>
+			  <if test="cal_day.equals('year')">YEAR(SALE_DATE)</if>
+			  
+	ORDER BY SALE_DATE;
+	 -->
 </select>
 
 

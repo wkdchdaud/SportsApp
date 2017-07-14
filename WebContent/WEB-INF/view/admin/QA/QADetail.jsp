@@ -28,7 +28,8 @@ if (ss_user_no.equals("")) {
 
 System.out.println("user_no: " + CmmUtil.nvl(rDTO.getReg_user_no()));
 System.out.println("ss_user_no: " + ss_user_no);
-%>   
+%>
+<!DOCTYPE html>   
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
@@ -58,7 +59,7 @@ function doDelete() {
 	if ("<%=edit%>"==2) {
 		
 		if (confirm("작성한 게시글을 삭제하시겠습니까?")) {
-			location.href="/admin/QA/QADelete.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>";
+			location.href="/admin/QA/QADelete.do?q_no=<%=CmmUtil.nvl(rDTO.getQ_no())%>";
 		}
 		
 	} else if ("<%=edit%>"==3) {
@@ -101,7 +102,7 @@ function doList() {
 		</tr>	
 	
 		<tr>
-			<td colspan="4" style="width: 550px; height: 400px" valign="top"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("\r\n", "<br/>") %></td>
+			<td colspan="4" style="width: 550px; height: 400px" valign="top"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("\r\n", "<br>") %></td>
 		</tr>
 		
 		<tr>
@@ -111,9 +112,9 @@ function doList() {
 	
 		<tr>
 			<td align="center" colspan="4">
-				<input type="button" value="답글" onclick="location.href='/admin/QA/QAAnswerReg.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>&answer_yn=<%=CmmUtil.nvl(rDTO.getAnswer_yn())%>' "/>
-				<input type="button" value="삭제" onclick="location.href='javascript:doDelete();' "/>
-				<input type="button" value="목록" onclick="location.href='javascript:doList();' "/>
+				<input type="button" value="답글" onclick="location.href='/admin/QA/QAAnswerReg.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>&answer_yn=<%=CmmUtil.nvl(rDTO.getAnswer_yn())%>' " />
+				<input type="button" value="삭제" onclick="location.href='javascript:doDelete();' " />
+				<input type="button" value="목록" onclick="location.href='javascript:doList();' " />
 			</td>
 		</tr>	
 		

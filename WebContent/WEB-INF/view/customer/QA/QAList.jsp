@@ -16,7 +16,8 @@ List<QADTO> rList =	(List<QADTO>) request.getAttribute("rList");
 if (rList==null) {
 	rList = new ArrayList<QADTO>();
 }
-%>        
+%>   
+<!DOCTYPE html>     
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -24,11 +25,11 @@ if (rList==null) {
 <script type="text/javascript">
 
 function doDetail(qa_no) {
-	location.href="/user/QA/QADetail.do?qa_no=" + qa_no;
+	location.href="/customer/QA/QADetail.do?qa_no=" + qa_no;
 }
 
 function doAnswerDetail(qa_no, answer_yn) {
-	location.href="/user/QA/QAAnswerDetail.do?qa_no=" + qa_no;
+	location.href="/customer/QA/QAAnswerDetail.do?qa_no=" + qa_no;
 }
 
 </script>
@@ -41,7 +42,7 @@ function doAnswerDetail(qa_no, answer_yn) {
 	<table width="600px">
 	
 		<tr>
-			<td align="right"><input type="button" onclick="location.href='/user/QA/QAReg.do'" value="글쓰기" /></td>
+			<td align="right"><input type="button" onclick="location.href='/customer/QA/QAReg.do'" value="글쓰기" /></td>
 		</tr>
 		
 	</table>
