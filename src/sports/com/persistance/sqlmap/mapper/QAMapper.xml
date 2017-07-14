@@ -82,7 +82,7 @@
 			CONTENTS = #{contents},
 			CHG_USER_NO = #{reg_user_no},
 			CHG_DT = NOW()
-		WHERE Q_NO = #{q_no} AND ANSWER_YN = 'Y'
+		WHERE QA_NO = #{qa_no} AND ANSWER_YN = 'Y'
 	</update>
 
 	<!-- 답글 삭제 쿼리 -->

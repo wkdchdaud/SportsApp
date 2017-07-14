@@ -75,7 +75,7 @@ public class CustomerQAController {
 			String title = CmmUtil.nvl(request.getParameter("title"));
 			String contents = CmmUtil.nvl(request.getParameter("contents"));
 			
-			contents = contents.replace("\r\n","<br>");
+			contents = contents.replace("\r\n", "<br>");
 			
 			log.info("reg_user_no: " + reg_user_no);
 			log.info("secret_yn: " + secret_yn);
@@ -203,7 +203,7 @@ public class CustomerQAController {
 			String title = CmmUtil.nvl(request.getParameter("title")); 
 			String contents = CmmUtil.nvl(request.getParameter("contents"));
 			
-			contents = contents.replace("\r\n","<br>");
+			contents = contents.replace("\r\n", "<br>");
 			
 			log.info("reg_user_no: " + reg_user_no);
 			log.info("qa_no: " + qa_no);
