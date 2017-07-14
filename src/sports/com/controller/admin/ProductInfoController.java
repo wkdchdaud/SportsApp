@@ -384,6 +384,9 @@ public class ProductInfoController {
 			ProductInfoDTO bDTO = new ProductInfoDTO();
 			System.out.println("price : " + price);
 			System.out.println("name : " + name);
+			if(name==""){
+				System.out.println("hello null");
+			}
 			bDTO.setProd_name(name);
 			bDTO.setProd_price(price);
 			System.out.println("get name :"+bDTO.getProd_name());
@@ -407,7 +410,7 @@ public class ProductInfoController {
 			log.info(this.getClass().getName() + "highpriceSearch Start !!");
 			log.info(name);
 			
-	
+			
 			ProductInfoDTO bDTO = new ProductInfoDTO();
 			System.out.println("price : " + price);
 			System.out.println("name : " + name);
