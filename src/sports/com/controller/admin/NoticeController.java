@@ -186,7 +186,7 @@ public class NoticeController {
 	public String NoticeCheckboxDelete(HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws Exception{
 		log.info("welcome /admin/NoticeCheckboxDelete");
-		
+		//aa
 		String[] deleteSelect = request.getParameterValues("deleteSelect");
 		
 		NoticeDTO nDTO = new NoticeDTO();

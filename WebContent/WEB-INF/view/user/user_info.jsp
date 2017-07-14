@@ -1,3 +1,4 @@
+<%@page import="sports.com.util.AES256Util"%>
 <%@page import="sports.com.util.CmmUtil"%>
 <%@page import="sports.com.dto.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -15,7 +16,7 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	function doUpdate() {
-		location.href='/user/user_update.do?user_no=<%=CmmUtil.nvl(userDTO.getUser_no()) %>';
+		location.href='/user/user_change.do?user_no=<%=CmmUtil.nvl(userDTO.getUser_no()) %>';
 	}
 	
 	function doDelete() {
@@ -29,7 +30,7 @@
 </head>
 <body>
 
-<h1><%=CmmUtil.nvl(userDTO.getUser_id()) %>님의 회원정보</h1>
+<h1><%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getUser_id())) %>님의 회원정보</h1>
 
 <table border="1">
 	<tr>
@@ -39,17 +40,17 @@
 	
 	<tr>
 		<td>아이디</td>
-		<td><%=CmmUtil.nvl(userDTO.getUser_id())%></td>
+		<td><%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getUser_id()))%></td>
 	</tr>
 	
 	<tr>
 		<td>이름</td>
-		<td><%=CmmUtil.nvl(userDTO.getUser_name())%></td>
+		<td><%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getUser_name()))%></td>
 	</tr>
 	
 	<tr>
 		<td>이메일</td>
-		<td><%=CmmUtil.nvl(userDTO.getEmail())%></td>
+		<td><%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getEmail()))%></td>
 	</tr>
 	
 	<tr>
@@ -59,7 +60,7 @@
 	
 	<tr>
 		<td>전화번호</td>
-		<td><%=CmmUtil.nvl(userDTO.getTel())%></td>
+		<td><%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getTel()))%></td>
 	</tr>
 	
 	<tr>
@@ -84,7 +85,7 @@
 				<input type="hidden" value="<%=CmmUtil.nvl(userDTO.getUser_no()) %>" name="user_no"/>
 				<input type="button" value="수정" onclick="doUpdate();"/>
 				<input type="submit" value="삭제"/>
-				<input type="button" value="확인" onclick="/user/user_list.do"/>
+				<input type="button" value="확인" onclick="location.href='/user/user_list.do'"/>
 			</form>
 		</td>
 	</tr>

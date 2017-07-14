@@ -9,12 +9,22 @@
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="/js/user_js.js"></script>
 <script type="text/javascript">
-	function ck(f) {
+	var id_ck = 0;
+	var cap_check = 0;
+	
+	function doSubmit(f) {
 		if(f.id.value == ""){
 			f.id.focus();
-			alert("아이디를 입력해주세요");
+			alert("아이디를 입력해주세요.");
 			return false;
 		}
+		
+		if(id_ck==0){
+			f.id.focus();
+			alert("아이디 중복확인을 해주세요.");
+			return false;
+		}
+		
 		
 		if(f.pwd.value == ""){
 			f.pwd.focus();
@@ -52,7 +62,7 @@
 			return false;
 		}
 		
-		if(validateEmail(email)){
+		if(validateEmail(f.email.value)){
 			f.email.focus();
 			alert("올바른 이메일을 입력해주세요.");
 			return false;
@@ -60,18 +70,28 @@
 		
 		if(f.tel.value == ""){
 			f.tel.focus();
-			alert("번호가 올바르지 않습니다.");
+			alert("번호를 입력해주세요.");
+			return false;
+		}
+		
+		if(cap_check ==0){
+			alert("자동입력방지 확인을 해주세요.");
 			return false;
 		}
 		return true;
 	}
-</script>
-<script type="text/javascript">
+
 	function id_reck() {
 		var id = $('#id').val();
 		
 		if(id == ""){
 			alert('아이디을 입력해주세요.');
+			$('#id').focus();
+			return false;
+		}
+		
+		if(6>id.length || id.length>14){
+			alert('올바른 아이디를 입력해주세요.');
 			$('#id').focus();
 			return false;
 		}
@@ -97,17 +117,35 @@
 	
 	function ck(msg) {
 		if(msg == "Y"){
-			var f = document.getElementById("f");
+			var f = document.getElementById("f")
 			f.id.readOnly = true;
-			alert('사용가능한 아이디입니다.');
+			
+			var id_text = document.getElementById("id_text");
+			id_text.style.color="#00FF00";
+			id_text.innerHTML="사용가능한 아이디입니다.";
+			id_ck = 1;
 		}else{
-			alert('사용불가능한 아이디입니다.');
+			var id_text = document.getElementById("id_text");
+			id_text.style.color="#FF0000";
+			id_text.innerHTML="사용불가능한 아이디입니다.";
 		}
 	}
+	
+	var verifyCallback = function(response) {
+	    cap_check++;
+	  };
+	  
+	var onloadCallback = function() {
+	    grecaptcha.render('html_element', {
+	      'sitekey' : '6LeE7ygUAAAAAKAk7KL02gHzYuGsekKn_d3yGObV',
+	      'callback' : verifyCallback,
+	      'theme' : 'dark'
+	    });
+	  };
 </script>
 </head>
 <body>
-<form action="/user/join_proc.do" name="f" onsubmit="return ck(this)" method="post" id="f">
+<form action="/user/join_proc.do" name="f" onsubmit="return doSubmit(this)" method="post" id="f">
 <table border="1">
 	<tr>
 		<td align="center">아이디</td>
@@ -119,7 +157,7 @@
 	
 	<tr>
 		<td colspan="2">
-			6~14 영문 대 소문자, 숫자를 사용해주세요.
+			<font id="id_text">6~14 영문 대 소문자, 숫자를 사용해주세요.</font>
 		</td>
 	</tr>
 	
@@ -151,7 +189,14 @@
 	
 	<tr>
 		<td align="center">연락처</td>
-		<td><input type="text" name="tel" onkeydown="return only_num(event)" maxlength="14"/></td>
+		<td><input type="text" name="tel" onkeydown="return only_num(event)" maxlength="14" placeholder="-는 쓰지마세요."/></td>
+	</tr>
+	
+	<tr>
+		<td colspan="2" align="center">
+			<div id="html_element"></div>
+    		<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+		</td>
 	</tr>
 	
 	<tr>

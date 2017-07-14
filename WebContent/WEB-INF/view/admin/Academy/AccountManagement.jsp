@@ -60,7 +60,6 @@ for (int i=0; i<rlist.size(); i++){
 	<td align="center">
 	<a href="javascript:doDetail('<%=CmmUtil.nvl(aDTO.getAca_no())%>');">
 	<%=CmmUtil.nvl(aDTO.getAca_name()) %></a>
-	<%-- <a href=\"accountinfo?aca_no=<%=CmmUtil.nvl(aDTO.getAca_name()) %>"><%=CmmUtil.nvl(aDTO.getAca_name()) %></a> --%>
 		</td>
 	<td align="center">
 	<%=CmmUtil.nvl(aDTO.getAca_area1())%></td>

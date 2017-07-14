@@ -6,7 +6,7 @@
 	import="java.util.List"%>
 
 <%
-	List<NoticeDTO> nList = (List<NoticeDTO>) request.getAttribute("nList");
+	List<NoticeDTO> nList = (List<NoticeDTO>)request.getAttribute("nList");
 	if (nList == null) {
 		nList = new ArrayList<NoticeDTO>();
 	}
@@ -32,7 +32,6 @@
 <script type="text/javascript">
 
 
-
 function hiddenCheckbox(){
 	
 	var dS = document.getElementsByClassName("deleteSelect");
@@ -42,9 +41,13 @@ function hiddenCheckbox(){
 		}
 		
 		document.getElementById("delete").style.display = "none";
+		
+		document.getElementById("all").style.display = "none";
 }
 
-function edit(){
+function edit(f){
+	
+	cbox = f.deleteSelect;
 	
 	var dS = document.getElementsByClassName("deleteSelect");
 		
@@ -60,20 +63,59 @@ function edit(){
 		}
 	
 	
+	if(cbox.length) {  // 여러 개일 경우
+        for(var i = 0; i<cbox.length;i++) {
+            cbox[i].checked="";
+        }
+    } else { // 한 개일 경우
+        cbox.checked="";
+    }
+	
+	f.all.checked = "";
+	
+	
 	if(document.getElementById("delete").style.display == ""){
+		
 		document.getElementById("delete").style.display = "none";
+		document.getElementById("all").style.display = "none";
+		
 		return false;
 	}
 	
-	document.getElementById("delete").style.display = ""
+	document.getElementById("delete").style.display = "";
+	document.getElementById("all").style.display = "";
+	
 	
 }
 
+function deleteConfirm(f){
+	
+	if (confirm("정말 삭제하시겠습니까??") == true){   
+	    f.submit();
+	}else{  
+	    return;
+	}
+
+
+}
+
+function allCheck(f){
+    
+	cbox = f.deleteSelect;
+   
+	if(cbox.length) {  // 여러 개일 경우
+        for(var i = 0; i<cbox.length;i++) {
+            cbox[i].checked=f.all.checked;
+        }
+    } else { // 한 개일 경우
+        cbox.checked=f.all.checked;
+    }
+}
 
 </script>
 
 
-
+ 
 
 </head>
 <body onload="hiddenCheckbox()">
@@ -160,7 +202,7 @@ function edit(){
 
 					<div class="col-md-7">
 						<div class="panel panel-default" style="width: 100%">
-							<form name="f" method="post" action="/admin/notice/NoticeCheckboxDelete.do">
+							<form name="f"  method="post" action="/admin/notice/NoticeCheckboxDelete.do">
 								<div class="panel-heading">공지사항 목록</div>
 								<!--    Context Classes  -->
 								<div class="panel panel-default" style="width: 100%">
@@ -171,7 +213,9 @@ function edit(){
 										<table class="table">
 											<thead>
 												<tr>
-													<th style="width: 100px"><font size="2px">글번호</font></th>
+													<th style="width: 150px"><font size="2px">
+													<input type="checkbox" name="all" id="all" onclick="allCheck(this.form);" value="전체선택"/>
+													글번호</font></th>
 													<th style="width: 500px"><font size="2px">제목</font></th>
 													<th style="width: 200px"><font size="2px">작성자</font></th>
 													<th style="width: 100px"><font size="2px">작성일</font></th>
@@ -181,63 +225,46 @@ function edit(){
 												<%
 													for (NoticeDTO nDTO : nList) {
 														String title = CmmUtil.nvl(nDTO.getTITLE());
-														if (title.length() >= 14) {
+														
+													if (title.length() >= 14) {
 															title = title.substring(0, 14) + "...";
 														}
 												%>
 												<tr>
-													<%
-														if (nDTO.getNOTICE_YN().equals("1")) {
-													%>
-													<td><font color="orange"> <input
+													
+													<td><input
 															type="checkbox" name="deleteSelect" class="deleteSelect"
-															value="<%=nDTO.getNOTICE_NO()%>" /> <b><%=nDTO.getNOTICE_NO()%></b></font></td>
-													<%
-														} else {
-													%>
-													<td><input type="checkbox" name="deleteSelect"
-														class="deleteSelect" value="<%=nDTO.getNOTICE_NO()%>" />
-														<%=nDTO.getNOTICE_NO()%></td>
-
-													<%
-														}
-															if (nDTO.getNOTICE_YN().equals("1")) {
-													%>
+															value="<%=nDTO.getNOTICE_NO()%>" />
+															<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
+															<%=nDTO.getNOTICE_NO()%>
+															<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>
+													
+													
+													
 													<td><a
-														href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>"><font
-															color="orange"><b><%=title%></b></font></a></td>
-													<%
-														} else {
-													%>
-													<td><a
-														href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>"><%=title%></a></td>
-													<%
-														}
-													%>
+														href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>">
+														<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
+														<%=title%>
+														<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>		
+														</a></td>
+													
 
-													<%
-														if (nDTO.getNOTICE_YN().equals("1")) {
-													%>
-													<td><font color="orange"><b><%=nDTO.getUSER_NO()%></b></font></td>
-													<%
-														} else {
-													%>
-													<td><%=nDTO.getUSER_NO()%></td>
-													<%
-														}
-													%>
-
-													<%
-														if (nDTO.getNOTICE_YN().equals("1")) {
-													%>
-													<td><font color="orange"><b><%=nDTO.getREG_DT()%></b></font></td>
-													<%
-														} else {
-													%>
-													<td><%=nDTO.getREG_DT()%></td>
-													<%
-														}
-													%>
+													
+													<td>
+													<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
+													<%=nDTO.getUSER_NO()%>
+													<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>
+													</td>
+													
+													
+													
+													<td>
+													<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
+													<%=nDTO.getREG_DT()%></b>
+													<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>
+													
+													
+													
 												</tr>
 												<%
 													}
@@ -251,10 +278,11 @@ function edit(){
 								<input type="button"
 									onclick="location.href='/admin/notice/NoticeReg.do'"
 									value="글쓰기" /> 
-									<input type="button" onclick="edit()"
+									<input type="button" onclick="javascript:edit(this.form)"
 									value="편집" /> 
-									<input type="submit" 
-									id="delete" value="삭제" />
+									<input type="button" 
+									id="delete" value="삭제" onclick="javascript:deleteConfirm(this.form)"/>
+									
 							</form>
 						</div>
 					</div>

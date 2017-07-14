@@ -33,10 +33,10 @@ public class AcademyController {
 		log.info(this.getClass().getName() + "학원 컨트롤러 start!");
 
 		List<AcademyDTO> list = academyService.getAcaList();
-		log.info("리스트 사이즈 "+list.size());
-		for(int i=0; i>list.size()-1; i++){
-		log.info("리스트 인덱스 i"+list.get(i));
-		}
+		//log.info("리스트 사이즈 "+list.size());
+		//for(int i=0; i>list.size()-1; i++){
+		//log.info("리스트 인덱스 i"+list.get(i));
+		//}
 		model.addAttribute("list", list);
 
 		System.out.println("ac 컨트롤러 end");
@@ -67,10 +67,10 @@ public class AcademyController {
 		model.addAttribute("rlist", rlist);
 		
 		
-		log.info("rlist " + rlist.get(0).getAca_area1());
+	/*	log.info("rlist " + rlist.get(0).getAca_area1());
 		log.info("rlist " + rlist.get(0).getAca_area2());
 		log.info("rlist " + rlist.get(0).getAca_no());
-		log.info("rlist " + rlist.get(0).getAca_name());
+		log.info("rlist " + rlist.get(0).getAca_name());*/
 		//변수 초기화(메모리 효율화 시키기 위해 사용함)
 		rlist = null; 
 		
@@ -81,7 +81,7 @@ public class AcademyController {
 		
 		
 		//로직 끝나고 보여줄 JSP파일
-		return "/admin/Academy/AccountManagement2";
+		return "/admin/Academy/AccountManagement";
 	}
 	
 	@RequestMapping("accountreg")
@@ -103,31 +103,58 @@ public class AcademyController {
 		String msg = "";
 		
 		try{
+			
 			/*
 			 * 게시판 글 등록되기 위해 사용되는 form객체의 하위 input 객체 등을 받아오기 위해 사용함
 			 * */
+			
 			String aca_no = CmmUtil.nvl(request.getParameter("aca_no")); 
 			String aca_name = CmmUtil.nvl(request.getParameter("aca_name")); 
 			String aca_area1 = CmmUtil.nvl(request.getParameter("aca_area1")); 
 			String aca_area2 = CmmUtil.nvl(request.getParameter("aca_area2")); 
+			String aca_area3 = CmmUtil.nvl(request.getParameter("aca_area3")); 
+			String aca_event1 = CmmUtil.nvl(request.getParameter("aca_event1")); 
+			String aca_event2 = CmmUtil.nvl(request.getParameter("aca_event2")); 
+			String aca_lat = CmmUtil.nvl(request.getParameter("aca_lat")); 
+			String aca_lng = CmmUtil.nvl(request.getParameter("aca_lng")); 
+			/*String tel = CmmUtil.nvl(request.getParameter("tel")); 
+			String aca_comment = CmmUtil.nvl(request.getParameter("aca_comment")); 
+			String aca_visit = CmmUtil.nvl(request.getParameter("aca_visit")); 
+			String reg_user_no = CmmUtil.nvl(request.getParameter("reg_user_no")); 
+			String reg_dt = CmmUtil.nvl(request.getParameter("reg_dt")); 
+			String chg_user_no = CmmUtil.nvl(request.getParameter("chg_user_no")); 
+			String chg_dt = CmmUtil.nvl(request.getParameter("chg_dt")); */
 	
 			/*
 			 * #######################################################
 			 * 	 반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함
 			 * 						반드시 작성할 것
 			 * #######################################################
-			 * */
+			 *
+			 *
+			 **/
+			
 			AcademyDTO aDTO = new AcademyDTO();
 			
 			aDTO.setAca_no(aca_no); 
 			aDTO.setAca_name(aca_name);
 			aDTO.setAca_area1(aca_area1);
 			aDTO.setAca_area2(aca_area2);
+			aDTO.setAca_area3(aca_area3);
+			aDTO.setAca_event1(aca_event1);
+			aDTO.setAca_event2(aca_event2);
+			aDTO.setAca_lat(aca_lat);
+			aDTO.setAca_lng(aca_lng);
 	
 			log.info("aca_no : "+ aca_no);
 			log.info("aca_name : "+ aca_name);
 			log.info("aca_area1 : "+ aca_area1);
 			log.info("aca_area1 : "+ aca_area2);		
+			log.info("aca_area1 : "+ aca_area3);		
+			log.info("aca_area1 : "+ aca_event1);		
+			log.info("aca_area1 : "+ aca_event2);		
+			log.info("aca_area1 : "+ aca_lat);		
+			log.info("aca_area1 : "+ aca_lng);		
 			
 			
 			/*
@@ -173,6 +200,7 @@ public class AcademyController {
 		 * */
 		String aca_no = CmmUtil.nvl(request.getParameter("aca_no")); //공지글번호(PK)
 		
+		log.info("학원번호는 이거다 "+aca_no);
 		
 		/*
 		 * #######################################################
@@ -204,7 +232,6 @@ public class AcademyController {
 		
 		if (rDTO==null){
 			rDTO = new AcademyDTO();
-			
 		}
 		
 		log.info("getAccountInfo success!!!");
@@ -223,5 +250,80 @@ public class AcademyController {
 		return "/admin/Academy/AccountInfo";
 	}
 	
+	   @RequestMapping("accountupdate")
+	   public String getAcademyUpdate(HttpServletRequest request, HttpServletResponse response, ModelMap model)
+		         throws Exception {
+
+			   
+		      AcademyDTO aDTO = new AcademyDTO();
+		      
+		      
+		      log.info("aDTO는 "+aDTO);
+		      String aca_no = CmmUtil.nvl(request.getParameter("aca_no")); //공지글번호(PK)
+		      
+		      log.info("aca는 "+request.getParameter(aca_no));
+		      
+		      aDTO.setAca_no(CmmUtil.nvl(request.getParameter("aca_no")));
+		      aDTO = academyService.getAccountInfo(aDTO);
+
+		      model.addAttribute("aDTO", aDTO);
+
+		      log.info(CmmUtil.nvl(request.getParameter("aca_no")));
+
+		      log.info("End update");
+		      log.info(aDTO);
+
+		      return "admin/Academy/AccountUpdate";
+
+		   }
+
+	   
 	
+	   @RequestMapping("academyupdateform")
+	   public String AcademyUpdateForm(HttpServletRequest request, HttpServletResponse response, ModelMap model)
+	         throws Exception {
+
+	      log.info("Welcome academyupdateform !!");
+
+	//      String user_name = CmmUtil.nvl((String)request.getSession().getAttribute("ADMINUSER_NAME"),"0");
+	      AcademyDTO aDTO = new AcademyDTO();
+	      log.info("1");
+	      // request.getParameter("ctr_seq") 원래 1 대신에 들어갔었던 값임.
+	      aDTO.setAca_no(CmmUtil.nvl(request.getParameter("aca_no")));
+	      aDTO.setAca_name(CmmUtil.nvl(request.getParameter("aca_name")));
+	      aDTO.setAca_area1(CmmUtil.nvl(request.getParameter("aca_area1")));
+	      aDTO.setAca_area2(CmmUtil.nvl(request.getParameter("aca_area2")));
+	      log.info("2");
+
+
+	      System.out.println("academy updateform Controller123");
+	      model.addAttribute("academyDTO", aDTO);
+	      log.info("3");
+	      if (academyService.AcademyUpdateForm(aDTO)) {
+	         model.addAttribute("msg", "수정이 완료되었습니다.");
+	      } else {
+	         model.addAttribute("msg", "수정이 실패하였습니다.");
+	      }
+	      log.info("4");
+	      System.out.println("academy updateform2 Controller");
+
+	      log.info("End AcademyUpdateform !!");
+
+	      return "/admin/Academy/AccountMsg";
+	   }
+	   
+	   
+		@RequestMapping("accountdelete")
+		public String AcademyDelete(HttpServletRequest request, HttpServletResponse response, ModelMap model)
+				throws Exception {
+			AcademyDTO aDTO = new AcademyDTO();
+			aDTO.setAca_no(CmmUtil.nvl(request.getParameter("aca_no")));
+			if (academyService.AcademyDelete(aDTO)) {
+				model.addAttribute("msg", "취소되었습니다.");
+			}else{
+				model.addAttribute("msg", "삭제되었습니다.");
+			}
+			model.addAttribute("url", "accountmanagement.do");
+			return "/admin/Academy/AccountMsg";
+		}
 }

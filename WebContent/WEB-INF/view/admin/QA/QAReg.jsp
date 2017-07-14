@@ -4,6 +4,7 @@
 <%
 String SESSION_USER_NO = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO"));
 %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -128,7 +129,7 @@ function calBytes(str) {
 		<tr>
 			<td align="center" colspan="2">
 				<input type="submit" value="등록" />
-				<input type="button" value="목록" onclick="location.href='/admin/QA/QAList.do' "/>
+				<input type="button" value="목록" onclick="location.href='/admin/QA/QAList.do' " />
 			</td>
 		</tr>
 				

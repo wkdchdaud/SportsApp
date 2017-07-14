@@ -13,6 +13,10 @@ public interface IAcademyService {
 	void AccountInsert(AcademyDTO aDTO) throws Exception;
 	
 	AcademyDTO getAccountInfo(AcademyDTO aDTO) throws Exception;
+	
+	boolean AcademyUpdateForm(AcademyDTO aDTO) throws Exception;
+
+	boolean AcademyDelete(AcademyDTO aDTO) throws Exception;
 
 
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import sports.com.dto.UserDTO;
 import sports.com.persistance.mapper.UserMapper;
 import sports.com.service.IUserService;
+import sports.com.util.AES256Util;
 import sports.com.util.CmmUtil;
 import sports.com.util.MailUtil;
 
@@ -78,7 +79,7 @@ public class UserService implements IUserService{
 			
 			String subject = "인증번호 입니다.";
 			String body = "인증번호 : " + ck;
-			MailUtil.sendMail(userDTO.getEmail(), subject, body);
+			MailUtil.sendMail(AES256Util.strDecode(userDTO.getEmail()), subject, body);
 			
 			subject = null;
 			body = null;
@@ -112,7 +113,7 @@ public class UserService implements IUserService{
 			
 			String subject = "인증번호 입니다.";
 			String body = "인증번호 : " + ck;
-			MailUtil.sendMail(userDTO.getEmail(), subject, body);
+			MailUtil.sendMail(AES256Util.strDecode(userDTO.getEmail()), subject, body);
 			
 			subject = null;
 			body = null;

@@ -12,7 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import sports.com.dto.ProductInfoDTO;
 import sports.com.service.IProductInfoService;
@@ -59,6 +60,25 @@ public class ProductInfoController {
 		
 		
 		return "/admin/ProductInfo/ProductInfoList";
+	}
+	
+//	더보기 버튼 구현
+	
+	@RequestMapping(value="/admin/ProductInfo/readMore")
+	public @ResponseBody List<ProductInfoDTO> getReadMore(@RequestParam(value="cnt") int cnt) throws Exception{
+		
+		System.out.println("버튼 리드 모어 고고고고고");
+		
+		ProductInfoDTO pdto = new ProductInfoDTO();
+		pdto.setRead_more(cnt);
+		
+		List<ProductInfoDTO> plist = productInfoService.getReadMore(pdto);
+		
+		System.out.println("pdto.getRead_more() : "+pdto.getRead_more());
+		
+		pdto = null;
+		
+		return plist;
 	}
 	
 	
@@ -317,17 +337,108 @@ public class ProductInfoController {
 		model.addAttribute("url", url);
 		 }
 		return "/redirect";
+	}
+	
+		
+		/*검색controller*/    
+		
+		@RequestMapping(value = "admin/ProductInfo/allSearch")
+		public @ResponseBody List<ProductInfoDTO> allSearch(@RequestParam(value = "price") String price,@RequestParam(value="name") String name) throws Exception{
+			log.info(this.getClass().getName() + "all Search Start !!");
+			log.info(name);
+			
+	
+			ProductInfoDTO bDTO = new ProductInfoDTO();
+			System.out.println("allSearch");
+			System.out.println("price : " + price);
+			System.out.println("name : " + name);
+			
+			bDTO.setProd_name(name);
+			
+			bDTO.setProd_price(price);
+			
+			System.out.println("get name :"+bDTO.getProd_name());
+			System.out.println("get sele : "+ bDTO.getProd_price());
+			
+			List<ProductInfoDTO> RList = productInfoService.getAllSearch(bDTO);
+			System.out.println("안녕"+RList.size());
+			if(RList==null){
+				RList = new ArrayList<ProductInfoDTO>();
+				
+			}
+		
+			
+			log.info(this.getClass().getName()+"all Search end");
+			
+				
+		  return RList;
+	}
+	
+		@RequestMapping(value = "admin/ProductInfo/lowpriceSearch")
+		public @ResponseBody List<ProductInfoDTO> lowpriceSearch(@RequestParam(value = "price") String price,@RequestParam(value="name") String name) throws Exception{
+			log.info(this.getClass().getName() + "low Search Start !!");
+			log.info(name);
+			
+	
+			ProductInfoDTO bDTO = new ProductInfoDTO();
+			System.out.println("price : " + price);
+			System.out.println("name : " + name);
+			bDTO.setProd_name(name);
+			bDTO.setProd_price(price);
+			System.out.println("get name :"+bDTO.getProd_name());
+			System.out.println("get sele : "+ bDTO.getProd_price());
+			List<ProductInfoDTO> RList = productInfoService.getLowpriceSearch(bDTO);
+			System.out.println("안녕"+RList.size());
+			if(RList==null){
+				RList = new ArrayList<ProductInfoDTO>();
+				
+			}
+			
+			log.info(this.getClass().getName()+"low Search end");
+			
+				
+			
+		  return RList;
+	}
+		@RequestMapping(value = "admin/ProductInfo/highpriceSearch")
+		public @ResponseBody List<ProductInfoDTO> highpriceSearch(@RequestParam(value = "price") String price,@RequestParam(value="name") String name) throws Exception{
+			log.info(this.getClass().getName() + "highpriceSearch Start !!");
+			log.info(name);
+			
+	
+			ProductInfoDTO bDTO = new ProductInfoDTO();
+			System.out.println("price : " + price);
+			System.out.println("name : " + name);
+			bDTO.setProd_name(name);
+			bDTO.setProd_price(price);
+			List<ProductInfoDTO> RList = productInfoService.getHighpriceSearch(bDTO);
+			System.out.println("안녕"+RList.size());
+			if(RList==null){
+				RList = new ArrayList<ProductInfoDTO>();
+				
+			}
+			
+			log.info(this.getClass().getName()+"highpriceSearch end");
+			
+		
+			
+		  return RList;
+	}
+		
 		
 	
 		
 		
 		
 		
-	}
+		
+		
+		
+		
 		
 		
 			}
 
     
-    
+
 

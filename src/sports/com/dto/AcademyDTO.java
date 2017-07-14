@@ -1,5 +1,6 @@
 package sports.com.dto;
 
+
 public class AcademyDTO {
 
 	private String aca_no;

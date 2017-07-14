@@ -34,7 +34,7 @@
 					
 					<!--  회원관리 -->		
 					<li>
-                        <a href="ui.do"><i class="fa fa-desktop fa-3x"></i> 회원관리</a>
+                        <a href="/user/user_list.do"><i class="fa fa-desktop fa-3x"></i> 회원관리</a>
                     </li>
                     
                     <!--  권한관리 -->
