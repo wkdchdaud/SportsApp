@@ -146,7 +146,7 @@ function calBytes(str) {
 		</tr>
 		
 		<tr>
-			<td colspan="2"><textarea name="contents" style="width: 550px; height: 400px"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("\r\n", "<br/>") %></textarea></td>
+			<td colspan="2"><textarea name="contents" style="width: 550px; height: 400px"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("<br>", "\r\n") %></textarea></td>
 		</tr>
 		
 		<tr>
