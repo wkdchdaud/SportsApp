@@ -129,6 +129,27 @@ public class UserController {
 		return "/user/user_list";
 	}
 	
+	@RequestMapping(value="/user/user_list",method=RequestMethod.POST)
+	public String user_list_search(HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception{
+		log.info("welcome /user/user_list_search start");
+		UserDTO userDTO = new UserDTO();
+		userDTO.setS_type(CmmUtil.nvl(request.getParameter("s_type")));
+		userDTO.setS_text(CmmUtil.nvl(request.getParameter("s_text")));
+		
+		if(CmmUtil.nvl(request.getParameter("s_type")).equals("no") || CmmUtil.nvl(request.getParameter("s_type")).equals("")){
+			List<UserDTO> rList = userService.getUser_list();
+			model.addAttribute("rList",rList);
+			rList = null;
+		}else{
+			List<UserDTO> rList = userService.getUser_list_search(userDTO);
+			model.addAttribute("rList",rList);
+			rList = null;
+		}
+		log.info("welcome /user/user_list_search end");
+		return "/user/user_list";
+	}
+	
 	@RequestMapping(value="/user/user_info",method=RequestMethod.GET)
 	public String user_info(HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws Exception{
