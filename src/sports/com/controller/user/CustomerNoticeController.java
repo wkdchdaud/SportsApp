@@ -19,16 +19,16 @@ import sports.com.service.INoticeService;
 import sports.com.util.CmmUtil;
 
 @Controller
-public class UserNoticeController {
+public class CustomerNoticeController {
 	private Logger log = Logger.getLogger(this.getClass());
 	
 	@Resource(name = "NoticeService")
 	private INoticeService noticeService;
 	
-	@RequestMapping(value="/user/notice/NoticeList",method=RequestMethod.GET)
+	@RequestMapping(value="/customer/notice/NoticeList",method=RequestMethod.GET)
 	public String noticeList(HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws Exception{
-		log.info("welcome /user/user_join");
+		log.info("welcome /customer/user_join");
 		
 		List<NoticeDTO> nList = new ArrayList<NoticeDTO>();
 		
@@ -44,17 +44,17 @@ public class UserNoticeController {
 		
 		log.info(this.getClass().getName() + ".NoticeList end!");
 		
-		return "/user/notice/NoticeList";
+		return "/customer/notice/NoticeList";
 	}
 	
 
 	
 
 	
-	@RequestMapping(value="/user/notice/NoticeInfo",method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/customer/notice/NoticeInfo",method={RequestMethod.GET, RequestMethod.POST})
 	public String noticeInfo(HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws Exception{
-		log.info("welcome /user/NoticeInfo");
+		log.info("welcome /customer/NoticeInfo");
 		
 		String notice_no = CmmUtil.nvl(request.getParameter("notice_no"));
 		
@@ -69,7 +69,7 @@ public class UserNoticeController {
 		
 		log.info(this.getClass().getName() + ".NoticeInfo end!");
 		
-		return "/user/notice/NoticeInfo";
+		return "/customer/notice/NoticeInfo";
 	}
 	
 	
