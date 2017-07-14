@@ -76,7 +76,7 @@ public class QAController {
 			String title = CmmUtil.nvl(request.getParameter("title"));
 			String contents = CmmUtil.nvl(request.getParameter("contents"));
 			
-			contents = contents.replace("\r\n","<br>");
+			contents = contents.replace("\r\n", "<br>");
 			
 			log.info("reg_user_no: " + reg_user_no);
 			log.info("secret_yn: " + secret_yn);
@@ -344,9 +344,9 @@ public class QAController {
 		
 		log.info("qa_no: " + qa_no);
 		log.info("q_no: " + q_no);
-		log.info("answer_yn: "+ answer_yn);
-		log.info("secret_yn: "+ secret_yn);
-		log.info("title: "+ title);
+		log.info("answer_yn: " + answer_yn);
+		log.info("secret_yn: " + secret_yn);
+		log.info("title: " + title);
 		
 		QADTO qaDTO = new QADTO();
 		
@@ -362,10 +362,9 @@ public class QAController {
 			rDTO = new QADTO();	
 		}
 		
-		log.info("secret_yn: "+ rDTO.getSecret_yn());
-		log.info("title: "+ rDTO.getTitle());
+		log.info("secret_yn: " + rDTO.getSecret_yn());
+		log.info("title: " + rDTO.getTitle());
 	
-		
 		model.addAttribute("rDTO", rDTO);
 		
 		rDTO = null;
@@ -486,8 +485,8 @@ public class QAController {
 		String qa_no = CmmUtil.nvl(request.getParameter("qa_no"));
 		String q_no = CmmUtil.nvl(request.getParameter("q_no"));
 		
-		log.info("qa_no: "+ qa_no);
-		log.info("q_no: "+ q_no);
+		log.info("qa_no: " + qa_no);
+		log.info("q_no: " + q_no);
 		
 		QADTO qaDTO = new QADTO();
 		

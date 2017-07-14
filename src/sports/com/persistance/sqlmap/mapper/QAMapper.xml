@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sports.com.persistance.mapper.QAMapper">
 
-	<!-- 게시판 리스트 쿼리 -->
+	<!-- 게시판 목록 쿼리 -->
 	<select id="getQAList" resultType="QADTO">
 		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, QA.REG_USER_NO, DATE_FORMAT(QA.REG_DT, '%Y-%m-%d %T') AS REG_DT
 	    FROM QA_INFO_A QA
@@ -51,7 +51,7 @@
 		WHERE Q_NO = #{q_no} 
 	</delete>
 	
-	<!-- 게시글 체크박스 삭제 쿼리 -->
+	<!-- 게시글&답글 체크박스 삭제 쿼리 -->
 	<delete id="deleteQAList" parameterType="QADTO">
 		DELETE FROM QA_INFO_A
 		WHERE QA_NO = #{qa_no} 
