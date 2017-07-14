@@ -56,7 +56,7 @@
                     
                     <!--스포츠용품리스트관리  -->
                     <li>
-                        <a href="table1.do"><i class="fa fa-table fa-3x"></i> 스포츠 용품 리스트 관리</a>
+                        <a href="/admin/ProductInfo/List.do"><i class="fa fa-table fa-3x"></i> 스포츠 용품 리스트 관리</a>
                     </li>
                     
 					<!--매출분석정보-->
@@ -73,7 +73,7 @@
                                 <a href="#">공지사항</a>
                             </li>
                             <li>
-                                <a href="#">Q&A</a>
+                                <a href="/admin/QA/QAList.do">Q&A</a>
                             </li>
                          </ul>
                         </li>
