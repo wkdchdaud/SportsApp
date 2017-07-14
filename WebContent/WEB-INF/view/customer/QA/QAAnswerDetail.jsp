@@ -52,7 +52,7 @@ function doList() {
 		</tr>	
 	
 		<tr>
-			<td colspan="4" style="width: 550px; height: 400px" valign="top"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("\r\n", "<br/>") %></td>
+			<td colspan="4" style="width: 550px; height: 400px" valign="top"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("\r\n", "<br>") %></td>
 		</tr>
 		
 		<tr>
