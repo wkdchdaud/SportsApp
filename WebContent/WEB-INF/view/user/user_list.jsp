@@ -19,6 +19,18 @@
 <title>Insert title here</title>
 </head>
 <body>
+<form name="f" action="/user/user_list.do" method="post">
+	<select name="s_type" >
+		<option value="no">선택하세요</option>
+		<option value="id">아이디</option>
+		<option value="name">이름</option>
+		<option value="email">이메일</option>
+		<option value="tel">연락처</option>
+	</select>
+	<input type="text" name="s_text"/>
+	<input type="submit" value="검색"/>
+</form>
+<hr/>
 <table border="1">
 	<thead>
 		<tr>

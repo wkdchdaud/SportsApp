@@ -42,4 +42,6 @@ public interface UserMapper {
 
 	UserDTO id_check(UserDTO userDTO) throws Exception;
 
+	List<UserDTO> getUser_list_search(UserDTO userDTO) throws Exception;
+
 }
