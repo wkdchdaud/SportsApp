@@ -33,21 +33,21 @@
 
 
 
-<table border="1">
+<table border="1" >
 
 <tr>
 <td>제품이름 </td>
-<td><input type="text" name="prod_name" value=""/></td>
+<td><input type="text" name="prod_name" value="" style= 'width :430px'/></td>
 </tr>
 
 <tr>
 <td>제품가격 </td>
-<td><input type="text" name="prod_price" value=""/></td>
+<td><input type="text" name="prod_price" value="" style= 'width :430px'/></td>
 </tr>
 
 <tr>
 <td>제품내용</td>
-<td><textarea id="summernote" name="prod_contents"></textarea></td>
+<td><textarea id="summernote" name="prod_contents" rows="15" col="500"></textarea></td>
 
 </tr>
 
@@ -73,7 +73,8 @@
 <script>
      $(document).ready(function() {
          $('#summernote').summernote({
-    height : 300, // 에디터의 높이 
+    height : 800px, // 에디터의 높이 
+    width:  500,
     minHeight : null,
     maxHeight : null,
     focus : true,

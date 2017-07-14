@@ -46,15 +46,15 @@ SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS FROM PRODUCT_INFO WHERE pro
  SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
  WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') 
  </select>
-
+                                        
 <select resultType="ProductInfoDTO" id="getHighpriceSearch" parameterType="ProductInfoDTO">
 SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
- WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') ORDER BY PROD_PRICE DESC 
+ WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') ORDER BY PROD_PRICE+0 DESC 
  </select>
 
-<select resultType="ProductInfoDTO" id=" getLowpriceSearch" parameterType="ProductInfoDTO">
+<select resultType="ProductInfoDTO" id="getLowpriceSearch" parameterType="ProductInfoDTO">
 SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
- WHERE PPROD_NAME LIKE CONCAT('%', #{prod_name}, '%') ORDER BY PROD_PRICE ASC
+ WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') ORDER BY PROD_PRICE+0 ASC
 
  </select>
 

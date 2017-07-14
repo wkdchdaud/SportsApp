@@ -36,7 +36,9 @@ if (rList==null) {
     <meta name="author" content="">
 
     <title>상세</title>
-
+    <!-- Bootstrap Core CSS -->
+	<%@include file="/inc/head.jsp"%>
+	
     <!-- Bootstrap Core CSS -->
     <link href="/assets2/product1/css/bootstrap.min.css" rel="stylesheet">
 
@@ -49,42 +51,43 @@ if (rList==null) {
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+<script type="text/javascript">
 
+
+	function doAction(gubun) {
+		var f = document.getElementById("form1");
+		if (gubun == "U") {
+			f.action = "/admin/ProductInfo/ProductInfoUpdateForm.do";
+			f.submit();
+		} else if (gubun == "D") {
+			if (confirm("삭제하시겠습니까?")) {
+				f.action = "/admin/ProductInfo/ProductInfoDelete.do";
+				f.submit();
+			}
+		}
+	}
+	</script>
 
 </head>
 <body>
+<!-- 전체 부트스트랩  -->
+ <div id="wrapper">
 
+ <%@include file="/inc/side_nav.jsp"%>
+<div id="page-wrapper" >
+            	<div id="page-inner">
 
-<table border="1" width="500px">
-	
-		<tr>
-			<td width="200" align="center">제품이름</td>
-			<td width="200" align="center">제품가격</td>
-			<td width="200" align="center">제품내용</td>
-		</tr>
-		
-	
-		
-		<tr>
-		
-			<td align="center">
-			<%=CmmUtil.nvl(aDTO.getProd_name()) %></td>
-			<td align="center"><%=CmmUtil.nvl(aDTO.getProd_price()) %></td>
-			<td align="center"><%=CmmUtil.nvl(aDTO.getProd_contents()) %></td>
-		</tr>
-		
-	
-		
-	</table>
+					<div class="row">
+                    	<div class="col-md-12">
+                     	<center><h2>스포츠 용품 리스트</h2></center>   
+                     	<hr/>
+                    	</div>
+                	</div>      
+      <div class="container">
            
-<input type="button" value="삭제" OnClick="location.href='/admin/ProductInfo/ProductInfoDelete.do?prod_no1=<%=aDTO.getProd_no() %>'" />
-<input type="button" value="수정" OnClick="location.href='/admin/ProductInfo/ProductInfoUpdateForm.do?prod_no1=<%=aDTO.getProd_no() %>'" />
-<input type="button" value="목록" OnClick="location.href='/admin/ProductInfo/List.do' " />
-
-<%-- <%
-}
-%>
-		 --%>
+		<form name="form1" id="form1" method="GET">
+		<input type="hidden" name="prod_no1"
+										value="<%=CmmUtil.nvl(aDTO.getProd_no())%>" />
 		<div class="container">
 
         <!-- Heading Row -->
@@ -133,9 +136,11 @@ if (rList==null) {
             
              <hr>
                 <a class="btn btn-primary btn-lg" href="#">주문하기</a>
-                <input type="button" value="삭제" OnClick="location.href='/admin/ProductInfo/ProductInfoDelete.do?prod_no1=<%=aDTO.getProd_no() %>'" />
-				<input type="button" value="수정" OnClick="location.href='/admin/ProductInfo/ProductInfoUpdateForm.do?prod_no1=<%=aDTO.getProd_no() %>'" />
-				<input type="button" value="목록" OnClick="location.href='/admin/ProductInfo/List.do' " />
+               
+				<input type="button"  value="수정" onclick="doAction('U')" /> 
+				<input type="button"  value="삭제" onclick="doAction('D')" />
+				<input type="button"  value="목록" onclick="location.href='/admin/ProductInfo/List.do'" />
+				
             <!-- /.col-md-4 -->
         </div>
         <!-- /.row -->
@@ -177,24 +182,32 @@ if (rList==null) {
         </div>
         <!-- /.row -->
 
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright © Your Website 2014</p>
-                </div>
-            </div>
-        </footer>
+   
 
     </div>
     
     <!-- /.container -->
+    <div class="container">
+    
+        <hr>
 
+     
+
+    </div>
+  <!-- 전체 부트스트랩틀 /// -->  
+</form>
+</div>
+</div>
+</div>
     <!-- jQuery -->
     <script src="/assets2/product1/js/jquery.js"></script>
-
+    
     <!-- Bootstrap Core JavaScript -->
     <script src="/assets2/product1/js/bootstrap.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    
+     <!-- METISMENU SCRIPTS -->
+    <script src="/assets/js/jquery.metisMenu.js"></script>
     <%
 }
 %>
