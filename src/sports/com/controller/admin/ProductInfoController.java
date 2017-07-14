@@ -62,6 +62,25 @@ public class ProductInfoController {
 		return "/admin/ProductInfo/ProductInfoList";
 	}
 	
+//	더보기 버튼 구현
+	
+	@RequestMapping(value="/admin/ProductInfo/readMore")
+	public @ResponseBody List<ProductInfoDTO> getReadMore(@RequestParam(value="cnt") int cnt) throws Exception{
+		
+		System.out.println("버튼 리드 모어 고고고고고");
+		
+		ProductInfoDTO pdto = new ProductInfoDTO();
+		pdto.setRead_more(cnt);
+		
+		List<ProductInfoDTO> plist = productInfoService.getReadMore(pdto);
+		
+		System.out.println("pdto.getRead_more() : "+pdto.getRead_more());
+		
+		pdto = null;
+		
+		return plist;
+	}
+	
 	
 	/*디테일 controller*/
 	

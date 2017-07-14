@@ -22,6 +22,13 @@ public class ProductInfoService implements IProductInfoService {
 		return productInfoMapper.getProductInfolist();
 	}
 	
+	//더보기 버튼 구현
+	@Override
+	public List<ProductInfoDTO> getReadMore(ProductInfoDTO pdto) throws Exception {
+		
+		return productInfoMapper.getReadMore(pdto);
+	}
+	
 	
 	@Override
 	public List<ProductInfoDTO>  getProductInfoDetail(ProductInfoDTO productInfoDTO) throws Exception{
@@ -73,6 +80,9 @@ public class ProductInfoService implements IProductInfoService {
 
 		return productInfoMapper.getLowpriceSearch(bDTO);
 	}
+
+
+
 
 
 
