@@ -31,90 +31,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공지사항 리스트</title>
 
-<script type="text/javascript">
-
-
-function hiddenCheckbox(){
-	
-	var dS = document.getElementsByClassName("deleteSelect");
-		
-		for(var i =0;i<dS.length;i++){
-			dS[i].style.display = "none";
-		}
-		
-		document.getElementById("delete").style.display = "none";
-		
-		document.getElementById("all").style.display = "none";
-}
-
-function edit(f){
-	
-	cbox = f.deleteSelect;
-	
-	var dS = document.getElementsByClassName("deleteSelect");
-		
-	for(var i =0;i<dS.length;i++){
-		if(dS[i].style.display == "none"){
-			dS[i].style.display ="";
-				
-		}else{
-			if(dS[i].style.display == ""){
-				dS[i].style.display ="none";
-				}
-			}
-		}
-	
-	
-	if(cbox.length) {  // 여러 개일 경우
-        for(var i = 0; i<cbox.length;i++) {
-            cbox[i].checked="";
-        }
-    } else { // 한 개일 경우
-        cbox.checked="";
-    }
-	
-	f.all.checked = "";
-	
-	
-	if(document.getElementById("delete").style.display == ""){
-		
-		document.getElementById("delete").style.display = "none";
-		document.getElementById("all").style.display = "none";
-		
-		return false;
-	}
-	
-	document.getElementById("delete").style.display = "";
-	document.getElementById("all").style.display = "";
-	
-	
-}
-
-function deleteConfirm(f){
-	
-	if (confirm("정말 삭제하시겠습니까??") == true){   
-	    f.submit();
-	}else{  
-	    return;
-	}
-
-
-}
-
-function allCheck(f){
-    
-	cbox = f.deleteSelect;
-   
-	if(cbox.length) {  // 여러 개일 경우
-        for(var i = 0; i<cbox.length;i++) {
-            cbox[i].checked=f.all.checked;
-        }
-    } else { // 한 개일 경우
-        cbox.checked=f.all.checked;
-    }
-}
-
-</script>
 
 
  
@@ -171,7 +87,7 @@ function allCheck(f){
 							스포츠 용품 리스트 관리</a></li>
 
 					<!--매출분석정보-->
-					<li><a href="/chart1.do"><i
+					<li><a href="/chart1.do"><i 
 							class="fa fa-bar-chart-o fa-3x"></i> 매출분석정보</a></li>
 
 
@@ -179,7 +95,7 @@ function allCheck(f){
 					<li><a href="#"><i class="fa fa-sitemap fa-3x"></i> 커뮤니티
 							관리<span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
-							<li><a href="/admin/notice/NoticeList.do">공지사항</a></li>
+							<li><a href="/customer/notice/NoticeList.do">공지사항</a></li>
 							<li><a href="#">Q&A</a></li>
 						</ul></li>
 				</ul>
@@ -204,7 +120,6 @@ function allCheck(f){
 
 					<div class="col-md-7">
 						<div class="panel panel-default" style="width: 100%">
-							<form name="f"  method="post" action="/admin/notice/NoticeCheckboxDelete.do">
 								<div class="panel-heading">공지사항 목록</div>
 								<!--    Context Classes  -->
 								<div class="panel panel-default" style="width: 100%">
@@ -215,9 +130,7 @@ function allCheck(f){
 										<table class="table">
 											<thead>
 												<tr>
-													<th style="width: 150px"><font size="2px">
-													<input type="checkbox" name="all" id="all" onclick="allCheck(this.form);" value="전체선택"/>
-													글번호</font></th>
+													<th style="width: 150px"><font size="2px">글번호</font></th>
 													<th style="width: 500px"><font size="2px">제목</font></th>
 													<th style="width: 200px"><font size="2px">작성자</font></th>
 													<th style="width: 100px"><font size="2px">작성일</font></th>
@@ -234,9 +147,7 @@ function allCheck(f){
 												%>
 												<tr>
 													
-													<td><input
-															type="checkbox" name="deleteSelect" class="deleteSelect"
-															value="<%=nDTO.getNOTICE_NO()%>" />
+													<td>
 															<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
 															<%=nDTO.getNOTICE_NO()%>
 															<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>
@@ -244,12 +155,11 @@ function allCheck(f){
 													
 													
 													<td><a
-														href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>">
+														href="/customer/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>">
 														<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
 														<%=title%>
 														<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>		
 														</a>
-														
 														<%
 															String reg_dt = CmmUtil.nvl(nDTO.getREG_DT());
 															SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -291,15 +201,7 @@ function allCheck(f){
 								</div>
 								<!--  end  Context Classes  -->
 
-								<input type="button"
-									onclick="location.href='/admin/notice/NoticeReg.do'"
-									value="글쓰기" /> 
-									<input type="button" onclick="javascript:edit(this.form)"
-									value="편집" /> 
-									<input type="button" 
-									id="delete" value="삭제" onclick="javascript:deleteConfirm(this.form)"/>
 									
-							</form>
 						</div>
 					</div>
 				</div>
