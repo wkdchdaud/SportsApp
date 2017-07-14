@@ -173,8 +173,7 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
     
     
  // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-/*     var iwContent = '<div style="padding:5px;"><input type="text" name="123"></div>',  */
-    var iwContent = 
+     var iwContent = '<div style="padding:5px;"><input type="text" name="123"></div>',
     
     
     
@@ -227,14 +226,28 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
     //map을 클릭하면 열려있는 infowindow가 닫힌다.
     daum.maps.event.addListener(map, 'click', function() {
 	infowindow.close(map,marker);
+	alert(map.value);
     })
-
+ 
     // 마커에 click 이벤트를 등록합니다
     daum.maps.event.addListener(marker, 'click', function() {
 	
 
 
-    	
+    	/* 
+    	if (selectedMarker == marker){
+    		
+    	} */
+        /* if (selectedMarker!=null) {
+        	alert(marker);
+        	alert(map);
+        	infowindow.close(map,marker);
+        	}
+        else{
+        	alert("d") 
+        	
+        	
+        }*/
     	
         // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
         // 마커의 이미지를 클릭 이미지로 변경합니다
@@ -246,8 +259,6 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
             // 클릭된 마커의 이미지를 기본 이미지로 변경하고
             !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
         	
-
-
             // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
             marker.setImage(clickImage);
             
