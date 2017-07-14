@@ -225,6 +225,8 @@ function allCheck(f){
 											</thead>
 											<tbody>
 												<%
+													int i = 0;
+												
 													for (NoticeDTO nDTO : nList) {
 														String title = CmmUtil.nvl(nDTO.getTITLE());
 														
@@ -238,10 +240,11 @@ function allCheck(f){
 															type="checkbox" name="deleteSelect" class="deleteSelect"
 															value="<%=nDTO.getNOTICE_NO()%>" />
 															<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
-															<%=nDTO.getNOTICE_NO()%>
+															<%	i += 1;
+																out.print(i); %>
 															<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>
 													
-													
+														
 													
 													<td><a
 														href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>">
@@ -276,7 +279,7 @@ function allCheck(f){
 													
 													<td>
 													<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
-													<%=nDTO.getREG_DT()%></b>
+													<%=nDTO.getREG_DT().substring(0,10)%></b>
 													<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>
 													
 													
