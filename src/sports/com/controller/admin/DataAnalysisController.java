@@ -91,7 +91,7 @@ public class DataAnalysisController {
 	@RequestMapping(value="sales/sale_table")
 	public @ResponseBody List<R_testDTO> sale_table(@RequestParam(value= "sale_date_mo") String day_date, @RequestParam(value="cal_day") String cal_day) throws Exception
 	{
-		log.info("day_date : " + day_date);
+		log.info("day_dat e : " + day_date);
 		
 		R_testDTO rdto = new R_testDTO();
 		
