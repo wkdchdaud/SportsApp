@@ -613,7 +613,7 @@ public class QAController {
 			log.info(e.toString());
 			e.printStackTrace();
 			
-		} finally {
+		} finally {   
 			
 			log.info(this.getClass().getName() + ".QAAnswerDelete end!");
 		
