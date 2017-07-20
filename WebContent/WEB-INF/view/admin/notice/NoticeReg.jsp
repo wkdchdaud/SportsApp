@@ -202,8 +202,8 @@
 												</tr>
 												<tr>
 													<td colspan="2"><textarea name="contents"
-															maxlength="1500" value=""
-															style="width: 300px; height: 500px"></textarea></td>
+															maxlength="1500" 
+															style="width: 800px; height: 500px" wrap="physical" ></textarea></td>
 												</tr>
 											</tbody>
 

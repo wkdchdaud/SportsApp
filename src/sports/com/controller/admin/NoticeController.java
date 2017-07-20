@@ -73,6 +73,7 @@ public class NoticeController {
 		
 		contents = contents.replace("\r\n","<br>");
 		
+		
 		log.info("user_no : "+ user_no);
 		log.info("title : "+ title);
 		log.info("noticeYn : "+ notice_yn);
@@ -186,7 +187,7 @@ public class NoticeController {
 	public String NoticeCheckboxDelete(HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws Exception{
 		log.info("welcome /admin/NoticeCheckboxDelete");
-		//aa
+
 		String[] deleteSelect = request.getParameterValues("deleteSelect");
 		
 		NoticeDTO nDTO = new NoticeDTO();
