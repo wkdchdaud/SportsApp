@@ -26,17 +26,53 @@
 <!-- CUSTOM STYLES-->
 <link href="/assets/css/custom.css" rel="stylesheet" />
 <!-- GOOGLE FONTS-->
-<link href='http://fonts.googleapis.com/css?family=Open+Sans'
-	rel='stylesheet' type='text/css' />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans'rel='stylesheet' type='text/css' />
+<!-- JQUERY SCRIPTS -->
+	<script src="/assets/js/jquery-1.10.2.js"></script>
+	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공지사항 리스트</title>
 
 <script type="text/javascript">
 
+$(function(){
+	var cnt = 5;
+<%if(nList.size() < 5){%>
+$("#addview").hide();
+<%}%>
 
-function hiddenCheckbox(){
+$("#addview").click(function(){
+	var num = 5;
+	$.ajax({
+		url:"/admin/notice/readMore.do",
+		method : "post",
+		data : {
+			'cnt' : cnt
+		},
+		dataType : "json",
+		success : function(data){
+			var contents = "";
+			console.log(data)
+			$.each(data,function (key,value){
+				num +=1;
+				var yn = value.notice_YN;
+				contents += "<tr><td><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.notice_no + " />";
+				if(yn == "1"){contents += "<font color=\'hotpink\'><b>"+num+"</b></font></td></tr>";}else{contents+= num+"</tr></td>"}
+			});
+			
+			$('#list_more').append(contents);
+			if ((data).length<5) {
+				$('#addview').remove();
+			}
+		}
 	
-	var dS = document.getElementsByClassName("deleteSelect");
+	});
+	cnt += 5;
+});
+
+		
+		/*  편집 삭제 버튼 숨기기 */
+		var dS = document.getElementsByClassName("deleteSelect");
 		
 		for(var i =0;i<dS.length;i++){
 			dS[i].style.display = "none";
@@ -45,7 +81,7 @@ function hiddenCheckbox(){
 		document.getElementById("delete").style.display = "none";
 		
 		document.getElementById("all").style.display = "none";
-}
+
 
 function edit(f){
 	
@@ -113,6 +149,12 @@ function allCheck(f){
         cbox.checked=f.all.checked;
     }
 }
+	
+});
+
+
+
+
 
 </script>
 
@@ -120,7 +162,7 @@ function allCheck(f){
  
 
 </head>
-<body onload="hiddenCheckbox()">
+<body>
 	<div id="wrapper">
 		<nav class="navbar navbar-default navbar-cls-top " role="navigation"
 			style="margin-bottom: 0">
@@ -223,7 +265,7 @@ function allCheck(f){
 													<th style="width: 100px"><font size="2px">작성일</font></th>
 												</tr>
 											</thead>
-											<tbody>
+											<tbody id="list_more">
 												<%
 													int i = 0;
 												
@@ -290,6 +332,9 @@ function allCheck(f){
 												%>
 											</tbody>
 										</table>
+										
+										<!-- 더보기 -->
+										<center><input type="button" style="width: 150px;" class="btn btn-success" value="더보기" id="addview"/></center>
 									</div>
 								</div>
 								<!--  end  Context Classes  -->

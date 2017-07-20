@@ -50,4 +50,9 @@ public class NoticeService implements INoticeService{
 	public List<NoticeDTO> getNoticeDetailInfo(NoticeDTO nDTO) throws Exception {
 		return noticeMapper.getNoticeDetailInfo(nDTO);
 	}
+	
+	@Override
+	public List<NoticeDTO> Notice_MoreView(NoticeDTO nDTO) throws Exception {
+		return noticeMapper.getNotice_MoreView(nDTO);
+	}
 }

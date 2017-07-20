@@ -13,8 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import sports.com.dto.NoticeDTO;
+import sports.com.dto.ProductInfoDTO;
 import sports.com.service.INoticeService;
 import sports.com.util.CmmUtil;
 
@@ -203,6 +206,26 @@ public class NoticeController {
 		model.addAttribute("url","/admin/notice/NoticeList.do");
 		
 		return "/admin/notice/redirect";
+	}
+	
+	@RequestMapping(value="/admin/notice/readMore.do")
+	public @ResponseBody List<NoticeDTO> Notice_MoreView(@RequestParam(value = "cnt") String cnt) throws Exception{
+		
+		NoticeDTO nDTO = new NoticeDTO();
+		
+		nDTO.setRead_more(cnt);
+		System.out.println("넘어온 cnt : " +cnt);
+		List <NoticeDTO> viewMore_list = noticeService.Notice_MoreView(nDTO);
+		
+		System.out.println("겟 리드모어 : " + nDTO.getRead_more());
+		
+		for(NoticeDTO ndt : viewMore_list ){
+			System.out.println( "제목 :"+  ndt.getTITLE());
+		}
+		
+		nDTO= null;
+		
+		return viewMore_list;
 	}
 }
 
