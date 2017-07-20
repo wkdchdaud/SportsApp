@@ -303,7 +303,7 @@ function allCheck(f){
 															long now = System.currentTimeMillis();
 															long inputDate = to.getTime();
 				 
-															if (now - inputDate < (1000*60*60*24*7)) {
+															if (now - inputDate < (1000*60*60*24*3)) {
 															out.println("<b>[NEW]</b>");
 																}
 														%>
