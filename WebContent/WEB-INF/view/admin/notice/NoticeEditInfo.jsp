@@ -149,7 +149,7 @@
 												%>
 												<td colspan="3"><textarea name="contents"
 														maxlength="1500" value=""
-														style="width: 800px; height: 500px" wrap="physical"><%=contents%></textarea></td>
+														style="width: 510px; height: 500px" wrap="physical"><%=contents%></textarea></td>
 											</tr>
 
 											<tr>

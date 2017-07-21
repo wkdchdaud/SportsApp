@@ -1,6 +1,8 @@
 package sports.com.controller.admin;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -41,6 +43,19 @@ public class NoticeController {
 			nList = new ArrayList<NoticeDTO>();
 		}
 		
+		for(NoticeDTO nDTO : nList){
+		String reg_dt = CmmUtil.nvl(nDTO.getREG_DT());
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date to = transFormat.parse(reg_dt);
+
+		long now = System.currentTimeMillis();
+		long inputDate = to.getTime();
+
+		if (now - inputDate < (1000*60*60*24*3)) {
+		nDTO.setTITLE(nDTO.getTITLE()+"<b>[NEW]</b>");
+			}
+		log.info(nDTO.getTITLE());
+		}
 		model.addAttribute("nList",nList);
 		
 		nList = null;
@@ -216,7 +231,10 @@ public class NoticeController {
 		
 		nDTO.setRead_more(cnt);
 		System.out.println("넘어온 cnt : " +cnt);
+		
+		
 		List <NoticeDTO> viewMore_list = noticeService.Notice_MoreView(nDTO);
+		
 		
 		System.out.println("겟 리드모어 : " + nDTO.getRead_more());
 		

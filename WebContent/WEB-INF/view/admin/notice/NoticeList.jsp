@@ -54,34 +54,48 @@ $("#addview").click(function(){
 			var contents = "";
 			console.log(data)
 			$.each(data,function (key,value){
-				num +=1;
 				var yn = value.notice_YN;
-				contents += "<tr><td><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.notice_no + " />";
-				if(yn == "1"){contents += "<font color=\'hotpink\'><b>"+num+"</b></font></td></tr>";}else{contents+= num+"</tr></td>"}
+			
+				
+				contents += "<tr><td><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.notice_NO + " />";
+				contents += value.notice_NO+"</td>";
+				contents += "<td><a href='/admin/notice/NoticeInfo.do?notice_no="+value.notice_NO+"'>"+value.title+"</a></td>";
+				contents += "<td>"+value.user_NO+"</td>";
+				contents += "<td>"+value.reg_DT.substring(10,0)+"</td></tr>";
 			});
 			
 			$('#list_more').append(contents);
 			if ((data).length<5) {
 				$('#addview').remove();
 			}
+			
+			var dS = document.getElementsByClassName("deleteSelect");
+			
+			for (var i =0; i<dS.length; i++) {
+				dS[i].style.display = "none";
+			}
+				
+			document.getElementById("delete").style.display = "none";
+			document.getElementById("all").style.display = "none";
 		}
 	
 	});
 	cnt += 5;
 });
-
+})
 		
 		/*  편집 삭제 버튼 숨기기 */
-		var dS = document.getElementsByClassName("deleteSelect");
+	function hiddenCheckbox() {
+	
+	var dS = document.getElementsByClassName("deleteSelect");
 		
-		for(var i =0;i<dS.length;i++){
-			dS[i].style.display = "none";
-		}
+	for (var i =0; i<dS.length; i++) {
+		dS[i].style.display = "none";
+	}
 		
-		document.getElementById("delete").style.display = "none";
-		
-		document.getElementById("all").style.display = "none";
-
+	document.getElementById("delete").style.display = "none";
+	document.getElementById("all").style.display = "none";
+}
 
 function edit(f){
 	
@@ -150,7 +164,7 @@ function allCheck(f){
     }
 }
 	
-});
+
 
 
 
@@ -162,7 +176,7 @@ function allCheck(f){
  
 
 </head>
-<body>
+<body onload="javascript:hiddenCheckbox();">
 	<div id="wrapper">
 		<nav class="navbar navbar-default navbar-cls-top " role="navigation"
 			style="margin-bottom: 0">
@@ -267,7 +281,6 @@ function allCheck(f){
 											</thead>
 											<tbody id="list_more">
 												<%
-													int i = 0;
 												
 													for (NoticeDTO nDTO : nList) {
 														String title = CmmUtil.nvl(nDTO.getTITLE());
@@ -282,8 +295,7 @@ function allCheck(f){
 															type="checkbox" name="deleteSelect" class="deleteSelect"
 															value="<%=nDTO.getNOTICE_NO()%>" />
 															<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
-															<%	i += 1;
-																out.print(i); %>
+															<%=nDTO.getNOTICE_NO() %>
 															<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>
 													
 														
@@ -295,18 +307,7 @@ function allCheck(f){
 														<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>		
 														</a>
 														
-														<%
-															String reg_dt = CmmUtil.nvl(nDTO.getREG_DT());
-															SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-															Date to = transFormat.parse(reg_dt);
-				
-															long now = System.currentTimeMillis();
-															long inputDate = to.getTime();
-				 
-															if (now - inputDate < (1000*60*60*24*3)) {
-															out.println("<b>[NEW]</b>");
-																}
-														%>
+														
 														</td>
 													
 

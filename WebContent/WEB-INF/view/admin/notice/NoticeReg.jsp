@@ -203,7 +203,7 @@
 												<tr>
 													<td colspan="2"><textarea name="contents"
 															maxlength="1500" 
-															style="width: 800px; height: 500px" wrap="physical" ></textarea></td>
+															style="width: 510px; height: 500px" wrap="physical" ></textarea></td>
 												</tr>
 											</tbody>
 
