@@ -44,6 +44,41 @@ if (rList==null) {
 		var price = '';	//셀렉트박스값을 가져옴 all, lowprice, highrprice
 		var name= '';	//인풋 검색 서취값 가져옴
 		
+		//더보기 버튼 구현 시작 
+		$("#btn_more").click(function(){
+			$.ajax({
+				url : "/admin/ProductInfo/readMore.do",
+				method : "post",
+				data : {
+					'cnt' : cnt
+				},
+				dataType : "json",
+				success : function(data){
+					var contents = "";
+					console.log(data)
+					$.each(data,function (key,value){
+						contents += "<div class='col-sm-4 col-lg-4 col-md-4'>";
+						contents += "<div class='thumbnail'>";
+						contents += "<img src='http://placehold.it/500x500' alt=''>";
+						contents += "<div class='caption'>";
+						contents += "<h4 class='pull-right'>" + value.prod_price + "</h4>";
+						contents += "<h4> <a href='/admin/ProductInfo/ProductInfoDetail.do?prod_no1=" + value.prod_no + "'>" + value.prod_name + "</a></h4>";
+						contents += "<p>See more snippets like this online store item at <a target='_blank' href='http://www.bootsnipp.com'>Bootsnipp - http://bootsnipp.com</a>.</p>";
+						contents += "</div>";
+						contents += "<div class='ratings'>";
+						contents += "</div>";
+						contents += "</div>";
+						contents += "</div>";
+					});
+					$('#menu_list').append(contents)
+					if ((data).length<6) {
+						$('#btn_more').remove();
+					}
+				}
+			});
+			cnt += 6;
+		});
+		
 		$("#Search").keyup(function(){
 			price=null;
 			name=null;
@@ -52,6 +87,7 @@ if (rList==null) {
 			if(name==''){
 				name= 'all_select';
 			}
+			
 			if(price=='all'){ //만약 셀렉트value 값이 all이면
 				
 				$('#menu_list').html(null);
@@ -69,6 +105,7 @@ if (rList==null) {
 							console.log(data);
 							var contents = "";
 							var cnt=1;
+
 								$.each(data, function(key,value){
 									contents += "<div class='col-sm-4 col-lg-4 col-md-4'>";
 									contents += "<div class='thumbnail'>";
@@ -172,7 +209,6 @@ if (rList==null) {
 			}
 		
 			if(price=='all'){ //만약 셀렉트value 값이 all이면
-				
 				$('#menu_list').html(null);
 			
 					$.ajax({//아작스 실행
@@ -281,40 +317,6 @@ if (rList==null) {
 		});
 		//select 값 high, all , lowprice 바뀜에 따라 실행하는 아작스 끝
 		
-/* 		$("#btn_more").click(function(){
-			$.ajax({
-				url : "/admin/ProductInfo/readMore.do",
-				method : "post",
-				data : {
-					'cnt' : cnt
-				},
-				dataType : "json",
-				success : function(data){
-					var contents = "";
-					console.log(data)
-					$.each(data,function (key,value){
-						contents += "<div class='col-sm-4 col-lg-4 col-md-4'>";
-						contents += "<div class='thumbnail'>";
-						contents += "<img src='http://placehold.it/500x500' alt=''>";
-						contents += "<div class='caption'>";
-						contents += "<h4 class='pull-right'>" + value.prod_price + "</h4>";
-						contents += "<h4> <a href='/admin/ProductInfo/ProductInfoDetail.do?prod_no1=" + value.prod_no + "'>" + value.prod_name + "</a></h4>";
-						contents += "<p>See more snippets like this online store item at <a target='_blank' href='http://www.bootsnipp.com'>Bootsnipp - http://bootsnipp.com</a>.</p>";
-						contents += "</div>";
-						contents += "<div class='ratings'>";
-						contents += "</div>";
-						contents += "</div>";
-						contents += "</div>";
-					});
-					$('#menu_list').append(contents)
-					if ((data).length<6) {
-						$('#btn_more').remove();
-					}
-				}
-			});
-			cnt += 6;
-		}); */
-	
 	});
 
 </script>
@@ -335,7 +337,7 @@ if (rList==null) {
                      	<hr/>
                     	</div>
                 	</div>      
-<!-- 검생 -->
+<!-- 검색 -->
 
        <div class="container">
   <!-- 검색 컬럼 -->
@@ -359,7 +361,7 @@ if (rList==null) {
         
     <div class="panel panel-default">
         <div class="row">
-            <div class="col-md-9" id="menu_list" style="width: 100%;">
+      <div class="col-md-9" id="menu_list" style="width: 100%;">
 
 <!-- 스포츠용품리스트 시작 -->
               <%
@@ -367,25 +369,22 @@ if (rList==null) {
       %>
    
       
-      
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                               <img src="http://placehold.it/500x500" alt="">
+                               <img src="http://placehold.it/300x300" alt="">
                           
                             <div class="caption">
                                 <h4 class="pull-right"><%= CmmUtil.nvl(aDTO.getProd_price()) %></h4>
                                 <h4><a href="/admin/ProductInfo/ProductInfoDetail.do?prod_no1=<%=CmmUtil.nvl(aDTO.getProd_no()) %>"> <%= CmmUtil.nvl(aDTO.getProd_name()) %></a>
                                 </h4>
-                             
-                            </div>
-                        </div>
-                   
+                        	</div>
+                    	</div>
                     </div>
+                    
  <%} %>
  
+                                 </div>
  
-
-            </div>
 
         </div>
          <center><button class="btn btn-primary btn-lg" id="btn_more" style="width: 300px">더보기</button></center>
