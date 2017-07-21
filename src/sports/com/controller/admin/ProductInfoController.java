@@ -70,12 +70,16 @@ public class ProductInfoController {
 		System.out.println("버튼 리드 모어 고고고고고");
 		
 		ProductInfoDTO pdto = new ProductInfoDTO();
+	
 		pdto.setRead_more(cnt);
 		
 		List<ProductInfoDTO> plist = productInfoService.getReadMore(pdto);
 		
 		System.out.println("pdto.getRead_more() : "+pdto.getRead_more());
 		
+		for ( ProductInfoDTO tdto : plist){
+			System.out.println("내용 가져오기 : " + tdto.getProd_price());
+		}
 		pdto = null;
 		
 		return plist;
