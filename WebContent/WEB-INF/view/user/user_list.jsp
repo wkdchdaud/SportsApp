@@ -38,6 +38,7 @@
 			<td>아이디</td>
 			<td>이름</td>
 			<td>이메일</td>
+			<td>이메일 확인여부</td>
 			<td>연락처</td>
 		</tr>
 	</thead>
@@ -55,6 +56,7 @@
 			<td><a href="/user/user_info.do?user_no=<%=CmmUtil.nvl(uDTO.getUser_no())%>"><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getUser_id())) %></a></td>
 			<td><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getUser_name())) %></td>
 			<td><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getEmail())) %></td>
+			<td align="center"><%=CmmUtil.nvl(uDTO.getEmail_first()) %></td>
 			<td><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getTel())) %></td>
 		</tr>
 		<% }%>
