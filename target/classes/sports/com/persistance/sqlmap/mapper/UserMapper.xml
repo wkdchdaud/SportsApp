@@ -18,7 +18,7 @@
 	</select>
 	
 	<select id="getUser_list" resultType="UserDTO">
-		SELECT USER_NO, USER_ID, USER_NAME, EMAIL, TEL FROM USER_INFO
+		SELECT USER_NO, USER_ID, USER_NAME, EMAIL, EMAIL_FIRST, TEL FROM USER_INFO
 	</select>
 	
 	<select id="getUser_info" resultType="UserDTO" parameterType="UserDTO">
