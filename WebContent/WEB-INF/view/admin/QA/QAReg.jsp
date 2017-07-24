@@ -10,17 +10,8 @@ String SESSION_USER_NO = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Q&A 등록(스포츠 용품업자)</title>
-<!-- BOOTSTRAP STYLES-->
-<link href="/assets/css/bootstrap.css" rel="stylesheet" />
-<!-- FONTAWESOME STYLES-->
-<link href="/assets/css/font-awesome.css" rel="stylesheet" />
-<!-- CUSTOM STYLES-->
-<link href="/assets/css/custom.css" rel="stylesheet" />
-<!-- GOOGLE FONTS-->
-<link href='http://fonts.googleapis.com/css?family=Open+Sans'
-	rel='stylesheet' type='text/css' />
+<%@include file="/inc/head.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Q&A 등록(스포츠 용품업자)</title>
 <script type="text/javascript">
 
 function doSubmit(f) {
@@ -110,69 +101,9 @@ function calBytes(str) {
 <body>
 
 	<div id="wrapper">
-		<nav class="navbar navbar-default navbar-cls-top " role="navigation"
-			style="margin-bottom: 0">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".sidebar-collapse">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="/main.do">모두의 스포츠</a>
-			</div>
-			<div
-				style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;"
-				id="nowDate">
-				2017년 6월 23일 <a href="/login.html"
-					class="btn btn-danger square-btn-adjust">Logout</a>
-			</div>
-		</nav>
-		
-		<!-- /. NAV TOP  -->
-		<nav class="navbar-default navbar-side" role="navigation">
-			<div class="sidebar-collapse">
-				<ul class="nav" id="main-menu">
-					<li class="text-center"><img src="/assets/img/find_user.png"
-						class="user-image img-responsive" /></li>
-
-					<!-- 우리가 사용할 메뉴 시작  -->
-
-					<!--  회원관리 -->
-					<li><a href="/ui.do"><i class="fa fa-desktop fa-3x"></i>
-							회원관리</a></li>
-
-					<!--  권한관리 -->
-					<li><a href="/ui1.do"><i class="fa fa-desktop fa-3x"></i>
-							권한관리</a></li>
-
-					<!--주문관리-->
-					<li><a href="/table.do"><i class="fa fa-table fa-3x"></i>
-							주문관리</a></li>
-
-					<!--학원관리-->
-					<li><a href="/accountmanagement.do"><i
-							class="fa fa-table fa-3x"></i> 학원관리</a></li>
-
-					<!--스포츠용품리스트관리  -->
-					<li><a href="/table1.do"><i class="fa fa-table fa-3x"></i>
-							스포츠 용품 리스트 관리</a></li>
-
-					<!--매출분석정보-->
-					<li><a href="/chart1.do"><i
-							class="fa fa-bar-chart-o fa-3x"></i> 매출분석정보</a></li>
-
-
-
-					<li><a href="#"><i class="fa fa-sitemap fa-3x"></i> 커뮤니티
-							관리<span class="fa arrow"></span></a>
-						<ul class="nav nav-second-level">
-							<li><a href="/admin/notice/NoticeList.do">공지사항 </a></li>
-							<li><a href="/admin/QA/QAList.do">Q&A</a></li>
-						</ul></li>
-				</ul>
-			</div>
-		</nav>
+		<!-- 사이드 네비바 및 헤더 부분 시작 -->
+		<%@include file="/inc/side_nav.jsp"%>
+		<!-- 사이드 네비바 및 헤더 부분 끝  -->
 
 	<!-- /. NAV SIDE  -->
 		<div id="page-wrapper">
@@ -194,19 +125,19 @@ function calBytes(str) {
 	<form name="f"  method="post" action="/admin/QA/QAInsert.do" enctype="multipart/form-data" onsubmit="return doSubmit(this);">
 	
 		<div class="panel panel-default" style="width: 100%">
-		<div class="panel-body">
+			<div class="panel-body">
 	
 	<table class="table">
 	
 		<tbody>
 		
 		<tr>
-			<td align="center">제목</td>
-			<td><input type="text" name="title" maxlength="100" style="width:450px" /></td>
+			<td>제목</td>
+			<td><input type="text" name="title" maxlength="50" /></td>
 		</tr>
 		
 		<tr>
-			<td align="center">비밀글 여부</td>
+			<td>비밀글 여부&nbsp;&nbsp;&nbsp;</td>
 			<td>
 				예 <input type="radio" name="secret_yn" value="1" />
 				아니오 <input type="radio" name="secret_yn" value="2" />
@@ -214,26 +145,51 @@ function calBytes(str) {
 		</tr>
 		
 		<tr>
-			<td colspan="2"><textarea name="contents" style="width:550px; height:400px"></textarea></td>
+			<td align="center" colspan="2"><textarea name="contents" style="width:300px; height:400px" maxlength="2000"></textarea></td>
 		</tr>
 			
 		<tr>
-			<td align="center">첨부파일</td>
-			<td><input type="file" name="file_name" style="width:450px" /></td>
-		</tr>
-		
-		<tr>
-			<td align="center" colspan="2">
-				<input type="submit" value="등록" />
-				<input type="button" value="목록" onclick="location.href='/admin/QA/QAList.do' " />
-			</td>
+			<td>첨부파일&nbsp;&nbsp;&nbsp;</td>
+			<td><input type="file" name="file_name" /></td>
 		</tr>
 		
 		</tbody>
 				
 	</table>
 	
+			</div>
+		</div>
+
+	<input type="submit" value="등록" />
+	<input type="button" value="목록" onclick="location.href='/admin/QA/QAList.do' " />
+	
 </form>
+
+							<!--  end  Context Classes  -->
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- /. ROW  -->
+		</div>
+		
+		<!-- /. PAGE INNER  -->
+	</div>
+	
+	<!-- /. PAGE WRAPPER  -->
+	</div>
+	
+	<!-- /. WRAPPER  -->
+	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+	<!-- JQUERY SCRIPTS -->
+	<script src="/assets/js/jquery-1.10.2.js"></script>
+	<!-- BOOTSTRAP SCRIPTS -->
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<!-- METISMENU SCRIPTS -->
+	<script src="/assets/js/jquery.metisMenu.js"></script>
+	<!-- CUSTOM SCRIPTS -->
+	<script src="/assets/js/custom.js"></script>
 
 </body>
 </html>
