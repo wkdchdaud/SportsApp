@@ -3,6 +3,7 @@ package sports.com.persistance.mapper;
 import java.util.List;
 
 import config.Mapper;
+import sports.com.dto.NoticeDTO;
 import sports.com.dto.QADTO;
 
 @Mapper("QAMapper")
@@ -27,5 +28,7 @@ public interface QAMapper {
 	void updateQAAnswerDetail(QADTO qaDTO) throws Exception;
 	
 	void deleteQAAnswerDetail(QADTO qaDTO) throws Exception;
+	
+	List<QADTO> getQA_MoreView(QADTO qaDTO)throws Exception;
 	
 }

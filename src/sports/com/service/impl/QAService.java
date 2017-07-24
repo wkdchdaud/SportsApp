@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import sports.com.dto.NoticeDTO;
 import sports.com.dto.QADTO;
 import sports.com.persistance.mapper.QAMapper;
 import sports.com.service.IQAService;
@@ -64,6 +65,11 @@ public class QAService implements IQAService {
 	@Override
 	public void deleteQAAnswerDetail(QADTO qaDTO) throws Exception {
 		qaMapper.deleteQAAnswerDetail(qaDTO);
+	}
+	
+	@Override
+	public List<QADTO> QA_MoreView(QADTO qaDTO) throws Exception {
+		return qaMapper.getQA_MoreView(qaDTO);
 	}
 	
 }
