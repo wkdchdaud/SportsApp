@@ -55,7 +55,6 @@ $("#addview").click(function(){
 			console.log(data)
 			$.each(data,function (key,value){
 				var yn = value.notice_YN;
-			
 				
 				contents += "<tr><td><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.notice_NO + " />";
 				contents += value.notice_NO+"</td>";
@@ -283,11 +282,8 @@ function allCheck(f){
 												<%
 												
 													for (NoticeDTO nDTO : nList) {
-														String title = CmmUtil.nvl(nDTO.getTITLE());
-														
-													if (title.length() >= 14) {
-															title = title.substring(0, 14) + "...";
-														}
+												
+													
 												%>
 												<tr>
 													
@@ -303,7 +299,7 @@ function allCheck(f){
 													<td><a
 														href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>">
 														<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
-														<%=title%>
+														<%=nDTO.getTITLE()%>
 														<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>		
 														</a>
 														

@@ -43,7 +43,7 @@ public class NoticeController {
 			nList = new ArrayList<NoticeDTO>();
 		}
 		
-		for(NoticeDTO nDTO : nList){
+		for(NoticeDTO nDTO : nList){//new 붙히는 시간 계산해서 nList의 title에 new 붙여주기
 		String reg_dt = CmmUtil.nvl(nDTO.getREG_DT());
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date to = transFormat.parse(reg_dt);
@@ -51,10 +51,13 @@ public class NoticeController {
 		long now = System.currentTimeMillis();
 		long inputDate = to.getTime();
 
+		String title = CmmUtil.nvl(nDTO.getTITLE());//제목이 14자 이상이면 ...붙여주기
+		if (title.length() >= 14) {
+			title = title.substring(0, 14) + "...";
+		}
 		if (now - inputDate < (1000*60*60*24*3)) {
-		nDTO.setTITLE(nDTO.getTITLE()+"<b>[NEW]</b>");
+		nDTO.setTITLE(title+"<b>[NEW]</b>");
 			}
-		log.info(nDTO.getTITLE());
 		}
 		model.addAttribute("nList",nList);
 		
@@ -235,6 +238,22 @@ public class NoticeController {
 		
 		List <NoticeDTO> viewMore_list = noticeService.Notice_MoreView(nDTO);
 		
+		for(NoticeDTO nDT : viewMore_list){//new 붙히는 시간 계산해서 nList의 title에 new 붙여주기
+			String reg_dt = CmmUtil.nvl(nDT.getREG_DT());
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date to = transFormat.parse(reg_dt);
+
+			long now = System.currentTimeMillis();
+			long inputDate = to.getTime();
+
+			String title = CmmUtil.nvl(nDT.getTITLE());//제목이 14자 이상이면 ...붙여주기
+			if (title.length() >= 14) {
+				title = title.substring(0, 14) + "...";
+			}
+			if (now - inputDate < (1000*60*60*24*3)) {
+			nDT.setTITLE(title+"<b>[NEW]</b>");
+				}
+			}
 		
 		System.out.println("겟 리드모어 : " + nDTO.getRead_more());
 		
