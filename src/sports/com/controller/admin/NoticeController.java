@@ -86,7 +86,7 @@ public class NoticeController {
 		
 		noticeService.InsertNoticeInfo(noticeDTO);
 		
-		model.addAttribute("msg","등록완료");
+		model.addAttribute("msg","게시글 등록에 성공하였습니다.");
 		model.addAttribute("url","/admin/notice/NoticeList.do");
 		
 		return "/admin/notice/redirect";
@@ -156,7 +156,7 @@ public class NoticeController {
 		
 		noticeService.updateNoticeInfo(noticeDTO);
 		
-		model.addAttribute("msg","수정완료");
+		model.addAttribute("msg","게시글 수정에 성공하였습니다.");
 		model.addAttribute("url","/admin/notice/NoticeInfo.do?notice_no="+notice_no);
 		
 		
@@ -175,7 +175,7 @@ public class NoticeController {
 		
 		noticeService.deleteNoticeInfo(nDTO);
 		
-		model.addAttribute("msg","삭제완료");
+		model.addAttribute("msg","게시글 삭제에 성공하였습니다.");
 		model.addAttribute("url","/admin/notice/NoticeList.do");
 		
 		return "/admin/notice/redirect";
@@ -199,7 +199,7 @@ public class NoticeController {
 	
 		}
 		
-		model.addAttribute("msg","삭제완료");
+		model.addAttribute("msg","선택된 게시글 삭제에 성공하였습니다.");
 		model.addAttribute("url","/admin/notice/NoticeList.do");
 		
 		return "/admin/notice/redirect";
