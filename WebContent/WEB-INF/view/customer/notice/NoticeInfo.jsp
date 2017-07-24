@@ -1,4 +1,5 @@
 
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -26,7 +27,10 @@
 	rel='stylesheet' type='text/css' />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공지사항 리스트</title>
+
 </head>
+
+
 <body>
 	<div id="wrapper">
 		<nav class="navbar navbar-default navbar-cls-top " role="navigation"
@@ -85,7 +89,7 @@
 					<li><a href="#"><i class="fa fa-sitemap fa-3x"></i> 커뮤니티
 							관리<span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
-							<li><a href="/admin/notice/NoticeList.do">공지사항 </a></li>
+							<li><a href="/customer/notice/NoticeList.do">공지사항 </a></li>
 							<li><a href="#">Q&A</a></li>
 						</ul></li>
 				</ul>
@@ -108,68 +112,50 @@
 
 					<div class="col-md-7">
 						<div class="panel panel-default" style="width: 100%">
-							<div class="panel-heading">공지사항 수정</div>
+							<div class="panel-heading">공지사항 상세</div>
 							<!--    Context Classes  -->
-							<form method='post' action="/admin/notice/NoticeUpdate.do">
-								<div class="panel panel-default" style="width: 100%">
+							<div class="panel panel-default" style="width: 100%">
 
 
-									<div class="panel-body">
+								<div class="panel-body">
+									<table class="table">
 
-										<table class="table">
+										<tbody>
+											<%
+												for (NoticeDTO nDTO : nList) {
+											%>
+										
+										<col width="50px">
+										<col width="200px">
 
-											<tbody>
-												<%
-													for (NoticeDTO nDTO : nList) {
-														String notice_yn = nDTO.getNOTICE_YN();
-												%>
-											
-											<col width="50px">
-											<col width="200px">
+										<tr>
+											<td>제목</td>
+											<td><%=nDTO.getTITLE()%></td>
+										</tr>
 
-											<tr>
-												<td>제목</td>
-												<td><input type="text" name="title"
-													value="<%=nDTO.getTITLE()%>" maxlength="50"></td>
-											</tr>
+										<tr>
+											<td colspan="2" align="right">작성자 : <%=nDTO.getREG_USER_NO()%>
+												&nbsp;&nbsp; 작성일자 : <%=nDTO.getREG_DT()%></td>
+										</tr>
 
-											<tr>
-												<td colspan="2" align="right">공지글 게시여부&nbsp;&nbsp;&nbsp; 예&nbsp;<input type="radio"
-													name="notice_yn" value="1"
-													<%=CmmUtil.checked(notice_yn, "1")%> />&nbsp;&nbsp; 아니오&nbsp;<input
-													type="radio" name="notice_yn" value="2"
-													<%=CmmUtil.checked(notice_yn, "2")%> />
-												</td>
-											</tr>
+										<tr>
 
-											<tr>
-												<%
-													String contents = nDTO.getCONTENTS();
-														contents = contents.replace("<br>", "\r\n");
-												%>
-												<td colspan="3"><textarea name="contents"
-														maxlength="1500" value=""
-														style="width: 510px; height: 500px" wrap="physical"><%=contents%></textarea></td>
-											</tr>
+											<td colspan="2" style="height: 400px"><%=nDTO.getCONTENTS()%></td>
+										</tr>
 
-											<tr>
-												<td colspan="2" align="center"></td>
-											</tr>
-											<input type="hidden" name="notice_no"
-												value="<%=nDTO.getNOTICE_NO()%>" />
-											</tbody>
+										</tbody>
 
-										</table>
-									</div>
+									</table>
+
 								</div>
-								<input type="submit" value="수정" /> <input type="button"
-									value="취소"
-									onclick="location.href='/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>'" />
-								<%
-									}
-								%>
 
-							</form>
+							</div>
+							<input type="button"
+								onclick="location.href='/customer/notice/NoticeList.do'"
+								value="돌아가기" /> 
+							<%
+								}
+							%>
 							<!--  end  Context Classes  -->
 						</div>
 					</div>
@@ -181,7 +167,6 @@
 		<!-- /. PAGE INNER  -->
 	</div>
 	<!-- /. PAGE WRAPPER  -->
-	</div>
 	<!-- /. WRAPPER  -->
 	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
 	<!-- JQUERY SCRIPTS -->
@@ -195,60 +180,4 @@
 
 </body>
 </html>
-<!-- -----------------------------------------------------------------------------------
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>공지사항 수정</title>
-</head>
-<body>
-	<form method='post' action="/admin/notice/NoticeUpdate.do">
-		<table border="1">
-
-
-			<%
-				String notice_no = "";
-
-				for (NoticeDTO nDTO : nList) {
-			%>
-			<%
-				String notice_yn = nDTO.getNOTICE_YN();
-					notice_no = nDTO.getNOTICE_NO();
-			%>
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name="title"
-					value="<%=nDTO.getTITLE()%>" maxlength="50"></td>
-
-			</tr>
-			<tr>
-				<td colspan="3">공지글 게시여부 예<input type="radio" name="notice_yn"
-					value="1" <%=CmmUtil.checked(notice_yn, "1")%> /> 아니오<input
-					type="radio" name="notice_yn" value="2"
-					<%=CmmUtil.checked(notice_yn, "2")%> />
-				</td>
-			</tr>
-			<tr>
-				<%
-					String contents = nDTO.getCONTENTS();
-						contents = contents.replace("<br>", "\r\n");
-				%>
-				<td colspan="3"><textarea name="contents" maxlength="1500"
-						value="" style="width: 300px; height: 500px"><%=contents%></textarea></td>
-			</tr>
-			<tr>
-				<td colspan="3"><input type="submit" value="수정" /> <input
-					type="button" value="취소"
-					onclick="location.href='/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>'" /></td>
-			</tr>
-			<%
-				}
-			%>
-		</table>
-		<input type="hidden" name="notice_no" value="<%=notice_no%>">
-	</form>
-
-</body>
-</html> -->

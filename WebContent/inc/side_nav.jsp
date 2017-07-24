@@ -32,10 +32,12 @@
 				
 					<!-- 우리가 사용할 메뉴 시작  -->
 					
-					<!--  회원관리 -->		
+					<!--  회원관리 -->
+					<%if(auth.equals("A")){ %>
 					<li>
                         <a href="/user/user_list.do"><i class="fa fa-desktop fa-3x"></i> 회원관리</a>
                     </li>
+                    <%} %>
                     
                     <!--  권한관리 -->
                     <li>

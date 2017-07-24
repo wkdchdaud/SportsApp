@@ -70,12 +70,16 @@ public class ProductInfoController {
 		System.out.println("버튼 리드 모어 고고고고고");
 		
 		ProductInfoDTO pdto = new ProductInfoDTO();
+	
 		pdto.setRead_more(cnt);
 		
 		List<ProductInfoDTO> plist = productInfoService.getReadMore(pdto);
 		
 		System.out.println("pdto.getRead_more() : "+pdto.getRead_more());
 		
+		for ( ProductInfoDTO tdto : plist){
+			System.out.println("내용 가져오기 : " + tdto.getProd_price());
+		}
 		pdto = null;
 		
 		return plist;
@@ -361,7 +365,8 @@ public class ProductInfoController {
 			System.out.println("get sele : "+ bDTO.getProd_price());
 			
 			List<ProductInfoDTO> RList = productInfoService.getAllSearch(bDTO);
-			System.out.println("안녕"+RList.size());
+			System.out.println("안녕 : RList size : "+RList.size());
+			
 			if(RList==null){
 				RList = new ArrayList<ProductInfoDTO>();
 				
@@ -383,12 +388,16 @@ public class ProductInfoController {
 			ProductInfoDTO bDTO = new ProductInfoDTO();
 			System.out.println("price : " + price);
 			System.out.println("name : " + name);
+			if(name==""){
+				System.out.println("hello null");
+			}
 			bDTO.setProd_name(name);
 			bDTO.setProd_price(price);
 			System.out.println("get name :"+bDTO.getProd_name());
 			System.out.println("get sele : "+ bDTO.getProd_price());
 			List<ProductInfoDTO> RList = productInfoService.getLowpriceSearch(bDTO);
 			System.out.println("안녕"+RList.size());
+			
 			if(RList==null){
 				RList = new ArrayList<ProductInfoDTO>();
 				
@@ -405,7 +414,7 @@ public class ProductInfoController {
 			log.info(this.getClass().getName() + "highpriceSearch Start !!");
 			log.info(name);
 			
-	
+			
 			ProductInfoDTO bDTO = new ProductInfoDTO();
 			System.out.println("price : " + price);
 			System.out.println("name : " + name);

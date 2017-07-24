@@ -89,17 +89,19 @@ public class DataAnalysisController {
 	
 	//매출 분석 정보 매출 순위 정보 테이블로 아작스 구현
 	@RequestMapping(value="sales/sale_table")
-	public @ResponseBody List<R_testDTO> sale_table(@RequestParam(value="sale_date_mo") String day_date) throws Exception
+	public @ResponseBody List<R_testDTO> sale_table(@RequestParam(value= "sale_date_mo") String day_date, @RequestParam(value="cal_day") String cal_day) throws Exception
 	{
-		log.info("day_date : " + day_date);
+		log.info("day_dat e : " + day_date);
 		
 		R_testDTO rdto = new R_testDTO();
 		
 		rdto.setSale_date(day_date);
+		rdto.setCal_day(cal_day);
 		
 		List<R_testDTO> tlist = analysisService.sale_table(rdto);
 		
-		log.info("sale_table (세일데이트): "+rdto.getSale_date());
+		log.info("테이블 아작스 구현 sale_table (세일데이트): "+rdto.getSale_date());
+		log.info("테이블 아작스 구현 cal_day : "+ rdto.getCal_day());
 		
 		rdto=null;
 		

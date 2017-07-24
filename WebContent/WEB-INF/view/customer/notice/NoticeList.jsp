@@ -26,156 +26,17 @@
 <!-- CUSTOM STYLES-->
 <link href="/assets/css/custom.css" rel="stylesheet" />
 <!-- GOOGLE FONTS-->
-<link href='http://fonts.googleapis.com/css?family=Open+Sans'rel='stylesheet' type='text/css' />
-<!-- JQUERY SCRIPTS -->
-	<script src="/assets/js/jquery-1.10.2.js"></script>
-	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans'
+	rel='stylesheet' type='text/css' />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공지사항 리스트</title>
 
-<script type="text/javascript">
-
-$(function(){
-	var cnt = 5;
-<%if(nList.size() < 5){%>
-$("#addview").hide();
-<%}%>
-
-$("#addview").click(function(){
-	var num = 5;
-	$.ajax({
-		url:"/admin/notice/readMore.do",
-		method : "post",
-		data : {
-			'cnt' : cnt
-		},
-		dataType : "json",
-		success : function(data){
-			var contents = "";
-			console.log(data)
-			$.each(data,function (key,value){
-				var yn = value.notice_YN;
-				
-				contents += "<tr><td><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.notice_NO + " />";
-				contents += value.notice_NO+"</td>";
-				contents += "<td><a href='/admin/notice/NoticeInfo.do?notice_no="+value.notice_NO+"'>"+value.title+"</a></td>";
-				contents += "<td>"+value.user_NO+"</td>";
-				contents += "<td>"+value.reg_DT.substring(10,0)+"</td></tr>";
-			});
-			
-			$('#list_more').append(contents);
-			if ((data).length<5) {
-				$('#addview').remove();
-			}
-			
-			var dS = document.getElementsByClassName("deleteSelect");
-			
-			for (var i =0; i<dS.length; i++) {
-				dS[i].style.display = "none";
-			}
-				
-			document.getElementById("delete").style.display = "none";
-			document.getElementById("all").style.display = "none";
-		}
-	
-	});
-	cnt += 5;
-});
-})
-		
-		/*  편집 삭제 버튼 숨기기 */
-	function hiddenCheckbox() {
-	
-	var dS = document.getElementsByClassName("deleteSelect");
-		
-	for (var i =0; i<dS.length; i++) {
-		dS[i].style.display = "none";
-	}
-		
-	document.getElementById("delete").style.display = "none";
-	document.getElementById("all").style.display = "none";
-}
-
-function edit(f){
-	
-	cbox = f.deleteSelect;
-	
-	var dS = document.getElementsByClassName("deleteSelect");
-		
-	for(var i =0;i<dS.length;i++){
-		if(dS[i].style.display == "none"){
-			dS[i].style.display ="";
-				
-		}else{
-			if(dS[i].style.display == ""){
-				dS[i].style.display ="none";
-				}
-			}
-		}
-	
-	
-	if(cbox.length) {  // 여러 개일 경우
-        for(var i = 0; i<cbox.length;i++) {
-            cbox[i].checked="";
-        }
-    } else { // 한 개일 경우
-        cbox.checked="";
-    }
-	
-	f.all.checked = "";
-	
-	
-	if(document.getElementById("delete").style.display == ""){
-		
-		document.getElementById("delete").style.display = "none";
-		document.getElementById("all").style.display = "none";
-		
-		return false;
-	}
-	
-	document.getElementById("delete").style.display = "";
-	document.getElementById("all").style.display = "";
-	
-	
-}
-
-function deleteConfirm(f){
-	
-	if (confirm("선택된 게시글을 삭제하시겠습니까?") == true){   
-	    f.submit();
-	}else{  
-	    return;
-	}
-
-
-}
-
-function allCheck(f){
-    
-	cbox = f.deleteSelect;
-   
-	if(cbox.length) {  // 여러 개일 경우
-        for(var i = 0; i<cbox.length;i++) {
-            cbox[i].checked=f.all.checked;
-        }
-    } else { // 한 개일 경우
-        cbox.checked=f.all.checked;
-    }
-}
-	
-
-
-
-
-
-
-</script>
 
 
  
 
 </head>
-<body onload="javascript:hiddenCheckbox();">
+<body onload="hiddenCheckbox()">
 	<div id="wrapper">
 		<nav class="navbar navbar-default navbar-cls-top " role="navigation"
 			style="margin-bottom: 0">
@@ -226,7 +87,7 @@ function allCheck(f){
 							스포츠 용품 리스트 관리</a></li>
 
 					<!--매출분석정보-->
-					<li><a href="/chart1.do"><i
+					<li><a href="/chart1.do"><i 
 							class="fa fa-bar-chart-o fa-3x"></i> 매출분석정보</a></li>
 
 
@@ -234,7 +95,7 @@ function allCheck(f){
 					<li><a href="#"><i class="fa fa-sitemap fa-3x"></i> 커뮤니티
 							관리<span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
-							<li><a href="/admin/notice/NoticeList.do">공지사항</a></li>
+							<li><a href="/customer/notice/NoticeList.do">공지사항</a></li>
 							<li><a href="#">Q&A</a></li>
 						</ul></li>
 				</ul>
@@ -259,7 +120,6 @@ function allCheck(f){
 
 					<div class="col-md-7">
 						<div class="panel panel-default" style="width: 100%">
-							<form name="f"  method="post" action="/admin/notice/NoticeCheckboxDelete.do">
 								<div class="panel-heading">공지사항 목록</div>
 								<!--    Context Classes  -->
 								<div class="panel panel-default" style="width: 100%">
@@ -270,40 +130,48 @@ function allCheck(f){
 										<table class="table">
 											<thead>
 												<tr>
-													<th style="width: 150px"><font size="2px">
-													<input type="checkbox" name="all" id="all" onclick="allCheck(this.form);" value="전체선택"/>
-													글번호</font></th>
+													<th style="width: 150px"><font size="2px">글번호</font></th>
 													<th style="width: 500px"><font size="2px">제목</font></th>
 													<th style="width: 200px"><font size="2px">작성자</font></th>
 													<th style="width: 100px"><font size="2px">작성일</font></th>
 												</tr>
 											</thead>
-											<tbody id="list_more">
+											<tbody>
 												<%
-												
 													for (NoticeDTO nDTO : nList) {
-												
-													
+														String title = CmmUtil.nvl(nDTO.getTITLE());
+														
+													if (title.length() >= 14) {
+															title = title.substring(0, 14) + "...";
+														}
 												%>
 												<tr>
 													
-													<td><input
-															type="checkbox" name="deleteSelect" class="deleteSelect"
-															value="<%=nDTO.getNOTICE_NO()%>" />
+													<td>
 															<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
-															<%=nDTO.getNOTICE_NO() %>
+															<%=nDTO.getNOTICE_NO()%>
 															<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>
 													
-														
+													
 													
 													<td><a
-														href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>">
+														href="/customer/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>">
 														<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
-														<%=nDTO.getTITLE()%>
+														<%=title%>
 														<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>		
 														</a>
-														
-														
+														<%
+															String reg_dt = CmmUtil.nvl(nDTO.getREG_DT());
+															SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+															Date to = transFormat.parse(reg_dt);
+				
+															long now = System.currentTimeMillis();
+															long inputDate = to.getTime();
+				 
+															if (now - inputDate < (1000*60*60*24*7)) {
+															out.println("<b>[NEW]</b>");
+																}
+														%>
 														</td>
 													
 
@@ -318,7 +186,7 @@ function allCheck(f){
 													
 													<td>
 													<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
-													<%=nDTO.getREG_DT().substring(0,10)%></b>
+													<%=nDTO.getREG_DT()%></b>
 													<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>
 													
 													
@@ -329,22 +197,11 @@ function allCheck(f){
 												%>
 											</tbody>
 										</table>
-										
-										<!-- 더보기 -->
-										<center><input type="button" style="width: 150px;" class="btn btn-success" value="더보기" id="addview"/></center>
 									</div>
 								</div>
 								<!--  end  Context Classes  -->
 
-								<input type="button"
-									onclick="location.href='/admin/notice/NoticeReg.do'"
-									value="글쓰기" /> 
-									<input type="button" onclick="javascript:edit(this.form)"
-									value="편집" /> 
-									<input type="button" 
-									id="delete" value="삭제" onclick="javascript:deleteConfirm(this.form)"/>
 									
-							</form>
 						</div>
 					</div>
 				</div>

@@ -31,45 +31,9 @@
 
 var hid ="";
 
-/*  일별 주별 월별 분기별 연도별에 따른 합계*/
-function button_day(button_val){
-	
-	hid = null;
-	hid = button_val;
-	$('#morris-bar-chart').html(null);
-  	$('#table_date_ajax').html(null);
-	var button_day_var = $('#testDatepicker').val();
-	var cal_day = button_val;
+/*  테이블 제목 주기 */
+var rank_text="";
 
-	if(button_val=="day"){
-		
-    	sale_moris_day(button_day_var,cal_day);
-		/* sale_table_day(button_day_var,cal_day); */
-		
-	}else if(button_val=="week"){
-		
-    	sale_moris_day(button_day_var,cal_day);
-		sale_table_day(button_day_var,cal_day);
-		
-	}else if(button_val=="month"){
-		
-    	sale_moris_day(button_day_var,cal_day);
-		sale_table_day(button_day_var,cal_day);
-		
-	}else if(button_val=="boongi"){
-		
-    	sale_moris_day(button_day_var,cal_day);
-		sale_table_day(button_day_var,cal_day);
-		
-	}else if(button_val=="year"){
-		
-    	sale_moris_day(button_day_var,cal_day);
-		sale_table_day(button_day_var,cal_day);
-		
-	}
-}
-/*  네비바 화면에따른 오픈 클로즈 */
- 
 
 $(function() {
 	
@@ -87,7 +51,7 @@ $(function() {
 	} 
 
 	today = yyyy+'-'+mm+'-'+dd;
-	
+	$("#rank_text").text('(일별) 매출 종목 순위');
 	$("#testDatepicker").val(today);
 	
     $(window).bind("load resize", function () {
@@ -125,6 +89,49 @@ $(function() {
 		/* 테이블 아작스 끝 */
 	});
 });
+
+/*  일별 주별 월별 분기별 연도별에 따른 합계*/
+function button_day(button_val){
+	$("#rank_text").text(null);
+	hid = null;
+	hid = button_val;
+	$('#morris-bar-chart').html(null);
+  	$('#table_date_ajax').html(null);
+	var button_day_var = $('#testDatepicker').val();
+	var cal_day = button_val;
+
+	if(button_val=="day"){
+		
+    	sale_moris_day(button_day_var,cal_day);
+		sale_table_day(button_day_var,cal_day);
+		$("#rank_text").text('(일별) 매출 종목 순위');
+	}else if(button_val=="week"){
+		
+    	sale_moris_day(button_day_var,cal_day);
+		sale_table_day(button_day_var,cal_day);
+		$("#rank_text").text('(주별) 매출 종목 순위');
+	}else if(button_val=="month"){
+		
+    	sale_moris_day(button_day_var,cal_day);
+		sale_table_day(button_day_var,cal_day);
+		$("#rank_text").text('(월별) 매출 종목 순위');
+	}else if(button_val=="boongi"){
+		
+    	sale_moris_day(button_day_var,cal_day);
+		sale_table_day(button_day_var,cal_day);
+		$("#rank_text").text('(분기별) 매출 종목 순위');
+	}else if(button_val=="year"){
+		
+    	sale_moris_day(button_day_var,cal_day);
+		sale_table_day(button_day_var,cal_day);
+		$("#rank_text").text('(연도별) 매출 종목 순위');
+	}
+	
+}
+/*  네비바 화면에따른 오픈 클로즈 */
+ 
+
+
 
 	
 </script>
@@ -189,8 +196,8 @@ $(function() {
                             <div class="row">
                 				<div class="col-md-12">
                     				<div class="panel panel-default">
-                        				<div class="panel-heading" style="text-align: center">매출 종목 순위
-                        				</div>
+                        				<div class="panel-heading" style="text-align: center" id="rank_text">
+      									</div>
                         
                         				<div class="panel-body">
                             				<div class="table-responsive">

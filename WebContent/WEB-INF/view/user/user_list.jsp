@@ -19,6 +19,18 @@
 <title>Insert title here</title>
 </head>
 <body>
+<form name="f" action="/user/user_list.do" method="post">
+	<select name="s_type" >
+		<option value="no">선택하세요</option>
+		<option value="id">아이디</option>
+		<option value="name">이름</option>
+		<option value="email">이메일</option>
+		<option value="tel">연락처</option>
+	</select>
+	<input type="text" name="s_text"/>
+	<input type="submit" value="검색"/>
+</form>
+<hr/>
 <table border="1">
 	<thead>
 		<tr>
@@ -26,6 +38,7 @@
 			<td>아이디</td>
 			<td>이름</td>
 			<td>이메일</td>
+			<td>이메일 확인여부</td>
 			<td>연락처</td>
 		</tr>
 	</thead>
@@ -43,6 +56,7 @@
 			<td><a href="/user/user_info.do?user_no=<%=CmmUtil.nvl(uDTO.getUser_no())%>"><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getUser_id())) %></a></td>
 			<td><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getUser_name())) %></td>
 			<td><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getEmail())) %></td>
+			<td align="center"><%=CmmUtil.nvl(uDTO.getEmail_first()) %></td>
 			<td><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getTel())) %></td>
 		</tr>
 		<% }%>

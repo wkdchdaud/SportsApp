@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sports.com.persistance.mapper.NoticeMapper">
 	<select id="getNoticeList" resultType="NoticeDTO">
-		SELECT NOTICE_NO, TITLE, CONTENTS, NOTICE_YN , REG_USER_NO, DATE_FORMAT(REG_DT, '%Y-%m-%d') AS REG_DT, 
-		CHG_USER_NO, USER_NO, CHG_DT FROM NOTICE_INFO_A  ORDER BY NOTICE_YN, NOTICE_NO DESC
+		SELECT NOTICE_NO, TITLE, CONTENTS, NOTICE_YN , REG_USER_NO, REG_DT,
+		CHG_USER_NO, USER_NO, CHG_DT FROM NOTICE_INFO_A  ORDER BY NOTICE_YN, NOTICE_NO DESC 
+		LIMIT 5;
 	</select>
 	
 	<insert id="InsertNoticeInfo" parameterType="NoticeDTO">
@@ -31,9 +32,17 @@
 	
 	<update id="updateNoticeInfo" parameterType="NoticeDTO">
 		UPDATE NOTICE_INFO_A 
-		SET TITLE=#{TITLE}, CONTENTS=#{CONTENTS}, NOTICE_YN=#{NOTICE_YN} WHERE NOTICE_NO = #{NOTICE_NO}
+		SET TITLE=#{TITLE}, CONTENTS=#{CONTENTS}, NOTICE_YN=#{NOTICE_YN}, CHG_DT=NOW() WHERE NOTICE_NO = #{NOTICE_NO}
 	</update>
 	
-	
-	
+	<!-- 더보기 -->
+	<select id="getNotice_MoreView" resultType="NoticeDTO">
+		SELECT NOTICE_NO, TITLE, CONTENTS, NOTICE_YN , REG_USER_NO, REG_DT,
+		CHG_USER_NO, USER_NO, CHG_DT 
+		FROM NOTICE_INFO_A  
+		ORDER BY NOTICE_YN, NOTICE_NO 
+		DESC 
+		LIMIT 5 OFFSET ${read_more};
+	</select>
+
 </mapper>

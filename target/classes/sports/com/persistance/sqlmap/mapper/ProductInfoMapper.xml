@@ -44,17 +44,21 @@ SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS FROM PRODUCT_INFO WHERE pro
 	
 <select resultType="ProductInfoDTO" id="getAllSearch" parameterType="ProductInfoDTO">
  SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
- WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') 
+ 	<if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
+ 	ORDER BY PROD_NO+0 DESC LIMIT 6
+  
  </select>
-
+                                        
 <select resultType="ProductInfoDTO" id="getHighpriceSearch" parameterType="ProductInfoDTO">
 SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
- WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') ORDER BY PROD_PRICE DESC 
+  <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
+ ORDER BY PROD_PRICE+0 DESC LIMIT 6
  </select>
 
-<select resultType="ProductInfoDTO" id=" getLowpriceSearch" parameterType="ProductInfoDTO">
+<select resultType="ProductInfoDTO" id="getLowpriceSearch" parameterType="ProductInfoDTO">
 SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
- WHERE PPROD_NAME LIKE CONCAT('%', #{prod_name}, '%') ORDER BY PROD_PRICE ASC
+   <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
+ ORDER BY PROD_PRICE+0 ASC LIMIT 6
 
  </select>
 

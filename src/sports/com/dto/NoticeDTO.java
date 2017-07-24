@@ -11,7 +11,14 @@ public class NoticeDTO {
 	private String CHG_USER_NO;
 	private String CHG_DT;
 	private String NOTICE_NO;
+	private String read_more;
 	
+	public String getRead_more() {
+		return read_more;
+	}
+	public void setRead_more(String read_more) {
+		this.read_more = read_more;
+	}
 	public String getUSER_NO() {
 		return USER_NO;
 	}
