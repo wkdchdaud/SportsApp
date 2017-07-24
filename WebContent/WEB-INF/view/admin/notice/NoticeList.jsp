@@ -141,7 +141,7 @@ function edit(f){
 
 function deleteConfirm(f){
 	
-	if (confirm("정말 삭제하시겠습니까??") == true){   
+	if (confirm("선택된 게시글을 삭제하시겠습니까?") == true){   
 	    f.submit();
 	}else{  
 	    return;

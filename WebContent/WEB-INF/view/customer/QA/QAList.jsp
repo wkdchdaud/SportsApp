@@ -86,7 +86,7 @@ function doAnswerDetail(qa_no, answer_yn) {
 				long inputDate = to.getTime();
 				String mark = "";
 				 
-				if (now - inputDate < (1000*60*60*24*7)) {
+				if (now - inputDate < (1000*60*60*24*3)) {
 					out.println("<b>[NEW]</b>");
 				}
 				%>
@@ -116,7 +116,7 @@ function doAnswerDetail(qa_no, answer_yn) {
 			<%} %>	
 			</td>
 			<td align="center"><%=CmmUtil.nvl(rDTO.getUser_name()) %></td>
-			<td align="center"><%=CmmUtil.nvl(rDTO.getReg_dt()) %></td>
+			<td align="center"><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></td>
 		</tr>
 		
 		<%

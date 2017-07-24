@@ -34,7 +34,7 @@ for (NoticeDTO nDTO : nList) {
 
 %>
 	function deleteConfirm(){
-		if(confirm("삭제 하시겠습니까?") == true){
+		if(confirm("작성한 게시글을 삭제하시겠습니까?") == true){
 			location.href = "/admin/notice/NoticeDelete.do?notice_no=<%=notice_no%>";
 		}else{
 			return false;
