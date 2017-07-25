@@ -1,3 +1,6 @@
+    <!-- JQUERY SCRIPTS -->
+    <script src="/assets/js/jquery-1.10.2.js"></script>
+    
 	<!-- BOOTSTRAP STYLES-->
     <link href="/assets/css/bootstrap.css" rel="stylesheet" />
     
