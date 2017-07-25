@@ -51,7 +51,7 @@ $("#addview").click(function() {
 			var contents = "";
 			console.log(data)
 			$.each(data,function (key,value) {
-				var yn = value.qa_YN;
+				var yn = value.answer_yn;
 				
 				contents += "<tr><td align='left'>";
 				if (value.answer_yn == "Y") {
@@ -64,8 +64,8 @@ $("#addview").click(function() {
 				}
 				contents += value.title;
 				contents += "<input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.qa_no + " /></td>";
-				contents += "<td align='center'>"+value.reg_user_no+"</a></td>";
-				contents += "<td align='center'>"+value.reg_dt+"</td></tr>";
+				contents += "<td align='left'>"+value.reg_user_no+"</a></td>";
+				contents += "<td align='left'>"+value.reg_dt+"</td></tr>";
 			});
 			
 			$('#list_more').append(contents);
@@ -229,9 +229,9 @@ function allCheck(f) {
 		<thead>
 	
 		<tr>
-			<th align="center" style="width: 500px"><font size="2px">제목 <input type="checkbox" name="all" id="all" value="전체선택" onclick="allCheck(this.form);" /></font></th>
+			<th align="center" style="width: 400px"><font size="2px">제목 <input type="checkbox" name="all" id="all" value="전체선택" onclick="allCheck(this.form);" /></font></th>
 			<th align="center" style="width: 200px"><font size="2px">작성자</font></th>
-			<th align="center" style="width: 100px"><font size="2px">작성일</font></th>
+			<th align="center" style="width: 200px"><font size="2px">작성일</font></th>
 		</tr>
 		
 		</thead>
@@ -297,8 +297,8 @@ function allCheck(f) {
 			<%} %>
 			<input type="checkbox" name="deleteSelect" class="deleteSelect" value="<%=rDTO.getQa_no()%>" />
 			</td>
-			<td align="center"><%=CmmUtil.nvl(rDTO.getUser_name()) %></td>
-			<td align="center"><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></td>
+			<td align="left"><%=CmmUtil.nvl(rDTO.getUser_name()) %></td>
+			<td align="left"><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></td>
 		</tr>
 
 		<%

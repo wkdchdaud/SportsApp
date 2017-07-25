@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="sports.com.util.CmmUtil" %>
 <%@ page import="sports.com.dto.QADTO" %>
 <%@ page import="java.util.ArrayList" %>		
@@ -17,11 +17,14 @@ String ss_user_no = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO"))
 System.out.println("user_no: " + CmmUtil.nvl(rDTO.getReg_user_no()));
 System.out.println("ss_user_no: " + ss_user_no);
 %>
-<!DOCTYPE html>   
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Q&A ��� ��(������ �п� �����)</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Q&A 답글 상세(스포츠 학원 사업자)</title>
+<%@include file="/inc/head.jsp"%>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
 
 function doList() {
@@ -32,41 +35,89 @@ function doList() {
 </head>
 <body>
 
-	<table border="1">
-
-		<col width="100px" />
-		<col width="200px" />
-		<col width="100px" />
-		<col width="200px" />
+	<div id="wrapper">
+		<!-- 사이드 네비바 및 헤더 부분 시작 -->
+		<%@include file="/inc/side_nav.jsp"%>
+		<!-- 사이드 네비바 및 헤더 부분 끝  -->
+	
+	<!-- /. NAV SIDE  -->
+		<div id="page-wrapper">
+			<div id="page-inner">
+				<div class="row">
+					<div class="col-md-12">
+						<h2>Q&A</h2>
+					</div>
+				</div>
+				
+	<!-- /. ROW  -->
+		<hr />
+		<div class="row">
+			<div class="col-md-7">
+				<div class="panel panel-default" style="width: 100%">
+					<div class="panel-heading">Q&A 답글 상세</div>
+					
+	<!--    Context Classes  -->
+	<form name="f" id="f" method="post">
+	
+		<div class="panel panel-default" style="width: 100%">
+			<div class="panel-body">
+	
+	<table class="table">
+	
+		<tbody>		
 	
 		<tr>
-			<td align="center">����</td>
-			<td colspan="3"><%=CmmUtil.nvl(rDTO.getTitle())%></td>
+			<td align="left">제목</td>
+			<td><%=CmmUtil.nvl(rDTO.getTitle())%></td>
 		</tr>
 	
 		<tr>
-			<td align="center">�ۼ���</td>
-			<td><%=CmmUtil.nvl(rDTO.getUser_name())%></td>
-			<td align="center">�ۼ���</td>
-			<td><%=CmmUtil.nvl(rDTO.getReg_dt())%></td>
+			<td align="left" colspan="2">작성자&nbsp;&nbsp;<%=CmmUtil.nvl(rDTO.getUser_name())%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성일&nbsp;&nbsp;<%=CmmUtil.nvl(rDTO.getReg_dt())%></td>
 		</tr>	
 	
 		<tr>
-			<td colspan="4" style="width: 550px; height: 400px" valign="top"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("\r\n", "<br>") %></td>
+			<td colspan="2" style="height: 400px" valign="top"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("\r\n", "<br>") %></td>
 		</tr>
 		
 		<tr>
-			<td align="center">÷������</td>
-			<td colspan="3"><input type="file" name="file_name" style="width:450px" /></td>
+			<td align="left">첨부파일</td>
+			<td><input type="file" name="file_name" /></td>
 		</tr>
+		
+		</tbody>
 	
-		<tr>
-			<td align="center" colspan="4">
-				<input type="button" value="���" onclick="location.href='javascript:doList();' " />
-			</td>
-		</tr>	
-		
 	</table>
+	
+			</div>
+		</div>	
+	
+	<input type="button" value="목록" onclick="location.href='javascript:doList();' " />
+
+</form>
+
+							<!--  end  Context Classes  -->
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- /. ROW  -->
+		</div>
+		
+		<!-- /. PAGE INNER  -->
+	</div>
+	
+	<!-- /. PAGE WRAPPER  -->
+	<!-- /. WRAPPER  -->
+	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+	<!-- JQUERY SCRIPTS -->
+	<script src="/assets/js/jquery-1.10.2.js"></script>
+	<!-- BOOTSTRAP SCRIPTS -->
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<!-- METISMENU SCRIPTS -->
+	<script src="/assets/js/jquery.metisMenu.js"></script>
+	<!-- CUSTOM SCRIPTS -->
+	<script src="/assets/js/custom.js"></script>
 
 </body>
 </html>
