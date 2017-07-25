@@ -34,13 +34,48 @@ System.out.println("리스트는1= "+list.get(0).getAca_lat());
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
      <!-- TABLE STYLES-->
     <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
-    
+          <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+          
+          <script type="text/javascript">
+          
+          $(function() {
+        	    
+        	    $("#checkJson").click(function() {
+        	       
+        	      //사람 정보
+        	      var AcaArray = new Array();
+        	      
+        	      <% for(int i=0; i<list.size(); i++){%>
+        	    	  
+        	          var AcaInfo = new Object();
+        	           
+        	          
+        	          AcaInfo.Name = "<%=list.get(i).getAca_name()%>";
+        	          AcaInfo.Lat = <%=list.get(i).getAca_lat()%>;
+        	          AcaInfo.Lng = <%=list.get(i).getAca_lng()%>;
+
+        	             
+        	          AcaArray.push(AcaInfo);
+        	      <%}%>
+        	      
+        	      
+        	      var jsonInfo = JSON.stringify(AcaInfo);
+        	       console.log(jsonInfo); //브라우저 f12개발자 모드에서 confole로 확인 가능
+        	      alert(jsonInfo);
+        	 
+        	    });
+        	     
+        	  });
+          
+          </script>
+
 </head>
 <body>
 <div id="map" style="width:100%;height:700px;"></div>
 
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=b34cca89fa889023148b105f661c797d&libraries=services"></script>
 <script type="text/javascript">
+
 var MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
     MARKER_HEIGHT = 36, // 기본, 클릭 마커의 높이
     OFFSET_X = 12, // 기본, 클릭 마커의 기준 X좌표
@@ -107,15 +142,7 @@ var positions = [  // 마커의 위치
     selectedMarker = null; //클릭한 마커를 담을 변수
 
     
-    
-    
-    
-    //날려버려 씨빨럼아
-<%--   var aca_name =  [{
-	<%
-	for(int i=0; i<Name.size(); i++){ %>
-	new aca_name(<%=Name.get(i)%>),
-	<%}%>}]   --%>
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
 	
 
@@ -173,7 +200,8 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
     
     
  // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-     var iwContent = '<div style="padding:5px;"><input type="text" name="123"></div>',
+     var iwContent = '<div style="padding:5px;"><input type="text" name="123" readonly="true" value="">'
+     +'</div><div style="padding:4px;"><textarea name="1" value="학원 Comment"></textarea></div>',
     
     
     
@@ -226,10 +254,11 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
     //map을 클릭하면 열려있는 infowindow가 닫힌다.
     daum.maps.event.addListener(map, 'click', function() {
 	infowindow.close(map,marker);
-	alert(map.value);
     })
  
     // 마커에 click 이벤트를 등록합니다
+    
+  
     daum.maps.event.addListener(marker, 'click', function() {
 	
 
@@ -300,6 +329,12 @@ function createMarkerImage(markerSize, offset, spriteOrigin) {
     
     return markerImage;
 }
+
+
+
+	
+
 </script>
+<a id="checkJson" style="cursor:pointer">확인</a>
 </body>
 </html>
