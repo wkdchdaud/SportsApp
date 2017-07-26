@@ -40,30 +40,32 @@ if (rList==null) {
 		
 		//전역변수로 cnt 값 6 설정
 		var cnt = 6;
-		
+			
 		var price = '';	//셀렉트박스값을 가져옴 all, lowprice, highrprice
 		var name= '';	//인풋 검색 서취값 가져옴
 		
 		//더보기 버튼 구현 시작 
-		$("#btn_more").click(function(){
+		$("#btn_more").add("#as").click(function(){
+			alert("더보기 시작11a");
+			alert(cnt);
 			$.ajax({
 				url : "/admin/ProductInfo/readMore.do",
 				method : "post",
 				data : {
 					'cnt' : cnt
 				},
+				
 				dataType : "json",
 				success : function(data){
 					var contents = "";
 					console.log(data)
 					$.each(data,function (key,value){
 						contents += "<div class='col-sm-4 col-lg-4 col-md-4'>";
-						contents += "<div class='thumbnail'>";
+						contents += "<div class='thumbnail'>";                                                   
 						contents += "<img src='http://placehold.it/500x500' alt=''>";
 						contents += "<div class='caption'>";
 						contents += "<h4 class='pull-right'>" + value.prod_price + "</h4>";
 						contents += "<h4> <a href='/admin/ProductInfo/ProductInfoDetail.do?prod_no1=" + value.prod_no + "'>" + value.prod_name + "</a></h4>";
-						contents += "<p>See more snippets like this online store item at <a target='_blank' href='http://www.bootsnipp.com'>Bootsnipp - http://bootsnipp.com</a>.</p>";
 						contents += "</div>";
 						contents += "<div class='ratings'>";
 						contents += "</div>";
@@ -74,14 +76,18 @@ if (rList==null) {
 					if ((data).length<6) {
 						$('#btn_more').remove();
 					}
+					
 				}
 			});
 			cnt += 6;
 		});
 		
+		
+		
 		$("#Search").keyup(function(){
 			price=null;
 			name=null;
+			cnt = 6;
 			price = $("#SearchSelect").val();
 			name= $('#Search').val();
 			if(name==''){
@@ -91,20 +97,22 @@ if (rList==null) {
 			if(price=='all'){ //만약 셀렉트value 값이 all이면
 				
 				$('#menu_list').html(null);
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
 			
 					$.ajax({//아작스 실행
 						url : "/admin/ProductInfo/allSearch.do",
 						method : "post",
 						data : {
 							'price' : price,
-							'name' : name			
+							'name' : name,	
+							'cnt' : cnt
 						},
 						dataType : "json",
 						success : function(data){//성공하면 함수실행data 키벨류값
 			 
 							console.log(data);
 							var contents = "";
-							var cnt=1;
+							var cnt=6;
 
 								$.each(data, function(key,value){
 									contents += "<div class='col-sm-4 col-lg-4 col-md-4'>";
@@ -113,7 +121,6 @@ if (rList==null) {
 									contents += "<div class='caption'>";
 									contents += "<h4 class='pull-right'>" + value.prod_price + "</h4>";
 									contents += "<h4> <a href='/admin/ProductInfo/ProductInfoDetail.do?prod_no1=" + value.prod_no + "'>" + value.prod_name + "</a></h4>";
-									contents += "<p>See more snippets like this online store item at <a target='_blank' href='http://www.bootsnipp.com'>Bootsnipp - http://bootsnipp.com</a>.</p>";
 									contents += "</div>";
 									contents += "<div class='ratings'>";
 									contents += "</div>";
@@ -123,6 +130,9 @@ if (rList==null) {
 							});
 								
 							$('#menu_list').html(contents);
+							if ((data).length<6) {
+								$('#btn_more').remove();
+							}
 						}
 					});//ok
 				
@@ -130,18 +140,20 @@ if (rList==null) {
 				else if(price=='lowprice'){
 			  //만약 select박스 벨류값이 lowprice라면
 				$('#menu_list').html(null);
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
 				$.ajax({//아작스 실행
 					url : "/admin/ProductInfo/lowpriceSearch.do",
 					method : "post",
 					data : {
 						'price' : price,
-						'name' : name			
+						'name' : name,
+						'cnt' : cnt
 					},
 					dataType : "json",
 					success : function(data){//성공하면 함수실행data 키벨류값
 						console.log(data);
 						var contents = "";
-						var cnt=1;
+						var cnt=6;
 							$.each(data, function(key,value){
 								contents += "<div class='col-sm-4 col-lg-4 col-md-4'>";
 								contents += "<div class='thumbnail'>";
@@ -149,7 +161,6 @@ if (rList==null) {
 								contents += "<div class='caption'>";
 								contents += "<h4 class='pull-right'>" + value.prod_price + "</h4>";
 								contents += "<h4> <a href='/admin/ProductInfo/ProductInfoDetail.do?prod_no1=" + value.prod_no + "'>" + value.prod_name + "</a></h4>";
-								contents += "<p>See more snippets like this online store item at <a target='_blank' href='http://www.bootsnipp.com'>Bootsnipp - http://bootsnipp.com</a>.</p>";
 								contents += "</div>";
 								contents += "<div class='ratings'>";
 								contents += "</div>";
@@ -158,24 +169,29 @@ if (rList==null) {
 								cnt++;
 						});
 						$('#menu_list').html(contents);
+						if ((data).length<6) {
+							$('#btn_more').remove();
+						}
 					}
 				});//ok
 			}
 			else if(price=='highprice'){
 				$('#menu_list').html(null);
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
 					$.ajax({//아작스 실행
 					
 						url : "/admin/ProductInfo/highpriceSearch.do",
 						method : "post",
 						data : {
 							'price' : price,
-							'name' : name				
+							'name' : name,
+							'cnt' : cnt
 						},
 						dataType : "json",
 						success : function(data){//성공하면 함수실행data 키벨류값
 							console.log(data);
 							var contents = "";
-							var cnt=1;
+							var cnt=6;
 							$.each(data, function(key,value){
 								contents += "<div class='col-sm-4 col-lg-4 col-md-4'>";
 								contents += "<div class='thumbnail'>";
@@ -183,7 +199,6 @@ if (rList==null) {
 								contents += "<div class='caption'>";
 								contents += "<h4 class='pull-right'>" + value.prod_price + "</h4>";
 								contents += "<h4> <a href='/admin/ProductInfo/ProductInfoDetail.do?prod_no1=" + value.prod_no + "'>" + value.prod_name + "</a></h4>";
-								contents += "<p>See more snippets like this online store item at <a target='_blank' href='http://www.bootsnipp.com'>Bootsnipp - http://bootsnipp.com</a>.</p>";
 								contents += "</div>";
 								contents += "<div class='ratings'>";
 								contents += "</div>";
@@ -193,15 +208,21 @@ if (rList==null) {
 								
 							});
 							$('#menu_list').html(contents);
+							if ((data).length<6) {
+								$('#btn_more').remove();
+							}
 						}
 					});
 			}
 		});
 		
+		
+		
 		//select 값 high, all , lowprice 바뀜에 따라 실행하는 아작스 시작
 		$("#SearchSelect").change(function(){ //셀렉트 값이 바뀌면 실행됨
 			price=null;
 			name=null;
+			cnt=6;
 			price = $("#SearchSelect").val();
 			name= $('#Search').val();
 			if(name==''){
@@ -210,20 +231,21 @@ if (rList==null) {
 		
 			if(price=='all'){ //만약 셀렉트value 값이 all이면
 				$('#menu_list').html(null);
-			
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
 					$.ajax({//아작스 실행
 						url : "/admin/ProductInfo/allSearch.do",
 						method : "post",
 						data : {
 							'price' : price,
-							'name' : name			
+							'name' : name,
+							'cnt' : cnt
 						},
 						dataType : "json",
 						success : function(data){//성공하면 함수실행data 키벨류값
 			 
 							console.log(data);
 							var contents = "";
-							var cnt=1;
+							var cnt=6;
 								$.each(data, function(key,value){
 									contents += "<div class='col-sm-4 col-lg-4 col-md-4'>";
 									contents += "<div class='thumbnail'>";
@@ -231,7 +253,6 @@ if (rList==null) {
 									contents += "<div class='caption'>";
 									contents += "<h4 class='pull-right'>" + value.prod_price + "</h4>";
 									contents += "<h4> <a href='/admin/ProductInfo/ProductInfoDetail.do?prod_no1=" + value.prod_no + "'>" + value.prod_name + "</a></h4>";
-									contents += "<p>See more snippets like this online store item at <a target='_blank' href='http://www.bootsnipp.com'>Bootsnipp - http://bootsnipp.com</a>.</p>";
 									contents += "</div>";
 									contents += "<div class='ratings'>";
 									contents += "</div>";
@@ -241,6 +262,9 @@ if (rList==null) {
 							});
 								
 							$('#menu_list').html(contents);
+							if ((data).length<6) {
+								$('#btn_more').remove();
+							}
 						}
 					});//ok
 				
@@ -248,18 +272,20 @@ if (rList==null) {
 				else if(price=='lowprice'){
 			  //만약 select박스 벨류값이 lowprice라면
 				$('#menu_list').html(null);
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
 				$.ajax({//아작스 실행
 					url : "/admin/ProductInfo/lowpriceSearch.do",
 					method : "post",
 					data : {
 						'price' : price,
-						'name' : name			
+						'name' : name,
+						'cnt' : cnt
 					},
 					dataType : "json",
 					success : function(data){//성공하면 함수실행data 키벨류값
 						console.log(data);
 						var contents = "";
-						var cnt=1;
+						var cnt=6;
 							$.each(data, function(key,value){
 								contents += "<div class='col-sm-4 col-lg-4 col-md-4'>";
 								contents += "<div class='thumbnail'>";
@@ -267,7 +293,6 @@ if (rList==null) {
 								contents += "<div class='caption'>";
 								contents += "<h4 class='pull-right'>" + value.prod_price + "</h4>";
 								contents += "<h4> <a href='/admin/ProductInfo/ProductInfoDetail.do?prod_no1=" + value.prod_no + "'>" + value.prod_name + "</a></h4>";
-								contents += "<p>See more snippets like this online store item at <a target='_blank' href='http://www.bootsnipp.com'>Bootsnipp - http://bootsnipp.com</a>.</p>";
 								contents += "</div>";
 								contents += "<div class='ratings'>";
 								contents += "</div>";
@@ -276,24 +301,32 @@ if (rList==null) {
 								cnt++;
 						});
 						$('#menu_list').html(contents);
+						if ((data).length<6) {
+							$('#btn_more').remove();
+						}
 					}
 				});//ok
+
+
 			}
 			else if(price=='highprice'){
 				$('#menu_list').html(null);
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
+
 					$.ajax({//아작스 실행
 					
 						url : "/admin/ProductInfo/highpriceSearch.do",
 						method : "post",
 						data : {
 							'price' : price,
-							'name' : name				
+							'name' : name,
+							'cnt' : cnt
 						},
 						dataType : "json",
 						success : function(data){//성공하면 함수실행data 키벨류값
 							console.log(data);
 							var contents = "";
-							var cnt=1;
+							var cnt=6;
 							$.each(data, function(key,value){
 								contents += "<div class='col-sm-4 col-lg-4 col-md-4'>";
 								contents += "<div class='thumbnail'>";
@@ -301,7 +334,6 @@ if (rList==null) {
 								contents += "<div class='caption'>";
 								contents += "<h4 class='pull-right'>" + value.prod_price + "</h4>";
 								contents += "<h4> <a href='/admin/ProductInfo/ProductInfoDetail.do?prod_no1=" + value.prod_no + "'>" + value.prod_name + "</a></h4>";
-								contents += "<p>See more snippets like this online store item at <a target='_blank' href='http://www.bootsnipp.com'>Bootsnipp - http://bootsnipp.com</a>.</p>";
 								contents += "</div>";
 								contents += "<div class='ratings'>";
 								contents += "</div>";
@@ -311,6 +343,9 @@ if (rList==null) {
 								
 							});
 							$('#menu_list').html(contents);
+							if ((data).length<6) {
+								$('#btn_more').remove();
+							}
 						}
 					});
 			}
@@ -340,16 +375,8 @@ if (rList==null) {
 <!-- 검색 -->
 
        <div class="container">
-  <!-- 검색 컬럼 -->
-		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- <div class="btn-group" style="text-align: center;">
-		  <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" style="width: 100px">전체 <span class="caret"></span></button>
-		  <ul class="dropdown-menu">
-			<li><a href="#">낮은가격</a></li>
-			<li class="divider"></li>
-			<li><a href="#">높은가격</a></li>
-		  </ul>
-		&nbsp;<input type='text' name='keyWord' id='Search' placeholder="상품이름을 입력하세요" style="height: 35px" /></div> -->
-     	
+
+
      	<select id="SearchSelect" class="">	
         <option value='all'>전체</option>
         <option value='lowprice'>낮은가격</option>
@@ -387,7 +414,11 @@ if (rList==null) {
  
 
         </div>
+        
+        <div id="as">
          <center><button class="btn btn-primary btn-lg" id="btn_more" style="width: 300px">더보기</button></center>
+        </div>
+        
          <br/>
         
 		</div>
