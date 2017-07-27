@@ -148,20 +148,20 @@
 												<tr>
 													
 													<td>
-															<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
-															<%=nDTO.getNOTICE_NO()%>
-															<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>
+															<%if (nDTO.getNotice_yn().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
+															<%=nDTO.getNotice_no()%>
+															<%if (nDTO.getNotice_yn().equals("1")) { out.print("</b></font>");}%>
 													
 													
 													
 													<td><a
-														href="/customer/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>">
-														<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
+														href="/customer/notice/NoticeInfo.do?notice_no=<%=nDTO.getNotice_no()%>">
+														<%if (nDTO.getNotice_yn().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
 														<%=title%>
-														<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>		
+														<%if (nDTO.getNotice_yn().equals("1")) { out.print("</b></font>");}%>		
 														</a>
 														<%
-															String reg_dt = CmmUtil.nvl(nDTO.getREG_DT());
+															String reg_dt = CmmUtil.nvl(nDTO.getReg_dt());
 															SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 															Date to = transFormat.parse(reg_dt);
 				
@@ -177,17 +177,17 @@
 
 													
 													<td>
-													<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
-													<%=nDTO.getUSER_NO()%>
-													<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>
+													<%if (nDTO.getNotice_yn().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
+													<%=nDTO.getUser_no()%>
+													<%if (nDTO.getNotice_yn().equals("1")) { out.print("</b></font>");}%>
 													</td>
 													
 													
 													
 													<td>
-													<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
-													<%=nDTO.getREG_DT()%></b>
-													<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>
+													<%if (nDTO.getNotice_yn().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
+													<%=nDTO.getReg_dt()%></b>
+													<%if (nDTO.getNotice_yn().equals("1")) { out.print("</b></font>");}%>
 													
 													
 													

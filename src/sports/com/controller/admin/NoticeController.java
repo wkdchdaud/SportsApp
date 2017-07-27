@@ -44,19 +44,19 @@ public class NoticeController {
 		}
 		
 		for(NoticeDTO nDTO : nList){//new 붙히는 시간 계산해서 nList의 title에 new 붙여주기
-		String reg_dt = CmmUtil.nvl(nDTO.getREG_DT());
+		String reg_dt = CmmUtil.nvl(nDTO.getReg_dt());
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date to = transFormat.parse(reg_dt);
 
 		long now = System.currentTimeMillis();
 		long inputDate = to.getTime();
 
-		String title = CmmUtil.nvl(nDTO.getTITLE());//제목이 14자 이상이면 ...붙여주기
+		String title = CmmUtil.nvl(nDTO.getTitle());//제목이 14자 이상이면 ...붙여주기
 		if (title.length() >= 14) {
 			title = title.substring(0, 14) + "...";
 		}
 		if (now - inputDate < (1000*60*60*24*3)) {
-		nDTO.setTITLE(title+"<b>[NEW]</b>");
+		nDTO.setTitle(title+"<b>[NEW]</b>");
 			}
 		}
 		model.addAttribute("nList",nList);
@@ -87,7 +87,7 @@ public class NoticeController {
 			ModelMap model) throws Exception{
 		log.info("welcome /admin/NoticeInsert");
 		
-		String user_no = "123";
+		String user_no = (String)request.getSession().getAttribute("user_no");
 		String title = CmmUtil.nvl(request.getParameter("title"));
 		String contents = CmmUtil.nvl(request.getParameter("contents"));
 		String notice_yn = CmmUtil.nvl(request.getParameter("notice_yn"));
@@ -101,10 +101,10 @@ public class NoticeController {
 		log.info("contents : "+ contents);
 		
 		NoticeDTO noticeDTO = new NoticeDTO();
-		noticeDTO.setCONTENTS(contents);
-		noticeDTO.setTITLE(title);
-		noticeDTO.setUSER_NO(user_no);
-		noticeDTO.setNOTICE_YN(notice_yn);
+		noticeDTO.setContents(contents);
+		noticeDTO.setTitle(title);
+		noticeDTO.setUser_no(user_no);
+		noticeDTO.setNotice_yn(notice_yn);
 		
 		noticeService.InsertNoticeInfo(noticeDTO);
 		
@@ -122,7 +122,7 @@ public class NoticeController {
 		String notice_no = request.getParameter("notice_no");
 		
 		NoticeDTO nDTO = new NoticeDTO();
-		nDTO.setNOTICE_NO(notice_no);
+		nDTO.setNotice_no(notice_no);
 		
 		List<NoticeDTO> nList = noticeService.getNoticeDetailInfo(nDTO);
 		
@@ -143,7 +143,7 @@ public class NoticeController {
 		String notice_no = request.getParameter("notice_no");
 		
 		NoticeDTO nDTO = new NoticeDTO();
-		nDTO.setNOTICE_NO(notice_no);
+		nDTO.setNotice_no(notice_no);
 		
 		List<NoticeDTO> nList = noticeService.getNoticeDetailInfo(nDTO);
 		
@@ -171,10 +171,10 @@ public class NoticeController {
 		log.info("contents : "+ contents);
 		
 		NoticeDTO noticeDTO = new NoticeDTO();
-		noticeDTO.setCONTENTS(contents);
-		noticeDTO.setTITLE(title);
-		noticeDTO.setNOTICE_YN(notice_yn);
-		noticeDTO.setNOTICE_NO(notice_no);
+		noticeDTO.setContents(contents);
+		noticeDTO.setTitle(title);
+		noticeDTO.setNotice_no(notice_no);
+		noticeDTO.setNotice_yn(notice_yn);
 		
 		noticeService.updateNoticeInfo(noticeDTO);
 		
@@ -193,7 +193,7 @@ public class NoticeController {
 		String notice_no = request.getParameter("notice_no");
 		
 		NoticeDTO nDTO = new NoticeDTO();
-		nDTO.setNOTICE_NO(notice_no);
+		nDTO.setNotice_no(notice_no);
 		
 		noticeService.deleteNoticeInfo(nDTO);
 		
@@ -215,7 +215,7 @@ public class NoticeController {
 		
 		for(int i =0; i<deleteSelect.length;i++){
 		
-			nDTO.setNOTICE_NO(deleteSelect[i]);
+			nDTO.setNotice_no(deleteSelect[i]);
 		
 			noticeService.deleteNoticeInfo(nDTO);
 	
@@ -239,26 +239,26 @@ public class NoticeController {
 		List <NoticeDTO> viewMore_list = noticeService.Notice_MoreView(nDTO);
 		
 		for(NoticeDTO nDT : viewMore_list){//new 붙히는 시간 계산해서 nList의 title에 new 붙여주기
-			String reg_dt = CmmUtil.nvl(nDT.getREG_DT());
+			String reg_dt = CmmUtil.nvl(nDT.getReg_dt());
 			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date to = transFormat.parse(reg_dt);
 
 			long now = System.currentTimeMillis();
 			long inputDate = to.getTime();
 
-			String title = CmmUtil.nvl(nDT.getTITLE());//제목이 14자 이상이면 ...붙여주기
+			String title = CmmUtil.nvl(nDT.getTitle());//제목이 14자 이상이면 ...붙여주기
 			if (title.length() >= 14) {
 				title = title.substring(0, 14) + "...";
 			}
 			if (now - inputDate < (1000*60*60*24*3)) {
-			nDT.setTITLE(title+"<b>[NEW]</b>");
+			nDT.setTitle(title+"<b>[NEW]</b>");
 				}
 			}
 		
 		System.out.println("겟 리드모어 : " + nDTO.getRead_more());
 		
 		for(NoticeDTO ndt : viewMore_list ){
-			System.out.println( "제목 :"+  ndt.getTITLE());
+			System.out.println( "제목 :"+  ndt.getTitle());
 		}
 		
 		nDTO= null;
