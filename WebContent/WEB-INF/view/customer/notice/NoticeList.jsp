@@ -139,7 +139,7 @@
 											<tbody>
 												<%
 													for (NoticeDTO nDTO : nList) {
-														String title = CmmUtil.nvl(nDTO.getTITLE());
+														String title = CmmUtil.nvl(nDTO.getTitle());
 														
 													if (title.length() >= 14) {
 															title = title.substring(0, 14) + "...";

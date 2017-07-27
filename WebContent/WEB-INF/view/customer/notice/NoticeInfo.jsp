@@ -130,7 +130,7 @@
 
 										<tr>
 											<td>제목</td>
-											<td><%=nDTO.getTITLE()%></td>
+											<td><%=nDTO.getTitle()%></td>
 										</tr>
 
 										<tr>
