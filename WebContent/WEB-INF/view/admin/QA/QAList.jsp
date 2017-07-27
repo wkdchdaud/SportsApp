@@ -217,13 +217,14 @@ function allCheck(f) {
 		<div class="row">
 			<div class="col-md-7">
 				<div class="panel panel-default" style="width: 100%">
-					<form name="f" id="f" method="post" action="/admin/QA/QACheckboxDelete.do">	
 						<div class="panel-heading">Q&A 목록</div>
 
 	<!--    Context Classes  -->
+	<form name="f" id="f" method="post" action="/admin/QA/QACheckboxDelete.do">
+	
 		<div class="panel panel-default" style="width: 100%">
 			<div class="panel-body">
-
+	
 	<table class="table">
 
 		<thead>
@@ -233,7 +234,7 @@ function allCheck(f) {
 			<th align="center" style="width: 200px"><font size="2px">작성자</font></th>
 			<th align="center" style="width: 200px"><font size="2px">작성일</font></th>
 		</tr>
-		
+		   
 		</thead>
 		
 		<tbody id="list_more">
@@ -310,7 +311,7 @@ function allCheck(f) {
 	</table>
 
 	<!-- 더보기 -->
-	<center><input type="button" style="width: 150px;" class="btn btn-success" value="더보기" id="addview"/></center>
+	<center><input type="button" style="width: 150px" class="btn btn-success" value="더보기" id="addview" /></center>
 	
 		</div>
 	</div>
@@ -320,7 +321,7 @@ function allCheck(f) {
 	<input type="button" id="delete" value="삭제" onclick="location.href='javascript:deleteConfirm(this.form);' " />
 	<input type="button" value="글쓰기" onclick="location.href='/admin/QA/QAReg.do' " />
 	
-</form>
+	</form>
 
 						</div>
 					</div>
