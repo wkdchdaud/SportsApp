@@ -205,7 +205,7 @@ function doAnswerDetail(qa_no, answer_yn) {
 	</table>
 	
 	<!-- 더보기 -->
-	<center><input type="button" style="width: 150px;" class="btn btn-success" value="더보기" id="addview"/></center>
+	<center><input type="button" style="width: 150px" class="btn btn-success" value="더보기" id="addview" /></center>
 	
 		</div>
 	</div>
