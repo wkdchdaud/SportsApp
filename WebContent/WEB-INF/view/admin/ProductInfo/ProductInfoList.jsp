@@ -46,13 +46,14 @@ if (rList==null) {
 		
 		//더보기 버튼 구현 시작 
 		$("#btn_more").add("#as").click(function(){
-			alert("더보기 시작11a");
+			alert("더보기 시작113S");
 			alert(cnt);
 			$.ajax({
 				url : "/admin/ProductInfo/readMore.do",
 				method : "post",
 				data : {
-					'cnt' : cnt
+					'cnt' : cnt,
+					'price': price
 				},
 				
 				dataType : "json",

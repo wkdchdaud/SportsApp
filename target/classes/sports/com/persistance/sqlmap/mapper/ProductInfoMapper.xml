@@ -52,13 +52,13 @@ SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS FROM PRODUCT_INFO WHERE pro
 <select resultType="ProductInfoDTO" id="getHighpriceSearch" parameterType="ProductInfoDTO">
 SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
   <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
- ORDER BY PROD_PRICE+0 DESC LIMIT 6
+ ORDER BY PROD_PRICE+0 DESC LIMIT 6 
  </select>
 
 <select resultType="ProductInfoDTO" id="getLowpriceSearch" parameterType="ProductInfoDTO">
 SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
    <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
- ORDER BY PROD_PRICE+0 ASC LIMIT 6
+ ORDER BY PROD_PRICE+0 ASC LIMIT 6 
 
  </select>
 
@@ -66,7 +66,8 @@ SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO
 	<select resultType="ProductInfoDTO" id="getReadMore" parameterType="ProductInfoDTO" >
 		SELECT PROD_NO, PROD_NAME, PROD_PRICE
 		FROM PRODUCT_INFO
-		ORDER BY PROD_NO DESC
+		ORDER BY 
+		PROD_NO DESC
 		LIMIT 6 OFFSET ${read_more}
 	</select>
 	
