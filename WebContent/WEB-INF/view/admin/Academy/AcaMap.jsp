@@ -34,40 +34,62 @@ System.out.println("리스트는1= "+list.get(0).getAca_lat());
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
      <!-- TABLE STYLES-->
     <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
-          <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-          
-          <script type="text/javascript">
-          
-          $(function() {
-        	    
-        	    $("#checkJson").click(function() {
-        	       
-        	      //사람 정보
-        	      var AcaArray = new Array();
-        	      
-        	      <% for(int i=0; i<list.size(); i++){%>
-        	    	  
-        	          var AcaInfo = new Object();
-        	           
-        	          
-        	          AcaInfo.Name = "<%=list.get(i).getAca_name()%>";
-        	          AcaInfo.Lat = <%=list.get(i).getAca_lat()%>;
-        	          AcaInfo.Lng = <%=list.get(i).getAca_lng()%>;
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript">
+    var nn;
+    var totalInfo = new Object();
+$(document).ready(function() {
+        $('#nn').val(22);
+    });      
+    
+      
+      $(function() {
+         
+        $("#checkJson").click(function() {
+           
+          //사람 정보
+          var AcaArray = new Array();
+          <% for(int i=0; i<list.size(); i++){%>
+        	  
+	           
+	          var AcaInfo = new Object();
+	          
+	          AcaInfo.Name = "<%=list.get(i).getAca_name()%>";
+	          AcaInfo.Lat = <%=list.get(i).getAca_lat()%>;
+	          AcaInfo.Lng = <%=list.get(i).getAca_lng()%>;
+	
+	             
+	          AcaArray.push(AcaInfo.Name);
+	          AcaArray.push(AcaInfo.Lat);
+	          AcaArray.push(AcaInfo.Lng);
+	          console.log(AcaInfo.Name)
+	          console.log(AcaInfo.Lat)
+	          console.log(AcaInfo.Lng)
+	          
+	        
 
-        	             
-        	          AcaArray.push(AcaInfo);
-        	      <%}%>
-        	      
-        	      
-        	      var jsonInfo = JSON.stringify(AcaInfo);
-        	       console.log(jsonInfo); //브라우저 f12개발자 모드에서 confole로 확인 가능
-        	      alert(jsonInfo);
-        	 
-        	    });
-        	     
-        	  });
+          <%}%>
           
-          </script>
+	          totalInfo.name = AcaArray;
+          console.log(totalInfo.name);
+          <%-- <% System.out.println("리스트 사이즈는= "+list.size());%>
+           <% System.out.println("Lat= "+personInfo.Lat);%>
+          <% System.out.println("Lng= "+personInfo.Lng);%>
+ --%>
+         
+          //사람, 책 정보를 넣음
+           
+
+          var jsonInfo = JSON.stringify(totalInfo);
+           console.log(jsonInfo); //브라우저 f12개발자 모드에서 confole로 확인 가능
+          alert(jsonInfo);
+     
+        });
+         
+      });
+       
+      </script>          
 
 </head>
 <body>
@@ -76,6 +98,12 @@ System.out.println("리스트는1= "+list.get(0).getAca_lat());
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=b34cca89fa889023148b105f661c797d&libraries=services"></script>
 <script type="text/javascript">
 
+    nn = totalInfo.name; //jsonstirnㅎ뤄tgsjgdf
+    
+    
+    
+    
+    
 var MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
     MARKER_HEIGHT = 36, // 기본, 클릭 마커의 높이
     OFFSET_X = 12, // 기본, 클릭 마커의 기준 X좌표
@@ -113,7 +141,7 @@ var markerSize = new daum.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클
 
  
 	 for(int i=0; i<list.size(); i++){
-		Addr1.add(i, list.get(i).getAca_lat());  
+		Addr1.add(i, list.get(i).getAca_lat());   
 } 
 	 for(int i=0; i<list.size(); i++){
 		Addr2.add(i, list.get(i).getAca_lng());  
@@ -133,13 +161,14 @@ var markerSize = new daum.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클
 	 System.out.println("Addr 본다= "+Name.get(2));
 
 %>
+nn = "<%=Name.get(0)%>"; //위에 nn에 jsonstring 넣고 지워보기
 var positions = [  // 마커의 위치
- <%
-	for(int i=0; i<Addr1.size(); i++){ %>
-        new daum.maps.LatLng(<%=Addr1.get(i)%> , <%=Addr2.get(i)%>),
-	<%}%>
-    ],
-    selectedMarker = null; //클릭한 마커를 담을 변수
+	 <%
+		for(int i=0; i<Addr1.size(); i++){ %>
+	        new daum.maps.LatLng(<%=Addr1.get(i)%> , <%=Addr2.get(i)%>),
+		<%}%>
+	    ],
+	    selectedMarker = null; //클릭한 마커를 담을 변수
 
     
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -200,7 +229,7 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
     
     
  // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-     var iwContent = '<div style="padding:5px;"><input type="text" name="123" readonly="true" value="">'
+     var iwContent = '<div style="padding:5px;"><input type="text" id="nn" name="123" readonly="true" value="' + nn + '">'
      +'</div><div style="padding:4px;"><textarea name="1" value="학원 Comment"></textarea></div>',
     
     
@@ -336,5 +365,7 @@ function createMarkerImage(markerSize, offset, spriteOrigin) {
 
 </script>
 <a id="checkJson" style="cursor:pointer">확인</a>
+<div style="padding:5px;"><input type="text" id="nn" name="123" readonly="true"></div>
+<div style="padding:4px;"><textarea name="1" value="학원 Comment"></textarea></div>
 </body>
 </html>
