@@ -59,7 +59,7 @@ public class CustomerNoticeController {
 		String notice_no = CmmUtil.nvl(request.getParameter("notice_no"));
 		
 		NoticeDTO nDTO = new NoticeDTO();
-		nDTO.setNOTICE_NO(notice_no);
+		nDTO.setNotice_no(notice_no);
 		
 		List<NoticeDTO> nList = noticeService.getNoticeDetailInfo(nDTO);
 		

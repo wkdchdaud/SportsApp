@@ -8,7 +8,7 @@
 	import="java.util.List"%>
 
 <%
-	List<NoticeDTO> nList = (List<NoticeDTO>)request.getAttribute("nList");
+	List<NoticeDTO> nList = (List<NoticeDTO>) request.getAttribute("nList");
 	if (nList == null) {
 		nList = new ArrayList<NoticeDTO>();
 	}
@@ -26,153 +26,161 @@
 <!-- CUSTOM STYLES-->
 <link href="/assets/css/custom.css" rel="stylesheet" />
 <!-- GOOGLE FONTS-->
-<link href='http://fonts.googleapis.com/css?family=Open+Sans'rel='stylesheet' type='text/css' />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans'
+	rel='stylesheet' type='text/css' />
 <!-- JQUERY SCRIPTS -->
-	<script src="/assets/js/jquery-1.10.2.js"></script>
-	
+<script src="/assets/js/jquery-1.10.2.js"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공지사항 리스트</title>
 
 <script type="text/javascript">
-
-$(function(){
-	var cnt = 5;
-<%if(nList.size() < 5){%>
-$("#addview").hide();
+	$(function() {
+		var cnt = 10;
+<%if (nList.size() < 5) {%>
+	$("#addview").hide();
 <%}%>
+	$("#addview")
+				.click(
+						function() {
+							$
+									.ajax({
+										url : "/admin/notice/readMore.do",
+										method : "post",
+										data : {
+											'cnt' : cnt
+										},
+										dataType : "json",
+										success : function(data) {
+											var contents = "";
+											console.log(data)
+											$
+													.each(
+															data,
+															function(key, value) {
+																var yn = value.notice_yn;
 
-$("#addview").click(function(){
-	var num = 5;
-	$.ajax({
-		url:"/admin/notice/readMore.do",
-		method : "post",
-		data : {
-			'cnt' : cnt
-		},
-		dataType : "json",
-		success : function(data){
-			var contents = "";
-			console.log(data)
-			$.each(data,function (key,value){
-				var yn = value.notice_YN;
-				
-				contents += "<tr><td><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.notice_NO + " />";
-				contents += value.notice_NO+"</td>";
-				contents += "<td><a href='/admin/notice/NoticeInfo.do?notice_no="+value.notice_NO+"'>"+value.title+"</a></td>";
-				contents += "<td>"+value.user_NO+"</td>";
-				contents += "<td>"+value.reg_DT.substring(10,0)+"</td></tr>";
-			});
-			
-			$('#list_more').append(contents);
-			if ((data).length<5) {
-				$('#addview').remove();
-			}
-			
-			var dS = document.getElementsByClassName("deleteSelect");
-			
-			for (var i =0; i<dS.length; i++) {
-				dS[i].style.display = "none";
-			}
-				
-			document.getElementById("delete").style.display = "none";
-			document.getElementById("all").style.display = "none";
-		}
+																contents += "<tr><td><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.notice_no + " />";
+																contents += value.notice_no
+																		+ "</td>";
+																contents += "<td><a href='/admin/notice/NoticeInfo.do?notice_no="
+																		+ value.notice_no
+																		+ "'>"
+																		+ value.title
+																		+ "</a></td>";
+																contents += "<td>"
+																		+ value.user_no
+																		+ "</td>";
+																contents += "<td>"
+																		+ value.reg_dt
+																				.substring(
+																						10,
+																						0)
+																		+ "</td></tr>";
+															});
+
+											$('#list_more').append(contents);
+											if ((data).length < 5) {
+												$('#addview').remove();
+											}
+
+											var dS = document
+													.getElementsByClassName("deleteSelect");
+
+											for (var i = 0; i < dS.length; i++) {
+												dS[i].style.display = "none";
+											}
+
+											document.getElementById("delete").style.display = "none";
+											document.getElementById("all").style.display = "none";
+										}
+
+									});
+							cnt += 5;
+						});
+	})
 	
-	});
-	cnt += 5;
-});
-})
-		
-		/*  편집 삭제 버튼 숨기기 */
+	
+
+	/*  편집 삭제 버튼 숨기기 */
 	function hiddenCheckbox() {
-	
-	var dS = document.getElementsByClassName("deleteSelect");
-		
-	for (var i =0; i<dS.length; i++) {
-		dS[i].style.display = "none";
-	}
-		
-	document.getElementById("delete").style.display = "none";
-	document.getElementById("all").style.display = "none";
-}
 
-function edit(f){
-	
-	cbox = f.deleteSelect;
-	
-	var dS = document.getElementsByClassName("deleteSelect");
-		
-	for(var i =0;i<dS.length;i++){
-		if(dS[i].style.display == "none"){
-			dS[i].style.display ="";
-				
-		}else{
-			if(dS[i].style.display == ""){
-				dS[i].style.display ="none";
+		var dS = document.getElementsByClassName("deleteSelect");
+
+		for (var i = 0; i < dS.length; i++) {
+			dS[i].style.display = "none";
+		}
+
+		document.getElementById("delete").style.display = "none";
+		document.getElementById("all").style.display = "none";
+	}
+
+	function edit(f) {
+
+		cbox = f.deleteSelect;
+
+		var dS = document.getElementsByClassName("deleteSelect");
+
+		for (var i = 0; i < dS.length; i++) {
+			if (dS[i].style.display == "none") {
+				dS[i].style.display = "";
+
+			} else {
+				if (dS[i].style.display == "") {
+					dS[i].style.display = "none";
 				}
 			}
 		}
-	
-	
-	if(cbox.length) {  // 여러 개일 경우
-        for(var i = 0; i<cbox.length;i++) {
-            cbox[i].checked="";
-        }
-    } else { // 한 개일 경우
-        cbox.checked="";
-    }
-	
-	f.all.checked = "";
-	
-	
-	if(document.getElementById("delete").style.display == ""){
-		
-		document.getElementById("delete").style.display = "none";
-		document.getElementById("all").style.display = "none";
-		
-		return false;
-	}
-	
-	document.getElementById("delete").style.display = "";
-	document.getElementById("all").style.display = "";
-	
-	
-}
 
-function deleteConfirm(f){
-	
-	if (confirm("선택된 게시글을 삭제하시겠습니까?") == true){   
-	    f.submit();
-	}else{  
-	    return;
+		if (cbox.length) { // 여러 개일 경우
+			for (var i = 0; i < cbox.length; i++) {
+				cbox[i].checked = "";
+			}
+		} else { // 한 개일 경우
+			cbox.checked = "";
+		}
+
+		f.all.checked = "";
+
+		if (document.getElementById("delete").style.display == "") {
+
+			document.getElementById("delete").style.display = "none";
+			document.getElementById("all").style.display = "none";
+
+			return false;
+		}
+
+		document.getElementById("delete").style.display = "";
+		document.getElementById("all").style.display = "";
+
 	}
 
+	function deleteConfirm(f) {
 
-}
+		if (confirm("선택된 게시글을 삭제하시겠습니까?") == true) {
+			f.submit();
+		} else {
+			return;
+		}
 
-function allCheck(f){
-    
-	cbox = f.deleteSelect;
-   
-	if(cbox.length) {  // 여러 개일 경우
-        for(var i = 0; i<cbox.length;i++) {
-            cbox[i].checked=f.all.checked;
-        }
-    } else { // 한 개일 경우
-        cbox.checked=f.all.checked;
-    }
-}
-	
+	}
 
+	function allCheck(f) {
 
+		cbox = f.deleteSelect;
 
-
-
-
+		if (cbox.length) { // 여러 개일 경우
+			for (var i = 0; i < cbox.length; i++) {
+				cbox[i].checked = f.all.checked;
+			}
+		} else { // 한 개일 경우
+			cbox.checked = f.all.checked;
+		}
+	}
 </script>
 
 
- 
+
 
 </head>
 <body onload="javascript:hiddenCheckbox();">
@@ -191,8 +199,20 @@ function allCheck(f){
 			<div
 				style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;"
 				id="nowDate">
-				2017년 6월 23일 <a href="/login.html"
+				2017년 6월 23일
+				<%
+				if (CmmUtil.nvl((String) request.getSession().getAttribute("user_no")).equals("")) {
+			%>
+				<a href="/user/user_login.do"
+					class="btn btn-danger square-btn-adjust">Login</a>
+				<%
+					} else {
+				%>
+				<a href="/user/user_logout.do"
 					class="btn btn-danger square-btn-adjust">Logout</a>
+				<%
+					}
+				%>
 			</div>
 		</nav>
 
@@ -259,7 +279,8 @@ function allCheck(f){
 
 					<div class="col-md-7">
 						<div class="panel panel-default" style="width: 100%">
-							<form name="f"  method="post" action="/admin/notice/NoticeCheckboxDelete.do">
+							<form name="f" method="post"
+								action="/admin/notice/NoticeCheckboxDelete.do">
 								<div class="panel-heading">공지사항 목록</div>
 								<!--    Context Classes  -->
 								<div class="panel panel-default" style="width: 100%">
@@ -270,9 +291,10 @@ function allCheck(f){
 										<table class="table">
 											<thead>
 												<tr>
-													<th style="width: 150px"><font size="2px">
-													<input type="checkbox" name="all" id="all" onclick="allCheck(this.form);" value="전체선택"/>
-													글번호</font></th>
+													<th style="width: 150px"><font size="2px"> <input
+															type="checkbox" name="all" id="all"
+															onclick="allCheck(this.form);" value="전체선택" /> 글번호
+													</font></th>
 													<th style="width: 500px"><font size="2px">제목</font></th>
 													<th style="width: 200px"><font size="2px">작성자</font></th>
 													<th style="width: 100px"><font size="2px">작성일</font></th>
@@ -280,48 +302,60 @@ function allCheck(f){
 											</thead>
 											<tbody id="list_more">
 												<%
-												
 													for (NoticeDTO nDTO : nList) {
-												
-													
 												%>
 												<tr>
-													
-													<td><input
-															type="checkbox" name="deleteSelect" class="deleteSelect"
-															value="<%=nDTO.getNOTICE_NO()%>" />
-															<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
-															<%=nDTO.getNOTICE_NO() %>
-															<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>
-													
-														
-													
-													<td><a
-														href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>">
-														<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
-														<%=nDTO.getTITLE()%>
-														<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>		
-														</a>
-														
-														
-														</td>
-													
 
-													
+													<td><input type="checkbox" name="deleteSelect"
+														class="deleteSelect" value="<%=nDTO.getNotice_no()%>" />
+														<%
+															if (nDTO.getNotice_yn().equals("1")) {
+																	out.print("<font color=\"hotpink\"><b>");
+																}
+														%> <%=nDTO.getNotice_no()%> <%
+ 	if (nDTO.getNotice_yn().equals("1")) {
+ 			out.print("</b></font>");
+ 		}
+ %>
+													<td><a
+														href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNotice_no()%>">
+															<%
+																if (nDTO.getNotice_yn().equals("1")) {
+																		out.print("<font color=\"hotpink\"><b>");
+																	}
+															%> <%=nDTO.getTitle()%> <%
+ 	if (nDTO.getNotice_yn().equals("1")) {
+ 			out.print("</b></font>");
+ 		}
+ %>
+													</a></td>
+
+
+
 													<td>
-													<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
-													<%=nDTO.getUSER_NO()%>
-													<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>
+														<%
+															if (nDTO.getNotice_yn().equals("1")) {
+																	out.print("<font color=\"hotpink\"><b>");
+																}
+														%> <%=nDTO.getUser_no()%> <%
+ 	if (nDTO.getNotice_yn().equals("1")) {
+ 			out.print("</b></font>");
+ 		}
+ %>
 													</td>
-													
-													
-													
+
+
+
 													<td>
-													<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("<font color=\"hotpink\"><b>");}%>
-													<%=nDTO.getREG_DT().substring(0,10)%></b>
-													<%if (nDTO.getNOTICE_YN().equals("1")) { out.print("</b></font>");}%>
-													
-													
+														<%
+															if (nDTO.getNotice_yn().equals("1")) {
+																	out.print("<font color=\"hotpink\"><b>");
+																}
+														%> <%=nDTO.getReg_dt().substring(0, 10)%></b> <%
+ 	if (nDTO.getNotice_yn().equals("1")) {
+ 			out.print("</b></font>");
+ 		}
+ %>
 													
 												</tr>
 												<%
@@ -329,21 +363,23 @@ function allCheck(f){
 												%>
 											</tbody>
 										</table>
-										
+
 										<!-- 더보기 -->
-										<center><input type="button" style="width: 150px;" class="btn btn-success" value="더보기" id="addview"/></center>
+										<center>
+											<input type="button" style="width: 150px;"
+												class="btn btn-success" value="더보기" id="addview" />
+										</center>
 									</div>
 								</div>
 								<!--  end  Context Classes  -->
 
 								<input type="button"
 									onclick="location.href='/admin/notice/NoticeReg.do'"
-									value="글쓰기" /> 
-									<input type="button" onclick="javascript:edit(this.form)"
-									value="편집" /> 
-									<input type="button" 
-									id="delete" value="삭제" onclick="javascript:deleteConfirm(this.form)"/>
-									
+									value="글쓰기" /> <input type="button"
+									onclick="javascript:edit(this.form)" value="편집" /> <input
+									type="button" id="delete" value="삭제"
+									onclick="javascript:deleteConfirm(this.form)" />
+
 							</form>
 						</div>
 					</div>

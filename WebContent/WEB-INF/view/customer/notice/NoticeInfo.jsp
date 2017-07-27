@@ -134,13 +134,13 @@
 										</tr>
 
 										<tr>
-											<td colspan="2" align="right">작성자 : <%=nDTO.getREG_USER_NO()%>
-												&nbsp;&nbsp; 작성일자 : <%=nDTO.getREG_DT()%></td>
+											<td colspan="2" align="right">작성자 : <%=nDTO.getReg_user_no()%>
+												&nbsp;&nbsp; 작성일자 : <%=nDTO.getReg_dt()%></td>
 										</tr>
 
 										<tr>
 
-											<td colspan="2" style="height: 400px"><%=nDTO.getCONTENTS()%></td>
+											<td colspan="2" style="height: 400px"><%=nDTO.getContents()%></td>
 										</tr>
 
 										</tbody>

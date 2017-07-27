@@ -2,47 +2,91 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sports.com.persistance.mapper.NoticeMapper">
 	<select id="getNoticeList" resultType="NoticeDTO">
-		SELECT NOTICE_NO, TITLE, CONTENTS, NOTICE_YN , REG_USER_NO, REG_DT,
-		CHG_USER_NO, USER_NO, CHG_DT FROM NOTICE_INFO_A  ORDER BY NOTICE_YN, NOTICE_NO DESC 
-		LIMIT 5;
+		SELECT NOTICE_NO, TITLE,
+		CONTENTS, NOTICE_YN , REG_USER_NO, REG_DT,
+		CHG_USER_NO, USER_NO, CHG_DT
+		FROM NOTICE_INFO_A ORDER BY NOTICE_YN, NOTICE_NO DESC
+		LIMIT 10;
 	</select>
-	
+
 	<insert id="InsertNoticeInfo" parameterType="NoticeDTO">
-		INSERT INTO NOTICE_INFO_A
-			(
-				 TITLE, NOTICE_YN, CONTENTS, USER_NO,
-				REG_USER_NO, REG_DT, CHG_USER_NO, CHG_DT 				
-			)
+		INSERT INTO
+		NOTICE_INFO_A
+		(
+		TITLE, NOTICE_YN, CONTENTS, USER_NO,
+		REG_USER_NO, REG_DT, CHG_USER_NO, CHG_DT
+		)
 		VALUES(
-			#{TITLE}, #{NOTICE_YN}, #{CONTENTS}, #{USER_NO}, #{USER_NO}, NOW(), #{USER_NO}, NOW()	
-			)	
+		#{title}, #{notice_yn}, #{contents}, #{user_no}, #{user_no}, NOW(), #{user_no},
+		NOW()
+		)
 	</insert>
-	
+
 	<select id="getNoticeDetailInfo" resultType="NoticeDTO">
-		SELECT NOTICE_NO, TITLE, CONTENTS, NOTICE_YN , REG_USER_NO, DATE_FORMAT(REG_DT, '%Y-%m-%d') AS REG_DT, 
-		CHG_USER_NO, CHG_DT FROM NOTICE_INFO_A  
-		WHERE NOTICE_NO=#{NOTICE_NO} 
+		SELECT NOTICE_NO,
+		TITLE, CONTENTS, NOTICE_YN , REG_USER_NO, DATE_FORMAT(REG_DT,
+		'%Y-%m-%d') AS REG_DT,
+		CHG_USER_NO, CHG_DT FROM NOTICE_INFO_A
+		WHERE NOTICE_NO=#{notice_no}
 		ORDER BY NOTICE_YN, REG_DT DESC
 	</select>
-	
+
 	<update id="deleteNoticeInfo" parameterType="NoticeDTO">
-		DELETE FROM NOTICE_INFO_A 
-		WHERE NOTICE_NO = #{NOTICE_NO}
+		DELETE FROM
+		NOTICE_INFO_A
+		WHERE NOTICE_NO = #{notice_no}
 	</update>
-	
+
 	<update id="updateNoticeInfo" parameterType="NoticeDTO">
-		UPDATE NOTICE_INFO_A 
-		SET TITLE=#{TITLE}, CONTENTS=#{CONTENTS}, NOTICE_YN=#{NOTICE_YN}, CHG_DT=NOW() WHERE NOTICE_NO = #{NOTICE_NO}
+		UPDATE NOTICE_INFO_A
+		SET TITLE=#{title}, CONTENTS=#{contents}, NOTICE_YN=#{notice_yn},
+		CHG_DT=NOW() WHERE NOTICE_NO = #{notice_no}
 	</update>
-	
+
 	<!-- 더보기 -->
 	<select id="getNotice_MoreView" resultType="NoticeDTO">
-		SELECT NOTICE_NO, TITLE, CONTENTS, NOTICE_YN , REG_USER_NO, REG_DT,
-		CHG_USER_NO, USER_NO, CHG_DT 
-		FROM NOTICE_INFO_A  
-		ORDER BY NOTICE_YN, NOTICE_NO 
-		DESC 
+		SELECT NOTICE_NO,
+		TITLE, CONTENTS, NOTICE_YN , REG_USER_NO, REG_DT,
+		CHG_USER_NO, USER_NO,
+		CHG_DT
+		FROM NOTICE_INFO_A
+		ORDER BY NOTICE_YN, NOTICE_NO
+		DESC
 		LIMIT 5 OFFSET ${read_more};
 	</select>
+
+	<select id="listAll" resultType="NoticeDTO">
+		SELECT NOTICE_NO, TITLE,
+		CONTENTS, NOTICE_YN , REG_USER_NO, REG_DT,
+		CHG_USER_NO, USER_NO, CHG_DT
+		FROM NOTICE_INFO_A 
+		<!-- WHERE절을 include 태그로 삽입 -->
+		<include refid="search"></include>
+		ORDER BY NOTICE_YN, NOTICE_NO DESC
+	</select>
+
+	<!-- 01_02. 게시글 레코드 갯수 -->
+	<select id="countArticle" resultType="int">
+		SELECT COUNT(*) FROM NOTICE_INFO_A
+		<!-- WHERE절을 include 태그로 삽입 -->
+		<include refid="search"></include>
+	</select>
+
+	<!-- sql code 조각 -->
+	<!-- 반복되는 sql의 일부를 sql태그를 이용하여 따로 빼둘수 있다. -->
+	<sql id="search">
+		<choose>
+			<!-- 검색옵션이 전체 검색일 경우 -->
+			<when test="searchOption == 'all'">
+				WHERE USER_NO LIKE '%'||#{keyword}||'%'
+				OR CONTENTS LIKE '%'||#{keyword}||'%'
+				OR TITLE LIKE '%'||#{keyword}||'%'
+			</when>
+			<!-- 전체 검색이 아닐 경우 -->
+			<otherwise>
+				WHERE ${searchOption} like '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+	</sql>
 
 </mapper>
