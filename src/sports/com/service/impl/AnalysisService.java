@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import sports.com.dto.Ord_testDTO;
 import sports.com.dto.R_testDTO;
 import sports.com.persistance.mapper.AnalysisMapper;
 import sports.com.service.IAnalysisService;
@@ -47,7 +48,7 @@ public class AnalysisService implements IAnalysisService{
 		}
 		/*연관성분석*/
 		@Override
-			public List<R_testDTO> getAnalysisList() throws Exception{
+			public List<Ord_testDTO> getAnalysisList() throws Exception{
 				return analysisMapper.getAnalysis();
 			}
 		

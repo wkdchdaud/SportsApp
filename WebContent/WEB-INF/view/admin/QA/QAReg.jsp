@@ -137,9 +137,10 @@ function calBytes(str) {
 		</tr>
 		
 		<tr>
-			<td>비밀글 여부&nbsp;&nbsp;&nbsp;</td>
+			<td>비밀글 여부</td>
 			<td>
 				예 <input type="radio" name="secret_yn" value="1" />
+				&nbsp;&nbsp;
 				아니오 <input type="radio" name="secret_yn" value="2" />
 			</td>
 		</tr>
@@ -149,7 +150,7 @@ function calBytes(str) {
 		</tr>
 			
 		<tr>
-			<td>첨부파일&nbsp;&nbsp;&nbsp;</td>
+			<td>첨부파일</td>
 			<td><input type="file" name="file_name" /></td>
 		</tr>
 		
@@ -178,8 +179,6 @@ function calBytes(str) {
 	</div>
 	
 	<!-- /. PAGE WRAPPER  -->
-	</div>
-	
 	<!-- /. WRAPPER  -->
 	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
 	<!-- JQUERY SCRIPTS -->

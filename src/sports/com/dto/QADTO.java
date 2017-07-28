@@ -14,6 +14,7 @@ public class QADTO {
 	private String reg_dt; 
 	private String chg_user_no; 
 	private String chg_dt; 
+	private String read_more;
 	
 	private String user_name;
 	
@@ -119,6 +120,14 @@ public class QADTO {
 	
 	public void setChg_dt(String chg_dt) {
 		this.chg_dt = chg_dt;
+	}
+	
+	public String getRead_more() {
+		return read_more;
+	}
+	
+	public void setRead_more(String read_more) {
+		this.read_more = read_more;
 	}
 	
 }

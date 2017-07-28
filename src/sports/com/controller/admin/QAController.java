@@ -1,7 +1,11 @@
 package sports.com.controller.admin;
 
 import java.util.List;
+import java.util.Map;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -13,6 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import sports.com.dto.NoticeDTO;
 import sports.com.dto.QADTO;
@@ -625,5 +632,62 @@ public class QAController {
 		return "/redirect";
 		
 	}	
+	
+	@RequestMapping(value="/admin/QA/QAReadMore")
+	public @ResponseBody List<QADTO> QA_MoreView(@RequestParam(value = "cnt") String cnt) throws Exception {
+		
+		QADTO qaDTO = new QADTO();
+		
+		qaDTO.setRead_more(cnt);
+		
+		System.out.println("넘어온 cnt: " +cnt);
+		
+		List<QADTO> viewMore_list = qaService.QA_MoreView(qaDTO);
+		
+		for (QADTO qaDT : viewMore_list) {	//new 붙히는 시간 계산해서 rList의 title에 new 붙여주기
+			
+			String reg_dt = CmmUtil.nvl(qaDT.getReg_dt());
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date to = transFormat.parse(reg_dt);
+
+			long now = System.currentTimeMillis();
+			long inputDate = to.getTime();
+
+			String title = CmmUtil.nvl(qaDT.getTitle());	//제목이 14자 이상이면 ...붙여주기
+			
+			if (title.length() >= 14) {
+				
+				title = title.substring(0, 14) + "...";
+				qaDT.setTitle(title);
+				
+			}
+			
+			if (qaDT.getSecret_yn().equals("1")) {
+				
+				title += "<b>[SECRET]</b>";
+				qaDT.setTitle(title);
+				
+			}
+			
+			if (now - inputDate < (1000*60*60*24*3)) {
+				
+				title += "<b>[NEW]</b>";
+				qaDT.setTitle(title);
+				
+			}
+			
+		}
+		
+		System.out.println("겟 리드모어: " + qaDTO.getRead_more());
+		
+		for (QADTO qadt : viewMore_list) {
+			System.out.println("제목: " +  qadt.getTitle());
+		}
+		
+		qaDTO= null;
+		
+		return viewMore_list;
+		
+	}
 	
 }

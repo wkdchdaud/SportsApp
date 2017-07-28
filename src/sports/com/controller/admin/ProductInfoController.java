@@ -62,30 +62,6 @@ public class ProductInfoController {
 		return "/admin/ProductInfo/ProductInfoList";
 	}
 	
-//	더보기 버튼 구현
-	
-	@RequestMapping(value="/admin/ProductInfo/readMore")
-	public @ResponseBody List<ProductInfoDTO> getReadMore(@RequestParam(value="cnt") int cnt) throws Exception{
-		
-		System.out.println("버튼 리드 모어 고고고고고");
-		
-		ProductInfoDTO pdto = new ProductInfoDTO();
-	
-		pdto.setRead_more(cnt);
-		
-		List<ProductInfoDTO> plist = productInfoService.getReadMore(pdto);
-		
-		System.out.println("pdto.getRead_more() : "+pdto.getRead_more());
-		
-		for ( ProductInfoDTO tdto : plist){
-			System.out.println("내용 가져오기 : " + tdto.getProd_price());
-		}
-		pdto = null;
-		
-		return plist;
-	}
-	
-	
 	/*디테일 controller*/
 	
 	@RequestMapping(value="admin/ProductInfo/ProductInfoDetail",method=RequestMethod.GET)
@@ -433,6 +409,29 @@ public class ProductInfoController {
 			
 		  return RList;
 	}
+		
+//		더보기 버튼 구현
+		
+		@RequestMapping(value="/admin/ProductInfo/readMore")
+		public @ResponseBody List<ProductInfoDTO> getReadMore(@RequestParam(value="cnt") int cnt) throws Exception{
+			
+			System.out.println("버튼 리드 모어 고고고고고");
+			
+			ProductInfoDTO pdto = new ProductInfoDTO();
+		
+			pdto.setRead_more(cnt);
+			
+			List<ProductInfoDTO> plist = productInfoService.getReadMore(pdto);
+			
+			System.out.println("pdto.getRead_more() : "+pdto.getRead_more());
+			
+			for ( ProductInfoDTO tdto : plist){
+				System.out.println("내용 가져오기 : " + tdto.getProd_price());
+			}
+			pdto = null;
+			
+			return plist;
+		}
 		
 		
 	

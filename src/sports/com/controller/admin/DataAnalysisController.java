@@ -18,6 +18,7 @@ import sports.com.service.IAnalysisService;
 import sports.com.service.IUserService;
 import sports.com.util.CmmUtil;
 import sports.com.util.RUtil;
+import sports.com.dto.Ord_testDTO;
 import sports.com.dto.R_testDTO;
 
 import java.util.ArrayList;
@@ -126,13 +127,24 @@ public class DataAnalysisController {
 	{
 		log.info("R PromGramming Start!");
 //		연관성분석 
-		List<R_testDTO> R_list = analysisService.getAnalysisList();
+		List<Ord_testDTO> R_list = analysisService.getAnalysisList();
 //		System.out.println("R_list.get(0): "+ R_list.get(0).getPrice());
 		RUtil auels_util = new RUtil();
 		
-		double qwe = auels_util.R_list(R_list);
+		auels_util.R_list(R_list);
 		
-		System.out.println("R Apriori 알고리즘 으로 나온 값 :::: " +qwe); 
+		System.out.println(R_list.size());
+		
+		
+	/*	
+		for ( Ord_testDTO odto : R_list){
+			System.out.println("odto.getOp_no(); : " + odto.getOp_no());
+			System.out.println("getOrd_no() : " + odto.getOrd_no());
+		}
+		*/
+//		double qwe = auels_util.R_list(R_list);
+		
+//		System.out.println("R Apriori 알고리즘 으로 나온 값 :::: " +qwe); 
 		
 		model.addAttribute("R_test",R_list);
 		
