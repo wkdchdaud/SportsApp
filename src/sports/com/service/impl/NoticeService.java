@@ -55,4 +55,9 @@ public class NoticeService implements INoticeService{
 	public List<NoticeDTO> Notice_MoreView(NoticeDTO nDTO) throws Exception {
 		return noticeMapper.getNotice_MoreView(nDTO);
 	}
+
+	@Override
+	public void deleteCheckList(NoticeDTO nDTO) throws Exception {
+		noticeMapper.deleteCheckList(nDTO);
+	}
 }

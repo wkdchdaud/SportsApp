@@ -217,13 +217,10 @@ public class NoticeController {
 		
 		NoticeDTO nDTO = new NoticeDTO();
 		
-		for(int i =0; i<deleteSelect.length;i++){
 		
-			nDTO.setNotice_no(deleteSelect[i]);
+			nDTO.setAllCheckSeq(deleteSelect);
 		
-			noticeService.deleteNoticeInfo(nDTO);
-	
-		}
+			noticeService.deleteCheckList(nDTO);
 		
 		model.addAttribute("msg","선택된 게시글 삭제에 성공하였습니다.");
 		model.addAttribute("url","/admin/notice/NoticeList.do");
