@@ -55,7 +55,10 @@
 	<!-- 게시글&답글 체크박스 삭제 쿼리 -->
 	<delete id="deleteQAList" parameterType="QADTO">
 		DELETE FROM QA_INFO_A
-		WHERE QA_NO = #{qa_no} 
+		WHERE QA_NO IN
+		<foreach close=")" separator="," open="(" collection="allCheckSeq"
+			index="index" item="item"> #{item}
+		</foreach>
 	</delete>
 	
 	<!-- 답글 등록 쿼리 -->

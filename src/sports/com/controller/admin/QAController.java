@@ -318,15 +318,11 @@ public class QAController {
 		String qa_no = CmmUtil.nvl(request.getParameter("qa_no"));
 		
 		QADTO qaDTO = new QADTO();
+		
 		qaDTO.setQa_no(qa_no);
+		qaDTO.setAllCheckSeq(deleteSelect);
 		
-		for (int i =0; i<deleteSelect.length;i++) {
-		
-			qaDTO.setQa_no(deleteSelect[i]);
-		
-			qaService.deleteQAList(qaDTO);
-	
-		}
+		qaService.deleteQAList(qaDTO);
 		
 		log.info(this.getClass().getName() + ".QACheckboxDelete end!");
 		
