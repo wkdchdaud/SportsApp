@@ -12,8 +12,14 @@ public class NoticeDTO {
 	private String chg_dt;
 	private String notice_no;
 	private String read_more;
+	private String[] allCheckSeq;
 	
-	
+	public String[] getAllCheckSeq() {
+		return allCheckSeq;
+	}
+	public void setAllCheckSeq(String[] allCheckseq) {
+		this.allCheckSeq = allCheckseq;
+	}
 	public String getUser_no() {
 		return user_no;
 	}

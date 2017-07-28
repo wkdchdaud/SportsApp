@@ -37,9 +37,9 @@ public class AuthController {
 			System.out.println("dataUdto.User_no(); : "+ dataUdto.getUser_no());
 			System.out.println("dataUdto.USER_NAME(); : "+ AES256Util.strDecode(dataUdto.getUser_name()));
 		}*/
-
-		model.addAttribute("udto", udto);
 		
+		model.addAttribute("udto", udto);
+		udto = null;
 		return "/admin/Auth/AuthList";
 		
 		

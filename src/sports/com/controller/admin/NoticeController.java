@@ -108,6 +108,8 @@ public class NoticeController {
 		
 		noticeService.InsertNoticeInfo(noticeDTO);
 		
+		noticeDTO = null;
+		
 		model.addAttribute("msg","게시글 등록에 성공하였습니다.");
 		model.addAttribute("url","/admin/notice/NoticeList.do");
 		
@@ -128,7 +130,7 @@ public class NoticeController {
 		
 		model.addAttribute("nList",nList);
 		
-		
+		nDTO = null;
 		
 		log.info(this.getClass().getName() + ".NoticeInfo end!");
 		
@@ -146,6 +148,8 @@ public class NoticeController {
 		nDTO.setNotice_no(notice_no);
 		
 		List<NoticeDTO> nList = noticeService.getNoticeDetailInfo(nDTO);
+		
+		nDTO = null;
 		
 		model.addAttribute("nList",nList);
 
@@ -213,13 +217,10 @@ public class NoticeController {
 		
 		NoticeDTO nDTO = new NoticeDTO();
 		
-		for(int i =0; i<deleteSelect.length;i++){
 		
-			nDTO.setNotice_no(deleteSelect[i]);
+			nDTO.setAllCheckSeq(deleteSelect);
 		
-			noticeService.deleteNoticeInfo(nDTO);
-	
-		}
+			noticeService.deleteCheckList(nDTO);
 		
 		model.addAttribute("msg","선택된 게시글 삭제에 성공하였습니다.");
 		model.addAttribute("url","/admin/notice/NoticeList.do");

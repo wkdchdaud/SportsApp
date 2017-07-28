@@ -36,6 +36,15 @@
 		NOTICE_INFO_A
 		WHERE NOTICE_NO = #{notice_no}
 	</update>
+	
+	<update id="deleteCheckList" parameterType="NoticeDTO">
+		DELETE FROM
+		NOTICE_INFO_A
+		WHERE NOTICE_NO IN
+		<foreach  separator="," open="(" close=")" collection="allCheckSeq"
+			index="index" item="item"> #{item}
+		</foreach>
+	</update>
 
 	<update id="updateNoticeInfo" parameterType="NoticeDTO">
 		UPDATE NOTICE_INFO_A

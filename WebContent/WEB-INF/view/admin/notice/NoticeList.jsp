@@ -99,8 +99,6 @@
 							cnt += 5;
 						});
 	})
-	
-	
 
 	/*  편집 삭제 버튼 숨기기 */
 	function hiddenCheckbox() {
@@ -157,7 +155,7 @@
 
 	function deleteConfirm(f) {
 
-		if (confirm("선택된 게시글을 삭제하시겠습니까?") == true) {
+		if (confirm("선택된 게시글을 삭제하시겠습니까?")) {
 			f.submit();
 		} else {
 			return;
@@ -313,10 +311,10 @@
 																	out.print("<font color=\"hotpink\"><b>");
 																}
 														%> <%=nDTO.getNotice_no()%> <%
- 	if (nDTO.getNotice_yn().equals("1")) {
- 			out.print("</b></font>");
- 		}
- %>
+ 														if (nDTO.getNotice_yn().equals("1")) {
+ 														out.print("</b></font>");
+ 															}
+													 %>
 													<td><a
 														href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNotice_no()%>">
 															<%
@@ -324,10 +322,10 @@
 																		out.print("<font color=\"hotpink\"><b>");
 																	}
 															%> <%=nDTO.getTitle()%> <%
- 	if (nDTO.getNotice_yn().equals("1")) {
- 			out.print("</b></font>");
- 		}
- %>
+ 														if (nDTO.getNotice_yn().equals("1")) {
+ 															out.print("</b></font>");
+ 																	}
+ 																		%>
 													</a></td>
 
 
@@ -338,10 +336,10 @@
 																	out.print("<font color=\"hotpink\"><b>");
 																}
 														%> <%=nDTO.getUser_no()%> <%
- 	if (nDTO.getNotice_yn().equals("1")) {
- 			out.print("</b></font>");
- 		}
- %>
+ 														if (nDTO.getNotice_yn().equals("1")) {
+ 															out.print("</b></font>");
+ 																	}
+																 %>
 													</td>
 
 
@@ -352,10 +350,10 @@
 																	out.print("<font color=\"hotpink\"><b>");
 																}
 														%> <%=nDTO.getReg_dt().substring(0, 10)%></b> <%
- 	if (nDTO.getNotice_yn().equals("1")) {
- 			out.print("</b></font>");
- 		}
- %>
+ 													if (nDTO.getNotice_yn().equals("1")) {
+ 														out.print("</b></font>");
+ 															}	
+ 															%>
 													
 												</tr>
 												<%
