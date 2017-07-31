@@ -91,14 +91,16 @@ $("#addview").click(function() {
 
 })
 
+//질문 상세 이동
 function doDetail(qa_no) {
 	location.href="/admin/QA/QADetail.do?qa_no=" + qa_no;
 }
-
+//답변 상세 이동
 function doAnswerDetail(qa_no, answer_yn) {
 	location.href="/admin/QA/QAAnswerDetail.do?qa_no=" + qa_no;
 }
 
+//체크박스 숨겨놓기
 function hiddenCheckbox() {
 	
 	var dS = document.getElementsByClassName("deleteSelect");
@@ -112,6 +114,7 @@ function hiddenCheckbox() {
 	
 }
 
+//편집버튼 누르면 체크박스 뜸
 function edit() {
 	
 	cbox = f.deleteSelect;
@@ -138,7 +141,6 @@ function edit() {
 		
         for (var i = 0; i<cbox.length;i++) {
             cbox[i].checked="";
-            
         }
         
     } else { 
@@ -163,19 +165,7 @@ function edit() {
 	
 }
 
-function deleteConfirm(f) {
-	
-	if (confirm("선택된 게시글을 삭제하시겠습니까?") == true) { 
-		
-		document.getElementById("f").submit();
-	    
-	} else {  
-		
-	    return;
-	}
-
-}
-
+// 체크박스 전체 선택
 function allCheck(f) {
     
 	cbox = f.deleteSelect;
@@ -193,6 +183,22 @@ function allCheck(f) {
     }
 	
 }
+
+//삭제
+function deleteConfirm(f) {
+	
+	if (confirm("선택된 게시글을 삭제하시겠습니까?")) { 
+		
+		document.getElementById("f").submit();
+	    
+	} else {  
+		
+	    return;
+	}
+
+}
+
+
 
 </script>
 </head>

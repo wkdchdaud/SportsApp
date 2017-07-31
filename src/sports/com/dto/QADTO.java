@@ -18,6 +18,8 @@ public class QADTO {
 	
 	private String user_name;
 	
+	private String[] allCheckSeq;
+	
 	public String getUser_name() {
 		return user_name;
 	}
@@ -128,6 +130,14 @@ public class QADTO {
 	
 	public void setRead_more(String read_more) {
 		this.read_more = read_more;
+	}
+	
+	public String[] getAllCheckSeq() {
+		return allCheckSeq;
+	}
+
+	public void setAllCheckSeq(String[] allCheckSeq) {
+		this.allCheckSeq = allCheckSeq;
 	}
 	
 }

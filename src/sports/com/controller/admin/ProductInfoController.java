@@ -409,9 +409,7 @@ public class ProductInfoController {
 			
 		  return RList;
 	}
-		
-//		더보기 버튼 구현
-		
+         /*더보기 */
 		@RequestMapping(value="/admin/ProductInfo/readMore")
 		public @ResponseBody List<ProductInfoDTO> getReadMore(@RequestParam(value="cnt") int cnt) throws Exception{
 			

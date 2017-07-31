@@ -1,0 +1,145 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+html, body { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+body { font-size: 100%; font-weight: 300; font-family: 'Noto Sans Korean', sans-serif; }
+
+table { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+caption { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+tbody { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+tfoot { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+thead { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+tr { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+th { margin: 0; padding: 0; border: 0; font-weight: 400; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+td { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+article { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+aside { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+canvas { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+details { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+embed { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+footer { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+header { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+hgroup { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+menu { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+nav { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+output { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+section { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+summary { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+time { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+mark { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+audio { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+video { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+div { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+span { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0; border: 0; font-weight: 300; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+p, blockquote, pre, a { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+dt { font-weight: 400; }
+
+dl, dt, dd, ol, ul, li { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+fieldset, form, label, legend { margin: 0; padding: 0; border: 0; vertical-align: baseline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+
+p { letter-spacing: -0.025em; }
+
+ol, ul { list-style: none; }
+
+blockquote, q { quotes: none; }
+
+select::-ms-expand { display: none; }
+
+select { -webkit-appearance: none; -moz-appearance: none; appearance: none; border: none; box-shadow: none; background-color: transparent; background-image: none; }
+
+blockquote:before, blockquote:after { content: ''; content: none; }
+
+q:before, q:after { content: ''; content: none; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+a { text-decoration: none; outline: none; }
+
+a:hover, a:active { text-decoration: none; }
+
+a:visited { text-decoration: none; decoration: none; }
+
+input[type="checkbox"] { margin: 0; }
+
+input, label, select, button, textarea { margin: 0; border: 0; padding: 0; display: inline-block; vertical-align: middle; font-size: 13px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+/* Remove the stupid outer glow in Webkit */
+input:focus { outline: 0; }
+
+/* Button Controls
+-----------------------------------------------*/
+input[type=checkbox], input[type=radio] { width: 13px; height: 13px; }
+
+/* Make webkit render the search input like a normal text field */
+input[type=search] { -webkit-appearance: textfield; -webkit-box-sizing: content-box; }
+
+/* Turn off the recent search for webkit. It adds about 15px padding on the left */
+::-webkit-search-decoration { display: none; }
+
+/* IE8 and FF freak out if this rule is within another selector */
+::-webkit-file-upload-button { padding: 0; border: 0; background: none; }
+
+/* Textarea
+-----------------------------------------------*/
+textarea { /* Move the label to the top */ vertical-align: top; /* Turn off scroll bars in IE unless needed */ overflow: auto; }
+
+select[multiple] { /* Move the label to the top */ vertical-align: top; }
+
+body, html { height: 100%; font-size: 16px; }
+
+body { min-height: 100%; min-width: 320px; width: 100%; }
+
+.header { height: 52px; position: fixed; top: 0; right: 0; left: 0; background: #1777cb; text-align: center; -webkit-box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.3); -moz-box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.3); box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.3); z-index: 111; }
+.header .left_menu img { position: absolute; top: 17px; left: 15px; width: 22px; }
+.header .logo .title { font-size: 20px; font-weight: 700; color: #fff; line-height: 52px; display: inline-block; }
+
+.container { margin-top: 52px; border-bottom: 1px solid #dfdfdf; background: #f5f5f5; }
+.container .menu { padding: 30px 0; font-size: 0; width: 300px; margin: 0 auto; }
+.container .menu li { width: 50%; vertical-align: top; display: inline-block; text-align: center; padding-bottom: 20px; }
+.container .menu li a { width: 138px; height: 138px; background: #fff; position: relative; border-radius: 138px; display: inline-block; border: 3px solid #223a7a; padding-top: 88px; }
+.container .menu li a.two-rows { padding-top: 80px; }
+.container .menu li a p { font-size: 16px; font-weight: 600; color: #000000; line-height: 1.2; }
+.container .menu li img { width: 68px; height: 68px; position: absolute; top: 13px; left: 33px; }
+
+.footer { position: relative; padding: 17px 15px; }
+.footer .kakao { width: 58px; height: 58px; position: absolute; top: 17px; left: 15px; }
+.footer .company_info { padding-left: 70px; font-size: 12px; color: #666666; line-height: 1.5; }
+
+
+
+/*# sourceMappingURL=style.css.map */
