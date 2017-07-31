@@ -18,14 +18,7 @@
 <br/><br/>
 
 <%
-JSONParser parser = new JSONParser();
-Object obj = parser.parse( decoded_result );
-JSONObject jsonObj = (JSONObject) obj;
 
-String[] level = (String[]) jsonObj.get("level");
-
-%>
-
-<%=level %>
+	%>
 </body>
 </html>
