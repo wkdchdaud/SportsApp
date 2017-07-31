@@ -73,6 +73,7 @@ public class DeliveryController {
         System.out.println(" 값 : " + decoded_result);
 		
         model.addAttribute("decoded_result",decoded_result);
+        model.addAttribute("code",code);
         
         return "/admin/delivery/delivery_detail";
 	}
