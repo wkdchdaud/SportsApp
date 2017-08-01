@@ -13,6 +13,7 @@
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>모두의 스포츠</title>
+  
     <!-- 데이트피커 -->
  
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" type="text/css" />  
@@ -20,10 +21,24 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   
 <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>  
+
 <script src="/js/sales_moris.js"></script>
 <script src="/js/sales_table.js"></script>
+<!-- BOOTSTRAP STYLES-->
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- FONTAWESOME STYLES-->
+    <link href="/assets/css/font-awesome.css" rel="stylesheet" />
+    
+     <!-- MORRIS CHART STYLES-->
+    <link href="/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    
+     <!-- CUSTOM STYLES-->
+    <link href="/assets/css/custom.css" rel="stylesheet" />
+    
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
-<%@include file="/inc/head.jsp"%>
 <!-- 일별주별월별분기별 연도별 클릭했을때는 
 	Hide 이용해서 값세팅해주고 datepicker이 ㅊchange될때 그값을 가지고 온다
 	그리고 변수에다 가 그값을 넣어서 보내주면 되겠지-->
@@ -61,6 +76,7 @@ $(function() {
             $('div.sidebar-collapse').removeClass('collapse')
         }
     });
+    
     /*  datepicker 시작 */
     $("#testDatepicker").datepicker({
     	dateFormat: 'yy-mm-dd',
@@ -209,30 +225,17 @@ function button_day(button_val){
                                         				</tr>
                                     				</thead>
                                     				<tbody id="table_date_ajax">
+                                    				
+                                    				<% int i = 0;
+                                    				for (R_testDTO qwe : rank_list){
+															i++;%>
+															
 														<tr>
-															<td>1</td>
-															<td><%= rank_list.get(0).getName() %></td>
-														</tr>
+															<td><%=i %></td>
+															<td><%=qwe.getName() %></td>
+														</tr>														
 														
-														<tr>
-															<td>2</td>
-															<td><%= rank_list.get(1).getName() %></td>
-														</tr>
-														
-														<tr>
-															<td>3</td>
-															<td><%= rank_list.get(2).getName() %></td>
-														</tr>
-														
-														<tr>
-															<td>4</td>
-															<td><%= rank_list.get(3).getName() %></td>
-														</tr>
-														
-														<tr>
-															<td>5</td>
-															<td><%= rank_list.get(4).getName() %></td>
-														</tr>
+														<%}%>
 														
                                     				</tbody>
                                 				</table>
@@ -277,22 +280,16 @@ function button_day(button_val){
     $(function() {
     	 Morris.Bar({
              element: 'morris-bar-chart',
-             data: [{
-                 a: '<%=sale_list.get(0).getSum_price()%>',
-                 y: '<%=sale_list.get(0).getSale_date()%>'
-             }, {
-                 a: '<%=sale_list.get(1).getSum_price()%>',
-                 y: '<%=sale_list.get(1).getSale_date()%>'
-             }, {
-                 a: '<%=sale_list.get(2).getSum_price()%>',
-                 y: '<%=sale_list.get(2).getSale_date()%>'
-             }, {
-                 a: '<%=sale_list.get(3).getSum_price()%>',
-                 y: '<%=sale_list.get(3).getSale_date()%>'
-             }, {
-                 a: '<%=sale_list.get(4).getSum_price()%>',
-                 y: '<%=sale_list.get(4).getSale_date()%>'
-             }],
+             data: [ <% int qw = 0 ; 
+                     for(R_testDTO qwe : sale_list){qw++; %>
+             {
+            	 a:'<%=qwe.getSum_price()%>' 
+            	 ,
+                 y: '<%=qwe.getSale_date()%>' 
+              }
+              <%if (qw != 5){%> , <%}%>
+             <%}%>
+             ],
              xkey: 'y',
              ykeys: ['a'],
              labels: ['매출'],

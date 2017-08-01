@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -13,7 +12,8 @@
     <link rel="stylesheet" href="./common/css/style.css">
     <!-- JavaScirpt Sorcemap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="/common/js/jquery-ui.js"></script>
+    <script src="./common/js/jquery-ui.js"></script>
+    <script src="./common/js/modernizr.custom.js"></script>
     <!--[if lte IE 9]>
     <script src="./common/js/placeholders.min.js"></script>
     <![endif]-->
@@ -34,6 +34,10 @@
 		<div class="logo">
 			<a href="#"><h2 class="title">모두의 스포츠</h2></a>
 		</div>
+	</div>
+
+	<div class="page_title">
+		<p>Q&amp;A</p>
 	</div>
 </header>
 
@@ -56,7 +60,7 @@
 		<li>
 			<a href="#">매출 분석 정보</a>
 			<ul class="col-3">
-				<li><a href="/admin/sale/list.do"><img src="./common/images/menu/001.png" class="icon"><p>매출분석 정보</p></a></li>
+				<li><a href="#"><img src="./common/images/menu/001.png" class="icon"><p>매출분석 정보</p></a></li>
 				<li><a href="#"><img src="./common/images/menu/002.png" class="icon"><p>연관성 분석 정보</p></a></li>
 				<li><a href="#"><img src="./common/images/menu/003.png" class="icon"><p>장바구니 분석 정보</p></a></li>
 			</ul>
@@ -90,44 +94,27 @@
 	</ul>
 </nav>
 
-    <div class="container">
-      <ul class="menu">
-        <li>
-          <a href="#"><img src="./common/images/ic_menu_01member.png" alt="회원관리">
-            <p>회원관리</p>
-          </a>
-        </li>
-        <li>
-          <a href="#"><img src="./common/images/ic_menu_02access.png" alt="권한관리">
-            <p>권한관리</p>
-          </a>
-        </li>
-        <li>
-          <a href="#"><img src="./common/images/ic_menu_03order.png" alt="주문관리">
-            <p>주문관리</p>
-          </a>
-        </li>
-        <li>
-          <a href="#"><img src="./common/images/ic_menu_04academy.png" alt="학원관리">
-            <p>학원관리</p>
-          </a>
-        </li>
-        <li>
-          <a href="/admin/sale/list.do"><img src="./common/images/ic_menu_05sale.png" alt="매출분석정보">
-            <p>매출분석정보</p>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="two-rows"><img src="./common/images/ic_menu_06list.png" alt="스포츠용품리스트관리">
-            <p>스포츠용품<br>리스트관리</p>
-          </a>
-        </li>
-        <li>
-          <a href="#"><img src="./common/images/ic_menu_07community.png" alt="커뮤니티관리">
-            <p>커뮤니티관리</p>
-          </a>
-        </li>
-      </ul>
+
+    <div class="container detail">
+      <div class="wrap btn-wrap">
+        <div class="list_wrap qna_detail">
+          <div class="top">
+            <p class="title">QnA 게시판 이용시에 지켜야할 주의사항입니다.</p>
+            <p class="sub_text">관리자<span>2017-04-14  14:15</span></p>
+          </div>
+          <div class="content">
+            1. QnA 게시판은 실명제로 운영됩니다.<br>
+            2. 답글은 주말, 공휴일 제외 24시간 이내로 확인하실 수 있습니다.<br>
+            3. 목적에 맞지 않는 글은 작성자의 동의 없이 삭제될 수 있습니다.
+          </div>
+        </div>
+        <div class="btn-groub">
+          <button class="col-3 deep-btn button">수정</button>
+          <button class="col-3 blue-btn button">삭제</button>
+          <button class="col-3 glay-btn button">목록</button>
+        </div>
+      </div>
+
     </div>
     <footer class="footer">
     <a href="#">
@@ -144,8 +131,8 @@
 
   </section>
   <div id="c-mask" class="c-mask"></div>
-  <script src="/common/js/classie.js"></script>
-  <script src="/common/js/common.js"></script>
+  <script src="./common/js/classie.js"></script>
+  <script src="./common/js/common.js"></script>
 </body>
 
 </html>
