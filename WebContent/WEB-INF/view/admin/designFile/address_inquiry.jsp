@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -13,7 +12,8 @@
     <link rel="stylesheet" href="./common/css/style.css">
     <!-- JavaScirpt Sorcemap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="/common/js/jquery-ui.js"></script>
+    <script src="./common/js/jquery-ui.js"></script>
+    <script src="./common/js/modernizr.custom.js"></script>
     <!--[if lte IE 9]>
     <script src="./common/js/placeholders.min.js"></script>
     <![endif]-->
@@ -27,15 +27,28 @@
 <body>
   <section id="wrapper" class="wrapper">
     <header class="header">
-	<div class="wrap">
-		<div class="left_menu">
-			<img src="./common/images/btn_gnb.png" alt="메뉴" id="c-button--slide-left" class="c-button">
-		</div>
-		<div class="logo">
-			<a href="#"><h2 class="title">모두의 스포츠</h2></a>
-		</div>
+  <div class="wrap">
+	<div class="header-btn left">
+		<img src="./common/images/btn-back.png" alt="뒤로가기">
 	</div>
+  <div class="logo">
+		<a href="#"><h2 class="title">모두의 스포츠</h2></a>
+	</div>
+  <div class="header-btn right">
+    <img src="./common/images/btn-close.png" alt="닫기">
+  </div>
+  </div>
 </header>
+<nav id="c-menu--slide-left" class="c-menu c-menu--slide-left">
+	<button class="c-menu__close">Close Menu</button>
+	<ul class="c-menu__items">
+		<li class="c-menu__item"><a href="#" class="c-menu__link">Home</a></li>
+		<li class="c-menu__item"><a href="#" class="c-menu__link">About</a></li>
+		<li class="c-menu__item"><a href="#" class="c-menu__link">Services</a></li>
+		<li class="c-menu__item"><a href="#" class="c-menu__link">Work</a></li>
+		<li class="c-menu__item"><a href="#" class="c-menu__link">Contact</a></li>
+	</ul>
+</nav>
 
     <nav id="c-menu--slide-left" class="c-menu c-menu--slide-left">
 
@@ -56,7 +69,7 @@
 		<li>
 			<a href="#">매출 분석 정보</a>
 			<ul class="col-3">
-				<li><a href="/admin/sale/list.do"><img src="./common/images/menu/001.png" class="icon"><p>매출분석 정보</p></a></li>
+				<li><a href="#"><img src="./common/images/menu/001.png" class="icon"><p>매출분석 정보</p></a></li>
 				<li><a href="#"><img src="./common/images/menu/002.png" class="icon"><p>연관성 분석 정보</p></a></li>
 				<li><a href="#"><img src="./common/images/menu/003.png" class="icon"><p>장바구니 분석 정보</p></a></li>
 			</ul>
@@ -91,43 +104,53 @@
 </nav>
 
     <div class="container">
-      <ul class="menu">
-        <li>
-          <a href="#"><img src="./common/images/ic_menu_01member.png" alt="회원관리">
-            <p>회원관리</p>
-          </a>
-        </li>
-        <li>
-          <a href="#"><img src="./common/images/ic_menu_02access.png" alt="권한관리">
-            <p>권한관리</p>
-          </a>
-        </li>
-        <li>
-          <a href="#"><img src="./common/images/ic_menu_03order.png" alt="주문관리">
-            <p>주문관리</p>
-          </a>
-        </li>
-        <li>
-          <a href="#"><img src="./common/images/ic_menu_04academy.png" alt="학원관리">
-            <p>학원관리</p>
-          </a>
-        </li>
-        <li>
-          <a href="/admin/sale/list.do"><img src="./common/images/ic_menu_05sale.png" alt="매출분석정보">
-            <p>매출분석정보</p>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="two-rows"><img src="./common/images/ic_menu_06list.png" alt="스포츠용품리스트관리">
-            <p>스포츠용품<br>리스트관리</p>
-          </a>
-        </li>
-        <li>
-          <a href="#"><img src="./common/images/ic_menu_07community.png" alt="커뮤니티관리">
-            <p>커뮤니티관리</p>
-          </a>
-        </li>
-      </ul>
+      <div class="wrap search-wrap">
+        <div class="search">
+          <input type="text" placeholder="동입력">
+          <button class="blue btn">검색</button>
+        </div>
+        <div class="result">
+          <p class="info">총 <span>336</span>건의 주소가 검색되었습니다.</p>
+          <div class="list_wrap">
+            <ul class="list-groub address_list">
+              <li>
+                <div class="street">
+                  <p class="address_catagory">도로명</p>
+                  <p class="address_text">서울특별시 강서구 우장산로<br> 49-28(내발산동, 바로맨션)</p>
+                </div>
+                <div class="number">
+                  <p class="address_catagory">지번</p>
+                  <p class="address_text">서울특별시 강서구 우장산로<br> 49-28(내발산동, 바로맨션)</p>
+                </div>
+                <p class="zip_code">07647</p>
+              </li>
+              <li>
+                <div class="street">
+                  <p class="address_catagory">도로명</p>
+                  <p class="address_text">서울특별시 강서구 우장산로<br> 49-28(내발산동, 바로맨션)</p>
+                </div>
+                <div class="number">
+                  <p class="address_catagory">지번</p>
+                  <p class="address_text">서울특별시 강서구 우장산로<br> 49-28(내발산동, 바로맨션)</p>
+                </div>
+                <p class="zip_code">07647</p>
+              </li>
+              <li>
+                <div class="street">
+                  <p class="address_catagory">도로명</p>
+                  <p class="address_text">서울특별시 강서구 우장산로<br> 49-28(내발산동, 바로맨션)</p>
+                </div>
+                <div class="number">
+                  <p class="address_catagory">지번</p>
+                  <p class="address_text">서울특별시 강서구 우장산로<br> 49-28(내발산동, 바로맨션)</p>
+                </div>
+                <p class="zip_code">07647</p>
+              </li>
+            </ul>
+            <button class="add_btn">더보기</button>
+          </div>
+        </div>
+      </div>
     </div>
     <footer class="footer">
     <a href="#">
@@ -144,8 +167,8 @@
 
   </section>
   <div id="c-mask" class="c-mask"></div>
-  <script src="/common/js/classie.js"></script>
-  <script src="/common/js/common.js"></script>
+  <script src="./common/js/classie.js"></script>
+  <script src="./common/js/common.js"></script>
 </body>
 
 </html>

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -13,7 +12,8 @@
     <link rel="stylesheet" href="./common/css/style.css">
     <!-- JavaScirpt Sorcemap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="/common/js/jquery-ui.js"></script>
+    <script src="./common/js/jquery-ui.js"></script>
+    <script src="./common/js/modernizr.custom.js"></script>
     <!--[if lte IE 9]>
     <script src="./common/js/placeholders.min.js"></script>
     <![endif]-->
@@ -27,16 +27,19 @@
 <body>
   <section id="wrapper" class="wrapper">
     <header class="header">
-	<div class="wrap">
-		<div class="left_menu">
-			<img src="./common/images/btn_gnb.png" alt="메뉴" id="c-button--slide-left" class="c-button">
-		</div>
-		<div class="logo">
-			<a href="#"><h2 class="title">모두의 스포츠</h2></a>
-		</div>
-	</div>
-</header>
+      <div class="wrap">
+        <div class="left_menu">
+          <img src="./common/images/btn_gnb.png" alt="메뉴" id="c-button--slide-left" class="c-button">
+        </div>
+        <div class="logo">
+          <a href="#"><h2 class="title">모두의 스포츠</h2></a>
+        </div>
+      </div>
 
+      <div class="page_title">
+        <p>스포츠 용품</p>
+      </div>
+    </header>
     <nav id="c-menu--slide-left" class="c-menu c-menu--slide-left">
 
 	<div class="profile">
@@ -56,7 +59,7 @@
 		<li>
 			<a href="#">매출 분석 정보</a>
 			<ul class="col-3">
-				<li><a href="/admin/sale/list.do"><img src="./common/images/menu/001.png" class="icon"><p>매출분석 정보</p></a></li>
+				<li><a href="#"><img src="./common/images/menu/001.png" class="icon"><p>매출분석 정보</p></a></li>
 				<li><a href="#"><img src="./common/images/menu/002.png" class="icon"><p>연관성 분석 정보</p></a></li>
 				<li><a href="#"><img src="./common/images/menu/003.png" class="icon"><p>장바구니 분석 정보</p></a></li>
 			</ul>
@@ -90,44 +93,59 @@
 	</ul>
 </nav>
 
-    <div class="container">
-      <ul class="menu">
-        <li>
-          <a href="#"><img src="./common/images/ic_menu_01member.png" alt="회원관리">
-            <p>회원관리</p>
-          </a>
-        </li>
-        <li>
-          <a href="#"><img src="./common/images/ic_menu_02access.png" alt="권한관리">
-            <p>권한관리</p>
-          </a>
-        </li>
-        <li>
-          <a href="#"><img src="./common/images/ic_menu_03order.png" alt="주문관리">
-            <p>주문관리</p>
-          </a>
-        </li>
-        <li>
-          <a href="#"><img src="./common/images/ic_menu_04academy.png" alt="학원관리">
-            <p>학원관리</p>
-          </a>
-        </li>
-        <li>
-          <a href="/admin/sale/list.do"><img src="./common/images/ic_menu_05sale.png" alt="매출분석정보">
-            <p>매출분석정보</p>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="two-rows"><img src="./common/images/ic_menu_06list.png" alt="스포츠용품리스트관리">
-            <p>스포츠용품<br>리스트관리</p>
-          </a>
-        </li>
-        <li>
-          <a href="#"><img src="./common/images/ic_menu_07community.png" alt="커뮤니티관리">
-            <p>커뮤니티관리</p>
-          </a>
-        </li>
-      </ul>
+
+    <div class="container detail">
+      <div class="wrap search-wrap btn-wrap">
+        <div class="select_wrap">
+          <select class="col-2">
+          <option value="태권도">태권도</option>
+          <option value="태권도">태권도</option>
+          </select>
+          <select class="col-2">
+            <option value="태권도 띠">태권도 띠</option>
+            <option value="사이즈">사이즈1</option>
+          </select>
+        </div>
+
+        <div class="list_wrap">
+          <ul class="register_list">
+            <li>
+              <p class="blue_text">제품사진</p>
+              <div class="input_btn_wrap">
+                <input type="text"><button class="line-btn">파일첨부</button>
+              </div>
+
+            </li>
+            <li>
+              <p class="blue_text">제품명</p>
+              <input type="text">
+            </li>
+            <li>
+              <p class="blue_text">제품 가격</p>
+              <input type="text">
+            </li>
+            <li>
+              <p class="blue_text">제품 상세</p>
+              <textarea></textarea>
+              <div class="input_btn_wrap">
+                <input type="text"><button class="line-btn">파일첨부</button>
+              </div>
+            </li>
+            <li>
+              <p class="blue_text">옵션</p>
+              <div class="input_btn_wrap">
+                <input type="text" placeholder="옵션을 추가하세요"><button class="line-btn">등록/수정</button>
+              </div>
+
+            </li>
+          </ul>
+
+        </div>
+        <div class="btn-groub">
+          <button class="col-2 blue-btn button">등록</button>
+          <button class="col-2 glay-btn button">수정</button>
+        </div>
+      </div>
     </div>
     <footer class="footer">
     <a href="#">
@@ -144,8 +162,8 @@
 
   </section>
   <div id="c-mask" class="c-mask"></div>
-  <script src="/common/js/classie.js"></script>
-  <script src="/common/js/common.js"></script>
+  <script src="./common/js/classie.js"></script>
+  <script src="./common/js/common.js"></script>
 </body>
 
 </html>

@@ -14,6 +14,7 @@
     <!-- JavaScirpt Sorcemap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="/common/js/jquery-ui.js"></script>
+    <script src="/common/js/modernizr.custom.js"></script>
     <!--[if lte IE 9]>
     <script src="./common/js/placeholders.min.js"></script>
     <![endif]-->
@@ -56,7 +57,7 @@
 		<li>
 			<a href="#">매출 분석 정보</a>
 			<ul class="col-3">
-				<li><a href="/admin/sale/list.do"><img src="./common/images/menu/001.png" class="icon"><p>매출분석 정보</p></a></li>
+				<li><a href="#"><img src="./common/images/menu/001.png" class="icon"><p>매출분석 정보</p></a></li>
 				<li><a href="#"><img src="./common/images/menu/002.png" class="icon"><p>연관성 분석 정보</p></a></li>
 				<li><a href="#"><img src="./common/images/menu/003.png" class="icon"><p>장바구니 분석 정보</p></a></li>
 			</ul>
@@ -113,7 +114,7 @@
           </a>
         </li>
         <li>
-          <a href="/admin/sale/list.do"><img src="./common/images/ic_menu_05sale.png" alt="매출분석정보">
+          <a href="#"><img src="./common/images/ic_menu_05sale.png" alt="매출분석정보">
             <p>매출분석정보</p>
           </a>
         </li>
@@ -144,8 +145,8 @@
 
   </section>
   <div id="c-mask" class="c-mask"></div>
-  <script src="/common/js/classie.js"></script>
-  <script src="/common/js/common.js"></script>
+  <script src="./common/js/classie.js"></script>
+  <script src="./common/js/common.js"></script>
 </body>
 
 </html>

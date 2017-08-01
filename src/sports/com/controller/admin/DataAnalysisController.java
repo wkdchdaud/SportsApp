@@ -34,7 +34,7 @@ public class DataAnalysisController {
 	
 	
 	/*매출 분석 정보 시작*/
-	@RequestMapping(value="sales/List" , method=RequestMethod.GET)
+	@RequestMapping(value="/admin/sale/list" , method=RequestMethod.GET)
 	public String sales_Info(HttpSession session, HttpServletRequest request, HttpServletResponse response, ModelMap model ) throws Exception{
 		System.out.println("로그인포 시작 : ");
 		log.info(Logger.getLogger(this.toString()));

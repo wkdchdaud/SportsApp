@@ -40,11 +40,8 @@
 <%if (nList.size() < 6) {%>
 	$("#addview").hide();
 <%}%>
-	$("#addview")
-				.click(
-						function() {
-							$
-									.ajax({
+	$("#addview").add("#searchadd").click(function() {
+									$.ajax({
 										url : "/admin/notice/readMore.do",
 										method : "post",
 										data : {
@@ -54,12 +51,8 @@
 										success : function(data) {
 											var contents = "";
 											console.log(data)
-											$
-													.each(
-															data,
-															function(key, value) {
+											$.each(data,function(key, value) {
 																var yn = value.notice_yn;
-
 																contents += "<tr><td><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.notice_no + " />";
 																contents += value.notice_no
 																		+ "</td>";
@@ -77,7 +70,7 @@
 																						10,
 																						0)
 																		+ "</td></tr>";
-															});
+											});
 
 											$('#list_more').append(contents);
 											if ((data).length < 6) {
@@ -93,74 +86,79 @@
 
 											document.getElementById("delete").style.display = "none";
 											document.getElementById("all").style.display = "none";
-										}
-
-									});
+										} //성공 닫음
+										}); //아작스 닫음
 							cnt += 6;
-						});
-	})
-/*검색 기능*/
-$(function() {
+						}); //더보기 클릭 이벤트 닫음
 	
+	/*검색 기능*/
+	// 검색어 아작스 시작
 	$('#searchbox').keyup(function(){
-	
-	if($('#searchbox').val() == ""){
-		return false;
-	}	
+		/* 
+		if($('#searchbox').val() == ""){
+			return false;
+		}	 */
+		cnt = 6;
+		var search = $('#searchbox').val();
 		
-	var search = $('#searchbox').val();
-	
-	
-	$.ajax({
-		url : "/admin/notice/search.do",
-		data : {'search' : search },
-		method : "post",
-		datatype :	"json",
-		success : function(data){
-			var contents ="";
-			$.each(data,function (key,value) {
-				var yn = value.notice_yn;
-				
-				contents += "<tr><td><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.notice_no + " />";
-				contents += value.notice_no
-						+ "</td>";
-				contents += "<td><a href='/admin/notice/NoticeInfo.do?notice_no="
-						+ value.notice_no
-						+ "'>"
-						+ value.title
-						+ "</a></td>";
-				contents += "<td>"
-						+ value.user_no
-						+ "</td>";
-				contents += "<td>"
-						+ value.reg_dt
-								.substring(
-										10,
-										0)
-						+ "</td></tr>";
-		});
-			$('#list_more').html(null);
-			$('#list_more').append(contents);
-			var dS = document.getElementsByClassName("deleteSelect");
-			
-			for (var i =0; i<dS.length; i++) {
-				dS[i].style.display = "none";
-			}
-				
-			document.getElementById("delete").style.display = "none";
-			document.getElementById("all").style.display = "none";
-			
-			if ((data).length < 6) {//더보기 버튼 없애기
-				$("#addview").hide();
-			}
-		}
-	});
-	
 		
-	
-});
-	
-})
+		$.ajax({
+			url : "/admin/notice/search.do",
+			data : {'search' : search },
+			method : "post",
+			datatype :	"json",
+			success : function(data){
+				var contents ="";
+				$.each(data,function (key,value) {
+					var yn = value.notice_yn;
+					
+					contents += "<tr><td><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.notice_no + " />";
+					contents += value.notice_no
+							+ "</td>";
+					contents += "<td><a href='/admin/notice/NoticeInfo.do?notice_no="
+							+ value.notice_no
+							+ "'>"
+							+ value.title
+							+ "</a></td>";
+					contents += "<td>"
+							+ value.user_no
+							+ "</td>";
+					contents += "<td>"
+							+ value.reg_dt
+									.substring(
+											10,
+											0)
+							+ "</td></tr>";
+			});// 아작스 포이치 닫음
+				
+				$('#list_more').html(null);
+				$('#list_more').append(contents);
+				var dS = document.getElementsByClassName("deleteSelect");
+				
+				for (var i =0; i<dS.length; i++) {
+					dS[i].style.display = "none";
+				}
+					
+				document.getElementById("delete").style.display = "none";
+				document.getElementById("all").style.display = "none";
+				
+				if ((data).length < 6) {//더보기 버튼 없애기
+					$("#addview").hide();
+				}
+				if(data.length >= 6){
+					$("#searchadd").html("<center> <input type='button' style='width: 150px;' class='btn btn-success' value='더보기' id='addview' /></center>");
+				}
+			} //아작스 success 닫음
+			
+		});	//아작스 닫음
+		
+			
+		
+	}); 	//검색 이벤트 닫음
+						
+		})   //펑션 닫음
+
+
 
 	
 	
@@ -428,10 +426,11 @@ $(function() {
 										</table>
 
 										<!-- 더보기 -->
-										<center>
+										<div id="searchadd"><center>
 											<input type="button" style="width: 150px;"
 												class="btn btn-success" value="더보기" id="addview" />
 										</center>
+										</div>
 									</div>
 								</div>
 								<!--  end  Context Classes  -->
