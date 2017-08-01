@@ -31,6 +31,7 @@ if (rList==null) {
 
 $(function() {
 	var cnt = 5;
+	var seh = "";
 <% if (rList.size() < 5) {%>
 	$("#addview").hide();
 <%} %>
@@ -89,7 +90,52 @@ $("#addview").click(function() {
 	
 });
 
-})
+/*  검색 시작 */
+
+$('#searchbox').keyup(function(){
+	
+	var search = $('#searchbox').val();
+	
+	$.ajax({
+		url : "search.do",
+		data : {'search' : search },
+		method : "post",
+		datatype :	"json",
+		success : function(data){
+			var contents ="";
+			$.each(data,function (key,value) {
+				var yn = value.answer_yn;
+				
+				contents += "<tr><td align='left'>";
+				if (value.answer_yn == "Y") {
+					contents += "<a href='/admin/QA/QAAnswerDetail.do?qa_no="+value.qa_no+"'>";
+				} else {
+					contents += "<a href='/admin/QA/QADetail.do?qa_no="+value.qa_no+"'>";
+				}
+				if (value.answer_yn == "Y") {
+					contents += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+				}
+				contents += value.title;
+				contents += "<input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.qa_no + " /></td>";
+				contents += "<td align='left'>"+value.reg_user_no+"</a></td>";
+				contents += "<td align='left'>"+value.reg_dt+"</td></tr>";
+		});
+			$('#list_more').html(null);
+			$('#list_more').append(contents);
+			var dS = document.getElementsByClassName("deleteSelect");
+			
+			for (var i =0; i<dS.length; i++) {
+				dS[i].style.display = "none";
+			}
+				
+			document.getElementById("delete").style.display = "none";
+			document.getElementById("all").style.display = "none";
+		}
+	});
+});
+
+
+});
 
 //질문 상세 이동
 function doDetail(qa_no) {
@@ -230,7 +276,7 @@ function deleteConfirm(f) {
 	
 		<div class="panel panel-default" style="width: 100%">
 			<div class="panel-body">
-	
+	<input type='text' id='searchbox' value="" />
 	<table class="table">
 
 		<thead>
@@ -348,7 +394,7 @@ function deleteConfirm(f) {
 	<!-- METISMENU SCRIPTS -->
 	<script src="/assets/js/jquery.metisMenu.js"></script>
 	<!-- CUSTOM SCRIPTS -->
-	<script src="/assets/js/custom.js"></script>
-	
+<!-- 	<script src="/assets/js/custom.js"></script>
+ -->	
 </body>
 </html>
