@@ -6,7 +6,7 @@
 		CONTENTS, NOTICE_YN , REG_USER_NO, REG_DT,
 		CHG_USER_NO, USER_NO, CHG_DT
 		FROM NOTICE_INFO_A ORDER BY NOTICE_YN, NOTICE_NO DESC
-		LIMIT 5;
+		LIMIT 6;
 	</select>
 
 	<insert id="InsertNoticeInfo" parameterType="NoticeDTO">
@@ -61,7 +61,7 @@
 		FROM NOTICE_INFO_A
 		ORDER BY NOTICE_YN, NOTICE_NO
 		DESC
-		LIMIT 5 OFFSET ${read_more};
+		LIMIT 6 OFFSET ${read_more};
 	</select>
 
 	<select id="listAll" resultType="NoticeDTO">
@@ -100,7 +100,7 @@
 	    FROM NOTICE_INFO_A N
 	    WHERE N.TITLE LIKE CONCAT('%', #{search}, '%')
 	 	ORDER BY N.NOTICE_NO DESC, N.NOTICE_YN ASC
-	 	LIMIT 5;
+	 	LIMIT 6;
 	
 	</select>
 
