@@ -45,7 +45,12 @@
 	
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse(result);
+		
+		out.print("obj : "+ obj);
+		
 		JSONObject jsonObj = (JSONObject) obj;
+		
+		out.print("jsonObj : "+ jsonObj);
 		
 		String invoiceNo = (String) jsonObj.get("invoiceNo");//송장번호
 		String itemName = (String) jsonObj.get("itemName");//상품명
@@ -55,6 +60,8 @@
 		
 		
 		JSONArray trackingDetails = (JSONArray) jsonObj.get("trackingDetails");
+		out.print("trackingDetails : "+ trackingDetails);
+
 		
 	
 		

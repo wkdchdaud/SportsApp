@@ -72,4 +72,10 @@ public class QAService implements IQAService {
 		return qaMapper.getQA_MoreView(qaDTO);
 	}
 	
+	@Override
+	public List<QADTO> searchQaList(QADTO qaDTO) throws Exception{
+		
+		return qaMapper.getSearchList(qaDTO);
+	}
+	
 }

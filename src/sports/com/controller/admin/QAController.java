@@ -9,6 +9,8 @@ import java.util.HashMap;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -683,6 +685,27 @@ public class QAController {
 		qaDTO= null;
 		
 		return viewMore_list;
+		
+	}
+	
+	@RequestMapping(value="/admin/QA/search")
+	public @ResponseBody List<QADTO> searchQaList(@RequestParam(value="search") String search) throws Exception{
+		
+		System.out.println("search : " + search);
+		
+		QADTO sdto = new QADTO();
+		
+		sdto.setSearch(search);
+		
+		List<QADTO> qdto = qaService.searchQaList(sdto);
+		
+		for(QADTO q : qdto){
+			System.out.println(q.getTitle());
+		}
+		
+				
+		
+		return qdto;
 		
 	}
 	

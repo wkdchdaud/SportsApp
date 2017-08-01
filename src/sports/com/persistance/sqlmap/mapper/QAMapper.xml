@@ -103,4 +103,14 @@
 		LIMIT 5 OFFSET ${read_more};
 	</select>
 	
+	<select id="getSearchList" resultType="QADTO" parameterType="QADTO">
+	
+		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, QA.REG_USER_NO, DATE_FORMAT(QA.REG_DT, '%Y-%m-%d %T') AS REG_DT
+	    FROM QA_INFO_A QA
+	    WHERE QA.TITLE LIKE CONCAT('%', #{search}, '%')
+	 	ORDER BY QA.Q_NO DESC, QA.ANSWER_YN ASC
+	 	LIMIT 5;
+	
+	</select>
+	
 </mapper>

@@ -31,4 +31,6 @@ public interface QAMapper {
 	
 	List<QADTO> getQA_MoreView(QADTO qaDTO)throws Exception;
 	
+	List<QADTO> getSearchList(QADTO qaDTO) throws Exception;
+	
 }
