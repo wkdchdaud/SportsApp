@@ -229,12 +229,15 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/admin/notice/readMore.do")
-	public @ResponseBody List<NoticeDTO> Notice_MoreView(@RequestParam(value = "cnt") String cnt) throws Exception{
+	public @ResponseBody List<NoticeDTO> Notice_MoreView(@RequestParam(value = "cnt") String cnt,@RequestParam(value = "search") String search) throws Exception{
 		
 		NoticeDTO nDTO = new NoticeDTO();
 		
 		nDTO.setRead_more(cnt);
 		System.out.println("넘어온 cnt : " +cnt);
+		
+		nDTO.setSearch(search);
+		System.out.println("넘어온search : " +search);
 		
 		
 		List <NoticeDTO> viewMore_list = noticeService.Notice_MoreView(nDTO);
