@@ -37,69 +37,13 @@
 <script type="text/javascript">
 	$(function() {
 		var cnt = 6;
-<%if (nList.size() < 6) {%>
-	$("#addview").hide();
-<%}%>
-	$("#addview").add("#searchadd").click(function() {
-									$.ajax({
-										url : "/admin/notice/readMore.do",
-										method : "post",
-										data : {
-											'cnt' : cnt
-										},
-										dataType : "json",
-										success : function(data) {
-											var contents = "";
-											console.log(data)
-											$.each(data,function(key, value) {
-																var yn = value.notice_yn;
-																contents += "<tr><td><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.notice_no + " />";
-																contents += value.notice_no
-																		+ "</td>";
-																contents += "<td><a href='/admin/notice/NoticeInfo.do?notice_no="
-																		+ value.notice_no
-																		+ "'>"
-																		+ value.title
-																		+ "</a></td>";
-																contents += "<td>"
-																		+ value.user_no
-																		+ "</td>";
-																contents += "<td>"
-																		+ value.reg_dt
-																				.substring(
-																						10,
-																						0)
-																		+ "</td></tr>";
-											});
-
-											$('#list_more').append(contents);
-											if ((data).length < 6) {
-												$('#addview').remove();
-											}
-
-											var dS = document
-													.getElementsByClassName("deleteSelect");
-
-											for (var i = 0; i < dS.length; i++) {
-												dS[i].style.display = "none";
-											}
-
-											document.getElementById("delete").style.display = "none";
-											document.getElementById("all").style.display = "none";
-										} //성공 닫음
-										}); //아작스 닫음
-							cnt += 6;
-						}); //더보기 클릭 이벤트 닫음
-	
+		var search ="";
 	/*검색 기능*/
 	// 검색어 아작스 시작
 	$('#searchbox').keyup(function(){
-		/* 
-		if($('#searchbox').val() == ""){
-			return false;
-		}	 */
+		
 		cnt = 6;
-		var search = $('#searchbox').val();
+		search = $('#searchbox').val();
 		
 		
 		$.ajax({
@@ -155,7 +99,66 @@
 			
 		
 	}); 	//검색 이벤트 닫음
-						
+	
+	/* 더보기 시작 */
+	<%if (nList.size() < 6) {%>
+	$("#addview").hide();
+<%}%>
+	$("#addview").add("#searchadd").click(function() {
+									alert(search);
+									
+									
+									$.ajax({
+										url : "/admin/notice/readMore.do",
+										method : "post",
+										data : {'cnt' : cnt , "search" : search},
+										dataType : "json",
+										success : function(data) {
+											var contents = "";
+											console.log(data)
+											$.each(data,function(key, value) {
+																var yn = value.notice_yn;
+																contents += "<tr><td><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.notice_no + " />";
+																contents += value.notice_no
+																		+ "</td>";
+																contents += "<td><a href='/admin/notice/NoticeInfo.do?notice_no="
+																		+ value.notice_no
+																		+ "'>"
+																		+ value.title
+																		+ "</a></td>";
+																contents += "<td>"
+																		+ value.user_no
+																		+ "</td>";
+																contents += "<td>"
+																		+ value.reg_dt
+																				.substring(
+																						10,
+																						0)
+																		+ "</td></tr>";
+											});
+
+											$('#list_more').append(contents);
+											if ((data).length < 6) {
+												$('#addview').remove();
+											}
+
+											var dS = document
+													.getElementsByClassName("deleteSelect");
+
+											for (var i = 0; i < dS.length; i++) {
+												dS[i].style.display = "none";
+											}
+
+											document.getElementById("delete").style.display = "none";
+											document.getElementById("all").style.display = "none";
+										} //성공 닫음
+										}); //아작스 닫음
+							cnt += 6;
+							
+							if (search == ""){//두번 실행 방지
+								return false;
+							}
+						}); //더보기 클릭 이벤트 닫음
 		})   //펑션 닫음
 
 
