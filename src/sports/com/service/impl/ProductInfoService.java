@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import sports.com.dto.ProductInfoDTO;
+import sports.com.dto.ProductInfoOptionDTO;
 import sports.com.persistance.mapper.ProductInfoMapper;
 import sports.com.service.IProductInfoService;
 
@@ -80,8 +81,14 @@ public class ProductInfoService implements IProductInfoService {
 
 		return productInfoMapper.getLowpriceSearch(bDTO);
 	}
-
-
+	
+	//옵션
+	@Override
+	public void ProductInfoOptionInsert(ProductInfoOptionDTO productInfoOptionDTO) throws Exception {
+		
+		productInfoMapper.ProductInfoOptionInsert(productInfoOptionDTO);
+		
+	}
 
 
 

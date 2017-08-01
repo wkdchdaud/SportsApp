@@ -13,5 +13,6 @@
     	<typeAlias type="sports.com.dto.DeliveryDTO" alias="DeliveryDTO"/>
 		<!-- <typeAlias type="ac.kr.ft.com.dto.MenuComDTO" alias="MenuComDTO"/> -->
 		<typeAlias type="sports.com.dto.ProdOptionDTO" alias="ProdOptionDTO"/>
+		<typeAlias type="sports.com.dto.ProductInfoOptionDTO" alias="ProductInfoOptionDTO"/>
     </typeAliases>
 </configuration>
