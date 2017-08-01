@@ -26,8 +26,8 @@ public interface IQAService {
 	
 	void deleteQAAnswerDetail(QADTO qaDTO) throws Exception;
 	
-	List<QADTO> QA_MoreView(QADTO qaDTO) throws Exception;
+	List<QADTO> getQAMoreView(QADTO qaDTO) throws Exception;
 	
-	List<QADTO> searchQaList(QADTO qaDTO) throws Exception;
+	List<QADTO> getQASearchList(QADTO qaDTO) throws Exception;
 
 }

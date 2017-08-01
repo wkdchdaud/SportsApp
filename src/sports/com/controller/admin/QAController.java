@@ -632,15 +632,17 @@ public class QAController {
 	}	
 	
 	@RequestMapping(value="/admin/QA/QAReadMore")
-	public @ResponseBody List<QADTO> QA_MoreView(@RequestParam(value = "cnt") String cnt) throws Exception {
+	public @ResponseBody List<QADTO> getQAMoreView(@RequestParam(value = "cnt") String cnt, @RequestParam(value = "search") String search) throws Exception {
 		
 		QADTO qaDTO = new QADTO();
 		
 		qaDTO.setRead_more(cnt);
+		qaDTO.setSearch(search);
 		
-		System.out.println("넘어온 cnt: " +cnt);
+		System.out.println("넘어온 cnt: " + cnt);
+		System.out.println("넘어온 search: " + search);
 		
-		List<QADTO> viewMore_list = qaService.QA_MoreView(qaDTO);
+		List<QADTO> viewMore_list = qaService.getQAMoreView(qaDTO);
 		
 		for (QADTO qaDT : viewMore_list) {	//new 붙히는 시간 계산해서 rList의 title에 new 붙여주기
 			
@@ -678,34 +680,70 @@ public class QAController {
 		
 		System.out.println("겟 리드모어: " + qaDTO.getRead_more());
 		
-		for (QADTO qadt : viewMore_list) {
-			System.out.println("제목: " +  qadt.getTitle());
+		for (QADTO qaDT : viewMore_list) {
+			System.out.println("제목: " +  qaDT.getTitle());
 		}
 		
-		qaDTO= null;
+		qaDTO = null;
 		
 		return viewMore_list;
 		
 	}
 	
-	@RequestMapping(value="/admin/QA/search")
-	public @ResponseBody List<QADTO> searchQaList(@RequestParam(value="search") String search) throws Exception{
+	@RequestMapping(value="/admin/QA/QASearchList")
+	public @ResponseBody List<QADTO> getQASearchList(@RequestParam(value="search") String search) throws Exception {
 		
-		System.out.println("search : " + search);
+		System.out.println("search: " + search);
 		
-		QADTO sdto = new QADTO();
+		QADTO qaDTO = new QADTO();
 		
-		sdto.setSearch(search);
+		qaDTO.setSearch(search);
 		
-		List<QADTO> qdto = qaService.searchQaList(sdto);
+		List<QADTO> viewSearch_list = qaService.getQASearchList(qaDTO);
 		
-		for(QADTO q : qdto){
-			System.out.println(q.getTitle());
+		for (QADTO qaDT : viewSearch_list) {
+			
+			String reg_dt = CmmUtil.nvl(qaDT.getReg_dt());
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date to = transFormat.parse(reg_dt);
+			
+			long now = System.currentTimeMillis();
+			long inputDate = to.getTime();
+
+			String title = CmmUtil.nvl(qaDT.getTitle());	//제목이 14자 이상이면 ...붙여주기
+			
+			if (title.length() >= 14) {
+				
+				title = title.substring(0, 14) + "...";
+				qaDT.setTitle(title);
+				
+			}
+			
+			if (qaDT.getSecret_yn().equals("1")) {
+				
+				title += "<b>[SECRET]</b>";
+				qaDT.setTitle(title);
+				
+			}
+			
+			if (now - inputDate < (1000*60*60*24*3)) {
+				
+				title += "<b>[NEW]</b>";
+				qaDT.setTitle(title);
+				
+			}
+			
+		}	
+		
+		System.out.println("search: " + search);
+		
+		for (QADTO qaDT : viewSearch_list) {
+			System.out.println("제목: " +  qaDT.getTitle());
 		}
 		
-				
+		qaDTO = null;
 		
-		return qdto;
+		return viewSearch_list;
 		
 	}
 	

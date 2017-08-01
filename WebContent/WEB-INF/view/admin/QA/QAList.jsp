@@ -30,47 +30,122 @@ if (rList==null) {
 <script type="text/javascript">
 
 $(function() {
-	var cnt = 5;
-	var seh = "";
-<% if (rList.size() < 5) {%>
-	$("#addview").hide();
-<%} %>
-
-$("#addview").click(function() {
 	
-	var num = 5;
+	var cnt = 6;
+	var search ="";
+
+//검색
+$('#searchbox').keyup(function() {
+	
+	cnt = 6;
+	search = $('#searchbox').val();
 	
 	$.ajax({
-
-		url: "/admin/QA/QAReadMore.do",
-		method: "post",
-		data: {
-			'cnt' : cnt
-		},
-		dataType : "json",
+		
+		url : "/admin/QA/QASearchList.do",
+		method : "post",
+		data : {'search' : search },
+		datatype :	"json",
 		success : function(data) {
-			var contents = "";
+			
+			var contents ="";
 			console.log(data)
+			
 			$.each(data,function (key,value) {
+				
 				var yn = value.answer_yn;
 				
 				contents += "<tr><td align='left'>";
+				contents += "<input type='checkbox' name='deleteSelect' class='deleteSelect' value="+value.qa_no+" />&nbsp;&nbsp;";
+				
 				if (value.answer_yn == "Y") {
 					contents += "<a href='/admin/QA/QAAnswerDetail.do?qa_no="+value.qa_no+"'>";
 				} else {
 					contents += "<a href='/admin/QA/QADetail.do?qa_no="+value.qa_no+"'>";
 				}
+				
 				if (value.answer_yn == "Y") {
 					contents += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 				}
-				contents += value.title;
-				contents += "<input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.qa_no + " /></td>";
+				
+				contents += value.title+"</td>";
 				contents += "<td align='left'>"+value.reg_user_no+"</a></td>";
 				contents += "<td align='left'>"+value.reg_dt+"</td></tr>";
+				
+			});
+			
+			$('#list_more').html(null);
+			$('#list_more').append(contents);
+			
+			var dS = document.getElementsByClassName("deleteSelect");
+			
+			for (var i =0; i<dS.length; i++) {
+				dS[i].style.display = "none";
+			}
+				
+			document.getElementById("delete").style.display = "none";
+			document.getElementById("all").style.display = "none";
+			
+			alert(data.length);
+			
+			if (data.length < 6) {
+				$("#addview").hide();
+			}
+			
+			if (data.length >= 6) {
+				$("#searchadd").html("<center> <input type='button' style='width: 150px;' class='btn btn-success' value='더보기' id='addview' /></center>");
+			}
+			
+		}
+		
+	});
+	
+});
+
+<% if (rList.size() < 6) {%>
+	$("#addview").hide();
+<%} %>
+
+//더보기
+$("#addview").add("#searchadd").click(function() {
+	alert(search);
+	$.ajax({
+
+		url : "/admin/QA/QAReadMore.do",
+		method : "post",
+		data : {'cnt' : cnt, 'search' : search},
+		dataType : "json",
+		success : function(data) {
+			
+			var contents = "";
+			console.log(data)
+			
+			$.each(data,function (key,value) {
+				
+				var yn = value.answer_yn;
+				
+				contents += "<tr><td align='left'>";
+				contents += "<input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.qa_no + " />&nbsp;&nbsp;";
+				
+				if (value.answer_yn == "Y") {
+					contents += "<a href='/admin/QA/QAAnswerDetail.do?qa_no="+value.qa_no+"'>";
+				} else {
+					contents += "<a href='/admin/QA/QADetail.do?qa_no="+value.qa_no+"'>";
+				}
+				
+				if (value.answer_yn == "Y") {
+					contents += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+				}
+				
+				contents += value.title+"</td>";
+				contents += "<td align='left'>"+value.reg_user_no+"</a></td>";
+				contents += "<td align='left'>"+value.reg_dt+"</td></tr>";
+				
 			});
 			
 			$('#list_more').append(contents);
-			if ((data).length<5) {
+			
+			if ((data).length<6) {
 				$('#addview').remove();
 			}
 			
@@ -86,62 +161,18 @@ $("#addview").click(function() {
 	
 	});
 	
-	cnt += 5;
-	
-});
-
-/*  검색 시작 */
-
-$('#searchbox').keyup(function(){
-	
-	var search = $('#searchbox').val();
-	
-	$.ajax({
-		url : "search.do",
-		data : {'search' : search },
-		method : "post",
-		datatype :	"json",
-		success : function(data){
-			var contents ="";
-			$.each(data,function (key,value) {
-				var yn = value.answer_yn;
-				
-				contents += "<tr><td align='left'>";
-				if (value.answer_yn == "Y") {
-					contents += "<a href='/admin/QA/QAAnswerDetail.do?qa_no="+value.qa_no+"'>";
-				} else {
-					contents += "<a href='/admin/QA/QADetail.do?qa_no="+value.qa_no+"'>";
-				}
-				if (value.answer_yn == "Y") {
-					contents += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-				}
-				contents += value.title;
-				contents += "<input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.qa_no + " /></td>";
-				contents += "<td align='left'>"+value.reg_user_no+"</a></td>";
-				contents += "<td align='left'>"+value.reg_dt+"</td></tr>";
-		});
-			$('#list_more').html(null);
-			$('#list_more').append(contents);
-			var dS = document.getElementsByClassName("deleteSelect");
-			
-			for (var i =0; i<dS.length; i++) {
-				dS[i].style.display = "none";
-			}
-				
-			document.getElementById("delete").style.display = "none";
-			document.getElementById("all").style.display = "none";
-		}
-	});
-});
-
+	cnt += 6;
 
 });
+
+})//펑션 닫음
 
 //질문 상세 이동
 function doDetail(qa_no) {
 	location.href="/admin/QA/QADetail.do?qa_no=" + qa_no;
 }
-//답변 상세 이동
+
+//답글 상세 이동
 function doAnswerDetail(qa_no, answer_yn) {
 	location.href="/admin/QA/QAAnswerDetail.do?qa_no=" + qa_no;
 }
@@ -211,7 +242,7 @@ function edit() {
 	
 }
 
-// 체크박스 전체 선택
+//체크박스 전체 선택
 function allCheck(f) {
     
 	cbox = f.deleteSelect;
@@ -230,7 +261,7 @@ function allCheck(f) {
 	
 }
 
-//삭제
+//체크박스 선택된 게시글 삭제
 function deleteConfirm(f) {
 	
 	if (confirm("선택된 게시글을 삭제하시겠습니까?")) { 
@@ -243,8 +274,6 @@ function deleteConfirm(f) {
 	}
 
 }
-
-
 
 </script>
 </head>
@@ -276,13 +305,15 @@ function deleteConfirm(f) {
 	
 		<div class="panel panel-default" style="width: 100%">
 			<div class="panel-body">
-	<input type='text' id='searchbox' value="" />
+	
+	<input type="text" id="searchbox" value="" />
+	
 	<table class="table">
 
 		<thead>
 	
 		<tr>
-			<th align="center" style="width: 400px"><font size="2px">제목 <input type="checkbox" name="all" id="all" value="전체선택" onclick="allCheck(this.form);" /></font></th>
+			<th align="center" style="width: 400px"><font size="2px"><input type="checkbox" name="all" id="all" value="전체선택" onclick="allCheck(this.form);" />&nbsp;&nbsp;제목</font></th>
 			<th align="center" style="width: 200px"><font size="2px">작성자</font></th>
 			<th align="center" style="width: 200px"><font size="2px">작성일</font></th>
 		</tr>
@@ -301,6 +332,8 @@ function deleteConfirm(f) {
 		
 		<tr>
 			<td align="left">
+			<input type="checkbox" name="deleteSelect" class="deleteSelect" value="<%=rDTO.getQa_no()%>" />
+			&nbsp;&nbsp;
 			<% if (CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")) {%>
 			
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -348,7 +381,6 @@ function deleteConfirm(f) {
 				%>
 				
 			<%} %>
-			<input type="checkbox" name="deleteSelect" class="deleteSelect" value="<%=rDTO.getQa_no()%>" />
 			</td>
 			<td align="left"><%=CmmUtil.nvl(rDTO.getUser_name()) %></td>
 			<td align="left"><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></td>
@@ -394,7 +426,7 @@ function deleteConfirm(f) {
 	<!-- METISMENU SCRIPTS -->
 	<script src="/assets/js/jquery.metisMenu.js"></script>
 	<!-- CUSTOM SCRIPTS -->
-<!-- 	<script src="/assets/js/custom.js"></script>
- -->	
+	<script src="/assets/js/custom.js"></script>
+		
 </body>
 </html>

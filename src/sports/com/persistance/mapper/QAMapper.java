@@ -29,8 +29,8 @@ public interface QAMapper {
 	
 	void deleteQAAnswerDetail(QADTO qaDTO) throws Exception;
 	
-	List<QADTO> getQA_MoreView(QADTO qaDTO)throws Exception;
+	List<QADTO> getQAMoreView(QADTO qaDTO) throws Exception;
 	
-	List<QADTO> getSearchList(QADTO qaDTO) throws Exception;
+	List<QADTO> getQASearchList(QADTO qaDTO) throws Exception;
 	
 }
