@@ -266,5 +266,45 @@ public class NoticeController {
 		
 		return viewMore_list;
 	}
+	
+	
+	@RequestMapping(value="/admin/notice/search")
+	public @ResponseBody List<NoticeDTO> searchNoticeList(@RequestParam(value="search") String search) throws Exception{
+		
+		System.out.println("search : " + search);
+		
+		NoticeDTO nDTO = new NoticeDTO();
+		
+		nDTO.setSearch(search);
+		
+		List<NoticeDTO> ndTO = noticeService.searchNoticeList(nDTO);
+		
+		for(NoticeDTO nDT : ndTO){//new 붙히는 시간 계산해서 nList의 title에 new 붙여주기
+			String reg_dt = CmmUtil.nvl(nDT.getReg_dt());
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date to = transFormat.parse(reg_dt);
+
+			long now = System.currentTimeMillis();
+			long inputDate = to.getTime();
+
+			String title = CmmUtil.nvl(nDT.getTitle());//제목이 14자 이상이면 ...붙여주기
+			if (title.length() >= 14) {
+				title = title.substring(0, 14) + "...";
+			}
+			if (now - inputDate < (1000*60*60*24*3)) {
+			nDT.setTitle(title+"<b>[NEW]</b>");
+				}
+			}
+		
+		for(NoticeDTO n : ndTO){
+			System.out.println(n.getTitle());
+		}
+		
+				
+		
+		return ndTO;
+		
+	}
 }
+
 

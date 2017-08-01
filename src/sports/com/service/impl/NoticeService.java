@@ -60,4 +60,10 @@ public class NoticeService implements INoticeService{
 	public void deleteCheckList(NoticeDTO nDTO) throws Exception {
 		noticeMapper.deleteCheckList(nDTO);
 	}
+
+	@Override
+	public List<NoticeDTO> searchNoticeList(NoticeDTO nDTO) throws Exception {
+		
+		return noticeMapper.getSearchList(nDTO);
+	}
 }

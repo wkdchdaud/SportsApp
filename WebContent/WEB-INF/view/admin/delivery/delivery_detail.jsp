@@ -16,9 +16,9 @@
 <body>
 
 	<%
-		String result = (String) request.getAttribute("decoded_result");
-		String code = (String) request.getAttribute("code");
-		String company = "";
+		String result = (String) request.getAttribute("decoded_result");//컨트롤러에서 받은 json데이터의 String형태
+		String code = (String) request.getAttribute("code");//컨트롤러에서 받은 택배사 코드
+		String company = "";//택배사 이름 초기화
 		
 		if(code.equals("01")){
 			company = "우체국택배";
@@ -43,14 +43,14 @@
 
 	<%
 	
-		JSONParser parser = new JSONParser();
-		Object obj = parser.parse(result);
+		JSONParser parser = new JSONParser();//Json파서 생성
+		Object obj = parser.parse(result);//String 데이터를 Object로 파서
 		
-		out.print("obj : "+ obj);
+		System.out.print("obj : "+ obj);
 		
-		JSONObject jsonObj = (JSONObject) obj;
+		JSONObject jsonObj = (JSONObject) obj; // Object데이터를 Json 데이터로 파서
 		
-		out.print("jsonObj : "+ jsonObj);
+		System.out.print("jsonObj : "+ jsonObj);
 		
 		String invoiceNo = (String) jsonObj.get("invoiceNo");//송장번호
 		String itemName = (String) jsonObj.get("itemName");//상품명
@@ -59,8 +59,8 @@
 		String receiverAddr = (String) jsonObj.get("receiverAddr");//주소
 		
 		
-		JSONArray trackingDetails = (JSONArray) jsonObj.get("trackingDetails");
-		out.print("trackingDetails : "+ trackingDetails);
+		JSONArray trackingDetails = (JSONArray) jsonObj.get("trackingDetails");//배열 형태의 json데이터를 JsonArray 로 생성
+		System.out.print("trackingDetails : "+ trackingDetails);
 
 		
 	
