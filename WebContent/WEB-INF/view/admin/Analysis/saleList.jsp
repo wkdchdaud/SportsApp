@@ -42,6 +42,11 @@
 <!-- 일별주별월별분기별 연도별 클릭했을때는 
 	Hide 이용해서 값세팅해주고 datepicker이 ㅊchange될때 그값을 가지고 온다
 	그리고 변수에다 가 그값을 넣어서 보내주면 되겠지-->
+	<style>
+.ui-datepicker{ font-size: 12px; width: 250px; }
+.ui-datepicker select.ui-datepicker-month{ width:28%; font-size: 12px; }
+.ui-datepicker select.ui-datepicker-year{ width:32%; font-size: 12px; }
+</style>
 <script>
 
 var hid ="";
@@ -80,10 +85,21 @@ $(function() {
     /*  datepicker 시작 */
     $("#testDatepicker").datepicker({
     	dateFormat: 'yy-mm-dd',
+    	prevText: '이전 달',
+        nextText: '다음 달',
+        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+        showMonthAfterYear: true,
+        yearSuffix: '년 ',
     	changeMonth:true,
     	changeYear:true,
     	selectOtherMonths:true,
     	showOtherMonths:true,
+    	yearRange: "2017:2020",
+    	autoSize: true
     	/* altField : '#getdate' */
     	});
    

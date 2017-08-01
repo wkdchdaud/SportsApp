@@ -68,7 +68,7 @@ public class DataAnalysisController {
 	}
 
 	/*매출 분석 정보 모리스js 차트 값 아작스 구현 */
-	@RequestMapping(value="sales/sale_chart")
+	@RequestMapping(value="/admin/sale/sale_chart")
 	public @ResponseBody List<R_testDTO> sale_chart(@RequestParam(value= "sale_date_mo") String day_date, @RequestParam(value="cal_day") String cal_day) throws Exception
 	{
 		System.out.println("day_date : " + day_date);
@@ -89,7 +89,7 @@ public class DataAnalysisController {
 	}
 	
 	//매출 분석 정보 매출 순위 정보 테이블로 아작스 구현
-	@RequestMapping(value="sales/sale_table")
+	@RequestMapping(value="/admin/sale/sale_table")
 	public @ResponseBody List<R_testDTO> sale_table(@RequestParam(value= "sale_date_mo") String day_date, @RequestParam(value="cal_day") String cal_day) throws Exception
 	{
 		log.info("day_dat e : " + day_date);
