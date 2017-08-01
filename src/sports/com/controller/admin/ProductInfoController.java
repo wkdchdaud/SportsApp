@@ -60,7 +60,7 @@ public class ProductInfoController {
 		log.info(this.getClass().getName()+"ProductInfoList end");
 		
 		
-		return "/admin/ProductInfo/ProductInfoList";
+		return "/admin/ProductInfo/sports_goods";
 	}
 	
 	/*디테일 controller*/
