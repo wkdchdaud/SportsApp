@@ -87,7 +87,7 @@ if (rList==null) {
         <div class="goods_list_wrap">
           <ul class="goods_list">
               <%
-								    int idx = 0;//반복 횟수
+								  /*   int idx = 0;//반복 횟수
 								    boolean ul = false; //3번째 항목이 넘어가면 true 변경
 									Iterator<ProductInfoDTO> it = rList.iterator();
 									while(it.hasNext()){
@@ -114,10 +114,10 @@ if (rList==null) {
 											out.println("</ul>");
 											out.println("<ul>");
 											
-										}
+										} */
 										
 										
-		<%-- 							%>
+									%>
             <li>
               <a href="#">
               <div class="thumb">
@@ -129,7 +129,7 @@ if (rList==null) {
               </div>
               </a>
               <button class="register-btn thumb-btn">등록</button>
-            </li> --%>
+            </li> 
             <li>
               <a href="#">
               <div class="thumb">
