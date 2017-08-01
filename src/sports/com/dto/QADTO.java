@@ -19,15 +19,6 @@ public class QADTO {
 	private String[] allCheckSeq;
 	private String search; 
 	
-	
-	public String getSearch() {
-		return search;
-	}
-
-	public void setSearch(String search) {
-		this.search = search;
-	}
-
 	public String getUser_name() {
 		return user_name;
 	}
@@ -146,6 +137,14 @@ public class QADTO {
 
 	public void setAllCheckSeq(String[] allCheckSeq) {
 		this.allCheckSeq = allCheckSeq;
+	}
+	
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
 	}
 	
 }

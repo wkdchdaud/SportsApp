@@ -30,45 +30,107 @@ if (rList==null) {
 <script type="text/javascript">
 
 $(function() {
-	var cnt = 5;
-<% if (rList.size() < 5) {%>
-	$("#addview").hide();
-<%} %>
+	
+	var cnt = 6;
+	var search ="";
 
-$("#addview").click(function() {
-	
-	var num = 5;
-	
+//검색
+$('#searchbox').keyup(function() {
+		
+	cnt = 6;
+	search = $('#searchbox').val();
+		
 	$.ajax({
-
-		url: "/customer/QA/QAReadMore.do",
-		method: "post",
-		data: {
-			'cnt' : cnt
-		},
-		dataType : "json",
+			
+		url : "/customer/QA/QASearchList.do",
+		method : "post",
+		data : {'search' : search },
+		datatype :	"json",
 		success : function(data) {
-			var contents = "";
-			console.log(data)
-			$.each(data,function (key,value) {
-				var yn = value.answer_yn;
 				
+			var contents ="";
+				
+			$.each(data,function (key,value) {
+					
+				var yn = value.answer_yn;
+					
 				contents += "<tr><td align='left'>";
+				
 				if (value.answer_yn == "Y") {
 					contents += "<a href='/customer/QA/QAAnswerDetail.do?qa_no="+value.qa_no+"'>";
 				} else {
 					contents += "<a href='/customer/QA/QADetail.do?qa_no="+value.qa_no+"'>";
 				}
+				
 				if (value.answer_yn == "Y") {
 					contents += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 				}
+				
+				contents += value.title;
+				contents += "<td align='left'>"+value.reg_user_no+"</a></td>";
+				contents += "<td align='left'>"+value.reg_dt+"</td></tr>";
+					
+			});
+				
+			$('#list_more').html(null);
+			$('#list_more').append(contents);
+			
+			if ((data).length < 6) {
+				$("#addview").hide();
+			}
+				
+			if (data.length >= 6) {
+				$("#searchadd").html("<center><input type='button' style='width: 150px;' class='btn btn-success' value='더보기' id='addview' /></center>");
+			}
+				
+		}
+			
+	});
+		
+});
+	
+<% if (rList.size() < 6) {%>
+	$("#addview").hide();
+<%} %>
+
+$("#addview").add("#searchadd").click(function() {
+	
+	$.ajax({
+
+		url : "/customer/QA/QAReadMore.do",
+		method : "post",
+		data : {'cnt' : cnt, 'search' : search},
+		dataType : "json",
+		success : function(data) {
+			
+			var contents = "";
+			console.log(data)
+			
+			$.each(data,function (key,value) {
+				
+				var yn = value.answer_yn;
+				
+				contents += "<tr><td align='left'>";
+				
+				if (value.answer_yn == "Y") {
+					contents += "<a href='/customer/QA/QAAnswerDetail.do?qa_no="+value.qa_no+"'>";
+				} else {
+					contents += "<a href='/customer/QA/QADetail.do?qa_no="+value.qa_no+"'>";
+				}
+				
+				if (value.answer_yn == "Y") {
+					contents += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+				}
+				
 				contents += value.title+"</td>";
 				contents += "<td align='left'>"+value.reg_user_no+"</a></td>";
 				contents += "<td align='left'>"+value.reg_dt+"</td></tr>";
+				
 			});
 			
 			$('#list_more').append(contents);
-			if ((data).length<5) {
+			
+			if ((data).length<6) {
 				$('#addview').remove();
 			}
 			
@@ -76,16 +138,18 @@ $("#addview").click(function() {
 	
 	});
 	
-	cnt += 5;
+	cnt += 6;
 	
 });
 
-})
+});
 
+//질문 상세 이동
 function doDetail(qa_no) {
 	location.href="/customer/QA/QADetail.do?qa_no=" + qa_no;
 }
 
+//답글 상세 이동
 function doAnswerDetail(qa_no, answer_yn) {
 	location.href="/customer/QA/QAAnswerDetail.do?qa_no=" + qa_no;
 }
@@ -119,6 +183,8 @@ function doAnswerDetail(qa_no, answer_yn) {
 	<!--    Context Classes  -->
 		<div class="panel panel-default" style="width: 100%">
 			<div class="panel-body">
+			
+	<input type='text' id='searchbox' value="" />
 
 	<table class="table">
 
