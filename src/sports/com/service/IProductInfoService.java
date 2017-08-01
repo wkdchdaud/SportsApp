@@ -3,6 +3,7 @@ package sports.com.service;
 import java.util.List;
 
 import sports.com.dto.ProductInfoDTO;
+import sports.com.dto.ProductInfoOptionDTO;
 
 public interface IProductInfoService {
 	
@@ -25,5 +26,6 @@ public interface IProductInfoService {
 	List<ProductInfoDTO> getHighpriceSearch(ProductInfoDTO bDTO) throws Exception;
 	List<ProductInfoDTO> getLowpriceSearch(ProductInfoDTO bDTO) throws Exception;
 	
-	
+	//옵션 등록 
+	void ProductInfoOptionInsert(ProductInfoOptionDTO productInfoOptionDTO) throws Exception;
 }

@@ -1,6 +1,6 @@
 package sports.com.dto;
 
-public class ProdOptionDTO {
+public class ProductInfoOptionDTO {
 
 	private String prod_no;
 	private String opt_no;
@@ -14,6 +14,9 @@ public class ProdOptionDTO {
 	
 	
 	public String getProd_no() {
+		
+		
+	
 		return prod_no;
 	}
 	public void setProd_no(String prod_no) {

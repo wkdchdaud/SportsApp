@@ -9,6 +9,6 @@
     	<typeAlias type="sports.com.dto.NoticeDTO" alias="NoticeDTO"/>
     	<typeAlias type="sports.com.dto.QADTO" alias="QADTO"/>
     	<typeAlias type="sports.com.dto.ProductInfoDTO" alias="ProductInfoDTO"/>
-		<typeAlias type="sports.com.dto.ProdOptionDTO" alias="ProdOptionDTO"/>
+		<typeAlias type="sports.com.dto.ProductInfoOptionDTO" alias="ProductInfoOptionDTO"/>
     </typeAliases>
 </configuration>
