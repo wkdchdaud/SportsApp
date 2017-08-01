@@ -36,8 +36,8 @@
 
 <script type="text/javascript">
 	$(function() {
-		var cnt = 10;
-<%if (nList.size() < 5) {%>
+		var cnt = 6;
+<%if (nList.size() < 6) {%>
 	$("#addview").hide();
 <%}%>
 	$("#addview")
@@ -80,7 +80,7 @@
 															});
 
 											$('#list_more').append(contents);
-											if ((data).length < 5) {
+											if ((data).length < 6) {
 												$('#addview').remove();
 											}
 
@@ -96,10 +96,75 @@
 										}
 
 									});
-							cnt += 5;
+							cnt += 6;
 						});
 	})
+/*검색 기능*/
+$(function() {
+	
+	$('#searchbox').keyup(function(){
+	
+	if($('#searchbox').val() == ""){
+		return false;
+	}	
+		
+	var search = $('#searchbox').val();
+	
+	
+	$.ajax({
+		url : "/admin/notice/search.do",
+		data : {'search' : search },
+		method : "post",
+		datatype :	"json",
+		success : function(data){
+			var contents ="";
+			$.each(data,function (key,value) {
+				var yn = value.notice_yn;
+				
+				contents += "<tr><td><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.notice_no + " />";
+				contents += value.notice_no
+						+ "</td>";
+				contents += "<td><a href='/admin/notice/NoticeInfo.do?notice_no="
+						+ value.notice_no
+						+ "'>"
+						+ value.title
+						+ "</a></td>";
+				contents += "<td>"
+						+ value.user_no
+						+ "</td>";
+				contents += "<td>"
+						+ value.reg_dt
+								.substring(
+										10,
+										0)
+						+ "</td></tr>";
+		});
+			$('#list_more').html(null);
+			$('#list_more').append(contents);
+			var dS = document.getElementsByClassName("deleteSelect");
+			
+			for (var i =0; i<dS.length; i++) {
+				dS[i].style.display = "none";
+			}
+				
+			document.getElementById("delete").style.display = "none";
+			document.getElementById("all").style.display = "none";
+			
+			if ((data).length < 6) {//더보기 버튼 없애기
+				$("#addview").hide();
+			}
+		}
+	});
+	
+		
+	
+});
+	
+})
 
+	
+	
+	
 	/*  편집 삭제 버튼 숨기기 */
 	function hiddenCheckbox() {
 
@@ -285,7 +350,7 @@
 
 
 									<div class="panel-body">
-
+										<input type="text" id="searchbox"/>
 										<table class="table">
 											<thead>
 												<tr>

@@ -13,7 +13,14 @@ public class NoticeDTO {
 	private String notice_no;
 	private String read_more;
 	private String[] allCheckSeq;
+	private String search;
 	
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
+	}
 	public String[] getAllCheckSeq() {
 		return allCheckSeq;
 	}

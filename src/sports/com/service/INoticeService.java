@@ -23,4 +23,6 @@ public interface INoticeService {
 	List<NoticeDTO> Notice_MoreView(NoticeDTO nDTO) throws Exception;
 
 	void deleteCheckList(NoticeDTO nDTO) throws Exception;
+
+	List<NoticeDTO> searchNoticeList(NoticeDTO nDTO)throws Exception;
 }

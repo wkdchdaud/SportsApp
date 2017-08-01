@@ -29,7 +29,7 @@ import sports.com.util.CmmUtil;
 public class DeliveryController {
 	Logger log = Logger.getLogger(this.getClass());
 	
-	@RequestMapping(value="admin/delivery/delivery_detail", method=RequestMethod.GET)
+	@RequestMapping(value="admin/delivery/delivery_detail", method=RequestMethod.GET)//배송조회 
 	public String deliveryDetail(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception{
 		
         String url = "http://tracking.sweettracker.net/tracking"; //서비스URL
