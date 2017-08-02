@@ -13,7 +13,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="main.do">모두의 스포츠</a> 
+                <a class="navbar-brand" href="/main.do">모두의 스포츠</a> 
             </div>
   <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;" id="nowDate">2017년 6월 23일
   <%if(user_id.equals("")){ %>
@@ -73,7 +73,7 @@
                                 <a href="/admin/notice/NoticeList.do">공지사항</a>
                             </li>
                             <li>
-                                <a href="/admin/QA/QAList.do">Q&A</a>
+                                <a href="<%=auth.equals("A")?"/admin/QA/QAList.do":"/customer/QA/QAList.do" %>">Q&A</a>
                             </li>
                          </ul>
                         </li>

@@ -11,7 +11,7 @@ if (rDTO==null) {
 	rDTO = new QADTO();
 }
 
-String SESSION_USER_NO = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO"));
+String user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
 %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -158,7 +158,7 @@ function calBytes(str) {
 		</tr>
 		
 		<tr>
-			<td align="center" colspan="2"><textarea name="contents" style="width:300px; height:400px" maxlength="2000"></textarea></td>
+			<td align="center" colspan="2"><textarea name="contents" style="width:300px; height:400px" maxlength="2000" wrap="physical"></textarea></td>
 		</tr>
 			
 		<tr>

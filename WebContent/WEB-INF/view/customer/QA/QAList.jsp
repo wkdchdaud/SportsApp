@@ -1,3 +1,4 @@
+<%@page import="sports.com.util.AES256Util"%>
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -9,13 +10,13 @@
 <%@ page import="java.util.Date" %>  
 <%@ page import="java.text.SimpleDateFormat" %>
 <%
-session.setAttribute("SESSION_USER_NO", "USER01");
-
 List<QADTO> rList =	(List<QADTO>) request.getAttribute("rList");
 
 if (rList==null) {
 	rList = new ArrayList<QADTO>();
 }
+
+String user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
 %>   
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -44,11 +45,12 @@ $('#searchbox').keyup(function() {
 			
 		url : "/customer/QA/QASearchList.do",
 		method : "post",
-		data : {'search' : search },
+		data : {'search' : search},
 		datatype :	"json",
 		success : function(data) {
 				
 			var contents ="";
+			console.log(data)
 				
 			$.each(data,function (key,value) {
 					
@@ -85,9 +87,9 @@ $('#searchbox').keyup(function() {
 				
 		}
 			
-	});
+	});	//ajax closed
 		
-});
+});	//"searchbox" function closed
 	
 <% if (rList.size() < 6) {%>
 	$("#addview").hide();
@@ -136,22 +138,43 @@ $("#addview").add("#searchadd").click(function() {
 			
 		}
 	
-	});
+	});	//ajax closed
 	
 	cnt += 6;
 	
-});
+});	//"addview" function closed
 
-});
+});	//jQuery function closed
 
 //질문 상세 이동
-function doDetail(qa_no) {
+function doDetail(qa_no, secret_yn, reg_user_no) {
+	
+	var user_no = "<%=user_no %>";
+	
+	if (reg_user_no != user_no && secret_yn == 1) {
+		
+		alert('비밀글입니다.');
+		return;
+		
+	}
+	
 	location.href="/customer/QA/QADetail.do?qa_no=" + qa_no;
 }
 
 //답글 상세 이동
-function doAnswerDetail(qa_no, answer_yn) {
+function doAnswerDetail(qa_no, secret_yn, reg_user_no) {
+	
+	var user_no = "<%=user_no %>";
+	
+	if (reg_user_no != user_no && secret_yn == 1) {
+		
+		alert('비밀글입니다.');
+		return;
+		
+	}
+	
 	location.href="/customer/QA/QAAnswerDetail.do?qa_no=" + qa_no;
+	
 }
 
 </script>
@@ -184,7 +207,8 @@ function doAnswerDetail(qa_no, answer_yn) {
 		<div class="panel panel-default" style="width: 100%">
 			<div class="panel-body">
 			
-	<input type='text' id='searchbox' value="" />
+	<center>빠른 검색&nbsp;&nbsp;<input type="text" id="searchbox" value="" style="width: 200px" /></center>
+	<br/>
 
 	<table class="table">
 
@@ -214,7 +238,7 @@ function doAnswerDetail(qa_no, answer_yn) {
 			
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				
-				<a href="javascript:doAnswerDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');"><%=CmmUtil.nvl(rDTO.getTitle()) %></a>
+				<a href="javascript:doAnswerDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>','<%= CmmUtil.nvl(rDTO.getSecret_yn())%>','<%=CmmUtil.nvl(rDTO.getReg_user_no()) %>');"><%=CmmUtil.nvl(rDTO.getTitle()) %></a>
 				
 				<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {
 					out.println("<b>[SECRET]</b>");
@@ -236,7 +260,7 @@ function doAnswerDetail(qa_no, answer_yn) {
 				
 			<%} else {%>
 			
-				<a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');"><%=CmmUtil.nvl(rDTO.getTitle()) %></a>
+				<a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>','<%= CmmUtil.nvl(rDTO.getSecret_yn())%>','<%=CmmUtil.nvl(rDTO.getReg_user_no()) %>');"><%=CmmUtil.nvl(rDTO.getTitle()) %></a>
 				
 				<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {
 					out.println("<b>[SECRET]</b>");
@@ -258,7 +282,7 @@ function doAnswerDetail(qa_no, answer_yn) {
 				
 			<%} %>	
 			</td>
-			<td align="left"><%=CmmUtil.nvl(rDTO.getUser_name()) %></td>
+			<td align="left"><%=AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name())) %></td>
 			<td align="left"><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></td>
 		</tr>
 		
@@ -271,7 +295,7 @@ function doAnswerDetail(qa_no, answer_yn) {
 	</table>
 	
 	<!-- 더보기 -->
-	<center><input type="button" style="width: 150px" class="btn btn-success" value="더보기" id="addview" /></center>
+	<div id="searchadd"><center><input type="button" style="width: 150px" class="btn btn-success" value="더보기" id="addview" /></center></div>
 	
 		</div>
 	</div>

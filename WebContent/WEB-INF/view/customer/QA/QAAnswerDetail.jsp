@@ -1,3 +1,4 @@
+<%@page import="sports.com.util.AES256Util"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="sports.com.util.CmmUtil" %>
@@ -12,10 +13,9 @@ if (rDTO==null) {
 }
 
 String qa_no = CmmUtil.nvl(request.getParameter("qa_no"));
-String ss_user_no = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO"));
+String user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
 
 System.out.println("user_no: " + CmmUtil.nvl(rDTO.getReg_user_no()));
-System.out.println("ss_user_no: " + ss_user_no);
 %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -72,7 +72,7 @@ function doList() {
 		</tr>
 	
 		<tr>
-			<td align="left" colspan="2">작성자&nbsp;&nbsp;<%=CmmUtil.nvl(rDTO.getUser_name())%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성일&nbsp;&nbsp;<%=CmmUtil.nvl(rDTO.getReg_dt())%></td>
+			<td align="left" colspan="2">작성자&nbsp;&nbsp;<%=AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name()))%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성일&nbsp;&nbsp;<%=CmmUtil.nvl(rDTO.getReg_dt())%></td>
 		</tr>	
 	
 		<tr>

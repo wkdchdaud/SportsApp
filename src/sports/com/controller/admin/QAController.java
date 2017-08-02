@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import sports.com.dto.NoticeDTO;
 import sports.com.dto.QADTO;
 import sports.com.service.IQAService;
 import sports.com.util.CmmUtil;
@@ -80,7 +79,7 @@ public class QAController {
 		
 		try {
 			
-			String reg_user_no = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO"));
+			String reg_user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
 			String secret_yn = CmmUtil.nvl(request.getParameter("secret_yn"));
 			String title = CmmUtil.nvl(request.getParameter("title"));
 			String contents = CmmUtil.nvl(request.getParameter("contents"));
@@ -205,7 +204,7 @@ public class QAController {
 		
 		try {
 			
-			String reg_user_no = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO")); 
+			String reg_user_no = CmmUtil.nvl((String)session.getAttribute("user_no")); 
 			String qa_no = CmmUtil.nvl(request.getParameter("qa_no"));
 			String q_no = CmmUtil.nvl(request.getParameter("q_no"));
 			String answer_yn = CmmUtil.nvl(request.getParameter("answer_yn"));
@@ -392,7 +391,7 @@ public class QAController {
 		
 		try {
 			
-			String reg_user_no = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO"));
+			String reg_user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
 			String qa_no = CmmUtil.nvl(request.getParameter("qa_no"));
 			String q_no = CmmUtil.nvl(request.getParameter("q_no"));
 			String answer_yn = CmmUtil.nvl(request.getParameter("answer_yn"));
@@ -526,7 +525,7 @@ public class QAController {
 		
 		try {
 			
-			String reg_user_no = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO")); 
+			String reg_user_no = CmmUtil.nvl((String)session.getAttribute("user_no")); 
 			String qa_no = CmmUtil.nvl(request.getParameter("qa_no"));
 			String q_no = CmmUtil.nvl(request.getParameter("q_no"));
 			String answer_yn = CmmUtil.nvl(request.getParameter("answer_yn"));
