@@ -68,7 +68,7 @@
 		(QA_NO, Q_NO, ANSWER_YN, SECRET_YN, TITLE, CONTENTS, FILE_NAME, FILE_PATH, REG_USER_NO, REG_DT, CHG_USER_NO, CHG_DT)
 		VALUES
 		(
-		(SELECT IFNULL(MAX(QA.QA_NO),10000000)+1 FROM QA_INFO QA), #{q_no}, 'Y', #{secret_yn}, #{title}, #{contents}, #{file_name}, #{file_path}, #{reg_user_no}, NOW(), #{reg_user_no}, NOW()
+		(SELECT IFNULL(MAX(QA.QA_NO),10000000)+1 FROM QA_INFO QA), #{q_no}, 'Y', #{secret_yn}, #{title}, #{contents}, #{file_name}, #{file_path}, #{reg_user_no}, NOW(), #{chg_user_no}, NOW()
 		)
 	</insert>
 	

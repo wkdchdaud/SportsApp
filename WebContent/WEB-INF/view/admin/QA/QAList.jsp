@@ -382,7 +382,7 @@ function deleteConfirm(f) {
 				
 			<%} %>
 			</td>
-			<td align="left"><%=AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name())) %></td>
+			<td align="left"><%= CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")?"관리자":AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name()))%></td>
 			<td align="left"><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></td>
 		</tr>
 

@@ -282,7 +282,7 @@ function doAnswerDetail(qa_no, secret_yn, reg_user_no) {
 				
 			<%} %>	
 			</td>
-			<td align="left"><%=AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name())) %></td>
+			<td align="left"><%= CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")?"관리자":AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name()))%></td>
 			<td align="left"><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></td>
 		</tr>
 		
@@ -301,7 +301,7 @@ function doAnswerDetail(qa_no, secret_yn, reg_user_no) {
 	</div>
 	<!--  end  Context Classes  -->
 	
-	<input type="button" onclick="location.href='/customer/QA/QAReg.do'" value="글쓰기" />
+	<input type="button" onclick="location.href='/customer/QA/QAReg.do' " value="글쓰기" />
 
 </form>
 

@@ -117,12 +117,11 @@ function doList() {
 		<tbody>	
 	
 		<tr>
-			<td align="left">제목</td>
-			<td><%=CmmUtil.nvl(rDTO.getTitle())%></td>
+			<td align="left" colspan="2"><h3><%=CmmUtil.nvl(rDTO.getTitle())%></h3></td>
 		</tr>
 	
 		<tr>
-			<td align="left" colspan="2">작성자&nbsp;&nbsp;<%=AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name()))%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성일&nbsp;&nbsp;<%=CmmUtil.nvl(rDTO.getReg_dt())%></td>
+			<td align="left" colspan="2"><%=AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name()))%>&nbsp;&nbsp;&nbsp;<%=CmmUtil.nvl(rDTO.getReg_dt())%></td>
 		</tr>	
 	
 		<tr>

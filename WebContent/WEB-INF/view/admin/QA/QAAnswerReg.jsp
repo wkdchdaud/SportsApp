@@ -135,6 +135,8 @@ function calBytes(str) {
 
 	<input type="hidden" name="q_no" value="<%=CmmUtil.nvl(rDTO.getQ_no()) %>" />
 	<input type="hidden" name="title" value="<b>[RE]</b> <%=CmmUtil.nvl(rDTO.getTitle()) %>" />
+	<input type="hidden" name="secret_yn" value="<%=CmmUtil.nvl(rDTO.getSecret_yn()) %>" />
+	<input type="hidden" name="reg_user_no" value="<%=CmmUtil.nvl(rDTO.getReg_user_no()) %>" />
 	
 		<div class="panel panel-default" style="width: 100%">
 			<div class="panel-body">
@@ -151,9 +153,9 @@ function calBytes(str) {
 		<tr>
 			<td>비밀글 여부</td>
 			<td>
-				예 <input type="radio" name="secret_yn" value="1" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "1") %> />
+				예 <input type="radio" name="secret_yn" value="1" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "1") %> disabled="disabled" />
 				&nbsp;&nbsp;
-				아니오 <input type="radio" name="secret_yn" value="2" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "2") %> />
+				아니오 <input type="radio" name="secret_yn" value="2" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "2") %> disabled="disabled" />
 			</td>
 		</tr>
 		
