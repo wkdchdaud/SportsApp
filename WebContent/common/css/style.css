@@ -874,23 +874,35 @@ body {
   overflow: hidden;
 }
 
-.goods_list_wrap .goods_list li .thumb-btn {
+.goods_list_wrap li .thumb-btn { /* 총명수정 */
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: 10px];
   right: 0;
   height: 40px;
   color: #fff;
   font-size: 15px;
-  width: 100%;
+  width: 50%;
   overflow: hidden;
 }
 
-.goods_list_wrap .goods_list li .thumb-btn.register-btn {
+.goods_list_wrap li .thumb-btn2 { /* 총명수정  편집버튼*/
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 10px;
+  height: 40px;
+  color: #fff;
+  font-size: 15px;
+  width: 50%;
+  overflow: hidden;
+}
+
+.goods_list_wrap li .thumb-btn.register-btn { /* 총명수정 */
   background: #ff6b3d;
 }
 
-.goods_list_wrap .goods_list li .thumb-btn.edit-btn {
+.goods_list_wrap li .thumb-btn2.edit-btn { /* 총명수정 */
   background: #1777cb;
 }
 
@@ -930,11 +942,11 @@ body {
   font-size: 16px;
 }
 
-.goods_list_wrap .goods_list li .price.register {
+.goods_list_wrap .goods_list li .register .price {
   color: #ff6b3d;
 }
 
-.goods_list_wrap .goods_list li .price.edit {
+.goods_list_wrap .goods_list li .edit .price {
   color: #1777cb;
 }
 
@@ -1035,6 +1047,9 @@ body {
   font-size: 13px;
   color: #222222;
   line-height: 39px;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .sports_list li:nth-child(13), .sports_list li:nth-child(14) {
