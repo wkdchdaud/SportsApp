@@ -15,7 +15,7 @@ oRow.onmouseover=function(){tt.clickedRowIndex=this.rowIndex};
 var oCell=null;
 
 oCell=oRow.insertCell();oCell.innerHTML="<input type='text' name=''>";
-oCell=oRow.insertCell();oCell.innerHTML="Name추가";
+oCell=oRow.insertCell();oCell.innerHTML="Name";
 oCell=oRow.insertCell();oCell.innerHTML="<input type='button' value='삭제' onclick='deleteRowTest();'>"
 }
 function deleteRowTest(){
@@ -31,14 +31,16 @@ tt.deleteRow(tt.index);
 
 <BODY>
 <form name="form1" method="post" action="">
-<table border="1" id="tt">
+<table border="1" id="tt" style="height:100%; width:100%;">
+
+
 <tr>
-<td colspan="3" align="right">
+<td colspan="3" align="center" >
 <input type="button" value="추가" onclick="insertRowTest();">
 </td>
 </tr>
 <tr>
-<td><input type="text" name=""></td>
+<td><input type="text" name="" style="width:100px"></td>
 <td>Name</td>
 <td> </td>
 </tr>

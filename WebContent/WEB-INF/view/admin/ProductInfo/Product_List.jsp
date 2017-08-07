@@ -86,38 +86,7 @@ if (rList==null) {
       %>
         <div class="goods_list_wrap">
           <ul class="goods_list">
-              <%
-								  /*   int idx = 0;//반복 횟수
-								    boolean ul = false; //3번째 항목이 넘어가면 true 변경
-									Iterator<ProductInfoDTO> it = rList.iterator();
-									while(it.hasNext()){
-										ProductInfoDTO aDTO = (ProductInfoDTO)it.next();
-										
-										if (ProductInfoDTO==null){
-											ProductInfoDTO = new ProductInfoDTO();
-										}
-										
-										idx++; //반복횟수 증가
-
-										if (idx>2){
-											tr = true;
-										}
-									
-										System.out.println("idx%2 : "+ idx%3);
-										System.out.println("tr : "+ tr);
-										
-										//반복횟수가 3보다 크고, 3으로 나눠지면 TR추가
-										if (ul && idx%2==1){
-											
-											System.out.println("AAAAAAAAAAA");
-											
-											out.println("</ul>");
-											out.println("<ul>");
-											
-										} */
-										
-										
-									%>
+            
             <li>
               <a href="#">
               <div class="thumb">
