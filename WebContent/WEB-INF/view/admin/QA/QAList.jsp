@@ -1,5 +1,5 @@
-<%@page import="sports.com.util.AES256Util"%>
-<%@page import="java.util.Calendar"%>
+<%@ page import="sports.com.util.AES256Util"%>
+<%@ page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="sports.com.util.CmmUtil" %>
@@ -19,15 +19,27 @@ if (rList==null) {
 String user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
 %>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="ko">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Q&A 목록(스포츠 용품업자)</title>
-<%@include file="/inc/head.jsp"%>
-<!-- JQUERY SCRIPTS -->
-<script src="/assets/js/jquery-1.10.2.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>모두의 스포츠</title>
+<!-- Styles : CSS & SASS Sorcemap -->
+<link rel="stylesheet" href="/common/css/style.css">
+<!-- JavaScirpt Sorcemap -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="/common/js/jquery-ui.js"></script>
+<script src="/common/js/modernizr.custom.js"></script>
+<!-- [if lte IE 9] -->
+<!-- <script src="/common/js/placeholders.min.js"></script> -->
+<!-- [endif] -->
+<!-- [if lt IE 9] -->
+<!-- <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script> -->
+<!-- [endif] -->
+    
 <script type="text/javascript">
 
 $(function() {
@@ -275,158 +287,192 @@ function deleteConfirm(f) {
 }
 
 </script>
+
 </head>
-<body onload="javascript:hiddenCheckbox();" >
 
-	<div id="wrapper">
-		<!-- 사이드 네비바 및 헤더 부분 시작 -->
-		<%@include file="/inc/side_nav.jsp"%>
-		<!-- 사이드 네비바 및 헤더 부분 끝  -->
+<body onload="javascript:hiddenCheckbox();" id="list_more">
+
+	<section id="wrapper" class="wrapper">
 	
-	<!-- /. NAV SIDE  -->
-		<div id="page-wrapper">
-			<div id="page-inner">
-				<div class="row">
-					<div class="col-md-12">
-						<h2>Q&A</h2>
-					</div>
+    	<header class="header">
+			<div class="wrap">
+				<div class="left_menu">
+					<img src="/common/images/btn_gnb.png" alt="메뉴" id="c-button--slide-left" class="c-button">
 				</div>
-				
-	<!-- /. ROW  -->
-		<hr />
-		<div class="row">
-			<div class="col-md-7">
-				<div class="panel panel-default" style="width: 100%">
-						<div class="panel-heading">Q&A 목록</div>
-
-	<!--    Context Classes  -->
-	<form name="f" id="f" method="post" action="/admin/QA/QACheckboxDelete.do">
-	
-		<div class="panel panel-default" style="width: 100%">
-			<div class="panel-body">
-	
-	<center>빠른 검색&nbsp;&nbsp;<input type="text" id="searchbox" value="" style="width: 200px" /></center>
-	<br/>
-	
-	<table class="table">
-
-		<thead>
-	
-		<tr>
-			<th align="center" style="width: 400px"><font size="2px"><input type="checkbox" name="all" id="all" value="전체선택" onclick="allCheck(this.form);" />&nbsp;&nbsp;제목</font></th>
-			<th align="center" style="width: 200px"><font size="2px">작성자</font></th>
-			<th align="center" style="width: 200px"><font size="2px">작성일</font></th>
-		</tr>
-		   
-		</thead>
-		
-		<tbody id="list_more">
-		
-		<%
-			for (QADTO rDTO : rList) {
-
-				if (rDTO==null) {
-					rDTO = new QADTO();
-				}
-		%>
-		
-		<tr>
-			<td align="left">
-			<input type="checkbox" name="deleteSelect" class="deleteSelect" value="<%=rDTO.getQa_no()%>" />
-			&nbsp;&nbsp;
-			<% if (CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")) {%>
-			
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				
-				<a href="javascript:doAnswerDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');"><%=CmmUtil.nvl(rDTO.getTitle()) %></a>
-				
-				<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {
-					out.println("<b>[SECRET]</b>");
-				}%>
-				
-				<%
-				String reg_dt = CmmUtil.nvl(rDTO.getReg_dt());
-				SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				Date to = transFormat.parse(reg_dt);
-				
-				long now = System.currentTimeMillis();
-				long inputDate = to.getTime();
-				String mark = "";
-				 
-				if (now - inputDate < (1000*60*60*24*3)) {
-					out.println("<b>[NEW]</b>");
-				}
-				%>
-				
-			<%} else {%>
-			
-				<a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');"><%=CmmUtil.nvl(rDTO.getTitle()) %></a>
-				
-				<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {
-					out.println("<b>[SECRET]</b>");
-				}%>
-				
-				<%
-				String reg_dt = CmmUtil.nvl(rDTO.getReg_dt());
-				SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				Date to = transFormat.parse(reg_dt);
-				
-				long now = System.currentTimeMillis();
-				long inputDate = to.getTime();
-				String mark = "";
-				 
-				if (now - inputDate < (1000*60*60*24*7)) {
-					out.println("<b>[NEW]</b>");
-				}
-				%>
-				
-			<%} %>
-			</td>
-			<td align="left"><%= CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")?"관리자":AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name()))%></td>
-			<td align="left"><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></td>
-		</tr>
-
-		<%
-		}
-		%>
-		
-		</tbody>
-		
-	</table>
-
-	<!-- 더보기 -->
-	<div id="searchadd"><center><input type="button" style="width: 150px" class="btn btn-success" value="더보기" id="addview" /></center></div>
-	
-		</div>
-	</div>
-	<!--  end  Context Classes  -->
-
-	<input type="button" value="편집" onclick="location.href='javascript:edit(this.form);' " />
-	<input type="button" id="delete" value="삭제" onclick="location.href='javascript:deleteConfirm(this.form);' " />
-	<input type="button" value="글쓰기" onclick="location.href='/admin/QA/QAReg.do' " />
-	
-	</form>
-
-						</div>
-					</div>
+				<div class="logo">
+					<a href="#"><h2 class="title">모두의 스포츠</h2></a>
 				</div>
 			</div>
-			
-			<!-- /. ROW  -->
-		</div>
-		
-		<!-- /. PAGE INNER  -->
-	</div>
+			<div class="page_title">
+				<p>Q&amp;A</p>
+			</div>
+		</header>
 	
-	<!-- /. PAGE WRAPPER  -->
-	<!-- /. WRAPPER  -->
-	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-	<!-- BOOTSTRAP SCRIPTS -->
-	<script src="/assets/js/bootstrap.min.js"></script>
-	<!-- METISMENU SCRIPTS -->
-	<script src="/assets/js/jquery.metisMenu.js"></script>
-	<!-- CUSTOM SCRIPTS -->
-	<script src="/assets/js/custom.js"></script>
+		<nav id="c-menu--slide-left" class="c-menu c-menu--slide-left">
+	
+			<div class="profile">
+				<p><img src="/common/images/menu/user.png" class="photo">로그인을 해주세요</p>
+				<button class="c-menu__close"><img src="/common/images/menu/cancel.png" alt="닫기"></button>
+				<div class="login_wrap"><a href="#">로그인</a><a href="#">회원가입</a></div>
+			</div>
 		
+			<ul class="menu_list">
+				<li><a href="#">주문관리</a></li>
+				<li>
+					<a href="#">학원관리</a>
+					<ul class="col-2">
+						<li><a href="#">학원 밀집도 정보</a></li>
+						<li><a href="#">거래처 관리</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">매출 분석 정보</a>
+					<ul class="col-3">
+						<li><a href="#"><img src="/common/images/menu/001.png" class="icon"><p>매출분석 정보</p></a></li>
+						<li><a href="#"><img src="/common/images/menu/002.png" class="icon"><p>연관성 분석 정보</p></a></li>
+						<li><a href="#"><img src="/common/images/menu/003.png" class="icon"><p>장바구니 분석 정보</p></a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">스포츠 용품 리스트 관리</a>
+					<ul class="col-2 more">
+						<li><a href="#"><img src="/common/images/menu/ic_01.png" class="icon">전체상품</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_02.png" class="icon">태권도</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_03.png" class="icon">합기도</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_04.png" class="icon">검도</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_05.png" class="icon">복싱, MMA</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_06.png" class="icon">스포츠의류</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_07.png" class="icon">스포츠용품(구기)</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_08.png" class="icon">네트&amp;골대</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_09.png" class="icon">휘트니스</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_10.png" class="icon">학교체육용품</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_11.png" class="icon">체육대회용품</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_12.png" class="icon">측정용품&amp;호각</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_13.png" class="icon">펌프</a></li>
+		        		<li><a href="#"><img src="/common/images/menu/ic_13.png" class="icon">정리용품</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">커뮤니티 관리</a>
+					<ul class="col-2">
+						<li><a href="/admin/QA/NoticeList.do">공지사항 관리</a></li>
+						<li><a href="/admin/QA/QAList.do">Q&amp;A 관리</a></li>
+					</ul>
+				</li>
+			</ul>
+		
+		</nav>
+	
+		<div class="container detail">
+			<div class="wrap search-wrap btn-wrap">
+			
+				<div class="search type">
+					빠른 검색&nbsp;&nbsp;<input type="text" id="searchbox" value="" placeholder="제목 입력" style="width: 200px" />
+				</div>
+	        	
+			<form name="f" id="f" method="post" action="/admin/QA/QACheckboxDelete.do">
+		        
+		        <%
+					for (QADTO rDTO : rList) {
+		
+						if (rDTO==null) {
+							rDTO = new QADTO();
+						}
+				%>
+					
+				<div class="list_wrap">
+					<ul class="list-groub">
+						<li>
+							<input type="checkbox" name="deleteSelect" class="deleteSelect" value="<%=rDTO.getQa_no()%>" />
+		
+							<% if (CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")) {%>
+					
+								<img src="/common/images/ic_reply.png" alt="답글" class="ic_reply">
+						
+								<a href="javascript:doAnswerDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');"><p class="title"><%=CmmUtil.nvl(rDTO.getTitle()) %></p></a>
+								<p class="sub_text"><%=CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")?"관리자":AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name())) %><span><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></span></p>
+
+								<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {%>
+									<img src="/common/images/ic_lock.png" class="ic_lock" alt="lock">
+								<%} %>
+						
+								<%
+								String reg_dt = CmmUtil.nvl(rDTO.getReg_dt());
+								SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+								Date to = transFormat.parse(reg_dt);
+								
+								long now = System.currentTimeMillis();
+								long inputDate = to.getTime();
+								String mark = "";
+								 
+								if (now - inputDate < (1000*60*60*24*3)) {%>
+									<img src="/common/images/ic_new.png" alt="new" class="ic_new">
+								<%} %>
+						
+							<%} else {%>
+						
+								<a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');"><p class="title"><%=CmmUtil.nvl(rDTO.getTitle()) %></p></a>
+								<p class="sub_text"><%=CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")?"관리자":AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name())) %><span><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></span></p>
+
+								<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {%>
+									<img src="/common/images/ic_lock.png" class="ic_lock" alt="lock">
+								<%} %>
+								
+								<%
+								String reg_dt = CmmUtil.nvl(rDTO.getReg_dt());
+								SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+								Date to = transFormat.parse(reg_dt);
+								
+								long now = System.currentTimeMillis();
+								long inputDate = to.getTime();
+								String mark = "";
+								 
+								if (now - inputDate < (1000*60*60*24*7)) {%>
+									<img src="/common/images/ic_new.png" alt="new" class="ic_new">
+								<%} %>
+						
+							<%} %>
+						</li>
+		          	</ul>
+		          	
+				<%
+				}
+				%>	
+			          
+					<label class="all_select"><input type="checkbox" name="all" id="all" value="전체선택" onclick="allCheck(this.form);" />전체선택</label>
+					<div id="searchadd"><button class="add_btn" id="addview">더보기</button></div>
+				</div>
+			
+				<div class="btn-groub">
+					<button class="col-2 blue-btn button" onclick="location.href='javascript:edit(this.form)';return false;">편집하기</button>
+					<button class="col-2 blue-btn button" id="delete" onclick="location.href='javascript:deleteConfirm(this.form)';return false;">삭제하기</button>
+					<button class="col-2 glay-btn button" onclick="location.href='/admin/QA/QAReg.do';return false;">글쓰기</button>
+		        </div>
+			
+			</form>
+			
+			</div>
+		</div>
+
+		<footer class="footer">
+			<a href="#">
+				<img src="/common/images/ic_kakao.png" alt="카카오톡" class="kakao">
+			</a>
+			<div class="company_info">
+				<p>대표이사 : 장명훈 ㅣ 대표번호 : 010-9057-6156</p>
+				<p>사업자등록번호 : 567-36-00142</p>
+				<p>통신판매업신고 : 2017-인천서구-0309호</p>
+				<p>인천시 서구 보도진로 18번길 12(가좌동) 진성테크2층</p>
+				<p>Copyright ⓒ <strong>모두의 스포츠</strong> All rights reserved. </p>
+			</div>
+		</footer>
+
+  </section>
+  
+  <div id="c-mask" class="c-mask"></div>
+  <script src="/common/js/classie.js"></script>
+  <script src="/common/js/common.js"></script>
+  
 </body>
+
 </html>

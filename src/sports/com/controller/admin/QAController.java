@@ -665,14 +665,14 @@ public class QAController {
 			
 			if (qaDT.getSecret_yn().equals("1")) {
 				
-				title += "<b>[SECRET]</b>";
+				title += "<img src='/common/images/ic_lock.png' class='ic_lock' alt='lock'>";
 				qaDT.setTitle(title);
 				
 			}
 			
 			if (now - inputDate < (1000*60*60*24*3)) {
 				
-				title += "<b>[NEW]</b>";
+				title += "<img src='/common/images/ic_new.png' alt='new' class='ic_new'>";
 				qaDT.setTitle(title);
 				
 			}
@@ -722,14 +722,14 @@ public class QAController {
 			
 			if (qaDT.getSecret_yn().equals("1")) {
 				
-				title += "<b>[SECRET]</b>";
+				title += "<img src='/common/images/ic_lock.png' class='ic_lock' alt='lock'>";
 				qaDT.setTitle(title);
 				
 			}
 			
 			if (now - inputDate < (1000*60*60*24*3)) {
 				
-				title += "<b>[NEW]</b>";
+				title += "<img src='/common/images/ic_new.png' alt='new' class='ic_new'>";
 				qaDT.setTitle(title);
 				
 			}

@@ -1,5 +1,5 @@
-<%@page import="sports.com.util.AES256Util"%>
-<%@page import="java.util.Calendar"%>
+<%@ page import="sports.com.util.AES256Util"%>
+<%@ page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="sports.com.util.CmmUtil" %>
@@ -282,7 +282,7 @@ function doAnswerDetail(qa_no, secret_yn, reg_user_no) {
 				
 			<%} %>	
 			</td>
-			<td align="left"><%= CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")?"관리자":AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name()))%></td>
+			<td align="left"><%=CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")?"관리자":AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name())) %></td>
 			<td align="left"><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></td>
 		</tr>
 		

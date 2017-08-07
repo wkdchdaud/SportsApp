@@ -43,9 +43,9 @@ function doSubmit(f) {
 	
 	var secretCheck = false;
 	
-	for (var i=0; i<f.secretYn.length; i++) {
+	for (var i=0; i<f.secret_yn.length; i++) {
 		
-		if (f.secretYn[i].checked) {
+		if (f.secret_yn[i].checked) {
 			secretCheck = true;
 		}
 		
@@ -54,7 +54,7 @@ function doSubmit(f) {
 	if (secretCheck==false) {
 		
 		alert("비밀글 여부를 선택하시기 바랍니다.");
-		f.secretYn[0].focus();
+		f.secret_yn[0].focus();
 		return false;
 		
 	}	
