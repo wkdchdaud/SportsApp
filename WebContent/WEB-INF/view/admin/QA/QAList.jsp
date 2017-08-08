@@ -20,6 +20,7 @@ String user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
 %>
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
 
 <meta charset="UTF-8">
@@ -33,13 +34,13 @@ String user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="/common/js/jquery-ui.js"></script>
 <script src="/common/js/modernizr.custom.js"></script>
-<!-- [if lte IE 9] -->
-<!-- <script src="/common/js/placeholders.min.js"></script> -->
-<!-- [endif] -->
-<!-- [if lt IE 9] -->
-<!-- <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script> -->
-<!-- [endif] -->
-    
+<!--[if lte IE 9]>
+<script src="/common/js/placeholders.min.js"></script>
+<![endif]-->
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
 <script type="text/javascript">
 
 $(function() {
@@ -82,7 +83,7 @@ $('#searchbox').keyup(function() {
 				}
 				
 				contents += value.title+"</td>";
-				contents += "<td align='left'>"+value.reg_user_no+"</a></td>";
+				contents += "<td align='left'>"+value.user_name+"</a></td>";
 				contents += "<td align='left'>"+value.reg_dt+"</td></tr>";
 				
 			});
@@ -98,6 +99,7 @@ $('#searchbox').keyup(function() {
 				
 			document.getElementById("delete").style.display = "none";
 			document.getElementById("all").style.display = "none";
+			document.getElementById("alltext").style.display = "none";
 			
 			if (data.length < 6) {
 				$("#addview").hide();
@@ -135,11 +137,11 @@ $("#addview").add("#searchadd").click(function() {
 				
 				var yn = value.answer_yn;
 				
-				contents += "<tr><td align='left'>";
-				contents += "<input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.qa_no + " />&nbsp;&nbsp;";
+				contents += "<div style='float:left'><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.qa_no + " />&nbsp;&nbsp;&nbsp;</div>";
 				
 				if (value.answer_yn == "Y") {
 					contents += "<a href='/admin/QA/QAAnswerDetail.do?qa_no="+value.qa_no+"'>";
+					contents += "<p class='title'>";
 				} else {
 					contents += "<a href='/admin/QA/QADetail.do?qa_no="+value.qa_no+"'>";
 				}
@@ -149,7 +151,7 @@ $("#addview").add("#searchadd").click(function() {
 				}
 				
 				contents += value.title+"</td>";
-				contents += "<td align='left'>"+value.reg_user_no+"</a></td>";
+				contents += "<td align='left'>"+value.user_name+"</a></td>";
 				contents += "<td align='left'>"+value.reg_dt+"</td></tr>";
 				
 			});
@@ -168,11 +170,16 @@ $("#addview").add("#searchadd").click(function() {
 				
 			document.getElementById("delete").style.display = "none";
 			document.getElementById("all").style.display = "none";
+			document.getElementById("alltext").style.display = "none";
 		}
 	
 	});	//ajax closed
 	
 	cnt += 6;
+	
+	if (search == "") {
+		return false;
+	}
 
 });	//"addview" function closed
 
@@ -199,6 +206,7 @@ function hiddenCheckbox() {
 		
 	document.getElementById("delete").style.display = "none";
 	document.getElementById("all").style.display = "none";
+	document.getElementById("alltext").style.display = "none";
 	
 }
 
@@ -243,6 +251,7 @@ function edit() {
 		
 		document.getElementById("delete").style.display = "none";
 		document.getElementById("all").style.display = "none";
+		document.getElementById("alltext").style.display = "none";
 		
 		return;
 		
@@ -250,6 +259,7 @@ function edit() {
 
 	document.getElementById("delete").style.display = "";
 	document.getElementById("all").style.display = "";
+	document.getElementById("alltext").style.display = "none";
 	
 }
 
@@ -290,32 +300,28 @@ function deleteConfirm(f) {
 
 </head>
 
-<body onload="javascript:hiddenCheckbox();" id="list_more">
+<body onload="javascript:hiddenCheckbox();" >
 
 	<section id="wrapper" class="wrapper">
-	
-    	<header class="header">
+  
+	<form name="f" id="f" method="post" action="/admin/QA/QACheckboxDelete.do">
+  
+	    <header class="header">
 			<div class="wrap">
-				<div class="left_menu">
-					<img src="/common/images/btn_gnb.png" alt="메뉴" id="c-button--slide-left" class="c-button">
-				</div>
-				<div class="logo">
-					<a href="#"><h2 class="title">모두의 스포츠</h2></a>
-				</div>
+				<div class="left_menu"><img src="/common/images/btn_gnb.png" alt="메뉴" id="c-button--slide-left" class="c-button"></div>
+				<div class="logo"><a href="/main.do"><h2 class="title">모두의 스포츠</h2></a></div>
 			</div>
-			<div class="page_title">
-				<p>Q&amp;A</p>
-			</div>
+			<div class="page_title" style=" float: left; width: 33%;"><span class="sub_text" id="delete" onclick="location.href='javascript:deleteConfirm(this.form);'">삭제하기</span>&nbsp;</div>
+			<div class="page_title" style=" float: left; width: 33%;"><p>Q&amp;A</p></div>
+			<div class="page_title" style=" float: left; width: 33%;"></div>
 		</header>
 	
-		<nav id="c-menu--slide-left" class="c-menu c-menu--slide-left">
-	
+	    <nav id="c-menu--slide-left" class="c-menu c-menu--slide-left">
 			<div class="profile">
 				<p><img src="/common/images/menu/user.png" class="photo">로그인을 해주세요</p>
 				<button class="c-menu__close"><img src="/common/images/menu/cancel.png" alt="닫기"></button>
 				<div class="login_wrap"><a href="#">로그인</a><a href="#">회원가입</a></div>
 			</div>
-		
 			<ul class="menu_list">
 				<li><a href="#">주문관리</a></li>
 				<li>
@@ -353,49 +359,45 @@ function deleteConfirm(f) {
 					</ul>
 				</li>
 				<li>
-					<a href="#">커뮤니티 관리</a>
+					<a href="#">고객센터 관리</a>
 					<ul class="col-2">
-						<li><a href="/admin/QA/NoticeList.do">공지사항 관리</a></li>
+						<li><a href="/admin/notice/NoticeList.do">공지사항 관리</a></li>
 						<li><a href="/admin/QA/QAList.do">Q&amp;A 관리</a></li>
 					</ul>
 				</li>
 			</ul>
-		
 		</nav>
-	
+		
 		<div class="container detail">
 			<div class="wrap search-wrap btn-wrap">
 			
 				<div class="search type">
-					빠른 검색&nbsp;&nbsp;<input type="text" id="searchbox" value="" placeholder="제목 입력" style="width: 200px" />
-				</div>
-	        	
-			<form name="f" id="f" method="post" action="/admin/QA/QACheckboxDelete.do">
-		        
-		        <%
-					for (QADTO rDTO : rList) {
-		
-						if (rDTO==null) {
-							rDTO = new QADTO();
-						}
-				%>
-					
+	        		<center><input type="text" placeholder="제목 입력" id="searchbox" style="width: 300px" /></center>
+	        	</div>
+	
 				<div class="list_wrap">
-					<ul class="list-groub">
-						<li>
-							<input type="checkbox" name="deleteSelect" class="deleteSelect" value="<%=rDTO.getQa_no()%>" />
+					<ul class="list-groub" id="list_more">
+						<%
+							for (QADTO rDTO : rList) {
 		
+							if (rDTO==null) {
+								rDTO = new QADTO();
+							}
+						%>
+			            <li>
+							<div style="float:left"><input type="checkbox" name="deleteSelect" class="deleteSelect" value="<%=rDTO.getQa_no()%>" />&nbsp;&nbsp;&nbsp;</div>
 							<% if (CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")) {%>
-					
+							
+								<p class="title">
+								
 								<img src="/common/images/ic_reply.png" alt="답글" class="ic_reply">
-						
-								<a href="javascript:doAnswerDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');"><p class="title"><%=CmmUtil.nvl(rDTO.getTitle()) %></p></a>
-								<p class="sub_text"><%=CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")?"관리자":AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name())) %><span><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></span></p>
-
+					
+								<a href="javascript:doAnswerDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');"><%=CmmUtil.nvl(rDTO.getTitle()) %></a>
+					
 								<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {%>
 									<img src="/common/images/ic_lock.png" class="ic_lock" alt="lock">
 								<%} %>
-						
+					
 								<%
 								String reg_dt = CmmUtil.nvl(rDTO.getReg_dt());
 								SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -408,12 +410,11 @@ function deleteConfirm(f) {
 								if (now - inputDate < (1000*60*60*24*3)) {%>
 									<img src="/common/images/ic_new.png" alt="new" class="ic_new">
 								<%} %>
-						
+								
 							<%} else {%>
-						
-								<a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');"><p class="title"><%=CmmUtil.nvl(rDTO.getTitle()) %></p></a>
-								<p class="sub_text"><%=CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")?"관리자":AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name())) %><span><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></span></p>
-
+				
+								<a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');"><%=CmmUtil.nvl(rDTO.getTitle()) %></a>
+								
 								<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {%>
 									<img src="/common/images/ic_lock.png" class="ic_lock" alt="lock">
 								<%} %>
@@ -430,48 +431,46 @@ function deleteConfirm(f) {
 								if (now - inputDate < (1000*60*60*24*7)) {%>
 									<img src="/common/images/ic_new.png" alt="new" class="ic_new">
 								<%} %>
-						
-							<%} %>
-						</li>
+								
+								</p>
+								
+							<%} %>	
+							<p class="sub_text"><%=CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")?"관리자":AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name())) %><span><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></span></p>
+			            </li>
+						<%
+						}
+						%>
 		          	</ul>
-		          	
-				<%
-				}
-				%>	
-			          
-					<label class="all_select"><input type="checkbox" name="all" id="all" value="전체선택" onclick="allCheck(this.form);" />전체선택</label>
-					<div id="searchadd"><button class="add_btn" id="addview">더보기</button></div>
-				</div>
-			
-				<div class="btn-groub">
-					<button class="col-2 blue-btn button" onclick="location.href='javascript:edit(this.form)';return false;">편집하기</button>
-					<button class="col-2 blue-btn button" id="delete" onclick="location.href='javascript:deleteConfirm(this.form)';return false;">삭제하기</button>
-					<button class="col-2 glay-btn button" onclick="location.href='/admin/QA/QAReg.do';return false;">글쓰기</button>
+					<label class="all_select" id="alltext"><input type="checkbox" name="all" id="all" onclick="allCheck(this.form);" />&nbsp;&nbsp;&nbsp;전체 선택</label>
+					<div id="searchadd"><button class="add_btn" value="더보기" id="addview">더보기</button></div>
 		        </div>
-			
-			</form>
-			
+		        
+		        <div class="btn-groub">
+					<button class="col-2 blue-btn button" onclick="javascript:edit(this.form);return false;">편집하기</button>
+					<button class="col-2 glay-btn button" onclick="location.href='/admin/QA/QAReg.do';return false;">작성하기</button>
+				</div>
+		        
 			</div>
 		</div>
-
+	    
 		<footer class="footer">
-			<a href="#">
-				<img src="/common/images/ic_kakao.png" alt="카카오톡" class="kakao">
-			</a>
-			<div class="company_info">
+		    <a href="#"><img src="/common/images/ic_kakao.png" alt="카카오톡" class="kakao"></a>
+		    <div class="company_info">
 				<p>대표이사 : 장명훈 ㅣ 대표번호 : 010-9057-6156</p>
 				<p>사업자등록번호 : 567-36-00142</p>
 				<p>통신판매업신고 : 2017-인천서구-0309호</p>
 				<p>인천시 서구 보도진로 18번길 12(가좌동) 진성테크2층</p>
-				<p>Copyright ⓒ <strong>모두의 스포츠</strong> All rights reserved. </p>
+				<p>Copyright © <strong>모두의 스포츠</strong> All rights reserved. </p>
 			</div>
 		</footer>
+	
+	</form>	
 
-  </section>
+	</section>
   
-  <div id="c-mask" class="c-mask"></div>
-  <script src="/common/js/classie.js"></script>
-  <script src="/common/js/common.js"></script>
+	<div id="c-mask" class="c-mask"></div>
+	<script src="/common/js/classie.js"></script>
+	<script src="/common/js/common.js"></script>
   
 </body>
 

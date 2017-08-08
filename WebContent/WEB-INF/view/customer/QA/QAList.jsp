@@ -69,7 +69,7 @@ $('#searchbox').keyup(function() {
 				}
 				
 				contents += value.title;
-				contents += "<td align='left'>"+value.reg_user_no+"</a></td>";
+				contents += "<td align='left'>"+value.user_name+"</a></td>";
 				contents += "<td align='left'>"+value.reg_dt+"</td></tr>";
 					
 			});
@@ -125,7 +125,7 @@ $("#addview").add("#searchadd").click(function() {
 				}
 				
 				contents += value.title+"</td>";
-				contents += "<td align='left'>"+value.reg_user_no+"</a></td>";
+				contents += "<td align='left'>"+value.user_name+"</a></td>";
 				contents += "<td align='left'>"+value.reg_dt+"</td></tr>";
 				
 			});
@@ -240,9 +240,9 @@ function doAnswerDetail(qa_no, secret_yn, reg_user_no) {
 				
 				<a href="javascript:doAnswerDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>','<%= CmmUtil.nvl(rDTO.getSecret_yn())%>','<%=CmmUtil.nvl(rDTO.getReg_user_no()) %>');"><%=CmmUtil.nvl(rDTO.getTitle()) %></a>
 				
-				<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {
-					out.println("<b>[SECRET]</b>");
-				}%>
+				<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {%>
+					<img src='/common/images/ic_lock.png' class='ic_lock' alt='lock'>
+				<%} %>
 				
 				<%
 				String reg_dt = CmmUtil.nvl(rDTO.getReg_dt());
@@ -253,18 +253,17 @@ function doAnswerDetail(qa_no, secret_yn, reg_user_no) {
 				long inputDate = to.getTime();
 				String mark = "";
 				 
-				if (now - inputDate < (1000*60*60*24*3)) {
-					out.println("<b>[NEW]</b>");
-				}
-				%>
+				if (now - inputDate < (1000*60*60*24*3)) {%>
+					<img src='/common/images/ic_new.png' alt='new' class='ic_new'>
+				<%} %>
 				
 			<%} else {%>
 			
 				<a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>','<%= CmmUtil.nvl(rDTO.getSecret_yn())%>','<%=CmmUtil.nvl(rDTO.getReg_user_no()) %>');"><%=CmmUtil.nvl(rDTO.getTitle()) %></a>
 				
-				<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {
-					out.println("<b>[SECRET]</b>");
-				}%>
+				<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {%>
+					<img src='/common/images/ic_lock.png' class='ic_lock' alt='lock'>
+				<%} %>
 				
 				<%
 				String reg_dt = CmmUtil.nvl(rDTO.getReg_dt());
@@ -275,10 +274,9 @@ function doAnswerDetail(qa_no, secret_yn, reg_user_no) {
 				long inputDate = to.getTime();
 				String mark = "";
 				 
-				if (now - inputDate < (1000*60*60*24*3)) {
-					out.println("<b>[NEW]</b>");
-				}
-				%>
+				if (now - inputDate < (1000*60*60*24*3)) {%>
+					<img src='/common/images/ic_new.png' alt='new' class='ic_new'>
+				<%} %>
 				
 			<%} %>	
 			</td>

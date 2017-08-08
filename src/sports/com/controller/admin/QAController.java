@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sports.com.dto.QADTO;
 import sports.com.service.IQAService;
+import sports.com.util.AES256Util;
 import sports.com.util.CmmUtil;
 
 @Controller
@@ -677,6 +678,8 @@ public class QAController {
 				
 			}
 			
+			qaDT.setUser_name(AES256Util.strDecode(CmmUtil.nvl(qaDT.getUser_name())));
+			
 		}
 		
 		System.out.println("겟 리드모어: " + qaDTO.getRead_more());
@@ -733,6 +736,8 @@ public class QAController {
 				qaDT.setTitle(title);
 				
 			}
+			
+			qaDT.setUser_name(AES256Util.strDecode(CmmUtil.nvl(qaDT.getUser_name())));
 			
 		}	
 		
