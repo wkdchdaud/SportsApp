@@ -133,7 +133,8 @@ if (rList==null) {
                                         <img src="/common/images/sample01.png" alt="thumb">
                                     </div>
                                     <div class="info">
-                                        <p class="title"><%=pdto.getProd_name() %></p>
+                                      
+                                        <a href="/admin/ProductInfo/ProductInfoDetail.do?prod_no1=<%=CmmUtil.nvl(pdto.getProd_no()) %>"> <p class="title"><%=pdto.getProd_name() %></p></a>
                                         <p class="price"><%=pdto.getProd_price() %></p>
                                     </div>
                                 </a>
@@ -142,7 +143,7 @@ if (rList==null) {
                      <%} %>
                      
                     </ul>
-                    <li><button class="register-btn thumb-btn">등록</button></li>
+                    <li><button class="register-btn thumb-btn" onclick="location.href='/admin/ProductInfo/ProductInfoReg.do' ">등록</button></li>
                     <li><button class="edit-btn thumb-btn2">편집</button></li>
                 </div>
             </div>

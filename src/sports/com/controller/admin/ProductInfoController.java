@@ -86,7 +86,7 @@ public class ProductInfoController {
 				model.addAttribute("dlwkdus",list);
 		
 		
-					return "/admin/ProductInfo/ProductInfoDetail";	  
+					return "/admin/ProductInfo/ProductDetail";	  
 					
 					
        }
@@ -100,11 +100,9 @@ public class ProductInfoController {
 		
 		log.info(this.getClass().getName()+"productInfoProductinfoRegStart");
 
-	
-			
-	
-	log.info(this.getClass().getName()+"productInfoProductinfoRegEnd");
-		return "/admin/ProductInfo/ProductInfoReg";
+		log.info(this.getClass().getName()+"productInfoProductinfoRegEnd");
+		
+		return "/admin/ProductInfo/ProductReg";
 		
 			}
 	
@@ -455,6 +453,7 @@ public class ProductInfoController {
 			
 			
 			log.info(this.getClass().getName()+"ProductOptionInsertStart");
+			 
 			 String msg ="";
 			 String url ="/admin/ProductInfo/List.do";
 			 
@@ -472,7 +471,7 @@ public class ProductInfoController {
 			 String opt_price =CmmUtil.nvl(request.getParameter("opt_price"));
 			 System.out.println("OPT_PRICE  : " + CmmUtil.nvl(request.getParameter("opt_price")));
 			 
-		
+			 	
 			 rdto.setOpt_name(opt_name);	
 			 rdto.setOpt_kind(opt_kind);
 			 rdto.setOpt_price(opt_price);
@@ -483,7 +482,7 @@ public class ProductInfoController {
 			 
 			 
 			 
-			 msg = "등록 완료";
+			 msg = "옵션 완료";
 			 url ="/admin/ProductInfo/ProductInfoReg.do";
 			 
 			 rdto= null;

@@ -19,12 +19,12 @@
 
             $("#addItemBtn").click(function(){
 
-                // item 의 최대번호 구하기
+                // tr 태그의 마지막번째를 구해 id="item"의 형태로 만들어 lastItemNo변수에
 
                 var lastItemNo = $("#example tr:last").attr("class").replace("item", "");
 
  
-
+				//tr 복사 
                 var newitem = $("#example tr:eq(1)").clone();
 
                 newitem.removeClass();
@@ -33,7 +33,7 @@
 
                 newitem.addClass("item"+(parseInt(lastItemNo)+1));
 
- 
+          
 
                 $("#example").append(newitem);
 
@@ -129,7 +129,8 @@
 
 <body>
 
-<button id="addItemBtn">옵션추가</button>
+<form action="/admin/ProductInfo/ProductOptionInsert.do" method='POST'>
+<button type="button" id="addItemBtn">옵션추가</button>
 
 <table id="example" border="1px">
 
@@ -145,13 +146,13 @@
 
             <th>재고</th>
 
-            <th>삭제</th>
+         
 
         </tr>
 
         <tr class="item1">
 
-            <td><input type="text" name="opt_name" /><button class="addBtn">항목명추가</button></td>
+            <td><input type="text" name="opt_name" /><button type="button" class="addBtn">항목명추가</button></td>
 
             <td><input type="text" name="opt_kind" /></td>
 
@@ -159,64 +160,19 @@
 
             <td><input type="text" name="opt_price"/></td>
 
-            <td><input type="text" name=""/></td>
+          <!--   <td><input type="text" name=""/></td> -->
 
-            <td><button class="delBtn">삭제</button></td>
-
-        </tr>
-
-        <tr class="item2">
-
-            <td><input type="text" /><button class="addBtn">항목명추가</button></td>
-
-            <td><input type="text" /></td>
-
-            <!-- <td><input type="checkbox" /></td> -->
-
-            <td><input type="text" /></td>
-
-            <td><input type="text" /></td>
-
-            <td><button class="delBtn">삭제</button></td>
-
-        </tr>
-
-        <tr class="item3">
-
-            <td><input type="text" /><button class="addBtn">항목명추가</button></td>
-
-            <td><input type="text" /></td>
-
-<!--             <td><input type="checkbox" /></td> -->
-
-            <td><input type="text" /></td>
-
-            <td><input type="text" /></td>
-
-            <td><button class="delBtn">삭제</button></td>
-
-        </tr>
-
-        <tr class="item4">
-
-            <td><input type="text" /><button class="addBtn">항목명
+            <td><button type="button" class="delBtn">삭제</button></td>
             
             
-            추가</button></td>
-
-            <td><input type="text" /></td>
-
-<!--             <td><input type="checkbox" /></td> -->
-
-            <td><input type="text" /></td>
-
-            <td><input type="text" /></td>
-
-            <td><button class="delBtn">삭제</button></td>
 
         </tr>
 
 </table>
+
+<button align="center" onclick="location.href='/admin/ProductInfo/ProductInfoReg.do'"> 등록</button>
+<button align="center" onclick="location.href='/admin/ProductInfo/ProductInfoReg.do'"> 취소</button>
+</form>
 
 </body>
 
