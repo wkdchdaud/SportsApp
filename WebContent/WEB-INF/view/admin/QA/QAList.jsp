@@ -67,10 +67,12 @@ $('#searchbox').keyup(function() {
 			
 			$.each(data,function (key,value) {
 				
-				var yn = value.answer_yn;
+				contents += "<div style='float:left'><input type='checkbox' name='deleteSelect' class='deleteSelect' value="+value.qa_no+" />&nbsp;&nbsp;&nbsp;</div>";
+				contents += "<p class='title'>"
 				
-				contents += "<tr><td align='left'>";
-				contents += "<input type='checkbox' name='deleteSelect' class='deleteSelect' value="+value.qa_no+" />&nbsp;&nbsp;";
+				if (value.answer_yn == "Y") {
+					contents += "<img src='/common/images/ic_reply.png' alt='답글' class='ic_reply'>";
+				}
 				
 				if (value.answer_yn == "Y") {
 					contents += "<a href='/admin/QA/QAAnswerDetail.do?qa_no="+value.qa_no+"'>";
@@ -78,13 +80,8 @@ $('#searchbox').keyup(function() {
 					contents += "<a href='/admin/QA/QADetail.do?qa_no="+value.qa_no+"'>";
 				}
 				
-				if (value.answer_yn == "Y") {
-					contents += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-				}
-				
-				contents += value.title+"</td>";
-				contents += "<td align='left'>"+value.user_name+"</a></td>";
-				contents += "<td align='left'>"+value.reg_dt+"</td></tr>";
+				contents += value.title+"</a></p>";
+				contents += "<p class='sub_text'>"+value.user_name+"<span>"+value.reg_dt+"</span></p>";
 				
 			});
 			
@@ -106,7 +103,7 @@ $('#searchbox').keyup(function() {
 			}
 			
 			if (data.length >= 6) {
-				$("#searchadd").html("<center><input type='button' style='width: 150px;' class='btn btn-success' value='더보기' id='addview' /></center>");
+				$("#searchadd").html("<button class='add_btn' value='더보기' id='addview'>더보기</button>");
 			}
 			
 		}
@@ -135,24 +132,21 @@ $("#addview").add("#searchadd").click(function() {
 			
 			$.each(data,function (key,value) {
 				
-				var yn = value.answer_yn;
-				
 				contents += "<div style='float:left'><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.qa_no + " />&nbsp;&nbsp;&nbsp;</div>";
+				contents += "<p class='title'>"
+				
+				if (value.answer_yn == "Y") {
+					contents += "<img src='/common/images/ic_reply.png' alt='답글' class='ic_reply'>";
+				}
 				
 				if (value.answer_yn == "Y") {
 					contents += "<a href='/admin/QA/QAAnswerDetail.do?qa_no="+value.qa_no+"'>";
-					contents += "<p class='title'>";
 				} else {
 					contents += "<a href='/admin/QA/QADetail.do?qa_no="+value.qa_no+"'>";
 				}
 				
-				if (value.answer_yn == "Y") {
-					contents += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-				}
-				
-				contents += value.title+"</td>";
-				contents += "<td align='left'>"+value.user_name+"</a></td>";
-				contents += "<td align='left'>"+value.reg_dt+"</td></tr>";
+				contents += value.title+"</a></p>";
+				contents += "<p class='sub_text'>"+value.user_name+"<span>"+value.reg_dt+"</span></p>";
 				
 			});
 			
@@ -211,7 +205,7 @@ function hiddenCheckbox() {
 }
 
 //편집버튼 누르면 체크박스 뜸
-function edit() {
+function edit(f) {
 	
 	cbox = f.deleteSelect;
 	
@@ -259,7 +253,7 @@ function edit() {
 
 	document.getElementById("delete").style.display = "";
 	document.getElementById("all").style.display = "";
-	document.getElementById("alltext").style.display = "none";
+	document.getElementById("alltext").style.display = "";
 	
 }
 
@@ -371,9 +365,7 @@ function deleteConfirm(f) {
 		<div class="container detail">
 			<div class="wrap search-wrap btn-wrap">
 			
-				<div class="search type">
-	        		<center><input type="text" placeholder="제목 입력" id="searchbox" style="width: 300px" /></center>
-	        	</div>
+				<div class="search type"><input type="text" placeholder="제목 입력" id="searchbox" /></div>
 	
 				<div class="list_wrap">
 					<ul class="list-groub" id="list_more">
@@ -393,7 +385,7 @@ function deleteConfirm(f) {
 								<img src="/common/images/ic_reply.png" alt="답글" class="ic_reply">
 					
 								<a href="javascript:doAnswerDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');"><%=CmmUtil.nvl(rDTO.getTitle()) %></a>
-					
+								
 								<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {%>
 									<img src="/common/images/ic_lock.png" class="ic_lock" alt="lock">
 								<%} %>
@@ -411,8 +403,12 @@ function deleteConfirm(f) {
 									<img src="/common/images/ic_new.png" alt="new" class="ic_new">
 								<%} %>
 								
+								</p>
+								
 							<%} else {%>
-				
+								
+								<p class="title">
+								
 								<a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');"><%=CmmUtil.nvl(rDTO.getTitle()) %></a>
 								
 								<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {%>
