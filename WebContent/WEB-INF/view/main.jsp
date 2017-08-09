@@ -1,338 +1,149 @@
-﻿<%@page import="java.util.ArrayList"%>
-<%@page import="sports.com.dto.TestDTO"%>
-<%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%
-	List<TestDTO> list = (List<TestDTO>)request.getAttribute("list");
-	if(list == null){
-		list = new ArrayList<TestDTO>();
-	}
-%><%-- <%for(TestDTO testDTO : list){ %>
-	<%=testDTO.getAb() %>&nbsp;|&nbsp;<%=testDTO.getBc() %>
-<%} %> --%><!-- 장총명 젠킨슨에 깃허브 올라간거 확인 -->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html>
+<html lang="ko">
+
 <head>
-      <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>모두의 스포츠</title>
-	<%@include file="/inc/head.jsp" %>
-	<script type="text/javascript">
-		var ndate = document.getElementById("nowDate");
-		var d = new Date();
-	</script>
+    <!-- Styles : CSS & SASS Sorcemap -->
+    <link rel="stylesheet" href="assets/css/style2.css">
+    <!-- JavaScirpt Sorcemap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="assets/js/jquery-ui.js"></script>
+    <script src="assets/js/modernizr.custom.js"></script>
+    <!--[if lte IE 9]>
+    <script src="./common/js/placeholders.min.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
 </head>
+
+
 <body>
-    <div id="wrapper">
-       <%@include file="/inc/side_nav.jsp"%>
-       
-        <!-- /. NAV SIDE  -->
-        <div id="page-wrapper" >
-            <div id="page-inner">
-                <div class="row">
-                    <div class="col-md-12">
-                     <h2>스포츠 용품업자를 위한 온라인 납품 어플리케이션 구현</h2>   
-                        <h5>앱 디자인 나오기전 임시 메인화면</h5>
-                    </div>
-                </div>              
-                 <!-- /. ROW  -->
-                  <hr />
-                 <!-- /. ROW  -->
-                <hr />                
-          <!--       <div class="row" style="display: inline;"> -->
-                    
-                    
-                    <!-- <div class="col-md-3 col-sm-12 col-xs-12 "> -->
-                        <div class="panel panel-default">
-                        <div class="panel-heading" style="text-align: center">
-						일 매출
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-line-chart"></div>
-                        </div>
-                    </div>    
-                    <div class="panel panel-primary text-center no-boder bg-color-green">
-                        <div class="panel-body">
-                            <i class="fa fa-bar-chart-o fa-5x"></i>
-                            <h3>372,000$ </h3>
-                        </div>
-                        <div class="panel-footer back-footer-green">
-                           실시간 금일 매출 금액 
-                            
-                        </div>
-                    </div>
-                        <div class="panel ">
-          
-        </div>
-			
-    <!-- </div> -->
-                        
-        <!-- </div> -->
-                        <!-- <div class="row" > -->
-                    <!-- <div class="col-md-3 col-sm-12 col-xs-12"> -->
-  <div class="panel panel-primary text-center no-boder bg-color-green">
-                        <div class="panel-body">
-                            <i class="fa fa-comments-o fa-5x"></i>
-                            <h4>고객센터 문의 </h4>
-                             <h4>답변을 기다리는 문의</h4>
-                        </div>
-                        <div class="panel-footer back-footer-green">
-                             <i class="fa fa-rocket fa-5x"></i>
-                           <a href="#" style="text-decoration: none; color: white;">바로이동</a>
-                            
-                        </div>
-                    </div>
-                    <!-- </div> -->
-                <!-- </div> -->
-                 <!-- /. ROW  -->
-               <!--  <div class="row"> 
-                    
-                      
-                               <div class="col-md-9 col-sm-12 col-xs-12" style="width: 1310px">       -->               
-                    
-                    
-            <!--     </div>
-                
-           </div> -->
-                 <!-- /. ROW  -->
+  <section id="wrapper" class="wrapper">
+    <header class="header">
+	<div class="wrap">
+		<div class="left_menu">
+			<img src="assets/img/btn_gnb.png" alt="메뉴" id="c-button--slide-left" class="c-button">
+		</div>
+		<div class="logo">
+			<a href="#"><h2 class="title">모두의 스포츠</h2></a>
+		</div>
+	</div>
+</header>
 
-                 <!-- /. ROW  -->
-             
-                   <!-- 채팅 패널 시작 -->
-                    <div class="chat-panel panel panel-default chat-boder chat-panel-head" style="width: 1580px" >
-                        <div class="panel-heading">
-                            <i class="fa fa-comments fa-fw"></i>
-							실시간 문의
-	                            <div class="btn-group pull-right">
-                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-chevron-down"></i>
-                                </button>
-                            </div>
-                        </div>
+    <nav id="c-menu--slide-left" class="c-menu c-menu--slide-left">
 
-                        <div class="panel-body">
-                            <ul class="chat-box">
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="assets/img/1.png" alt="User" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body">                                        
-                                            <strong >강서구 열혈 태권도장</strong>
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i>12분 전
-                                            </small>                                      
-                                        <p>
-                                            배송이 얼마나 걸릴까요?
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="right clearfix">
-                                    <span class="chat-img pull-right">
+	<div class="profile">
+		<p><img src="assets/img/menu/user.png" class="photo">로그인을 해주세요</p>
+		<button class="c-menu__close"><img src="assets/img/menu/cancel.png" alt="닫기"></button>
+		<div class="login_wrap"><a href="#">로그인</a><a href="#">회원가입</a></div>
+	</div>
+	<ul class="menu_list">
+		<li><a href="#">주문관리</a></li>
+		<li>
+			<a href="#">학원관리</a>
+			<ul class="col-2">
+				<li><a href="#">학원 밀집도 정보</a></li>
+				<li><a href="#">거래처 관리</a></li>
+			</ul>
+		</li>
+		<li>
+			<a href="#">매출 분석 정보</a>
+			<ul class="col-3">
+				<li><a href="#"><img src="assets/img/menu/001.png" class="icon"><p>매출분석 정보</p></a></li>
+				<li><a href="#"><img src="assets/img/menu/002.png" class="icon"><p>연관성 분석 정보</p></a></li>
+				<li><a href="#"><img src="assets/img/menu/003.png" class="icon"><p>장바구니 분석 정보</p></a></li>
+			</ul>
+		</li>
+		<li>
+			<a href="#">스포츠 용품 리스트 관리</a>
+			<ul class="col-2 more">
+				<li><a href="#"><img src="assets/img/menu/ic_01.png" class="icon">전체상품</a></li>
+				<li><a href="#"><img src="assets/img/menu/ic_02.png" class="icon">태권도</a></li>
+				<li><a href="#"><img src="assets/img/menu/ic_03.png" class="icon">합기도</a></li>
+				<li><a href="#"><img src="assets/img/menu/ic_04.png" class="icon">검도</a></li>
+				<li><a href="#"><img src="assets/img/menu/ic_05.png" class="icon">복싱, MMA</a></li>
+				<li><a href="#"><img src="assets/img/menu/ic_06.png" class="icon">스포츠의류</a></li>
+				<li><a href="#"><img src="assets/img/menu/ic_07.png" class="icon">스포츠용품(구기)</a></li>
+				<li><a href="#"><img src="assets/img/menu/ic_08.png" class="icon">네트&amp;골대</a></li>
+				<li><a href="#"><img src="assets/img/menu/ic_09.png" class="icon">휘트니스</a></li>
+				<li><a href="#"><img src="assets/img/menu/ic_10.png" class="icon">학교체육용품</a></li>
+				<li><a href="#"><img src="assets/img/menu/ic_11.png" class="icon">체육대회용품</a></li>
+				<li><a href="#"><img src="assets/img/menu/ic_12.png" class="icon">측정용품&amp;호각</a></li>
+				<li><a href="#"><img src="assets/img/menu/ic_13.png" class="icon">펌프</a></li>
+        <li><a href="#"><img src="assets/img/menu/ic_13.png" class="icon">정리용품</a></li>
+			</ul>
+		</li>
+		<li>
+			<a href="#">고객센터 관리</a>
+			<ul class="col-2">
+				<li><a href="#">공지사항 관리</a></li>
+				<li><a href="#">Q&amp;A 관리</a></li>
+			</ul>
+		</li>
+	</ul>
+</nav>
 
-                                        <img src="assets/img/2.png" alt="User" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        
-                                            <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i>13분 전</small>
-                                            <strong class="pull-right">강동구 새마을 휘트니스</strong>
-                                      
-                                        <p>
-                                            	물건은 잘받았습니다. 다른 바벨들도 구매 하고 싶은데요 
-                                            	a204제품 혹시 발주 가능하신가요?
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                         <img src="assets/img/3.png" alt="User" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        
-                                            <strong >천호동 호랑이 태권도</strong>
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i>14분 전</small>
-                                        
-                                        <p>
-                                           태권도띠 이니셜 다 대문자로 부탁드립니다.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="right clearfix">
-                                    <span class="chat-img pull-right">
-                                         <img src="assets/img/4.png" alt="User" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                      
-                                            <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i>15분 전</small>
-                                                
-                                            <strong class="pull-right">성수동 풋살</strong>
-                                       
-                                        <p>
-                                            선수 유니폼 이니셜 다 소문자로 부탁합니다.
-                                        </p>
-                                    </div>
-                                </li>
-                                    <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="assets/img/1.png" alt="User" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body">                                        
-                                            <strong >영등포구 백호 합기도장</strong>
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i>17분 전
-                                            </small>                                      
-                                        <p>
-                                            띠 200개 주문 한거 내일모레 받고싶습니다 연락주세요 010-2312-2426
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="right clearfix">
-                                    <span class="chat-img pull-right">
-                                       <img src="assets/img/2.png" alt="User" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        
-                                            <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i>13분 전 </small>
-                                            <strong class="pull-right">강서구 새마을 복싱장 </strong>
-                                      
-                                        <p>
-                                            	혹시 배송은 얼마나 걸리는지 알수있을까요
-                                        </p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="panel-footer">
-                            <div class="input-group">
-                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message to send..." />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-warning btn-sm" id="btn-chat">
-                                        보내기
-                                    </button>
-                                </span>
-                            </div>
-                    
-                </div>
-                </div>     
-                 <!-- /. ROW  -->           
+    <div class="container">
+      <ul class="menu">
+        <li>
+          <a href="#"><img src="assets/img/ic_menu_01member.png" alt="회원관리">
+            <p>회원관리</p>
+          </a>
+        </li>
+        <li>
+          <a href="#"><img src="assets/img/ic_menu_02access.png" alt="권한관리">
+            <p>권한관리</p>
+          </a>
+        </li>
+        <li>
+          <a href="#"><img src="assets/img/ic_menu_03order.png" alt="주문관리">
+            <p>주문관리</p>
+          </a>
+        </li>
+        <li>
+          <a href="#"><img src="assets/img/ic_menu_04academy.png" alt="학원관리">
+            <p>학원관리</p>
+          </a>
+        </li>
+        <li>
+          <a href="#"><img src="assets/img/ic_menu_05sale.png" alt="매출분석정보">
+            <p>매출분석정보</p>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="two-rows"><img src="assets/img/ic_menu_06list.png" alt="스포츠용품리스트관리">
+            <p>스포츠용품<br>리스트관리</p>
+          </a>
+        </li>
+        <li>
+          <a href="#"><img src="assets/img/ic_menu_07community.png" alt="커뮤니티관리">
+            <p>커뮤니티관리</p>
+          </a>
+        </li>
+      </ul>
     </div>
-             <!-- /. PAGE INNER  -->
-            </div>
-         <!-- /. PAGE WRAPPER  -->
-        </div>
-     <!-- /. WRAPPER  -->
-     <!-- </div> -->
-    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-    <!-- JQUERY SCRIPTS -->
-    <script src="assets/js/jquery-1.10.2.js"></script>
-      <!-- BOOTSTRAP SCRIPTS -->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <!-- METISMENU SCRIPTS -->
-    <script src="assets/js/jquery.metisMenu.js"></script>
-     <!-- MORRIS CHART SCRIPTS -->
-     <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
-    <script src="assets/js/morris/morris.js"></script>
-      <!-- CUSTOM SCRIPTS -->
-    <!-- <script src="assets/js/custom.js"></script> -->
-    <script type="text/javascript">
+    <footer class="footer">
+    <a href="#">
+      <img src="assets/img/ic_kakao.png" alt="카카오톡" class="kakao">
+    </a>
+    <div class="company_info">
+      <p>대표이사 : 장명훈 ㅣ 대표번호 : 010-9057-6156</p>
+      <p>사업자등록번호 : 567-36-00142</p>
+      <p>통신판매업신고 : 2017-인천서구-0309호</p>
+      <p>인천시 서구 보도진로 18번길 12(가좌동) 진성테크2층</p>
+      <p>Copyright © <strong>모두의 스포츠</strong> All rights reserved. </p>
+    </div>
+</footer>
 
-    /*=============================================================
-        Authour URI: www.binarycart.com
-        Version: 1.1
-        License: MIT
-        
-        http://opensource.org/licenses/MIT
-
-        100% To use For Personal And Commercial Use.
-       
-        ========================================================  */
-
-    (function ($) {
-        "use strict";
-        var mainApp = {
-
-            main_fun: function () {
-                /*====================================
-                METIS MENU 
-                ======================================*/
-                $('#main-menu').metisMenu();
-
-                /*====================================
-                  LOAD APPROPRIATE MENU BAR
-               ======================================*/
-                $(window).bind("load resize", function () {
-                    if ($(this).width() < 768) {
-                        $('div.sidebar-collapse').addClass('collapse')
-                    } else {
-                        $('div.sidebar-collapse').removeClass('collapse')
-                    }
-                });
-
-             
-                /*====================================
-        MORRIS LINE CHART
-     ======================================*/
-                Morris.Line({
-                    element: 'morris-line-chart',
-                    data: [{
-                        y: '2006',
-                        a: 100,
-                        b: 90
-                    }, {
-                        y: '2007',
-                        a: 75,
-                        b: 65
-                    }, {
-                        y: '2008',
-                        a: 50,
-                        b: 40
-                    }, {
-                        y: '2009',
-                        a: 75,
-                        b: 65
-                    }, {
-                        y: '2010',
-                        a: 50,
-                        b: 40
-                    }, {
-                        y: '2011',
-                        a: 75,
-                        b: 65
-                    }, {
-                        y: '2012',
-                        a: 100,
-                        b: 90
-                    }],
-                    xkey: 'y',
-                    ykeys: ['a'],
-                    labels: ['매출  '],
-                    hideHover: 'auto',
-                    resize: true
-                });
-               
-         
-            },
-
-            initialization: function () {
-                mainApp.main_fun();
-
-            }
-
-        }
-        // Initializing ///
-
-        $(document).ready(function () {
-            mainApp.main_fun();
-        });
-
-    }(jQuery));
-
-</script>
-   
+  </section>
+  <div id="c-mask" class="c-mask"></div>
+  <script src="assets/js/classie.js"></script>
+  <script src="assets/js/common.js"></script>
 </body>
+
 </html>

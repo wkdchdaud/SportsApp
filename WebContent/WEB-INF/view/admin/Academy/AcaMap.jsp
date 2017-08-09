@@ -14,6 +14,8 @@ System.out.println("리스트는1= "+list.get(0).getAca_lat());
 		list = new ArrayList<AcademyDTO>();
 	}
 	String aca_name;
+	
+	System.out.println("리스트 사이즈 먼저 "+list.size());
 %>
 <!DOCTYPE html>
 <html>
@@ -39,9 +41,9 @@ System.out.println("리스트는1= "+list.get(0).getAca_lat());
     <script type="text/javascript">
     var nn;
     var totalInfo = new Object();
-$(document).ready(function() {
+/* $(document).ready(function() {
         $('#nn').val(22);
-    });      
+    });  */     
     
       
       $(function() {
@@ -78,7 +80,7 @@ $(document).ready(function() {
           <% System.out.println("Lng= "+personInfo.Lng);%>
  --%>
          
-          //사람, 책 정보를 넣음
+      
            
 
           var jsonInfo = JSON.stringify(totalInfo);
@@ -98,9 +100,7 @@ $(document).ready(function() {
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=b34cca89fa889023148b105f661c797d&libraries=services"></script>
 <script type="text/javascript">
 
-    nn = totalInfo.name; //jsonstirnㅎ뤄tgsjgdf
-    
-    
+
     
     
     
@@ -112,12 +112,12 @@ var MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
     OVER_MARKER_HEIGHT = 42, // 오버 마커의 높이
     OVER_OFFSET_X = 13, // 오버 마커의 기준 X좌표
     OVER_OFFSET_Y = OVER_MARKER_HEIGHT, // 오버 마커의 기준 Y좌표
-    SPRITE_MARKER_URL = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markers_sprites2.png', // 스프라이트 마커 이미지 URL
-    SPRITE_WIDTH = 126, // 스프라이트 이미지 너비
-    SPRITE_HEIGHT = 146, // 스프라이트 이미지 높이
+    SPRITE_MARKER_URL = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png', // 스프라이트 마커 이미지 URL
+    SPRITE_WIDTH = 24, // 스프라이트 이미지 너비
+    SPRITE_HEIGHT = 35, // 스프라이트 이미지 높이
     SPRITE_GAP = 10; // 스프라이트 이미지에서 마커간 간격
 
-var markerSize = new daum.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
+var markerImageSize = new daum.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
     markerOffset = new daum.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
     overMarkerSize = new daum.maps.Size(OVER_MARKER_WIDTH, OVER_MARKER_HEIGHT), // 오버 마커의 크기
     overMarkerOffset = new daum.maps.Point(OVER_OFFSET_X, OVER_OFFSET_Y), // 오버 마커의 기준 좌표
@@ -131,13 +131,12 @@ var markerSize = new daum.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클
  	List<String> Addr2 = new ArrayList<String>();
  	List<String> Name = new ArrayList<String>();
   
- System.out.println("Addr 사이즈는= "+Addr1.size());
- System.out.println("getAca_lat= "+list.get(0).getAca_lat());
+/*  System.out.println("getAca_lat= "+list.get(0).getAca_lat());
  System.out.println("getAca_lat= "+list.get(1).getAca_lat());
  System.out.println("getAca_lat= "+list.get(2).getAca_lat());
  System.out.println("getAca_lng= "+list.get(0).getAca_lng());
  System.out.println("getAca_lng= "+list.get(1).getAca_lng());
- System.out.println("getAca_lng= "+list.get(2).getAca_lng());
+ System.out.println("getAca_lng= "+list.get(2).getAca_lng()); */
 
  
 	 for(int i=0; i<list.size(); i++){
@@ -150,7 +149,8 @@ var markerSize = new daum.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클
 		Name.add(i, list.get(i).getAca_name());  
 } 
 	 
-	 System.out.println("Addr 본다= "+Addr1.get(0));
+ System.out.println("Addr1 사이즈는= "+Addr1.size());
+/* 	 System.out.println("Addr 본다= "+Addr1.get(0));
 	 System.out.println("Addr 본다= "+Addr1.get(1));
 	 System.out.println("Addr 본다= "+Addr1.get(2));
 	 System.out.println("Addr 본다= "+Addr2.get(0));
@@ -158,10 +158,26 @@ var markerSize = new daum.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클
 	 System.out.println("Addr 본다= "+Addr2.get(2));
 	 System.out.println("Addr 본다= "+Name.get(0));
 	 System.out.println("Addr 본다= "+Name.get(1));
-	 System.out.println("Addr 본다= "+Name.get(2));
+	 System.out.println("Addr 본다= "+Name.get(2)); */
 
 %>
-nn = "<%=Name.get(0)%>"; //위에 nn에 jsonstring 넣고 지워보기
+
+
+
+var acaList = [];
+
+<%for(int i=0; i<Name.size(); i++){%>
+	acaList.push("<%=Name.get(i)%>")
+	
+<%}%>
+
+
+
+/* alert("acaList.pop(0020)"+acaList[0]);
+alert("acaList.pop(1)"+acaList[1]);
+alert("acaList.pop(2)"+acaList[2]); */
+nn =  "dd"/* acaList.pop(1); */ //위에 nn에 jsonstring 넣고 지워보기
+
 var positions = [  // 마커의 위치
 	 <%
 		for(int i=0; i<Addr1.size(); i++){ %>
@@ -170,15 +186,15 @@ var positions = [  // 마커의 위치
 	    ],
 	    selectedMarker = null; //클릭한 마커를 담을 변수
 
-    
+alert("positions 사이즈2는 "+ positions.length);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
 	
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = { 
-        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        center: new daum.maps.LatLng(37.5420701, 126.730667), // 지도의 중심좌표
+        level: 4 // 지도의 확대 레벨
 }
 
 var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -207,19 +223,18 @@ for (var i = 0, len = positions.length; i < len; i++) {
 }
 
 
-
 // 마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다
 function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
 
     // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
-    var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin),
+    var normalImage = createMarkerImage(markerImageSize, markerOffset, normalOrigin),
         overImage = createMarkerImage(overMarkerSize, overMarkerOffset, overOrigin),
-        clickImage = createMarkerImage(markerSize, markerOffset, clickOrigin);
+        clickImage = createMarkerImage(markerImageSize, markerOffset, clickOrigin);
     
     // 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
     var marker = new daum.maps.Marker({
         map: map,
-        position: position,
+        position: positions[i],
         image: normalImage
     });
     
@@ -229,7 +244,7 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
     
     
  // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-     var iwContent = '<div style="padding:5px;"><input type="text" id="nn" name="123" readonly="true" value="' + nn + '">'
+     var iwContent = '<div style="padding:5px;"><input type="text" id="nn" name="123" readonly="true" value="' + acaList[i] + '">'
      +'</div><div style="padding:4px;"><textarea name="1" value="학원 Comment"></textarea></div>',
     
     
@@ -244,13 +259,29 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
         removable : iwRemoveable
     });
 
-
-    
-    
-    // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
     marker.normalImage = normalImage;
+<%--  	for(var i=0; i<acaList.length; i++){%>
+    var acaName = '<div style="padding:5px;"><input type="text" name="123" readonly="true" value="' + "<%=Name.get(0)%>" + '">'
+    +'</div>'
+    } --%>
 
-    
+        
+    // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
+
+/* 	for(var i=0; i<acaList.length; i++)  {
+    var acaName = '<div style="padding:5px;"><input type="text" name="123" readonly="true" value="' + acaList[i] + '">'
+    +'</div>' */
+ // 커스텀 오버레이를 생성합니다
+    var customOverlay = new daum.maps.CustomOverlay({
+        position: position,
+        content: '<div style="padding:5px;"><input type="text" name="123" readonly="true" value="' + acaList[i] + '">'
+    +'</div>'  
+    });
+   
+   //for문 괄호   /*  } */
+
+    // 커스텀 오버레이를 지도에 표시합니다
+    customOverlay.setMap(map);
     
     
 //********************         mouseover, mouseout, click 함수 등록 ****************************
@@ -287,9 +318,11 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
  
     // 마커에 click 이벤트를 등록합니다
     
-  
+<%--   <%int j=0;%> --%>
+<%-- nn = "<%=Name.get(1)%>"; //위에 nn에 jsonstring 넣고 지워보기 --%>
     daum.maps.event.addListener(marker, 'click', function() {
-	
+ 
+	console.log(nn)
 
 
     	/* 
@@ -338,6 +371,7 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
         selectedMarker = marker;
         /* alert("marker는 "+marker)
         alert("selectedMarker는 "+selectedMarker) */
+    	
     });
 }
 
@@ -345,10 +379,10 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
 
 
 // MakrerImage 객체를 생성하여 반환하는 함수입니다
-function createMarkerImage(markerSize, offset, spriteOrigin) {
+function createMarkerImage(markerImageSize, offset, spriteOrigin) {
     var markerImage = new daum.maps.MarkerImage(
         SPRITE_MARKER_URL, // 스프라이트 마커 이미지 URL
-        markerSize, // 마커의 크기
+        markerImageSize, // 마커의 크기
         {
             offset: offset, // 마커 이미지에서의 기준 좌표
             spriteOrigin: spriteOrigin, // 스트라이프 이미지 중 사용할 영역의 좌상단 좌표
@@ -359,8 +393,15 @@ function createMarkerImage(markerSize, offset, spriteOrigin) {
     return markerImage;
 }
 
+		var markerImageUrl = 'http://t1.daumcdn.net/localimg/localimages/07/2012/img/marker_p.png', 
+		    markerImageSize = new daum.maps.Size(40, 42), // 마커 이미지의 크기
+		    markerImageOptions = { 
+		        offset : new daum.maps.Point(22, 31)// 마커 좌표에 일치시킬 이미지 안의 좌표
+		    };
 
-
+		// 마커 이미지를 생성한다
+		var markerImage = new daum.maps.MarkerImage(markerImageUrl, markerImageSize, markerImageOptions);
+ 
 	
 
 </script>
