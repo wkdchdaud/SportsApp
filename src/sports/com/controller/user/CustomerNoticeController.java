@@ -61,7 +61,7 @@ public class CustomerNoticeController {
 		NoticeDTO nDTO = new NoticeDTO();
 		nDTO.setNotice_no(notice_no);
 		
-		List<NoticeDTO> nList = noticeService.getNoticeDetailInfo(nDTO);
+		NoticeDTO nList = noticeService.getNoticeDetailInfo(nDTO);
 		
 		model.addAttribute("nList",nList);
 		

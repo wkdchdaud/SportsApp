@@ -39,6 +39,7 @@ public class NoticeController {
 		
 		nList = noticeService.getNoticeList();
 		
+		
 		if(nList == null){
 			nList = new ArrayList<NoticeDTO>();
 		}
@@ -56,7 +57,9 @@ public class NoticeController {
 			title = title.substring(0, 14) + "...";
 		}
 		if (now - inputDate < (1000*60*60*24*3)) {
-		nDTO.setTitle(title+"<b>[NEW]</b>");
+			nDTO.setNew_yn("Y");
+			}else{
+			nDTO.setNew_yn("");	
 			}
 		}
 		model.addAttribute("nList",nList);
@@ -87,7 +90,8 @@ public class NoticeController {
 			ModelMap model) throws Exception{
 		log.info("welcome /admin/NoticeInsert");
 		
-		String user_no = (String)request.getSession().getAttribute("user_no");
+		/*String user_no = (String)request.getSession().getAttribute("user_no");*/
+		String user_no = "123";
 		String title = CmmUtil.nvl(request.getParameter("title"));
 		String contents = CmmUtil.nvl(request.getParameter("contents"));
 		String notice_yn = CmmUtil.nvl(request.getParameter("notice_yn"));
@@ -126,9 +130,9 @@ public class NoticeController {
 		NoticeDTO nDTO = new NoticeDTO();
 		nDTO.setNotice_no(notice_no);
 		
-		List<NoticeDTO> nList = noticeService.getNoticeDetailInfo(nDTO);
+		NoticeDTO rDTO = noticeService.getNoticeDetailInfo(nDTO);
 		
-		model.addAttribute("nList",nList);
+		model.addAttribute("rDTO",rDTO);
 		
 		nDTO = null;
 		
@@ -147,11 +151,12 @@ public class NoticeController {
 		NoticeDTO nDTO = new NoticeDTO();
 		nDTO.setNotice_no(notice_no);
 		
-		List<NoticeDTO> nList = noticeService.getNoticeDetailInfo(nDTO);
+		NoticeDTO rDTO = noticeService.getNoticeDetailInfo(nDTO);
 		
 		nDTO = null;
+		log.info("notice_no :"+rDTO.getNotice_no());
 		
-		model.addAttribute("nList",nList);
+		model.addAttribute("rDTO",rDTO);
 
 		return "/admin/notice/NoticeEditInfo";
 	}
@@ -213,7 +218,7 @@ public class NoticeController {
 			ModelMap model) throws Exception{
 		log.info("welcome /admin/NoticeCheckboxDelete");
 
-		String[] deleteSelect = request.getParameterValues("deleteSelect");
+		String[] deleteSelect = request.getParameterValues("checkbox");
 		
 		NoticeDTO nDTO = new NoticeDTO();
 		
@@ -255,7 +260,7 @@ public class NoticeController {
 				title = title.substring(0, 14) + "...";
 			}
 			if (now - inputDate < (1000*60*60*24*3)) {
-			nDT.setTitle(title+"<b>[NEW]</b>");
+			nDT.setNew_yn("Y");
 				}
 			}
 		
@@ -295,7 +300,7 @@ public class NoticeController {
 				title = title.substring(0, 14) + "...";
 			}
 			if (now - inputDate < (1000*60*60*24*3)) {
-			nDT.setTitle(title+"<b>[NEW]</b>");
+			nDT.setNew_yn("Y");
 				}
 			}
 		

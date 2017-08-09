@@ -12,32 +12,34 @@
 	if (nList == null) {
 		nList = new ArrayList<NoticeDTO>();
 	}
+
 %>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="ko">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>공지사항</title>
-<!-- BOOTSTRAP STYLES-->
-<link href="/assets/css/bootstrap.css" rel="stylesheet" />
-<!-- FONTAWESOME STYLES-->
-<link href="/assets/css/font-awesome.css" rel="stylesheet" />
-<!-- CUSTOM STYLES-->
-<link href="/assets/css/custom.css" rel="stylesheet" />
-<!-- GOOGLE FONTS-->
-<link href='http://fonts.googleapis.com/css?family=Open+Sans'
-	rel='stylesheet' type='text/css' />
-<!-- JQUERY SCRIPTS -->
-<script src="/assets/js/jquery-1.10.2.js"></script>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>공지사항 리스트</title>
-
-<script type="text/javascript">
-	$(function() {
-		var cnt = 6;
-		var search ="";
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>모두의 스포츠</title>
+    <!-- Styles : CSS & SASS Sorcemap -->
+    <link rel="stylesheet" href="/common/css/style.css">
+    <!-- JavaScirpt Sorcemap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="/common/js/jquery-ui.js"></script>
+    <script src="/common/js/placeholders.min.js"></script>
+    <!--[if lte IE 9]>
+    <script src="/common/js/placeholders.min.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+	
+	
+	<script type="text/javascript">
+		$(function() {
+			var cnt = 6;
+			var search ="";
 	/*검색 기능*/
 	// 검색어 아작스 시작
 	$('#searchbox').keyup(function(){
@@ -53,31 +55,35 @@
 			datatype :	"json",
 			success : function(data){
 				var contents ="";
-				$.each(data,function (key,value) {
+				$.each(data,function (key,value) { 
 					var yn = value.notice_yn;
+					var nw = value.new_yn;
 					
-					contents += "<tr><td><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.notice_no + " />";
-					contents += value.notice_no
-							+ "</td>";
-					contents += "<td><a href='/admin/notice/NoticeInfo.do?notice_no="
-							+ value.notice_no
-							+ "'>"
-							+ value.title
-							+ "</a></td>";
-					contents += "<td>"
-							+ value.user_no
-							+ "</td>";
-					contents += "<td>"
-							+ value.reg_dt
-									.substring(
-											10,
-											0)
-							+ "</td></tr>";
+					contents += "<li onmouseover='javascript:mouseOver();''>";
+		            contents += "<div style='float:left' ><input type='checkbox' name='checkbox' class='checkbox' value='"+value.notice_no+"'/></div>";
+		            contents += "<a href='/admin/notice/NoticeInfo.do?notice_no="+value.notice_no+"'>";
+		            contents += "<p class='title'>";
+		      
+		    	if (yn == '1') {
+		            contents += "<span class='blue_text'>"+value.title+"</span>";
+		        }else{
+		        	contents += value.title;
+		        }
+		        
+		        if (nw == 'Y'){ 
+		            contents += "<img src='/common/images/ic_new.png' alt='new' class='ic_new'>";
+		         } 
+		            
+		        	contents += "</p>";
+		            contents += "<p class='sub_text'>"+value.user_no;
+		            contents += "<span>"+value.reg_dt.substring(0, 10)+"</span></p>";
+		            contents += "</a>";
+		            contents += "</li>";
 			});// 아작스 포이치 닫음
 				
 				$('#list_more').html(null);
 				$('#list_more').append(contents);
-				var dS = document.getElementsByClassName("deleteSelect");
+				var dS = document.getElementsByClassName("checkbox");
 				
 				for (var i =0; i<dS.length; i++) {
 					dS[i].style.display = "none";
@@ -85,12 +91,13 @@
 					
 				document.getElementById("delete").style.display = "none";
 				document.getElementById("all").style.display = "none";
+				document.getElementById("alltext").style.display = "none";
 				
 				if ((data).length < 6) {//더보기 버튼 없애기
 					$("#addview").hide();
 				}
 				if(data.length >= 6){
-					$("#searchadd").html("<center> <input type='button' style='width: 150px;' class='btn btn-success' value='더보기' id='addview' /></center>");
+					$("#searchadd").html("<center> <div id='searchadd'><button class='add_btn' id='addview'>더보기</button></div></center>");
 				}
 			} //아작스 success 닫음
 			
@@ -105,7 +112,6 @@
 	$("#addview").hide();
 <%}%>
 	$("#addview").add("#searchadd").click(function() {
-									alert(search);
 									
 									
 									$.ajax({
@@ -118,23 +124,27 @@
 											console.log(data)
 											$.each(data,function(key, value) {
 																var yn = value.notice_yn;
-																contents += "<tr><td><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.notice_no + " />";
-																contents += value.notice_no
-																		+ "</td>";
-																contents += "<td><a href='/admin/notice/NoticeInfo.do?notice_no="
-																		+ value.notice_no
-																		+ "'>"
-																		+ value.title
-																		+ "</a></td>";
-																contents += "<td>"
-																		+ value.user_no
-																		+ "</td>";
-																contents += "<td>"
-																		+ value.reg_dt
-																				.substring(
-																						10,
-																						0)
-																		+ "</td></tr>";
+																var nw = value.new_yn;
+																contents += "<li onmouseover='javascript:mouseOver();''>";
+													            contents += "<div style='float:left' ><input type='checkbox' name='checkbox' class='checkbox' value='"+value.notice_no+"'/></div>";
+													            contents += "<a href='/admin/notice/NoticeInfo.do?notice_no="+value.notice_no+"'>";
+													            contents += "<p class='title'>";
+													      
+													    	if (yn  == '1') {
+													            contents += "<span class='blue_text'>"+value.title+"</span>";
+													        }else{
+													        	contents += value.title;
+													        }
+													        
+													        if (nw == 'Y'){ 
+													            contents += "<img src='/common/images/ic_new.png' alt='new' class='ic_new'>";
+													         } 
+													            
+													        	contents += "</p>";
+													            contents += "<p class='sub_text'>"+value.user_no;
+													            contents += "<span>"+value.reg_dt.substring(0, 10)+"</span></p>";
+													            contents += "</a>";
+													            contents += "</li>";
 											});
 
 											$('#list_more').append(contents);
@@ -143,7 +153,7 @@
 											}
 
 											var dS = document
-													.getElementsByClassName("deleteSelect");
+													.getElementsByClassName("checkbox");
 
 											for (var i = 0; i < dS.length; i++) {
 												dS[i].style.display = "none";
@@ -151,6 +161,7 @@
 
 											document.getElementById("delete").style.display = "none";
 											document.getElementById("all").style.display = "none";
+											document.getElementById("alltext").style.display = "none";
 										} //성공 닫음
 										}); //아작스 닫음
 							cnt += 6;
@@ -169,7 +180,7 @@
 	/*  편집 삭제 버튼 숨기기 */
 	function hiddenCheckbox() {
 
-		var dS = document.getElementsByClassName("deleteSelect");
+		var dS = document.getElementsByClassName("checkbox");
 
 		for (var i = 0; i < dS.length; i++) {
 			dS[i].style.display = "none";
@@ -177,13 +188,15 @@
 
 		document.getElementById("delete").style.display = "none";
 		document.getElementById("all").style.display = "none";
+		document.getElementById("alltext").style.display = "none";
+		
 	}
 
 	function edit(f) {
 
-		cbox = f.deleteSelect;
+		cbox = f.checkbox;
 
-		var dS = document.getElementsByClassName("deleteSelect");
+		var dS = document.getElementsByClassName("checkbox");
 
 		for (var i = 0; i < dS.length; i++) {
 			if (dS[i].style.display == "none") {
@@ -210,19 +223,21 @@
 
 			document.getElementById("delete").style.display = "none";
 			document.getElementById("all").style.display = "none";
+			document.getElementById("alltext").style.display = "none";
 
 			return false;
 		}
 
 		document.getElementById("delete").style.display = "";
 		document.getElementById("all").style.display = "";
+		document.getElementById("alltext").style.display = "";
 
 	}
 
-	function deleteConfirm(f) {
+	function deleteConfirm() {
 
 		if (confirm("선택된 게시글을 삭제하시겠습니까?")) {
-			f.submit();
+			document.getElementById("f").submit();
 		} else {
 			return;
 		}
@@ -231,7 +246,7 @@
 
 	function allCheck(f) {
 
-		cbox = f.deleteSelect;
+		cbox = f.checkbox;
 
 		if (cbox.length) { // 여러 개일 경우
 			for (var i = 0; i < cbox.length; i++) {
@@ -241,230 +256,158 @@
 			cbox.checked = f.all.checked;
 		}
 	}
+	
+	
 </script>
-
-
-
-
+	
 </head>
+
+
 <body onload="javascript:hiddenCheckbox();">
-	<div id="wrapper">
-		<nav class="navbar navbar-default navbar-cls-top " role="navigation"
-			style="margin-bottom: 0">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".sidebar-collapse">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="/main.do">모두의 스포츠</a>
-			</div>
-			<div
-				style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;"
-				id="nowDate">
-				2017년 6월 23일
-				<%
-				if (CmmUtil.nvl((String) request.getSession().getAttribute("user_no")).equals("")) {
-			%>
-				<a href="/user/user_login.do"
-					class="btn btn-danger square-btn-adjust">Login</a>
-				<%
-					} else {
-				%>
-				<a href="/user/user_logout.do"
-					class="btn btn-danger square-btn-adjust">Logout</a>
-				<%
-					}
-				%>
-			</div>
-		</nav>
-
-		<!-- 사이드 메뉴 바 -->
-		<nav class="navbar-default navbar-side" role="navigation">
-			<div class="sidebar-collapse">
-				<ul class="nav" id="main-menu">
-					<li class="text-center"><img src="/assets/img/find_user.png"
-						class="user-image img-responsive" /></li>
-
-					<!-- 우리가 사용할 메뉴 시작  -->
-
-					<!--  회원관리 -->
-					<li><a href="/ui.do"><i class="fa fa-desktop fa-3x"></i>
-							회원관리</a></li>
-
-					<!--  권한관리 -->
-					<li><a href="/ui1.do"><i class="fa fa-desktop fa-3x"></i>
-							권한관리</a></li>
-
-					<!--주문관리-->
-					<li><a href="/table.do"><i class="fa fa-table fa-3x"></i>
-							주문관리</a></li>
-
-					<!--학원관리-->
-					<li><a href="/accountmanagement.do"><i
-							class="fa fa-table fa-3x"></i> 학원관리</a></li>
-
-					<!--스포츠용품리스트관리  -->
-					<li><a href="/table1.do"><i class="fa fa-table fa-3x"></i>
-							스포츠 용품 리스트 관리</a></li>
-
-					<!--매출분석정보-->
-					<li><a href="/chart1.do"><i
-							class="fa fa-bar-chart-o fa-3x"></i> 매출분석정보</a></li>
-
-
-
-					<li><a href="#"><i class="fa fa-sitemap fa-3x"></i> 커뮤니티
-							관리<span class="fa arrow"></span></a>
-						<ul class="nav nav-second-level">
-							<li><a href="/admin/notice/NoticeList.do">공지사항</a></li>
-							<li><a href="#">Q&A</a></li>
-						</ul></li>
-				</ul>
-
-			</div>
-
-		</nav>
-
-		<!-- 사이드 메뉴바 끝 -->
-
-		<div id="page-wrapper">
-			<div id="page-inner">
-				<div class="row">
-					<div class="col-md-12">
-						<h2>공지사항</h2>
-
-					</div>
-				</div>
-				<!-- /. ROW  -->
-				<hr />
-				<div class="row">
-
-					<div class="col-md-7">
-						<div class="panel panel-default" style="width: 100%">
-							<form name="f" method="post"
-								action="/admin/notice/NoticeCheckboxDelete.do">
-								<div class="panel-heading">공지사항 목록</div>
-								<!--    Context Classes  -->
-								<div class="panel panel-default" style="width: 100%">
-
-
-									<div class="panel-body">
-										<input type="text" id="searchbox"/>
-										<table class="table">
-											<thead>
-												<tr>
-													<th style="width: 150px"><font size="2px"> <input
-															type="checkbox" name="all" id="all"
-															onclick="allCheck(this.form);" value="전체선택" /> 글번호
-													</font></th>
-													<th style="width: 500px"><font size="2px">제목</font></th>
-													<th style="width: 200px"><font size="2px">작성자</font></th>
-													<th style="width: 100px"><font size="2px">작성일</font></th>
-												</tr>
-											</thead>
-											<tbody id="list_more">
-												<%
-													for (NoticeDTO nDTO : nList) {
-												%>
-												<tr>
-
-													<td><input type="checkbox" name="deleteSelect"
-														class="deleteSelect" value="<%=nDTO.getNotice_no()%>" />
-														<%
-															if (nDTO.getNotice_yn().equals("1")) {
-																	out.print("<font color=\"hotpink\"><b>");
-																}
-														%> <%=nDTO.getNotice_no()%> <%
- 														if (nDTO.getNotice_yn().equals("1")) {
- 														out.print("</b></font>");
- 															}
-													 %>
-													<td><a
-														href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNotice_no()%>">
-															<%
-																if (nDTO.getNotice_yn().equals("1")) {
-																		out.print("<font color=\"hotpink\"><b>");
-																	}
-															%> <%=nDTO.getTitle()%> <%
- 														if (nDTO.getNotice_yn().equals("1")) {
- 															out.print("</b></font>");
- 																	}
- 																		%>
-													</a></td>
-
-
-
-													<td>
-														<%
-															if (nDTO.getNotice_yn().equals("1")) {
-																	out.print("<font color=\"hotpink\"><b>");
-																}
-														%> <%=nDTO.getUser_no()%> <%
- 														if (nDTO.getNotice_yn().equals("1")) {
- 															out.print("</b></font>");
- 																	}
-																 %>
-													</td>
-
-
-
-													<td>
-														<%
-															if (nDTO.getNotice_yn().equals("1")) {
-																	out.print("<font color=\"hotpink\"><b>");
-																}
-														%> <%=nDTO.getReg_dt().substring(0, 10)%></b> <%
- 													if (nDTO.getNotice_yn().equals("1")) {
- 														out.print("</b></font>");
- 															}	
- 															%>
-													
-												</tr>
-												<%
-													}
-												%>
-											</tbody>
-										</table>
-
-										<!-- 더보기 -->
-										<div id="searchadd"><center>
-											<input type="button" style="width: 150px;"
-												class="btn btn-success" value="더보기" id="addview" />
-										</center>
-										</div>
-									</div>
-								</div>
-								<!--  end  Context Classes  -->
-
-								<input type="button"
-									onclick="location.href='/admin/notice/NoticeReg.do'"
-									value="글쓰기" /> <input type="button"
-									onclick="javascript:edit(this.form)" value="편집" /> <input
-									type="button" id="delete" value="삭제"
-									onclick="javascript:deleteConfirm(this.form)" />
-
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- /. ROW  -->
+  <section id="wrapper" class="wrapper">
+      
+      <form name="f" id="f" method="post" action="/admin/notice/NoticeCheckboxDelete.do"><!-- 폼 태그 시작 -->
+      
+    <header class="header">
+	<div class="wrap">
+		<div class="left_menu">
+			<img src="/common/images/btn_gnb.png" alt="메뉴" id="c-button--slide-left" class="c-button">
 		</div>
-		<!-- /. PAGE INNER  -->
+		<div class="logo">
+			<a href="/main.do"><h2 class="title">모두의 스포츠</h2></a>
+		</div>
 	</div>
-	<!-- /. PAGE WRAPPER  -->
-	<!-- /. WRAPPER  -->
-	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-	<!-- JQUERY SCRIPTS -->
-	<script src="/assets/js/jquery-1.10.2.js"></script>
-	<!-- BOOTSTRAP SCRIPTS -->
-	<script src="/assets/js/bootstrap.min.js"></script>
-	<!-- METISMENU SCRIPTS -->
-	<script src="/assets/js/jquery.metisMenu.js"></script>
-	<!-- CUSTOM SCRIPTS -->
-	<!-- <script src="/assets/js/custom.js"></script> -->
 
+		<div class="page_title" style=" float: left; width: 33%;" >
+		 <span class="sub_text" onclick="javascript:deleteConfirm();" id="delete" >삭제</span>&nbsp;
+		</div>
+		<div class="page_title" style=" float: left; width: 33%;">
+		<p>공지사항</p>
+		</div>
+		<div  class="page_title" style=" float: left; width: 33%;">
+		</div>
+		
+</header>
+
+    <nav id="c-menu--slide-left" class="c-menu c-menu--slide-left">
+
+	<div class="profile">
+		<p><img src="/common/images/menu/user.png" class="photo">로그인을 해주세요</p>
+		<button class="c-menu__close"><img src="/common/images/menu/cancel.png" alt="닫기"></button>
+		<div class="login_wrap"><a href="#">로그인</a><a href="#">회원가입</a></div>
+	</div>
+	<ul class="menu_list">
+		<li><a href="#">주문관리</a></li>
+		<li>
+			<a href="#">학원관리</a>
+			<ul class="col-2">
+				<li><a href="#">학원 밀집도 정보</a></li>
+				<li><a href="#">거래처 관리</a></li>
+			</ul>
+		</li>
+		<li>
+			<a href="#">매출 분석 정보</a>
+			<ul class="col-3">
+				<li><a href="#"><img src="/common/images/menu/001.png" class="icon"><p>매출분석 정보</p></a></li>
+				<li><a href="#"><img src="/common/images/menu/002.png" class="icon"><p>연관성 분석 정보</p></a></li>
+				<li><a href="#"><img src="/common/images/menu/003.png" class="icon"><p>장바구니 분석 정보</p></a></li>
+			</ul>
+		</li>
+		<li>
+			<a href="#">스포츠 용품 리스트 관리</a>
+			<ul class="col-2 more">
+				<li><a href="#"><img src="/common/images/menu/ic_01.png" class="icon">전체상품</a></li>
+				<li><a href="#"><img src="/common/images/menu/ic_02.png" class="icon">태권도</a></li>
+				<li><a href="#"><img src="/common/images/menu/ic_03.png" class="icon">합기도</a></li>
+				<li><a href="#"><img src="/common/images/menu/ic_04.png" class="icon">검도</a></li>
+				<li><a href="#"><img src="/common/images/menu/ic_05.png" class="icon">복싱, MMA</a></li>
+				<li><a href="#"><img src="/common/images/menu/ic_06.png" class="icon">스포츠의류</a></li>
+				<li><a href="#"><img src="/common/images/menu/ic_07.png" class="icon">스포츠용품(구기)</a></li>
+				<li><a href="#"><img src="/common/images/menu/ic_08.png" class="icon">네트&amp;골대</a></li>
+				<li><a href="#"><img src="/common/images/menu/ic_09.png" class="icon">휘트니스</a></li>
+				<li><a href="#"><img src="/common/images/menu/ic_10.png" class="icon">학교체육용품</a></li>
+				<li><a href="#"><img src="/common/images/menu/ic_11.png" class="icon">체육대회용품</a></li>
+				<li><a href="#"><img src="/common/images/menu/ic_12.png" class="icon">측정용품&amp;호각</a></li>
+				<li><a href="#"><img src="/common/images/menu/ic_13.png" class="icon">펌프</a></li>
+        <li><a href="#"><img src="/common/images/menu/ic_13.png" class="icon">정리용품</a></li>
+			</ul>
+		</li>
+		<li>
+			<a href="#">고객센터 관리</a>
+			<ul class="col-2">
+				<li><a href="#">공지사항 관리</a></li>
+				<li><a href="#">Q&amp;A 관리</a></li>
+			</ul>
+		</li>
+	</ul>
+</nav>
+
+
+    <div class="container detail">
+      <div class="wrap search-wrap btn-wrap">
+        <div class="search type">
+          <input  type="text" placeholder="제목입력" id="searchbox" />
+        </div>
+	
+        <div class="list_wrap" >
+          <ul class="list-groub" id="list_more">
+          
+        
+       	   <%
+		for (NoticeDTO nDTO : nList) {
+			%>
+            <li>
+              <input type="checkbox" name="checkbox" class="checkbox" value="<%=nDTO.getNotice_no()%>" />
+              <a href="/admin/notice/NoticeInfo.do?notice_no=<%=nDTO.getNotice_no()%>">
+              	<p class="title">
+              		<%
+					if (nDTO.getNotice_yn().equals("1")) {%>
+                <span class="blue_text"><%=nDTO.getTitle()%></span>
+                	<%}else{%>
+                <span><%=nDTO.getTitle()%></span>
+                <%}%>
+                <%if (nDTO.getNew_yn().equals("Y")){ %>
+                <img src="/common/images/ic_new.png" alt="new" class="ic_new">
+                <%} %>
+                </p>
+                
+                <p class="sub_text"><%=nDTO.getUser_no()%>
+                <span><%=nDTO.getReg_dt().substring(0, 10)%></span></p>
+              </a>
+            </li>
+          
+          <%
+			}
+          %>
+            
+          </ul>
+          <label class="all_select" id="alltext" ><input type="checkbox" name="all" id="all" onclick="allCheck(this.form);" />모두 선택하기</label>
+          <div id="searchadd"><button class="add_btn" id="addview">더보기</button></div>
+        </div>
+        <div class="btn-groub">
+          <button class="col-2 blue-btn button" onclick="javascript:edit(this.form);return false;">편집하기</button>
+          <button type="button" class="col-2 glay-btn button" onclick="location.href='/admin/notice/NoticeReg.do';return false;" >작성하기</button>
+        </div>
+      </div>
+    </div>
+      	</form>
+    <footer class="footer">
+    <a href="#">
+      <img src="/common/images/ic_kakao.png" alt="카카오톡" class="kakao">
+    </a>
+    <div class="company_info">
+      <p>대표이사 : 장명훈 ㅣ 대표번호 : 010-9057-6156</p>
+      <p>사업자등록번호 : 567-36-00142</p>
+      <p>통신판매업신고 : 2017-인천서구-0309호</p>
+      <p>인천시 서구 보도진로 18번길 12(가좌동) 진성테크2층</p>
+      <p>Copyright © <strong>모두의 스포츠</strong> All rights reserved. </p>
+    </div>
+</footer>
+
+  </section>
+  <div id="c-mask" class="c-mask"></div>
+  <script src="/common/js/classie.js"></script>
+  <script src="/common/js/common.js"></script>
 </body>
+
 </html>
