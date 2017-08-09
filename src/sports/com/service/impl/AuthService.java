@@ -23,6 +23,11 @@ public class AuthService implements IAuthService {
 		
 		return authmapper.authList();
 	}
+
+	@Override
+	public void authUpdate(UserDTO udto) throws Exception {
+		authmapper.authUpdate(udto);
+	}
 	
 		
 }

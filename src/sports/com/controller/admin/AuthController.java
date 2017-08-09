@@ -1,5 +1,6 @@
 package sports.com.controller.admin;
 
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -41,6 +42,40 @@ public class AuthController {
 		model.addAttribute("udto", udto);
 		udto = null;
 		return "/admin/Auth/AuthList";
+		
+		
+	}
+	
+	@RequestMapping(value="/admin/auth/update")
+	public String authUpdate(HttpSession session, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception
+	{
+		log.info("this.getClass().getName() : " + this.getClass().getName());
+		log.info("getClass().getName() : " + getClass().getName());
+	
+		String[] updatechk = request.getParameterValues("deleteSelect");
+		
+		UserDTO udto = new UserDTO();
+		
+		for (String Uo : updatechk ){
+			String qqq[] = Uo.split(",");
+			
+			System.out.println("qqq[0] :"+qqq[0]);
+			System.out.println("qqq[1] :"+qqq[1]);
+			
+			udto.setUser_no(qqq[0]);
+			udto.setAuth(qqq[1]);
+/*			System.out.println("udto.getUser_no() : " +udto.getUser_no());
+			System.out.println("udto.getauth() : " +udto.getAuth());*/
+			authService.authUpdate(udto);
+			
+			
+		}
+		udto= null;
+		
+		model.addAttribute("msg","선택된 회원권한 수정에 성공하였습니다.");
+		model.addAttribute("url","/admin/auth/list.do");
+		
+		return "/redirect";
 		
 		
 	}

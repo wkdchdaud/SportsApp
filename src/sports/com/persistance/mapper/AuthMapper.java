@@ -10,6 +10,8 @@ import sports.com.dto.UserDTO;
 @Mapper("AuthMapper")
 public interface AuthMapper {
 	
-	public List<UserDTO> authList() throws Exception ; 
+	public List<UserDTO> authList() throws Exception ;
+	
+	public void authUpdate(UserDTO udto) throws Exception ; 
 
 }

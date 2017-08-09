@@ -17,7 +17,21 @@ public class UserDTO {
 	private String chg_dt;
 	private String s_type;
 	private String s_text;
+	private String[] updateChk;
+	private String[] updateCon;
 	
+	public String[] getUpdateCon() {
+		return updateCon;
+	}
+	public void setUpdateCon(String[] updateCon) {
+		this.updateCon = updateCon;
+	}
+	public String[] getUpdateChk() {
+		return updateChk;
+	}
+	public void setUpdateChk(String[] updateChk) {
+		this.updateChk = updateChk;
+	}
 	
 	public String getS_type() {
 		return s_type;
