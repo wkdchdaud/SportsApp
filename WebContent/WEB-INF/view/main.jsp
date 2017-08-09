@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -36,7 +37,6 @@
 		</div>
 	</div>
 </header>
-
     <nav id="c-menu--slide-left" class="c-menu c-menu--slide-left">
 
 	<div class="profile">
@@ -139,13 +139,14 @@
       <p>통신판매업신고 : 2017-인천서구-0309호</p>
       <p>인천시 서구 보도진로 18번길 12(가좌동) 진성테크2층</p>
       <p>Copyright © <strong>모두의 스포츠</strong> All rights reserved. </p>
+    
     </div>
 </footer>
-
+</html>
+      
   </section>
   <div id="c-mask" class="c-mask"></div>
   <script src="/common/js/classie.js"></script>
   <script src="/common/js/common.js"></script>
 </body>
 
-</html>
