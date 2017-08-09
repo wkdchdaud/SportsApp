@@ -30,11 +30,11 @@
 <script type="text/javascript">
 <%
 for (NoticeDTO nDTO : nList) {
-	String notice_no = nDTO.getNOTICE_NO();
+	String notice_no = nDTO.getNotice_no();
 
 %>
 	function deleteConfirm(){
-		if(confirm("삭제 하시겠습니까?") == true){
+		if(confirm("작성한 게시글을 삭제하시겠습니까?") == true){
 			location.href = "/admin/notice/NoticeDelete.do?notice_no=<%=notice_no%>";
 		}else{
 			return false;
@@ -144,17 +144,17 @@ for (NoticeDTO nDTO : nList) {
 
 										<tr>
 											<td>제목</td>
-											<td><%=nDTO.getTITLE()%></td>
+											<td><%=nDTO.getTitle()%></td>
 										</tr>
 
 										<tr>
-											<td colspan="2" align="right">작성자 : <%=nDTO.getREG_USER_NO()%>
-												&nbsp;&nbsp; 작성일자 : <%=nDTO.getREG_DT()%></td>
+											<td colspan="2" align="right">작성자 : <%=nDTO.getReg_user_no()%>
+												&nbsp;&nbsp; 작성일자 : <%=nDTO.getReg_dt()%></td>
 										</tr>
 
 										<tr>
 
-											<td colspan="2" style="height: 400px"><%=nDTO.getCONTENTS()%></td>
+											<td colspan="2" style="height: 400px"><%=nDTO.getContents()%></td>
 										</tr>
 
 										</tbody>
@@ -169,7 +169,7 @@ for (NoticeDTO nDTO : nList) {
 								value="돌아가기" /> <input type="button"
 								onclick="deleteConfirm()"
 								value="삭제" /> <input type="button"
-								onclick="location.href='/admin/notice/NoticeEditInfo.do?notice_no=<%=nDTO.getNOTICE_NO()%>'"
+								onclick="location.href='/admin/notice/NoticeEditInfo.do?notice_no=<%=nDTO.getNotice_no()%>'"
 								value="수정" />
 							<%
 								}

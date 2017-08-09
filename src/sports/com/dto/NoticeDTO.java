@@ -2,68 +2,91 @@ package sports.com.dto;
 
 public class NoticeDTO {
 
-	private String USER_NO;
-	private String TITLE;
-	private String CONTENTS;
-	private String NOTICE_YN;
-	private String REG_USER_NO;
-	private String REG_DT;
-	private String CHG_USER_NO;
-	private String CHG_DT;
-	private String NOTICE_NO;
+	private String user_no;
+	private String title;
+	private String contents;
+	private String notice_yn;
+	private String reg_user_no;
+	private String reg_dt;
+	private String chg_user_no;
+	private String chg_dt;
+	private String notice_no;
+	private String read_more;
+	private String[] allCheckSeq;
+	private String search;
 	
-	public String getUSER_NO() {
-		return USER_NO;
+	public String getSearch() {
+		return search;
 	}
-	public void setUSER_NO(String uSER_NO) {
-		USER_NO = uSER_NO;
+	public void setSearch(String search) {
+		this.search = search;
 	}
-	public String getTITLE() {
-		return TITLE;
+	public String[] getAllCheckSeq() {
+		return allCheckSeq;
 	}
-	public void setTITLE(String tITLE) {
-		TITLE = tITLE;
+	public void setAllCheckSeq(String[] allCheckseq) {
+		this.allCheckSeq = allCheckseq;
 	}
-	public String getCONTENTS() {
-		return CONTENTS;
+	public String getUser_no() {
+		return user_no;
 	}
-	public void setCONTENTS(String cONTENTS) {
-		CONTENTS = cONTENTS;
+	public void setUser_no(String user_no) {
+		this.user_no = user_no;
 	}
-	public String getNOTICE_YN() {
-		return NOTICE_YN;
+	public String getTitle() {
+		return title;
 	}
-	public void setNOTICE_YN(String nOTICE_YN) {
-		NOTICE_YN = nOTICE_YN;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public String getREG_USER_NO() {
-		return REG_USER_NO;
+	public String getContents() {
+		return contents;
 	}
-	public void setREG_USER_NO(String rEG_USER_NO) {
-		REG_USER_NO = rEG_USER_NO;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
-	public String getREG_DT() {
-		return REG_DT;
+	public String getNotice_yn() {
+		return notice_yn;
 	}
-	public void setREG_DT(String rEG_DT) {
-		REG_DT = rEG_DT;
+	public void setNotice_yn(String notice_yn) {
+		this.notice_yn = notice_yn;
 	}
-	public String getCHG_USER_NO() {
-		return CHG_USER_NO;
+	public String getReg_user_no() {
+		return reg_user_no;
 	}
-	public void setCHG_USER_NO(String cHG_USER_NO) {
-		CHG_USER_NO = cHG_USER_NO;
+	public void setReg_user_no(String reg_user_no) {
+		this.reg_user_no = reg_user_no;
 	}
-	public String getCHG_DT() {
-		return CHG_DT;
+	public String getReg_dt() {
+		return reg_dt;
 	}
-	public void setCHG_DT(String cHG_DT) {
-		CHG_DT = cHG_DT;
+	public void setReg_dt(String reg_dt) {
+		this.reg_dt = reg_dt;
 	}
-	public String getNOTICE_NO() {
-		return NOTICE_NO;
+	public String getChg_user_no() {
+		return chg_user_no;
 	}
-	public void setNOTICE_NO(String nOTICE_NO) {
-		NOTICE_NO = nOTICE_NO;
+	public void setChg_user_no(String chg_user_no) {
+		this.chg_user_no = chg_user_no;
 	}
+	public String getChg_dt() {
+		return chg_dt;
+	}
+	public void setChg_dt(String chg_dt) {
+		this.chg_dt = chg_dt;
+	}
+	public String getNotice_no() {
+		return notice_no;
+	}
+	public void setNotice_no(String notice_no) {
+		this.notice_no = notice_no;
+	}
+	public String getRead_more() {
+		return read_more;
+	}
+	public void setRead_more(String read_more) {
+		this.read_more = read_more;
+	}
+	
+	
 }

@@ -12,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import sports.com.dto.ProductInfoDTO;
+import sports.com.dto.ProductInfoOptionDTO;
 import sports.com.service.IProductInfoService;
 import sports.com.util.CmmUtil;
 
@@ -58,9 +60,8 @@ public class ProductInfoController {
 		log.info(this.getClass().getName()+"ProductInfoList end");
 		
 		
-		return "/admin/ProductInfo/ProductInfoList";
+		return "/admin/ProductInfo/sports_goods";
 	}
-	
 	
 	/*디테일 controller*/
 	
@@ -317,17 +318,207 @@ public class ProductInfoController {
 		model.addAttribute("url", url);
 		 }
 		return "/redirect";
+	}
+	
 		
+		/*검색controller*/    
+		
+		@RequestMapping(value = "admin/ProductInfo/allSearch")
+		public @ResponseBody List<ProductInfoDTO> allSearch(@RequestParam(value = "price") String price,@RequestParam(value="name") String name) throws Exception{
+			log.info(this.getClass().getName() + "all Search Start !!");
+			log.info(name);
+			
+	
+			ProductInfoDTO bDTO = new ProductInfoDTO();
+			System.out.println("allSearch");
+			System.out.println("price : " + price);
+			System.out.println("name : " + name);
+			
+			bDTO.setProd_name(name);
+			
+			bDTO.setProd_price(price);
+			
+			System.out.println("get name :"+bDTO.getProd_name());
+			System.out.println("get sele : "+ bDTO.getProd_price());
+			
+			List<ProductInfoDTO> RList = productInfoService.getAllSearch(bDTO);
+			System.out.println("안녕 : RList size : "+RList.size());
+			
+			if(RList==null){
+				RList = new ArrayList<ProductInfoDTO>();
+				
+			}
+		
+			
+			log.info(this.getClass().getName()+"all Search end");
+			
+				
+		  return RList;
+	}
+	
+		@RequestMapping(value = "admin/ProductInfo/lowpriceSearch")
+		public @ResponseBody List<ProductInfoDTO> lowpriceSearch(@RequestParam(value = "price") String price,@RequestParam(value="name") String name) throws Exception{
+			log.info(this.getClass().getName() + "low Search Start !!");
+			log.info(name);
+			
+	
+			ProductInfoDTO bDTO = new ProductInfoDTO();
+			System.out.println("price : " + price);
+			System.out.println("name : " + name);
+			if(name==""){
+				System.out.println("hello null");
+			}
+			bDTO.setProd_name(name);
+			bDTO.setProd_price(price);
+			System.out.println("get name :"+bDTO.getProd_name());
+			System.out.println("get sele : "+ bDTO.getProd_price());
+			List<ProductInfoDTO> RList = productInfoService.getLowpriceSearch(bDTO);
+			System.out.println("안녕"+RList.size());
+			
+			if(RList==null){
+				RList = new ArrayList<ProductInfoDTO>();
+				
+			}
+			
+			log.info(this.getClass().getName()+"low Search end");
+			
+				
+			
+		  return RList;
+	}
+		@RequestMapping(value = "admin/ProductInfo/highpriceSearch")
+		public @ResponseBody List<ProductInfoDTO> highpriceSearch(@RequestParam(value = "price") String price,@RequestParam(value="name") String name) throws Exception{
+			log.info(this.getClass().getName() + "highpriceSearch Start !!");
+			log.info(name);
+			
+			
+			ProductInfoDTO bDTO = new ProductInfoDTO();
+			System.out.println("price : " + price);
+			System.out.println("name : " + name);
+			bDTO.setProd_name(name);
+			bDTO.setProd_price(price);
+			List<ProductInfoDTO> RList = productInfoService.getHighpriceSearch(bDTO);
+			System.out.println("안녕"+RList.size());
+			if(RList==null){
+				RList = new ArrayList<ProductInfoDTO>();
+				
+			}
+			
+			log.info(this.getClass().getName()+"highpriceSearch end");
+			
+		
+			
+		  return RList;
+	}
+         /*더보기 */
+		@RequestMapping(value="admin/ProductInfo/readMore")
+		public @ResponseBody List<ProductInfoDTO> getReadMore(@RequestParam(value="cnt") int cnt) throws Exception{
+			
+			System.out.println("버튼 리드 모어 고고고고고");
+			
+			ProductInfoDTO pdto = new ProductInfoDTO();
+		
+			pdto.setRead_more(cnt);
+			
+			List<ProductInfoDTO> plist = productInfoService.getReadMore(pdto);
+			
+			System.out.println("pdto.getRead_more() : "+pdto.getRead_more());
+			
+			for ( ProductInfoDTO tdto : plist){
+				System.out.println("내용 가져오기 : " + tdto.getProd_price());
+			}
+			pdto = null;
+			
+			return plist;
+		}
+		
+		/*옵션등록 controller*/
+		@RequestMapping(value="admin/ProductInfo/ProductOptionReg",method=RequestMethod.GET)
+		public String ProductOptionReg(HttpServletRequest request, HttpServletResponse response, 
+				ModelMap model) throws Exception
+				{
+			
+			log.info(this.getClass().getName()+"productOptionReg start!");
+
+		
+			log.info(this.getClass().getName()+"productOptionRegEnd");
+			return "/admin/ProductInfo/ProductInfoOption";
+			
+				}
+		
+		/*옵션등록(insert) controller*/
+		
+		@RequestMapping(value="admin/ProductInfo/ProductOptionInsert",method=RequestMethod.POST)
+		public String ProductOptionInsert(HttpServletRequest request, HttpServletResponse response, 
+				ModelMap model) throws Exception
+				{
+			
+			
+			log.info(this.getClass().getName()+"ProductOptionInsertStart");
+			 String msg ="";
+			 String url ="/admin/ProductInfo/List.do";
+			 
+			 try{
+			
+			 ProductInfoOptionDTO rdto = new ProductInfoOptionDTO();
+			 
+		   
+			 String opt_name = CmmUtil.nvl(request.getParameter("opt_name"));
+			 System.out.println("OPT_NAME  : " +  CmmUtil.nvl(request.getParameter("opt_name")));
+			 
+			 String opt_kind =CmmUtil.nvl(request.getParameter("opt_kind"));
+			 System.out.println("OPT_KIND  : " + CmmUtil.nvl(request.getParameter("opt_kind")));
+			 
+			 String opt_price =CmmUtil.nvl(request.getParameter("opt_price"));
+			 System.out.println("OPT_PRICE  : " + CmmUtil.nvl(request.getParameter("opt_price")));
+			 
+		
+			 rdto.setOpt_name(opt_name);	
+			 rdto.setOpt_kind(opt_kind);
+			 rdto.setOpt_price(opt_price);
+			 
+			 
+			 
+			 productInfoService.ProductInfoOptionInsert(rdto);
+			 
+			 
+			 
+			 msg = "등록 완료";
+			 url ="/admin/ProductInfo/ProductInfoReg.do";
+			 
+			 rdto= null;
+			 
+			 } catch(Exception e){
+				 
+			 msg = "등록 실패"+ e.toString();
+			 url ="/admin/ProductInfo/ProductInfoReg.do";
+			
+				log.info(e.toString());
+				e.printStackTrace();
+				
+			 }
+			 finally{
+			
+			log.info(this.getClass().getName()+"productInfoProductinfoInsertEnd");
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			 }
+			return "/redirect";
+			
+				}
 	
 		
 		
 		
 		
-	}
+		
+		
+		
+		
 		
 		
 			}
 
     
-    
+
 

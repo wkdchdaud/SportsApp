@@ -3,8 +3,8 @@
 <mapper namespace="sports.com.persistance.mapper.ProductInfoMapper">
 
 <select id ="getProductInfolist" resultType="ProductInfoDTO">
-
 SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
+ORDER BY PROD_NO+0 DESC LIMIT 6;
 
 </select>
 
@@ -17,7 +17,9 @@ SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS FROM PRODUCT_INFO WHERE pro
 
 <insert id ="ProductInfoInsert" parameterType="ProductInfoDTO">
 
-INSERT INTO PRODUCT_INFO (PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS) VALUES(8,#{prod_name},#{prod_price},#{prod_contents})
+	INSERT INTO PRODUCT_INFO 
+		(PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS)
+	VALUES ((SELECT IFNULL(MAX(A.PROD_NO), 1000000)+1 FROM PRODUCT_INFO A), #{prod_name}, #{prod_price}, #{prod_contents})
 
 </insert>
 
@@ -27,7 +29,9 @@ INSERT INTO PRODUCT_INFO (PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS) VALUES(
 		WHERE PROD_NO = #{prod_no}	
 	</delete>
 	
-	
+		<!-- order by <if test="prod_price.equals(lowprice)"> prod_price ASC </if>
+		<if test="prod_price.equals()"> prod_price DESC </if> -->
+		
 <update id="ProductInfoUpdate" parameterType="ProductInfoDTO">
 	
 		UPDATE PRODUCT_INFO
@@ -37,6 +41,46 @@ INSERT INTO PRODUCT_INFO (PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS) VALUES(
 		WHERE PROD_NO = #{prod_no}	
 	
 	</update>
+	
+<select resultType="ProductInfoDTO" id="getAllSearch" parameterType="ProductInfoDTO">
+ SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
+ 	<if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
+ 	ORDER BY PROD_NO+0 DESC LIMIT 6
+  
+ </select>
+                                        
+<select resultType="ProductInfoDTO" id="getHighpriceSearch" parameterType="ProductInfoDTO">
+SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
+  <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
+ ORDER BY PROD_PRICE+0 DESC LIMIT 6 
+ </select>
+
+<select resultType="ProductInfoDTO" id="getLowpriceSearch" parameterType="ProductInfoDTO">
+SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
+   <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
+ ORDER BY PROD_PRICE+0 ASC LIMIT 6 
+
+ </select>
+
+<!-- 더보기 버튼 구현 -->
+	<select resultType="ProductInfoDTO" id="getReadMore" parameterType="ProductInfoDTO" >
+		SELECT PROD_NO, PROD_NAME, PROD_PRICE
+		FROM PRODUCT_INFO
+		ORDER BY 
+		PROD_NO DESC
+		LIMIT 6 OFFSET ${read_more}
+	</select>
+
+
+	<!-- 옵션  -->
+	<insert id ="ProductInfoOptionInsert" parameterType="ProductInfoOptionDTO">
+
+	INSERT INTO PROD_OPTION 
+		(PROD_NO, OPT_NO, OPT_NAME, OPT_KIND, OPT_PRICE)
+	VALUES ((SELECT IFNULL(MAX(A.PROD_NO), 1000000)+1 FROM PROD_OPTION A), #{opt_no}, #{opt_name}, #{opt_kind}, #{opt_price})
+
+</insert>
+	
 	
 
 </mapper>

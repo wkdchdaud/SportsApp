@@ -26,6 +26,75 @@
 	rel='stylesheet' type='text/css' />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공지사항 리스트</title>
+
+<script type="text/javascript">
+	function doSubmit(f) {
+
+		if (f.title.value == "") {
+
+			alert("제목을 입력하시기 바랍니다.");
+			f.title.focus();
+			return false;
+
+		}
+
+		if (f.contents.value == "") {
+
+			alert("내용을 입력하시기 바랍니다.");
+			f.contents.focus();
+			return false;
+
+		}
+
+		if (calBytes(f.title.value) > 100) {
+
+			alert("제목은 최대 100Bytes까지만 입력 가능합니다.");
+			f.title.focus();
+			return false;
+
+		}
+
+		if (calBytes(f.contents.value) > 4000) {
+
+			alert("내용은 최대 4000Bytes까지만 입력 가능합니다.");
+			f.contents.focus();
+			return false;
+
+		}
+
+	}
+
+	function calBytes(str) {
+
+		var tcount = 0;
+		var tmpStr = new String(str);
+		var strCnt = tmpStr.length;
+
+		var onechar;
+
+		for (i = 0; i < strCnt; i++) {
+
+			onechar = tmpStr.charAt(i);
+
+			if (escape(onechar).length > 4) {
+
+				tcount += 2;
+
+			} else {
+
+				tcount += 1;
+
+			}
+
+		}
+
+		return tcount;
+
+	}
+</script>
+
+
+
 </head>
 <body>
 	<div id="wrapper">
@@ -110,7 +179,7 @@
 						<div class="panel panel-default" style="width: 100%">
 							<div class="panel-heading">공지사항 등록</div>
 							<!--    Context Classes  -->
-							<form method='post' action="/admin/notice/NoticeInsert.do">
+							<form method='post' action="/admin/notice/NoticeInsert.do" onsubmit="return doSubmit(this);">
 								<div class="panel panel-default" style="width: 100%">
 
 
@@ -125,15 +194,16 @@
 														maxlength="50"></td>
 												</tr>
 												<tr>
-													<td colspan="2">공지글 게시여부&nbsp;&nbsp;&nbsp; 예&nbsp;<input type="radio"
-														name="notice_yn" value="1" />&nbsp;&nbsp; 아니오&nbsp;<input type="radio"
-														name="notice_yn" value="2" checked />
+													<td colspan="2">중요 공지글 게시여부&nbsp;&nbsp;&nbsp; 예&nbsp;<input
+														type="radio" name="notice_yn" value="1" />&nbsp;&nbsp;
+														아니오&nbsp;<input type="radio" name="notice_yn" value="2"
+														checked />
 													</td>
 												</tr>
 												<tr>
 													<td colspan="2"><textarea name="contents"
-															maxlength="1500" value=""
-															style="width: 300px; height: 500px"></textarea></td>
+															maxlength="1500" 
+															style="width: 510px; height: 500px" wrap="physical" ></textarea></td>
 												</tr>
 											</tbody>
 

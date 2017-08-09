@@ -1,16 +1,8 @@
 package sports.com.controller.admin;
 
 import java.util.List;
-import java.util.Properties;
 
 import javax.annotation.Resource;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import sports.com.dto.UserDTO;
 import sports.com.service.IUserService;
+import sports.com.util.AES256Util;
 import sports.com.util.CmmUtil;
 import sports.com.util.MailUtil;
+import sports.com.util.SHAUtill;
 
 @Controller
 public class UserController {
@@ -45,11 +39,11 @@ public class UserController {
 		log.info("welcome /user/join_proc start");
 		UserDTO userDTO = new UserDTO();
 		
-		userDTO.setUser_id(CmmUtil.nvl(request.getParameter("id")));
-		userDTO.setPassword(CmmUtil.nvl(request.getParameter("pwd")));
-		userDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
-		userDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
-		userDTO.setTel(CmmUtil.nvl(request.getParameter("tel")));
+		userDTO.setUser_id(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("id"))));
+		userDTO.setPassword(SHAUtill.double_encryption(CmmUtil.nvl(request.getParameter("pwd"))));
+		userDTO.setUser_name(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("name"))));
+		userDTO.setEmail(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("email"))));
+		userDTO.setTel(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("tel"))));
 		UserDTO uDTO = userService.join_proc(userDTO);
 		
 		String subject = "회원가입을 축하합니다.";
@@ -82,17 +76,20 @@ public class UserController {
 			ModelMap model) throws Exception{
 		log.info("welcome /user/user_login_proc start");
 		UserDTO userDTO = new UserDTO();
-		userDTO.setUser_id(CmmUtil.nvl(request.getParameter("id")));
-		userDTO.setPassword(CmmUtil.nvl(request.getParameter("pwd")));
+		userDTO.setUser_id(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("id"))));
+		userDTO.setPassword(SHAUtill.double_encryption(CmmUtil.nvl(request.getParameter("pwd"))));
 		UserDTO ckDTO = userService.login_proc(userDTO); 
 		String msg = "";
 		String url = "";
 		if(ckDTO == null){
 			msg = "아이디 혹은 비밀번호가 잘못되었습니다.";
 			url = "/user/user_login.do";
+		}else if(CmmUtil.nvl(ckDTO.getEmail_first()).equals("N")){
+			msg = "이메일 인증을 완료해주세요.";
+			url = "/user/user_login.do";
 		}else{
 			request.getSession().setAttribute("user_no", ckDTO.getUser_no());
-			request.getSession().setAttribute("user_id", ckDTO.getUser_id());
+			request.getSession().setAttribute("user_id", AES256Util.strEncode(ckDTO.getUser_id()));
 			request.getSession().setAttribute("auth", ckDTO.getAuth());
 			url = "/main.do";
 		}
@@ -132,6 +129,27 @@ public class UserController {
 		return "/user/user_list";
 	}
 	
+	@RequestMapping(value="/user/user_list",method=RequestMethod.POST)
+	public String user_list_search(HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception{
+		log.info("welcome /user/user_list_search start");
+		UserDTO userDTO = new UserDTO();
+		userDTO.setS_type(CmmUtil.nvl(request.getParameter("s_type")));
+		userDTO.setS_text(CmmUtil.nvl(request.getParameter("s_text")));
+		
+		if(CmmUtil.nvl(request.getParameter("s_type")).equals("no") || CmmUtil.nvl(request.getParameter("s_type")).equals("")){
+			List<UserDTO> rList = userService.getUser_list();
+			model.addAttribute("rList",rList);
+			rList = null;
+		}else{
+			List<UserDTO> rList = userService.getUser_list_search(userDTO);
+			model.addAttribute("rList",rList);
+			rList = null;
+		}
+		log.info("welcome /user/user_list_search end");
+		return "/user/user_list";
+	}
+	
 	@RequestMapping(value="/user/user_info",method=RequestMethod.GET)
 	public String user_info(HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws Exception{
@@ -148,7 +166,7 @@ public class UserController {
 		return "/user/user_info";
 	}
 	
-	@RequestMapping(value="/user/user_update",method=RequestMethod.GET)
+	@RequestMapping(value="/user/user_change",method=RequestMethod.GET)
 	public String user_update_form(HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws Exception{
 		log.info("welcome /user/user_update start");
@@ -161,7 +179,7 @@ public class UserController {
 		userDTO = null;
 		
 		log.info("welcome /user/user_update end");
-		return "/user/user_update";
+		return "/user/user_change";
 	}
 	
 	@RequestMapping(value="/user/user_update_proc",method=RequestMethod.POST)
@@ -171,13 +189,13 @@ public class UserController {
 		
 		UserDTO userDTO = new UserDTO();
 		userDTO.setUser_no(CmmUtil.nvl(request.getParameter("user_no")));
-		userDTO.setUser_id(CmmUtil.nvl(request.getParameter("user_id")));
-		userDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
-		userDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
-		userDTO.setTel(CmmUtil.nvl(request.getParameter("tel")));
+		userDTO.setUser_id(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("id"))));
+		userDTO.setUser_name(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("name"))));
+		userDTO.setEmail(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("email"))));
+		userDTO.setTel(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("tel"))));
 		
 		if(CmmUtil.nvl(request.getParameter("pwd_change")).equals("o")){
-			userDTO.setPassword(CmmUtil.nvl(request.getParameter("password")));
+			userDTO.setPassword(SHAUtill.double_encryption(CmmUtil.nvl(request.getParameter("pwd"))));
 			userService.update_User(userDTO);
 		}else{
 			userService.update_User_NP(userDTO);
@@ -203,7 +221,7 @@ public class UserController {
 		log.info("welcome /user/user_delete start");
 		UserDTO userDTO = new UserDTO();
 		userDTO.setUser_no(CmmUtil.nvl(request.getParameter("user_no")));
-		
+		userDTO.setChg_user_no(CmmUtil.nvl((String)request.getSession().getAttribute("user_no")));
 		userService.delete_user(userDTO);
 		
 		String msg = "탈퇴되었습니다.";
@@ -250,8 +268,8 @@ public class UserController {
 			ModelMap model) throws Exception{
 		log.info("welcome /user/email_send_test start");
 		UserDTO uDTO = new UserDTO();
-		uDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
-		uDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
+		uDTO.setUser_name(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("name"))));
+		uDTO.setEmail(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("email"))));
 		
 		if(userService.email_send_id(uDTO)){
 			model.addAttribute("msg","T");
@@ -268,8 +286,8 @@ public class UserController {
 			ModelMap model) throws Exception{
 		log.info("welcome /user/id_found_proc start");
 		UserDTO userDTO = new UserDTO();
-		userDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
-		userDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
+		userDTO.setUser_name(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("name"))));
+		userDTO.setEmail(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("email"))));
 		userDTO.setEmail_ck(CmmUtil.nvl(request.getParameter("email_ck")));
 		
 		UserDTO uDTO = userService.getUser_ID(userDTO);
@@ -307,9 +325,9 @@ public class UserController {
 		log.info("welcome /user/email_send_pw start");
 		
 		UserDTO uDTO = new UserDTO();
-		uDTO.setUser_id(CmmUtil.nvl(request.getParameter("id")));
-		uDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
-		uDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
+		uDTO.setUser_id(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("id"))));
+		uDTO.setUser_name(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("name"))));
+		uDTO.setEmail(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("email"))));
 		
 		if(userService.email_send_pw(uDTO)){
 			model.addAttribute("msg","T");
@@ -326,9 +344,9 @@ public class UserController {
 			ModelMap model) throws Exception{
 		log.info("welcome /user/pw_change_form start");
 		UserDTO userDTO = new UserDTO();
-		userDTO.setUser_id(CmmUtil.nvl(request.getParameter("id")));
-		userDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
-		userDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
+		userDTO.setUser_id(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("id"))));
+		userDTO.setUser_name(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("name"))));
+		userDTO.setEmail(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("email"))));
 		userDTO.setEmail_ck(CmmUtil.nvl(request.getParameter("email_ck")));
 		
 		UserDTO uDTO = userService.get_pwfound(userDTO);
@@ -359,7 +377,7 @@ public class UserController {
 		log.info("welcome /user/pw_change_proc start");
 		UserDTO userDTO = new UserDTO();
 		userDTO.setUser_no(CmmUtil.nvl(request.getParameter("user_no")));
-		userDTO.setPassword(CmmUtil.nvl(request.getParameter("password")));
+		userDTO.setPassword(SHAUtill.double_encryption(CmmUtil.nvl(request.getParameter("pwd"))));
 		
 		userService.password_change(userDTO);
 		
@@ -369,5 +387,30 @@ public class UserController {
 		userDTO = null;
 		log.info("welcome /user/pw_change_proc end");
 		return "/redirect";
+	}
+	
+	@RequestMapping(value="/user/id_check",method=RequestMethod.POST)
+	public String id_check(HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception{
+		log.info("welcome /user/id_check start");
+		UserDTO userDTO = new UserDTO();
+		userDTO.setUser_id(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("id"))));
+		
+		UserDTO uDTO = userService.id_check(userDTO);
+		if(uDTO == null){
+			uDTO = new UserDTO();
+		}
+		
+		if(CmmUtil.nvl(uDTO.getUser_id()).equals("")){
+			model.addAttribute("msg","Y");
+		}else{
+			if(CmmUtil.nvl(uDTO.getDelete_yn()).equals("Y")){
+				model.addAttribute("msg","Y");
+			}else{
+				model.addAttribute("msg","N");
+			}
+		}
+		log.info("welcome /user/id_check end");
+		return "/user/ch_json";
 	}
 }

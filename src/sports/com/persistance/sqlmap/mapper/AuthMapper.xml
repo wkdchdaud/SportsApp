@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sports.com.persistance.mapper.AuthMapper">
+
+
+
+
+
+<select id="authList" resultType="UserDTO">
+SELECT USER_NO, USER_ID, USER_NAME, AUTH
+FROM USER_INFO;
+</select>
+
+
+
+
+
+</mapper>

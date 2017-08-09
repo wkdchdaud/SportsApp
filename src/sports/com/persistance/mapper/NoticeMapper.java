@@ -20,5 +20,12 @@ public interface NoticeMapper {
 	void deleteNoticeInfo(NoticeDTO nDTO) throws Exception;
 
 	List<NoticeDTO> getNoticeDetailInfo(NoticeDTO nDTO)throws Exception;
+	
+	List<NoticeDTO> getNotice_MoreView(NoticeDTO nDTO)throws Exception;
+
+	void deleteCheckList(NoticeDTO nDTO) throws Exception;
+
+	List<NoticeDTO> getSearchList(NoticeDTO nDTO)throws Exception;
+	
 
 }

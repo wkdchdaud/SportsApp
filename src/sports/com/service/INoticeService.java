@@ -19,4 +19,10 @@ public interface INoticeService {
 	void deleteNoticeInfo(NoticeDTO nDTO) throws Exception;
 
 	List<NoticeDTO> getNoticeDetailInfo(NoticeDTO nDTO) throws Exception;
+	
+	List<NoticeDTO> Notice_MoreView(NoticeDTO nDTO) throws Exception;
+
+	void deleteCheckList(NoticeDTO nDTO) throws Exception;
+
+	List<NoticeDTO> searchNoticeList(NoticeDTO nDTO)throws Exception;
 }

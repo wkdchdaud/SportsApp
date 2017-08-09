@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import sports.com.dto.NoticeDTO;
 import sports.com.dto.QADTO;
 import sports.com.persistance.mapper.QAMapper;
 import sports.com.service.IQAService;
@@ -42,6 +43,11 @@ public class QAService implements IQAService {
 	}	
 	
 	@Override
+	public void deleteQAList(QADTO qaDTO) throws Exception {
+		qaMapper.deleteQAList(qaDTO);
+	}
+	
+	@Override
 	public void insertQAAnswerDetail(QADTO qaDTO) throws Exception {
 		qaMapper.insertQAAnswerDetail(qaDTO);
 	}
@@ -59,6 +65,16 @@ public class QAService implements IQAService {
 	@Override
 	public void deleteQAAnswerDetail(QADTO qaDTO) throws Exception {
 		qaMapper.deleteQAAnswerDetail(qaDTO);
+	}
+	
+	@Override
+	public List<QADTO> getQAMoreView(QADTO qaDTO) throws Exception {
+		return qaMapper.getQAMoreView(qaDTO);
+	}
+	
+	@Override
+	public List<QADTO> getQASearchList(QADTO qaDTO) throws Exception{
+		return qaMapper.getQASearchList(qaDTO);
 	}
 	
 }

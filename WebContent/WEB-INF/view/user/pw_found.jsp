@@ -8,9 +8,10 @@
 
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/user_js.js"></script>
 <script type="text/javascript">
 	var cnt = 0;
-
+	
 	function sendEmail() {
 		var name = $('#name').val();
 		var email = $('#email').val();
@@ -31,6 +32,12 @@
 			$('#email').focus();
 			return false;
 		}
+		if(validateEmail(email)){
+			alert('올바른 이메일을 입력해주세요.');
+			$('#email').focus();
+			return false;
+		}
+		
 		
 		var params = "name="+name+"&email="+email + "&id=" +id;
 		if(cnt==0){
@@ -55,6 +62,7 @@
 	function ck(msg) {
 		if(msg == "T"){
 			var f = document.getElementById("f");
+			f.id.readOnly = true;
 			f.name.readOnly = true;
 			f.email.readOnly = true;
 			alert('인증번호를 발송하였습니다.');
@@ -64,9 +72,6 @@
 		}
 	}
 	
-</script>
-
-<script type="text/javascript">
 	function clSubmit(f) {
 		if(cnt == 0){
 			alert('인증번호를 발급받으세요.');

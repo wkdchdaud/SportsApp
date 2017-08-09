@@ -18,6 +18,7 @@ import sports.com.service.IAnalysisService;
 import sports.com.service.IUserService;
 import sports.com.util.CmmUtil;
 import sports.com.util.RUtil;
+import sports.com.dto.Ord_testDTO;
 import sports.com.dto.R_testDTO;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class DataAnalysisController {
 	
 	
 	/*매출 분석 정보 시작*/
-	@RequestMapping(value="sales/List" , method=RequestMethod.GET)
+	@RequestMapping(value="/admin/sale/list" , method=RequestMethod.GET)
 	public String sales_Info(HttpSession session, HttpServletRequest request, HttpServletResponse response, ModelMap model ) throws Exception{
 		System.out.println("로그인포 시작 : ");
 		log.info(Logger.getLogger(this.toString()));
@@ -67,15 +68,18 @@ public class DataAnalysisController {
 	}
 
 	/*매출 분석 정보 모리스js 차트 값 아작스 구현 */
-	@RequestMapping(value="sales/sale_chart")
-	public @ResponseBody List<R_testDTO> sale_chart(@RequestParam(value= "sale_date_mo") String day_date) throws Exception
+	@RequestMapping(value="/admin/sale/sale_chart")
+	public @ResponseBody List<R_testDTO> sale_chart(@RequestParam(value= "sale_date_mo") String day_date, @RequestParam(value="cal_day") String cal_day) throws Exception
 	{
-		System.out.println("word : " + day_date);
+		System.out.println("day_date : " + day_date);
+		System.out.println("cal_day : " + cal_day);
 		
 		R_testDTO rdto= new R_testDTO();
 		rdto.setSale_date(day_date);
+		rdto.setCal_day(cal_day);
 		
 		log.info("겟 세일데이트  :" + rdto.getSale_date());
+		log.info("겟 cal_day  :" + rdto.getCal_day());
 		
 		List<R_testDTO> sList = analysisService.sale_chart(rdto);
 
@@ -85,18 +89,20 @@ public class DataAnalysisController {
 	}
 	
 	//매출 분석 정보 매출 순위 정보 테이블로 아작스 구현
-	@RequestMapping(value="sales/sale_table")
-	public @ResponseBody List<R_testDTO> sale_table(@RequestParam(value="sale_date_mo") String day_date) throws Exception
+	@RequestMapping(value="/admin/sale/sale_table")
+	public @ResponseBody List<R_testDTO> sale_table(@RequestParam(value= "sale_date_mo") String day_date, @RequestParam(value="cal_day") String cal_day) throws Exception
 	{
-		log.info("day_date : " + day_date);
+		log.info("day_dat e : " + day_date);
 		
 		R_testDTO rdto = new R_testDTO();
 		
 		rdto.setSale_date(day_date);
+		rdto.setCal_day(cal_day);
 		
 		List<R_testDTO> tlist = analysisService.sale_table(rdto);
 		
-		log.info("sale_table (세일데이트): "+rdto.getSale_date());
+		log.info("테이블 아작스 구현 sale_table (세일데이트): "+rdto.getSale_date());
+		log.info("테이블 아작스 구현 cal_day : "+ rdto.getCal_day());
 		
 		rdto=null;
 		
@@ -121,13 +127,24 @@ public class DataAnalysisController {
 	{
 		log.info("R PromGramming Start!");
 //		연관성분석 
-		List<R_testDTO> R_list = analysisService.getAnalysisList();
+		List<Ord_testDTO> R_list = analysisService.getAnalysisList();
 //		System.out.println("R_list.get(0): "+ R_list.get(0).getPrice());
 		RUtil auels_util = new RUtil();
 		
-		double qwe = auels_util.R_list(R_list);
+		auels_util.R_list(R_list);
 		
-		System.out.println("R Apriori 알고리즘 으로 나온 값 :::: " +qwe); 
+		System.out.println(R_list.size());
+		
+		
+	/*	
+		for ( Ord_testDTO odto : R_list){
+			System.out.println("odto.getOp_no(); : " + odto.getOp_no());
+			System.out.println("getOrd_no() : " + odto.getOrd_no());
+		}
+		*/
+//		double qwe = auels_util.R_list(R_list);
+		
+//		System.out.println("R Apriori 알고리즘 으로 나온 값 :::: " +qwe); 
 		
 		model.addAttribute("R_test",R_list);
 		
