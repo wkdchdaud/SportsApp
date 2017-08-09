@@ -373,7 +373,7 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
         alert("selectedMarker는 "+selectedMarker) */
     	
     });
-}
+
 
 //***********************************************************************************
 
