@@ -15,7 +15,7 @@ if (rDTO==null) {
 
 int access = 1; 
 
-if (CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO")).equals(CmmUtil.nvl(rDTO.getReg_user_no()))) {
+if (CmmUtil.nvl((String)session.getAttribute("user_no")).equals(CmmUtil.nvl(rDTO.getReg_user_no()))) {
 	access = 2;
 }
 %> 

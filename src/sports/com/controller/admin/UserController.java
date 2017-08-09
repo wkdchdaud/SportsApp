@@ -91,6 +91,7 @@ public class UserController {
 			request.getSession().setAttribute("user_no", ckDTO.getUser_no());
 			request.getSession().setAttribute("user_id", AES256Util.strEncode(ckDTO.getUser_id()));
 			request.getSession().setAttribute("auth", ckDTO.getAuth());
+			log.info(ckDTO.getAuth());
 			url = "/main.do";
 		}
 		model.addAttribute("msg",msg);

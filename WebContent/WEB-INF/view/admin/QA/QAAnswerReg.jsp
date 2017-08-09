@@ -11,7 +11,7 @@ if (rDTO==null) {
 	rDTO = new QADTO();
 }
 
-String SESSION_USER_NO = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO"));
+String user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
 %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -43,9 +43,9 @@ function doSubmit(f) {
 	
 	var secretCheck = false;
 	
-	for (var i=0; i<f.secretYn.length; i++) {
+	for (var i=0; i<f.secret_yn.length; i++) {
 		
-		if (f.secretYn[i].checked) {
+		if (f.secret_yn[i].checked) {
 			secretCheck = true;
 		}
 		
@@ -54,7 +54,7 @@ function doSubmit(f) {
 	if (secretCheck==false) {
 		
 		alert("비밀글 여부를 선택하시기 바랍니다.");
-		f.secretYn[0].focus();
+		f.secret_yn[0].focus();
 		return false;
 		
 	}	
@@ -135,6 +135,8 @@ function calBytes(str) {
 
 	<input type="hidden" name="q_no" value="<%=CmmUtil.nvl(rDTO.getQ_no()) %>" />
 	<input type="hidden" name="title" value="<b>[RE]</b> <%=CmmUtil.nvl(rDTO.getTitle()) %>" />
+	<input type="hidden" name="secret_yn" value="<%=CmmUtil.nvl(rDTO.getSecret_yn()) %>" />
+	<input type="hidden" name="reg_user_no" value="<%=CmmUtil.nvl(rDTO.getReg_user_no()) %>" />
 	
 		<div class="panel panel-default" style="width: 100%">
 			<div class="panel-body">
@@ -151,14 +153,14 @@ function calBytes(str) {
 		<tr>
 			<td>비밀글 여부</td>
 			<td>
-				예 <input type="radio" name="secret_yn" value="1" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "1") %> />
+				예 <input type="radio" name="secret_yn" value="1" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "1") %> disabled="disabled" />
 				&nbsp;&nbsp;
-				아니오 <input type="radio" name="secret_yn" value="2" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "2") %> />
+				아니오 <input type="radio" name="secret_yn" value="2" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "2") %> disabled="disabled" />
 			</td>
 		</tr>
 		
 		<tr>
-			<td align="center" colspan="2"><textarea name="contents" style="width:300px; height:400px" maxlength="2000"></textarea></td>
+			<td align="center" colspan="2"><textarea name="contents" style="width:300px; height:400px" maxlength="2000" wrap="physical"></textarea></td>
 		</tr>
 			
 		<tr>

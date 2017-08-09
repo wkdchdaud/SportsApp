@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import sports.com.dto.QADTO;
 import sports.com.service.IQAService;
+import sports.com.util.AES256Util;
 import sports.com.util.CmmUtil;
 
 @Controller
@@ -74,7 +75,7 @@ public class CustomerQAController {
 		
 		try {
 			
-			String reg_user_no = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO"));
+			String reg_user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
 			String secret_yn = CmmUtil.nvl(request.getParameter("secret_yn"));
 			String title = CmmUtil.nvl(request.getParameter("title"));
 			String contents = CmmUtil.nvl(request.getParameter("contents"));
@@ -199,7 +200,7 @@ public class CustomerQAController {
 		
 		try {
 			
-			String reg_user_no = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO")); 
+			String reg_user_no = CmmUtil.nvl((String)session.getAttribute("user_no")); 
 			String qa_no = CmmUtil.nvl(request.getParameter("qa_no"));
 			String q_no = CmmUtil.nvl(request.getParameter("q_no"));
 			String answer_yn = CmmUtil.nvl(request.getParameter("answer_yn"));
@@ -367,14 +368,16 @@ public class CustomerQAController {
 			}
 			
 			if (qaDT.getSecret_yn().equals("1")) {
-				title += "<b>[SECRET]</b>";
+				title += "<img src='/common/images/ic_lock.png' class='ic_lock' alt='lock'>";
 				qaDT.setTitle(title);
 			}
 			
 			if (now - inputDate < (1000*60*60*24*3)) {
-				title += "<b>[NEW]</b>";
+				title += "<img src='/common/images/ic_new.png' alt='new' class='ic_new'>";
 				qaDT.setTitle(title);
 			}
+			
+			qaDT.setUser_name(AES256Util.strDecode(CmmUtil.nvl(qaDT.getUser_name())));
 			
 		}
 		
@@ -421,17 +424,19 @@ public class CustomerQAController {
 			
 			if (qaDT.getSecret_yn().equals("1")) {
 				
-				title += "<b>[SECRET]</b>";
+				title += "<img src='/common/images/ic_lock.png' class='ic_lock' alt='lock'>";
 				qaDT.setTitle(title);
 				
 			}
 			
 			if (now - inputDate < (1000*60*60*24*3)) {
 				
-				title += "<b>[NEW]</b>";
+				title += "<img src='/common/images/ic_new.png' alt='new' class='ic_new'>";
 				qaDT.setTitle(title);
 				
 			}
+			
+			qaDT.setUser_name(AES256Util.strDecode(CmmUtil.nvl(qaDT.getUser_name())));
 			
 		}	
 		
