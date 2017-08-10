@@ -265,7 +265,14 @@
 	}
 
 	function deleteConfirm() {
-
+		
+		var user_no =	"<%=CmmUtil.nvl(user_no)%>";//관리자만 삭제가능
+		alert("user_no :"+user_no);
+		if(user_no != "10000001"){
+			alert("관리자만 할 수 있습니다.");
+			return false;
+		}
+		
 		if (confirm("선택된 게시글을 삭제하시겠습니까?")) {
 			document.getElementById("f").submit();
 		} else {
