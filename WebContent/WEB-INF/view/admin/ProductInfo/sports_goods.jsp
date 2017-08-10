@@ -21,6 +21,7 @@ if (rList==null) {
     <title>모두의 스포츠</title>
     <!-- Styles : CSS & SASS Sorcemap -->
     <link rel="stylesheet" href="/common/css/style.css">
+    <link rel="stylesheet" href="/common/css/ProductList.css">
     <!-- JavaScirpt Sorcemap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="/common/js/jquery-ui.js"></script>
@@ -107,20 +108,26 @@ if (rList==null) {
                 </div>
                 <div class="list_wrap">
                     <ul class="sports_list">
-                        <li><a href="#">태권도</a></li>
-                        <li><a href="#">검도</a></li>
-                        <li><a href="#">합기도</a></li>
-                        <li><a href="#">복싱, MMA</a></li>
-                        <li><a href="#">스포츠용품(구기)</a></li>
-                        <li><a href="#">네트&amp;골대</a></li>
-                        <li><a href="#">휘트니스</a></li>
-                        <li><a href="#">스포츠의류</a></li>
-                        <li><a href="#">측정용품&amp;호각</a></li>
-                        <li><a href="#">펌프</a></li>
-                        <li><a href="#">정리용품</a></li>
-                        <li><a href="#">체육대회용품</a></li>
-                        <li><a href="#">학교체육용품</a></li>
-                        <li><a href="#">전체</a></li>
+                    	<li><a href="#">전체</a></li>
+                    	<li><a href="#">검도</a></li>
+                    	<li><a href="#">보호용품</a></li>
+                    	<li><a href="#">무술용품</a></li>
+                    	<li><a href="#">수련용품</a></li>
+                    	<li><a href="#">배구</a></li>
+                    	<li><a href="#">족구</a></li>
+                        <li><a href="#">배드민턴</a></li>
+                        <li><a href="#">권투</a></li>
+                        <li><a href="#">축구</a></li>
+                        <li><a href="#">스포츠 액세서리</a></li>
+                        <li><a href="#">헬스</a></li>
+                        <li><a href="#">테니스</a></li>
+                        <li><a href="#">탁구</a></li>
+                        <li><a href="#">농구</a></li>
+                        <li><a href="#">요가/필라테스</a></li>
+                        <li><a href="#">야구</a></li>
+                        <li><a href="#">자전거</a></li>
+                        <li><a href="#">수영</a></li>
+                        <li><a href="#">기타</a></li>
                     </ul>
                 </div>
                 <div class="goods_list_wrap">
@@ -135,7 +142,7 @@ if (rList==null) {
                                     <div class="info">
                                       
                                         <a href="/admin/ProductInfo/ProductInfoDetail.do?prod_no1=<%=CmmUtil.nvl(pdto.getProd_no()) %>"> <p class="title"><%=pdto.getProd_name() %></p></a>
-                                        <p class="price"><%=pdto.getProd_price() %></p>
+                                        <p class="price"><%=pdto.getProd_price() %>원</p>
                                     </div>
                                 </a>
                             </div>
@@ -143,8 +150,10 @@ if (rList==null) {
                      <%} %>
                      
                     </ul>
-                    <li><button class="register-btn thumb-btn" onclick="location.href='/admin/ProductInfo/ProductInfoReg.do' ">등록</button></li>
-                    <li><button class="edit-btn thumb-btn2">편집</button></li>
+                    
+                    <button class="register-btn thumb-btn" onclick="location.href='/admin/ProductInfo/ProductInfoReg.do' ">등록</button>
+                    <button class="edit-btn thumb-btn2">편집</button>
+                   
                 </div>
             </div>
         </div>

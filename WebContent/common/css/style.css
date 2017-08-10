@@ -874,7 +874,7 @@ body {
   overflow: hidden;
 }
 
-.goods_list_wrap li .thumb-btn { /* 총명수정 */
+.goods_list_wrap .register-btn { /* 총명수정 버튼 등록*/
   position: absolute;
   bottom: 0;
   left: 10px];
@@ -882,11 +882,19 @@ body {
   height: 40px;
   color: #fff;
   font-size: 15px;
-  width: 50%;
+  width: 40%;
   overflow: hidden;
+  margin-right: 2%;
 }
-
-.goods_list_wrap li .thumb-btn2 { /* 총명수정  편집버튼*/
+					/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+					   @         총명 수정 부분 시작                      @
+					   @									@
+					   @  									@
+					   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+					
+					*/
+					
+/* .goods_list_wrap .edit-btn { 총명수정  편집버튼
   position: absolute;
   bottom: 0;
   left: 0;
@@ -894,21 +902,21 @@ body {
   height: 40px;
   color: #fff;
   font-size: 15px;
-  width: 50%;
+  width: 40%;
   overflow: hidden;
+  
 }
 
-.goods_list_wrap li .thumb-btn.register-btn { /* 총명수정 */
+.goods_list_wrap .register-btn.thumb-btn { 총명수정 등록버튼 색상
   background: #ff6b3d;
 }
-
-.goods_list_wrap li .thumb-btn2.edit-btn { /* 총명수정 */
+.goods_list_wrap .edit-btn.thumb-btn2 { 총명수정 편집버튼 색상
   background: #1777cb;
 }
 
-.goods_list_wrap .goods_list li:first-child {
+.goods_list_wrap .goods_list li:nth-child(2n-1) { 총명수정 .goods_list_wrap .goods_list li:first-child
   margin-right: 2%;
-}
+} */
 
 .goods_list_wrap .goods_list li .thumb {
   width: 100%;
@@ -1052,9 +1060,9 @@ body {
   display: block;
 }
 
-.sports_list li:nth-child(13), .sports_list li:nth-child(14) {
+ .sports_list li:nth-child(19), .sports_list li:nth-child(20) {
   border-bottom: 0;
-}
+} /* 장총명수정 */
 
 .sports_list li:nth-child(3n-1) {
   border-right: 1px solid #bcbcbc;
