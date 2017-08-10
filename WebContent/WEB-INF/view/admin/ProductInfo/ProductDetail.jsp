@@ -152,27 +152,33 @@ if (rList==null) {
               <p class="sub_text">배송비 2,500원 (50,000원 이상 무료배송)</p>
             </div>
           </div>
+          
           <div class="goods_option">
+          
             <p class="blue_text">옵션 선택</p>
+            
             <div class="select_wrap">
-              <select class="col-2">
-              <option value="색상선택">색상선택</option>
-              <option value="빨강">빨강</option>
-              </select>
-              <select class="col-2">
-                <option value="선택">사이즈선택</option>
-                <option value="사이즈">사이즈1</option>
-              </select>
+				<select class="col-2">
+					<option value="색상선택">색상선택</option>
+					<option value="빨강">빨강</option>
+              	</select>
+				<select class="col-2" disabled="disabled">
+                	<option value="선택">사이즈선택</option>
+                	<option value="사이즈">사이즈1</option>
+              	</select>
             </div>
 
             <p class="blue_text">수량</p>
+            
             <div class="count_input">
-              <a class="incr-btn">–</a>
-              <input class="quantity" type="text" value="1" readonly="true">
-              <a class="incr-btn">+</a>
+				<a class="incr-btn">–</a>
+					<input class="quantity" type="text" value="1" readonly="true" />
+				<a class="incr-btn">+</a>
             </div>
             <div class="price_wrap">총금액<span class="price">33,000</span><span class="won">원</span></div>
+            
           </div>
+          
         </div>
 
         <div class="list_wrap">

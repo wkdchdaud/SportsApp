@@ -60,9 +60,9 @@ function doSubmit(f) {
 	
 	var secretCheck = false;
 	
-	for (var i=0; i<f.secretYn.length; i++) {
+	for (var i=0; i<f.secret_yn.length; i++) {
 		
-		if (f.secretYn[i].checked) {
+		if (f.secret_yn[i].checked) {
 			secretCheck = true;
 		}
 		
@@ -71,7 +71,7 @@ function doSubmit(f) {
 	if (secretCheck==false) {
 		
 		alert("비밀글 여부를 선택하시기 바랍니다.");
-		f.secretYn[0].focus();
+		f.secret_yn[0].focus();
 		return false;
 		
 	}	
@@ -152,6 +152,7 @@ function calBytes(str) {
 
 	<input type="hidden" name="qa_no" value="<%=CmmUtil.nvl(request.getParameter("qa_no")) %>" />
 	<input type="hidden" name="secret_yn" value="<%=CmmUtil.nvl(rDTO.getSecret_yn()) %>" />
+	<input type="hidden" name="title" value="<b>[RE]</b> <%=CmmUtil.nvl(rDTO.getTitle()) %>" />
 	
 		<div class="panel panel-default" style="width: 100%">
 			<div class="panel-body">
@@ -162,20 +163,20 @@ function calBytes(str) {
 		
 		<tr>
 			<td>제목</td>
-			<td><input type="text" name="title" maxlength="50" value="<%=CmmUtil.nvl(rDTO.getTitle()) %>" /></td>
+			<td><%=CmmUtil.nvl(rDTO.getTitle()) %></td>
 		</tr>
 		
 		<tr>
 			<td>비밀글 여부</td>
 			<td>
-				예 <input type="radio" name="secret_yn" value="1" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "1") %> />
+				예 <input type="radio" name="secret_yn" value="1" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "1") %> disabled="disabled" />
 				&nbsp;&nbsp;
-				아니오 <input type="radio" name="secret_yn" value="2" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "2") %> />
+				아니오 <input type="radio" name="secret_yn" value="2" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "2") %> disabled="disabled" />
 			</td>
 		</tr>
 		
 		<tr>
-			<td align="center" colspan="2"><textarea name="contents" style="width: 300px; height: 400px" maxlength="2000"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("<br>", "\r\n") %></textarea></td>
+			<td align="center" colspan="2"><textarea name="contents" style="width: 300px; height: 400px" maxlength="2000" wrap="physical"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("<br>", "\r\n") %></textarea></td>
 		</tr>
 		
 		<tr>
