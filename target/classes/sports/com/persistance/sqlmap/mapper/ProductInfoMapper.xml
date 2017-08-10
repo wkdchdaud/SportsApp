@@ -22,9 +22,9 @@ ORDER BY PROD_NO+0 DESC LIMIT 6;
 		SELECT PROD_NO, PROD_NAME, PRICE
 		FROM PRODUCT_INFO_TEST
 		<if test='search!=""'>WHERE PROD_NAME LIKE CONCAT('%', #{search}, '%')</if>
-		<if test='price=="all"'>ORDER BY PROD_NO DESC</if>
-		<if test='price=="lowprice"'>ORDER BY PRICE ASC</if>
-		<if test='price=="highprice"'>ORDER BY PRICE DESC</if>
+		<if test='del_price=="all"'>ORDER BY PROD_NO DESC</if>
+		<if test='del_price=="lowprice"'>ORDER BY PRICE+0 ASC</if>
+		<if test='del_price=="highprice"'>ORDER BY PRICE+0 DESC</if>
 		LIMIT 6 OFFSET ${read_more}
 	</select>
 	
