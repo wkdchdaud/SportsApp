@@ -661,7 +661,7 @@ body {
 }
 
 .search-wrap .search {
-  padding-right: 73px;
+  /* padding-right: 73px; 장총명 수정*/
   padding-bottom: 15px;
 }
 

@@ -1,5 +1,7 @@
 package sports.com.util;
 
+import java.text.DecimalFormat;
+
 public class CmmUtil {
 	
 	public static String nvl(String str, String chg_str) {
@@ -77,5 +79,13 @@ public class CmmUtil {
 		}
 		System.out.println("난수난수"+nansu);
 		return nansu;
+	}
+	
+	public static String viewComma(String str) {
+
+		Double dStr = Double.parseDouble(str);
+		DecimalFormat df = new DecimalFormat("#,##0");
+
+		return df.format(dStr);
 	}
 }

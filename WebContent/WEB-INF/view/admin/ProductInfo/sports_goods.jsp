@@ -2,13 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ page import="sports.com.util.CmmUtil" %>
 <%@ page import="sports.com.dto.ProductInfoDTO" %>
+<%@ page import="sports.com.dto.Prod_test_jcmDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%
-List<ProductInfoDTO> rList = (List<ProductInfoDTO>) request.getAttribute("DLWKDUS");
+List<Prod_test_jcmDTO> rList = (List<Prod_test_jcmDTO>) request.getAttribute("DLWKDUS");
 /*  */
 if (rList==null) {
-   rList = new ArrayList<ProductInfoDTO>();
+   rList = new ArrayList<Prod_test_jcmDTO>();
 }
 %> 
 <!DOCTYPE html>
@@ -18,6 +19,9 @@ if (rList==null) {
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 부트스트랩 -->
+    	<!-- BOOTSTRAP STYLES-->
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" />
     <title>모두의 스포츠</title>
     <!-- Styles : CSS & SASS Sorcemap -->
     <link rel="stylesheet" href="/common/css/style.css">
@@ -31,6 +35,342 @@ if (rList==null) {
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    
+     
+     <script type="text/javascript">
+		//화면 온로드후 실행
+		$(function(){
+		
+		//전역변수로 cnt 값 6 설정
+		var cnt = 6;
+			
+		var price = '';	//셀렉트박스값을 가져옴 all, lowprice, highrprice
+		var name= '';	//인풋 검색 서취값 가져옴
+		
+		//더보기 버튼 구현 시작 
+		$("#btn_more").add("#as").click(function(){
+/* 			alert("더보기 시작113S");
+			alert(cnt);
+ */			$.ajax({
+				url : "/admin/ProductInfo/readMore.do",
+				method : "post",
+				data : {
+					'cnt' : cnt,
+					'price': price,
+					'name' : name
+				},
+				
+				dataType : "json",
+				success : function(data){
+					var contents = "";
+					console.log(data)
+					$.each(data,function (key,value){
+						contents += "<li>";
+						contents += "<div class='register'>";                                                   
+						contents += "<a href='#'>";
+						contents += "<div class='thumb'>";
+						contents += "<img src='/common/images/sample01.png' alt='thumb'>";
+						contents += "</div>";
+						contents += " <div class='info'>";
+						contents += "<a href='/admin/ProductInfo/ProductInfoDetail.do?prod_no1="+ value.prod_no  +" '> <p class='title'>" + value.prod_name + "</p></a>";
+						contents += "<p class='price'>"+ value.price +" 원</p>";
+						contents += "</div>";
+						contents += "</a>";
+						contents += "</div>";
+						contents += "</li>";
+					});
+					$('#menu_list').append(contents)
+					if ((data).length<6) {
+						$('#btn_more').remove();
+					}
+					
+				}
+			});
+			cnt += 6;
+		});
+		
+		$("#Search").keyup(function(){
+			price=null;
+			name=null;
+			cnt = 6;
+			price = $("#SearchSelect").val();
+			name= $('#Search').val();
+			if(name==''){
+				name= 'all_select';
+			}
+			
+			if(price=='all'){ //만약 셀렉트value 값이 all이면
+				$('#menu_list').html(null);
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
+			
+					$.ajax({//아작스 실행
+						url : "/admin/ProductInfo/allSearch.do",
+						method : "post",
+						data : {
+							'price' : price,
+							'name' : name,	
+							'cnt' : cnt
+						},
+						dataType : "json",
+						success : function(data){//성공하면 함수실행data 키벨류값
+			 
+							console.log(data);
+							var contents = "";
+							var cnt=6;
+
+								$.each(data, function(key,value){
+									contents += "<li>";
+									contents += "<div class='register'>";                                                   
+									contents += "<a href='#'>";
+									contents += "<div class='thumb'>";
+									contents += "<img src='/common/images/sample01.png' alt='thumb'>";
+									contents += "</div>";
+									contents += " <div class='info'>";
+									contents += "<a href='/admin/ProductInfo/ProductInfoDetail.do?prod_no1="+ value.prod_no  +" '> <p class='title'>" + value.prod_name + "</p></a>";
+									contents += "<p class='price'>"+ value.price +" 원</p>";
+									contents += "</div>";
+									contents += "</a>";
+									contents += "</div>";
+									contents += "</li>";
+									cnt++;
+							});
+								
+							$('#menu_list').html(contents);
+							if ((data).length<6) {
+								$('#btn_more').remove();
+							}
+						}
+					});//ok
+				
+				}		
+				else if(price=='lowprice'){
+			  //만약 select박스 벨류값이 lowprice라면
+				$('#menu_list').html(null);
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
+				$.ajax({//아작스 실행
+					url : "/admin/ProductInfo/lowpriceSearch.do",
+					method : "post",
+					data : {
+						'price' : price,
+						'name' : name,
+						'cnt' : cnt
+					},
+					dataType : "json",
+					success : function(data){//성공하면 함수실행data 키벨류값
+						console.log(data);
+						var contents = "";
+						var cnt=6;
+							$.each(data, function(key,value){
+								contents += "<li>";
+								contents += "<div class='register'>";                                                   
+								contents += "<a href='#'>";
+								contents += "<div class='thumb'>";
+								contents += "<img src='/common/images/sample01.png' alt='thumb'>";
+								contents += "</div>";
+								contents += " <div class='info'>";
+								contents += "<a href='/admin/ProductInfo/ProductInfoDetail.do?prod_no1="+ value.prod_no  +" '> <p class='title'>" + value.prod_name + "</p></a>";
+								contents += "<p class='price'>"+ value.price +" 원</p>";
+								contents += "</div>";
+								contents += "</a>";
+								contents += "</div>";
+								contents += "</li>";
+								cnt++;
+						});
+						$('#menu_list').html(contents);
+						if ((data).length<6) {
+							$('#btn_more').remove();
+						}
+					}
+				});//ok
+			}
+			else if(price=='highprice'){
+				$('#menu_list').html(null);
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
+					$.ajax({//아작스 실행
+					
+						url : "/admin/ProductInfo/highpriceSearch.do",
+						method : "post",
+						data : {
+							'price' : price,
+							'name' : name,
+							'cnt' : cnt
+						},
+						dataType : "json",
+						success : function(data){//성공하면 함수실행data 키벨류값
+							console.log(data);
+							var contents = "";
+							var cnt=6;
+							$.each(data, function(key,value){
+								contents += "<li>";
+								contents += "<div class='register'>";                                                   
+								contents += "<a href='#'>";
+								contents += "<div class='thumb'>";
+								contents += "<img src='/common/images/sample01.png' alt='thumb'>";
+								contents += "</div>";
+								contents += " <div class='info'>";
+								contents += "<a href='/admin/ProductInfo/ProductInfoDetail.do?prod_no1="+ value.prod_no  +" '> <p class='title'>" + value.prod_name + "</p></a>";
+								contents += "<p class='price'>"+ value.price +" 원</p>";
+								contents += "</div>";
+								contents += "</a>";
+								contents += "</div>";
+								contents += "</li>";
+								cnt++;
+								
+							});
+							$('#menu_list').html(contents);
+							if ((data).length<6) {
+								$('#btn_more').remove();
+							}
+						}
+					});
+			}
+		});
+		
+		
+		
+		//select 값 high, all , lowprice 바뀜에 따라 실행하는 아작스 시작
+		$("#SearchSelect").change(function(){ //셀렉트 값이 바뀌면 실행됨
+			price=null;
+			name=null;
+			cnt=6;
+			price = $("#SearchSelect").val();
+			name= $('#Search').val();
+			if(name==''){
+				name= 'all_select';
+			}
+		
+			if(price=='all'){ //만약 셀렉트value 값이 all이면
+				$('#menu_list').html(null);
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
+					$.ajax({//아작스 실행
+						url : "/admin/ProductInfo/allSearch.do",
+						method : "post",
+						data : {
+							'price' : price,
+							'name' : name,
+							'cnt' : cnt
+						},
+						dataType : "json",
+						success : function(data){//성공하면 함수실행data 키벨류값
+			 
+							console.log(data);
+							var contents = "";
+							var cnt=6;
+								$.each(data, function(key,value){
+									contents += "<li>";
+									contents += "<div class='register'>";                                                   
+									contents += "<a href='#'>";
+									contents += "<div class='thumb'>";
+									contents += "<img src='/common/images/sample01.png' alt='thumb'>";
+									contents += "</div>";
+									contents += " <div class='info'>";
+									contents += "<a href='/admin/ProductInfo/ProductInfoDetail.do?prod_no1="+ value.prod_no  +" '> <p class='title'>" + value.prod_name + "</p></a>";
+									contents += "<p class='price'>"+ value.price +" 원</p>";
+									contents += "</div>";
+									contents += "</a>";
+									contents += "</div>";
+									contents += "</li>";
+									cnt++;
+							});
+								
+							$('#menu_list').html(contents);
+							if ((data).length<6) {
+								$('#btn_more').remove();
+							}
+						}
+					});//ok
+				
+				}		
+				else if(price=='lowprice'){
+			  //만약 select박스 벨류값이 lowprice라면
+				$('#menu_list').html(null);
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
+				$.ajax({//아작스 실행
+					url : "/admin/ProductInfo/lowpriceSearch.do",
+					method : "post",
+					data : {
+						'price' : price,
+						'name' : name,
+						'cnt' : cnt
+					},
+					dataType : "json",
+					success : function(data){//성공하면 함수실행data 키벨류값
+						console.log(data);
+						var contents = "";
+						var cnt=6;
+							$.each(data, function(key,value){
+								contents += "<li>";
+								contents += "<div class='register'>";                                                   
+								contents += "<a href='#'>";
+								contents += "<div class='thumb'>";
+								contents += "<img src='/common/images/sample01.png' alt='thumb'>";
+								contents += "</div>";
+								contents += " <div class='info'>";
+								contents += "<a href='/admin/ProductInfo/ProductInfoDetail.do?prod_no1="+ value.prod_no  +" '> <p class='title'>" + value.prod_name + "</p></a>";
+								contents += "<p class='price'>"+ value.price +" 원</p>";
+								contents += "</div>";
+								contents += "</a>";
+								contents += "</div>";
+								contents += "</li>";
+								cnt++;
+						});
+						$('#menu_list').html(contents);
+						if ((data).length<6) {
+							$('#btn_more').remove();
+						}
+					}
+				});//ok
+
+
+			}
+			else if(price=='highprice'){
+				$('#menu_list').html(null);
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
+
+					$.ajax({//아작스 실행
+					
+						url : "/admin/ProductInfo/highpriceSearch.do",
+						method : "post",
+						data : {
+							'price' : price,
+							'name' : name,
+							'cnt' : cnt
+						},
+						dataType : "json",
+						success : function(data){//성공하면 함수실행data 키벨류값
+							console.log(data);
+							var contents = "";
+							var cnt=6;
+							$.each(data, function(key,value){
+								contents += "<li>";
+								contents += "<div class='register'>";                                                   
+								contents += "<a href='#'>";
+								contents += "<div class='thumb'>";
+								contents += "<img src='/common/images/sample01.png' alt='thumb'>";
+								contents += "</div>";
+								contents += " <div class='info'>";
+								contents += "<a href='/admin/ProductInfo/ProductInfoDetail.do?prod_no1="+ value.prod_no  +" '> <p class='title'>" + value.prod_name + "</p></a>";
+								contents += "<p class='price'>"+ value.price +" 원</p>";
+								contents += "</div>";
+								contents += "</a>";
+								contents += "</div>";
+								contents += "</li>";
+								cnt++;
+								
+							});
+							$('#menu_list').html(contents);
+							if ((data).length<6) {
+								$('#btn_more').remove();
+							}
+						}
+					});
+			}
+		});
+		//select 값 high, all , lowprice 바뀜에 따라 실행하는 아작스 끝
+		
+	});
+    </script>
+    
 </head>
 
 <body>
@@ -45,7 +385,7 @@ if (rList==null) {
                 </div>
             </div>
             <div class="page_title">
-                <p>스포츠 용품</p>
+                <p>스포츠 용품 리스트</p>
             </div>
         </header>
         <nav id="c-menu--slide-left" class="c-menu c-menu--slide-left">
@@ -102,37 +442,44 @@ if (rList==null) {
         <div class="container detail">
             <div class="wrap search-wrap">
                 <div class="search array">
-                    <button class="array-btn"><img src="/common/images/ic_array.png" alt="정렬이미지"></button>
-                    <input type="text" placeholder="검색하세요">
-                    <button class="blue btn">검색</button>
-                </div>
+                    <select id="SearchSelect" style="width: 20%" class="array-btn">
+                    <option value='all'>전체</option>
+                    <option value='lowprice'>낮은가격</option>
+                    <option value='highprice'>높은가격</option>
+                    </select>
+                    
+                    <div style="padding-left : 15%;">
+                    <input name='keyWord' id='Search' type="text" placeholder="검색하세요">
+                    </div>
+<!--                     <button class="blue btn">검색</button>
+ -->            </div>
                 <div class="list_wrap">
                     <ul class="sports_list">
-                    	<li><a href="#">전체</a></li>
-                    	<li><a href="#">검도</a></li>
-                    	<li><a href="#">보호용품</a></li>
-                    	<li><a href="#">무술용품</a></li>
-                    	<li><a href="#">수련용품</a></li>
-                    	<li><a href="#">배구</a></li>
-                    	<li><a href="#">족구</a></li>
-                        <li><a href="#">배드민턴</a></li>
-                        <li><a href="#">권투</a></li>
-                        <li><a href="#">축구</a></li>
-                        <li><a href="#">스포츠 액세서리</a></li>
-                        <li><a href="#">헬스</a></li>
-                        <li><a href="#">테니스</a></li>
-                        <li><a href="#">탁구</a></li>
-                        <li><a href="#">농구</a></li>
-                        <li><a href="#">요가/필라테스</a></li>
-                        <li><a href="#">야구</a></li>
-                        <li><a href="#">자전거</a></li>
-                        <li><a href="#">수영</a></li>
-                        <li><a href="#">기타</a></li>
+                    	<li><a href="/admin/ProductInfo/List.do">전체</a></li>
+                    	<li><a href="/admin/ProductInfo/List_value.do?par=헬스">헬스</a></li>
+                    	<li><a href="/admin/ProductInfo/List_value.do?par=축구">축구</a></li>
+                    	<li><a href="/admin/ProductInfo/List_value.do?par=농구">농구</a></li>
+                        <li><a href="/admin/ProductInfo/List_value.do?par=야구">야구</a></li>
+                    	<li><a href="/admin/ProductInfo/List_value.do?par=보호용품">보호용품</a></li>
+                    	<li><a href="/admin/ProductInfo/List_value.do?par=무술용품">무술용품</a></li>
+                    	<li><a href="/admin/ProductInfo/List_value.do?par=수련용품">수련용품</a></li>
+                    	<li><a href="/admin/ProductInfo/List_value.do?par=권투">권투</a></li>
+                    	<li><a href="/admin/ProductInfo/List_value.do?par=검도">검도</a></li>
+                    	<li><a href="/admin/ProductInfo/List_value.do?par=배구">배구</a></li>
+                    	<li><a href="/admin/ProductInfo/List_value.do?par=족구">족구</a></li>
+                        <li><a href="/admin/ProductInfo/List_value.do?par=배드민턴">배드민턴</a></li>
+                        <li><a href="/admin/ProductInfo/List_value.do?par=테니스">테니스</a></li>
+                        <li><a href="/admin/ProductInfo/List_value.do?par=탁구">탁구</a></li>
+                        <li><a href="/admin/ProductInfo/List_value.do?par=수영">수영</a></li>
+                        <li><a href="/admin/ProductInfo/List_value.do?par=요가/필라테스">요가/필라테스</a></li>
+                        <li><a href="/admin/ProductInfo/List_value.do?par=자전거">자전거</a></li>
+                        <li><a href="/admin/ProductInfo/List_value.do?par=스포츠액세서리">스포츠 액세서리</a></li>
+                        <li><a href="/admin/ProductInfo/List_value.do?par=기타">기타</a></li>
                     </ul>
                 </div>
                 <div class="goods_list_wrap">
-                    <ul class="goods_list">
-                      	<%for(ProductInfoDTO pdto : rList) {%>
+                    <ul id="menu_list" class="goods_list">
+                      	<%for(Prod_test_jcmDTO pdto : rList) {%>
                         <li>
                             <div class="register">
                                 <a href="#">
@@ -142,7 +489,7 @@ if (rList==null) {
                                     <div class="info">
                                       
                                         <a href="/admin/ProductInfo/ProductInfoDetail.do?prod_no1=<%=CmmUtil.nvl(pdto.getProd_no()) %>"> <p class="title"><%=pdto.getProd_name() %></p></a>
-                                        <p class="price"><%=pdto.getProd_price() %>원</p>
+                                        <p class="price"><%=CmmUtil.viewComma(pdto.getPrice())%>원</p>
                                     </div>
                                 </a>
                             </div>
@@ -150,7 +497,9 @@ if (rList==null) {
                      <%} %>
                      
                     </ul>
-                    
+                     <div id="as">
+        			 <center><button class="btn btn-primary btn-lg" id="btn_more" style="width: 300px; margin-top: 5px">더보기</button></center>
+        			 </div>
                     <button class="register-btn thumb-btn" onclick="location.href='/admin/ProductInfo/ProductInfoReg.do' ">등록</button>
                     <button class="edit-btn thumb-btn2">편집</button>
                    
@@ -169,8 +518,10 @@ if (rList==null) {
         </footer>
     </section>
     <div id="c-mask" class="c-mask"></div>
+    
     <script src="/common/js/classie.js"></script>
     <script src="/common/js/common.js"></script>
+    
 </body>
 
 </html>
