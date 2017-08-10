@@ -56,7 +56,8 @@ if (rList==null) {
 				method : "post",
 				data : {
 					'cnt' : cnt,
-					'price': price
+					'price': price,
+					'name' : name
 				},
 				
 				dataType : "json",

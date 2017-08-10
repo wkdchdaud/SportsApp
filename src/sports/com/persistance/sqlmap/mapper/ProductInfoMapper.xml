@@ -21,8 +21,10 @@ ORDER BY PROD_NO+0 DESC LIMIT 6;
 	<select resultType="Prod_test_jcmDTO" id="getReadMore" parameterType="Prod_test_jcmDTO" >
 		SELECT PROD_NO, PROD_NAME, PRICE
 		FROM PRODUCT_INFO_TEST
-		ORDER BY 
-		PROD_NO DESC
+		<if test='search!=""'>WHERE PROD_NAME LIKE CONCAT('%', #{search}, '%')</if>
+		<if test='price=="all"'>ORDER BYPROD_NO DESC</if>
+		<if test='price=="lowprice"'>ORDER BYPRICE ASC</if>
+		<if test='price=="highprice"'>ORDER BYPRICE DESC</if>
 		LIMIT 6 OFFSET ${read_more}
 	</select>
 	
@@ -37,13 +39,13 @@ ORDER BY PROD_NO+0 DESC LIMIT 6;
 <select resultType="Prod_test_jcmDTO" id="getHighpriceSearch" parameterType="Prod_test_jcmDTO">
 SELECT PROD_NO, PROD_NAME, PRICE FROM PRODUCT_INFO_TEST 
   <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
- ORDER BY PROD_PRICE+0 DESC LIMIT 6 
+ ORDER BY PRICE+0 DESC LIMIT 6 
  </select>
 
 <select resultType="Prod_test_jcmDTO" id="getLowpriceSearch" parameterType="Prod_test_jcmDTO">
 SELECT PROD_NO, PROD_NAME, PRICE FROM PRODUCT_INFO_TEST 
    <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
- ORDER BY PROD_PRICE+0 ASC LIMIT 6 
+ ORDER BY PRICE+0 ASC LIMIT 6 
 
  </select>
 	<!-- 조건선택 검색 끝 -->

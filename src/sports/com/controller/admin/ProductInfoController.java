@@ -100,21 +100,21 @@ public class ProductInfoController {
 	
     /*더보기 */
 		@RequestMapping(value="admin/ProductInfo/readMore")
-		public @ResponseBody List<Prod_test_jcmDTO> getReadMore(@RequestParam(value="cnt") int cnt) throws Exception{
+		public @ResponseBody List<Prod_test_jcmDTO> getReadMore(@RequestParam(value="cnt") String cnt,@RequestParam(value="price") String price,@RequestParam(value="name") String name) throws Exception{
 			
 			System.out.println("버튼 리드 모어 고고고고고");
 			
 			Prod_test_jcmDTO pdto = new Prod_test_jcmDTO();
-			String cnt_str = Integer.toString(cnt);
-			pdto.setRead_more(cnt_str);
+			pdto.setRead_more(cnt);
+			pdto.setSearch(name);
+			pdto.setDel_price(price);
 			
 			List<Prod_test_jcmDTO> plist = productInfoService.getReadMore(pdto);
 			
-			System.out.println("pdto.getRead_more() : "+pdto.getRead_more());
+			System.out.println("cnt : : "+pdto.getRead_more());
+			System.out.println("search : "+pdto.getSearch());
+			System.out.println("price : "+pdto.getDel_price());
 			
-			for ( Prod_test_jcmDTO tdto : plist){
-				System.out.println("내용 가져오기 : " + tdto.getPrice());
-			}
 			pdto = null;
 			
 			return plist;

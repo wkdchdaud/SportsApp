@@ -12,8 +12,14 @@ public class Prod_test_jcmDTO {
 	private String del_price;
 	private String prod_category;
 	private String read_more;
+	private String search;
 	
-	
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
+	}
 	public String getRead_more() {
 		return read_more;
 	}
