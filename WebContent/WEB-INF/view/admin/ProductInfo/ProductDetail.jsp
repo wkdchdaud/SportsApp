@@ -65,16 +65,6 @@ if (rList==null) {
 		var sell_price;
 		var amount;
 		
-		$("#Search").keyup(function(){
-			price=null;
-			name=null;
-			cnt = 6;
-			price = $("#SearchSelect").val();
-			name= $('#Search').val();
-			if(name==''){
-				name= 'all_select';
-			}
-		
 		
 		
 	}
