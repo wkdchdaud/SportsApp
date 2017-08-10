@@ -15,15 +15,15 @@ if (rDTO==null) {
 String qa_no = CmmUtil.nvl(request.getParameter("qa_no"));
 String user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
 
-int edit = 1;
+int access = 1;
 
 if (user_no.equals("")) {
 	
-	edit = 3;
+	access = 3;
 	
 } else if (user_no.equals(CmmUtil.nvl(rDTO.getReg_user_no()))) {
 	
-	edit = 2;
+	access = 2;
 	
 }
 
@@ -54,19 +54,15 @@ System.out.println("user_no: " + CmmUtil.nvl(rDTO.getReg_user_no()));
 
 <script type="text/javascript">
 
-function doEdit() {
+function doReply() {
 	
-	if ("<%=edit%>"==2) {
-		
-		location.href="/admin/QA/QAEdit.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>";
-		
-	} else if ("<%=edit%>"==3) {
+	if ("<%=access%>"==3) {
 		
 		alert("로그인을 하시기 바랍니다.");
-		
+	
 	} else {
 		
-		alert("본인이 작성한 게시글만 수정 가능합니다.");
+		location.href="/admin/QA/QAAnswerReg.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>&answer_yn=<%=CmmUtil.nvl(rDTO.getAnswer_yn())%>";
 		
 	}
 	
@@ -74,19 +70,15 @@ function doEdit() {
 
 function doDelete() {
 	
-	if ("<%=edit%>"==2) {
-		
-		if (confirm("작성한 게시글을 삭제하시겠습니까?")) {
-			location.href="/admin/QA/QADelete.do?q_no=<%=CmmUtil.nvl(rDTO.getQ_no())%>";
-		}
-		
-	} else if ("<%=edit%>"==3) {
+	if ("<%=access%>"==3) {
 		
 		alert("로그인을 하시기 바랍니다.");
 		
 	} else {
 		
-		alert("본인이 작성한 게시글만 삭제 가능합니다.");
+		if (confirm("작성한 게시글을 삭제하시겠습니까?")) {
+			location.href="/admin/QA/QADelete.do?q_no=<%=CmmUtil.nvl(rDTO.getQ_no())%>";
+		}
 		
 	}
 	
@@ -177,7 +169,7 @@ function doList() {
           			<div class="content"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("\r\n", "<br>") %></div>
 				</div>
         		<div class="btn-groub">
-					<button class="col-3 deep-btn button" onclick="location.href='/admin/QA/QAAnswerReg.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>&answer_yn=<%=CmmUtil.nvl(rDTO.getAnswer_yn())%>';return false;">답글</button>
+					<button class="col-3 deep-btn button" onclick="javascript:doReply();return false;">답글</button>
 					<button class="col-3 blue-btn button" onclick="javascript:doDelete();return false;">삭제</button>
 					<button class="col-3 glay-btn button" onclick="javascript:doList();return false;">목록</button>
 				</div>

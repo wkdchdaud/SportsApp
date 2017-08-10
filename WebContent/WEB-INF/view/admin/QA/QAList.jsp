@@ -17,6 +17,12 @@ if (rList==null) {
 }
 
 String user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
+
+int access = 1;
+
+if (user_no.equals("")) {
+	access = 2;
+}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -189,6 +195,21 @@ function doAnswerDetail(qa_no, answer_yn) {
 	location.href="/admin/QA/QAAnswerDetail.do?qa_no=" + qa_no;
 }
 
+//글쓰기 로그인
+function doReg() {
+	
+	if ("<%=access%>"==2) {
+		
+		alert("로그인을 하시기 바랍니다.");
+	
+	} else {
+		
+		location.href="/admin/QA/QAReg.do";
+		
+	}
+	
+}
+
 //체크박스 숨겨놓기
 function hiddenCheckbox() {
 	
@@ -305,7 +326,7 @@ function deleteConfirm(f) {
 				<div class="left_menu"><img src="/common/images/btn_gnb.png" alt="메뉴" id="c-button--slide-left" class="c-button"></div>
 				<div class="logo"><a href="/main.do"><h2 class="title">모두의 스포츠</h2></a></div>
 			</div>
-			<div class="page_title" style=" float: left; width: 33%;"><span class="sub_text" id="delete" onclick="location.href='javascript:deleteConfirm(this.form);'">삭제하기</span>&nbsp;</div>
+			<div class="page_title" style=" float: left; width: 33%;"><span class="sub_text" id="delete" onclick="javascript:deleteConfirm(this.form);">삭제하기</span>&nbsp;</div>
 			<div class="page_title" style=" float: left; width: 33%;"><p>Q&amp;A</p></div>
 			<div class="page_title" style=" float: left; width: 33%;"></div>
 		</header>
@@ -443,7 +464,7 @@ function deleteConfirm(f) {
 		        
 		        <div class="btn-groub">
 					<button class="col-2 blue-btn button" onclick="javascript:edit(this.form);return false;">편집하기</button>
-					<button class="col-2 glay-btn button" onclick="location.href='/admin/QA/QAReg.do';return false;">작성하기</button>
+					<button class="col-2 glay-btn button" onclick="javascript:doReg();return false;">작성하기</button>
 				</div>
 		        
 			</div>

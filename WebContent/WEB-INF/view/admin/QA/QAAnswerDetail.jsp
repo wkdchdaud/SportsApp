@@ -15,15 +15,15 @@ if (rDTO==null) {
 String qa_no = CmmUtil.nvl(request.getParameter("qa_no"));
 String user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
 
-int edit = 1;
+int access = 1;
 
 if (user_no.equals("")) {
 	
-	edit = 3;
+	access = 3;
 	
 } else if (user_no.equals(CmmUtil.nvl(rDTO.getReg_user_no()))) {
 	
-	edit = 2;
+	access = 2;
 	
 }
 
@@ -56,11 +56,11 @@ System.out.println("user_no: " + CmmUtil.nvl(rDTO.getReg_user_no()));
 
 function doAnswerEdit() {
 	
-	if ("<%=edit%>"==2) {
+	if ("<%=access%>"==2) {
 		
 		location.href="/admin/QA/QAAnswerEdit.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>";
 		
-	} else if ("<%=edit%>"==3) {
+	} else if ("<%=access%>"==3) {
 		
 		alert("로그인을 하시기 바랍니다.");
 		
@@ -74,13 +74,13 @@ function doAnswerEdit() {
 
 function doAnswerDelete() {
 
-	if ("<%=edit%>"==2) {
+	if ("<%=access%>"==2) {
 		
 		if (confirm("작성한 답글을 삭제하시겠습니까?")) {
 			location.href="/admin/QA/QAAnswerDelete.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>";
 		}
 		
-	} else if ("<%=edit%>"==3) {
+	} else if ("<%=access%>"==3) {
 		
 		alert("로그인을 하시기 바랍니다.");
 		

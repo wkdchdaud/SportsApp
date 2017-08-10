@@ -1,4 +1,4 @@
-<%@page import="sports.com.util.AES256Util"%>
+<%@ page import="sports.com.util.AES256Util"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="sports.com.util.CmmUtil" %>
@@ -15,15 +15,15 @@ if (rDTO==null) {
 String qa_no = CmmUtil.nvl(request.getParameter("qa_no"));
 String user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
 
-int edit = 1;
+int access = 1;
 
 if (user_no.equals("")) {
 	
-	edit = 3;
+	access = 3;
 	
 } else if (user_no.equals(CmmUtil.nvl(rDTO.getReg_user_no()))) {
 	
-	edit = 2;
+	access = 2;
 	
 }
 
@@ -56,11 +56,11 @@ System.out.println("user_no: " + CmmUtil.nvl(rDTO.getReg_user_no()));
 
 function doEdit() {
 	
-	if ("<%=edit%>"==2) {
+	if ("<%=access%>"==2) {
 		
 		location.href="/customer/QA/QAEdit.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>";
 		
-	} else if ("<%=edit%>"==3) {
+	} else if ("<%=access%>"==3) {
 		
 		alert("로그인을 하시기 바랍니다.");
 		
@@ -74,13 +74,13 @@ function doEdit() {
 
 function doDelete() {
 	
-	if ("<%=edit%>"==2) {
+	if ("<%=access%>"==2) {
 		
 		if (confirm("작성한 게시글을 삭제하시겠습니까?")) {
 			location.href="/customer/QA/QADelete.do?q_no=<%=CmmUtil.nvl(rDTO.getQ_no())%>";
 		}
 		
-	} else if ("<%=edit%>"==3) {
+	} else if ("<%=access%>"==3) {
 		
 		alert("로그인을 하시기 바랍니다.");
 		
@@ -182,7 +182,9 @@ function doList() {
 					<button class="col-3 blue-btn button" onclick="javascript:doDelete();return false;">삭제</button>	
 					<button class="col-3 glay-btn button" onclick="javascript:doList();return false;">목록</button>
 				<%} else {%>
+					<button class="col-3 glay-btn button" onclick="javascript:doList();return false;"></button>
 					<button class="col-3 glay-btn button" onclick="javascript:doList();return false;">목록</button>
+					<button class="col-3 glay-btn button" onclick="javascript:doList();return false;"></button>
 				<%} %>
 				</div>
 				
