@@ -59,6 +59,21 @@ if (rList==null) {
 		}
 	}
 	</script>
+	
+	<script type="text/javascript">
+	$(function(){
+		var sell_price;
+		var amount;
+		
+		
+		
+	}
+	
+		
+		</script>
+	
+	
+
 
 </head>
 
