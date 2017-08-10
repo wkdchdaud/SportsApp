@@ -1,3 +1,7 @@
+<!-- Admin 페이지 입니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!-- Admin 페이지 입니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!-- Admin 페이지 입니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!-- Admin 페이지 입니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -9,6 +13,8 @@
 
 <%
 	NoticeDTO rDTO = (NoticeDTO) request.getAttribute("rDTO");
+
+	String user_no = CmmUtil.nvl((String)session.getAttribute("user_no")); 
 %>
 
 <!DOCTYPE html>
@@ -33,11 +39,25 @@
     <![endif]-->
 <script type="text/javascript">
 	function deleteConfirm(){
-		if(confirm("게시글을 삭제하시겠습니까?")){
+		if(<%=user_no%> != "10000001"){//관리자만 글 등록가능
+		alert("관리자만 할 수 있습니다.");
+		return false;
+		}
+		
+		if(confirm("작성한 게시글을 삭제하시겠습니까?")){
 			location.href="/admin/notice/NoticeDelete.do?notice_no=<%=CmmUtil.nvl(rDTO.getNotice_no())%>";
 		}else{
 			return false;
 		}
+	}
+	
+	function editConfirm(){
+		if(<%=user_no%> != "10000001"){//관리자만 글 등록가능
+		alert("관리자만 할 수 있습니다.");
+		return false;
+		}
+		
+		location.href="/admin/notice/NoticeEditInfo.do?notice_no=<%=rDTO.getNotice_no()%>";
 	}
 </script>
 </head>
@@ -120,7 +140,7 @@
         
           <div class="top">
             <p class="title"><%=rDTO.getTitle()%></p>
-            <p class="sub_text"><%=rDTO.getReg_user_no()%><span><%=rDTO.getReg_dt()%></span></p>
+            <p class="sub_text"><%=rDTO.getUser_name()%><span><%=rDTO.getReg_dt()%></span></p>
           </div>
           <div class="content">
             <%=rDTO.getContents()%>
@@ -129,8 +149,8 @@
           
         </div>
         <div class="btn-groub">
-          <button class="col-3 deep-btn button" onclick="location.href='/admin/notice/NoticeEditInfo.do?notice_no=<%=rDTO.getNotice_no()%>';return false;" >수정</button>
-          <button class="col-3 blue-btn button" onclick="deleteConfirm();return false;">삭제</button>
+          <button class="col-3 deep-btn button" onclick="javascript:editConfirm();return false;" >수정</button>
+          <button class="col-3 blue-btn button" onclick="javascript:deleteConfirm();return false;">삭제</button>
           <button class="col-3 glay-btn button" onclick="location.href='/admin/notice/NoticeList.do';return false;">목록</button>
         </div>
       </div>

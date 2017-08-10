@@ -6,7 +6,7 @@
 	import="sports.com.dto.NoticeDTO" import="java.util.ArrayList"
 	import="java.util.List"%>
 
-
+<%	String user_no = CmmUtil.nvl((String)session.getAttribute("user_no")); %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -29,7 +29,13 @@
     <![endif]-->
 <script type="text/javascript">
 	function doSubmit(f) {
-
+		
+		alert("user_no 는 : "+<%=user_no%>);//관리자만 글 등록가능
+		if(<%=user_no%> != "10000001"){
+		alert("관리자만 할 수 있습니다.");
+		return false;
+		}
+		
 		if (f.title.value == "") {
 
 			alert("제목을 입력하시기 바랍니다.");

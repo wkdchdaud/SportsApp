@@ -1,7 +1,13 @@
+<!-- Admin 페이지 입니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!-- Admin 페이지 입니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!-- Admin 페이지 입니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!-- Admin 페이지 입니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="sports.com.util.AES256Util" %>
 
 <%@ page import="sports.com.util.CmmUtil"
 	import="sports.com.dto.NoticeDTO" import="java.util.ArrayList"
@@ -13,7 +19,9 @@
 		nList = new ArrayList<NoticeDTO>();
 	}
 
+	String user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
 %>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -58,8 +66,7 @@
 				$.each(data,function (key,value) { 
 					var yn = value.notice_yn;
 					var nw = value.new_yn;
-					
-					contents += "<li onmouseover='javascript:mouseOver();''>";
+					contents += "<li>";
 		            contents += "<div style='float:left' ><input type='checkbox' name='checkbox' class='checkbox' value='"+value.notice_no+"'/></div>";
 		            contents += "<a href='/admin/notice/NoticeInfo.do?notice_no="+value.notice_no+"'>";
 		            contents += "<p class='title'>";
@@ -75,7 +82,7 @@
 		         } 
 		            
 		        	contents += "</p>";
-		            contents += "<p class='sub_text'>"+value.user_no;
+		            contents += "<p class='sub_text'>"+value.user_name;
 		            contents += "<span>"+value.reg_dt.substring(0, 10)+"</span></p>";
 		            contents += "</a>";
 		            contents += "</li>";
@@ -125,7 +132,7 @@
 											$.each(data,function(key, value) {
 																var yn = value.notice_yn;
 																var nw = value.new_yn;
-																contents += "<li onmouseover='javascript:mouseOver();''>";
+																contents += "<li>";
 													            contents += "<div style='float:left' ><input type='checkbox' name='checkbox' class='checkbox' value='"+value.notice_no+"'/></div>";
 													            contents += "<a href='/admin/notice/NoticeInfo.do?notice_no="+value.notice_no+"'>";
 													            contents += "<p class='title'>";
@@ -141,7 +148,7 @@
 													         } 
 													            
 													        	contents += "</p>";
-													            contents += "<p class='sub_text'>"+value.user_no;
+													            contents += "<p class='sub_text'>"+value.user_name;
 													            contents += "<span>"+value.reg_dt.substring(0, 10)+"</span></p>";
 													            contents += "</a>";
 													            contents += "</li>";
@@ -179,7 +186,9 @@
 	
 	/*  편집 삭제 버튼 숨기기 */
 	function hiddenCheckbox() {
-
+	
+		
+			
 		var dS = document.getElementsByClassName("checkbox");
 
 		for (var i = 0; i < dS.length; i++) {
@@ -191,9 +200,27 @@
 		document.getElementById("alltext").style.display = "none";
 		
 	}
-
+	
+	/* 작성하기 유효성검사 */
+	function reg(){
+		var user_no =	"<%=CmmUtil.nvl(user_no)%>";
+		if(user_no != "10000001"){
+		alert("관리자만 할 수 있습니다.");
+		return false;
+		}
+		
+		location.href="/admin/notice/NoticeReg.do";
+	}
+	
+	/* 체크박스 기능 활성화 비활성화*/
 	function edit(f) {
-
+		var user_no =	"<%=CmmUtil.nvl(user_no)%>";
+		if(user_no != "10000001"){
+			alert("관리자만 할 수 있습니다.");
+			return false;
+		}
+		
+		
 		cbox = f.checkbox;
 
 		var dS = document.getElementsByClassName("checkbox");
@@ -219,6 +246,8 @@
 
 		f.all.checked = "";
 
+		
+		
 		if (document.getElementById("delete").style.display == "") {
 
 			document.getElementById("delete").style.display = "none";
@@ -231,7 +260,8 @@
 		document.getElementById("delete").style.display = "";
 		document.getElementById("all").style.display = "";
 		document.getElementById("alltext").style.display = "";
-
+		
+		
 	}
 
 	function deleteConfirm() {
@@ -371,7 +401,7 @@
                 <%} %>
                 </p>
                 
-                <p class="sub_text"><%=nDTO.getUser_no()%>
+                <p class="sub_text"><%=nDTO.getUser_name() %>
                 <span><%=nDTO.getReg_dt().substring(0, 10)%></span></p>
               </a>
             </li>
@@ -386,7 +416,7 @@
         </div>
         <div class="btn-groub">
           <button class="col-2 blue-btn button" onclick="javascript:edit(this.form);return false;">편집하기</button>
-          <button type="button" class="col-2 glay-btn button" onclick="location.href='/admin/notice/NoticeReg.do';return false;" >작성하기</button>
+          <button type="button" class="col-2 glay-btn button" onclick="javascript:reg();return false;" >작성하기</button>
         </div>
       </div>
     </div>
