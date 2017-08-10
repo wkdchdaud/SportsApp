@@ -87,7 +87,7 @@ SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS FROM PRODUCT_INFO WHERE pro
 	<insert id ="ProductInfoOptionInsert" parameterType="ProductInfoOptionDTO">
 
 	INSERT INTO PROD_OPTION 
-		(PROD_NO, OPT_NO, OPT_NAME, OPT_KIND, OPT_PRICE)
+		(OPT_NO, PROD_NO, OPT_NAME, OPT_KIND, OPT_PRICE)
 	VALUES ((SELECT IFNULL(MAX(A.OPT_NO), 1000000)+1 FROM PROD_OPTION A), #{prod_no}, #{opt_name}, #{opt_kind}, #{opt_price})
 
 	</insert>

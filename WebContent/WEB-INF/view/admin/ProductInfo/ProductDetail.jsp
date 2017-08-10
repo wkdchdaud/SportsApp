@@ -59,6 +59,21 @@ if (rList==null) {
 		}
 	}
 	</script>
+	
+	<script type="text/javascript">
+	$(function(){
+		var sell_price;
+		var amount;
+		
+		
+		
+	}
+	
+		
+		</script>
+	
+	
+
 
 </head>
 
@@ -150,7 +165,10 @@ if (rList==null) {
             <div class="info">
               <p class="title"><%=CmmUtil.nvl(aDTO.getProd_name()) %></p>
               <p class="sub_text">배송비 2,500원 (50,000원 이상 무료배송)</p>
+              
             </div>
+            
+        
           </div>
           
           <div class="goods_option">
@@ -158,16 +176,20 @@ if (rList==null) {
             <p class="blue_text">옵션 선택</p>
             
             <div class="select_wrap">
-				<select class="col-2">
-					<option value="색상선택">색상선택</option>
-					<option value="빨강">빨강</option>
-              	</select>
-				<select class="col-2" disabled="disabled">
-                	<option value="선택">사이즈선택</option>
-                	<option value="사이즈">사이즈1</option>
-              	</select>
+              <select class="col-2">
+              <option value="색상선택">색상선택</option>
+              <option value="1">빨강</option>
+              <option value="2">노랑</option>
+              <option value="3">초록</option>
+              </select>
+              
+              <select class="col-2">
+                <option value="선택">사이즈선택</option>
+                <option value="사이즈">사이즈1</option>
+         
+              </select>
             </div>
-
+<!--수정 시작ㅎ  -->
             <p class="blue_text">수량</p>
             
             <div class="count_input">
