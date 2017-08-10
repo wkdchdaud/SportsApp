@@ -12,11 +12,11 @@ import sports.com.persistance.mapper.ShoppingBasketMapper;
 import sports.com.service.INoticeService;
 import sports.com.service.IShoppingBasketService;
 
-@Service
+@Service("ShoppingBasketService")
 public class ShoppingBasketService implements IShoppingBasketService{
 
 	@Resource(name="ShoppingBasket")
-	private NoticeMapper shoppingBasket;
+	private ShoppingBasketMapper shoppingBasket;
 
 	@Override
 	public List<ShoppingBasketDTO> getShoppingBasketList() throws Exception {

@@ -4,7 +4,7 @@ import java.util.List;
 import config.Mapper;
 import sports.com.dto.ShoppingBasketDTO;
 
-@Mapper("ShoppingBasketMapper")
+@Mapper("ShoppingBasket")
 public interface ShoppingBasketMapper {
 
 }

@@ -65,6 +65,16 @@ if (rList==null) {
 		var sell_price;
 		var amount;
 		
+		$("#Search").keyup(function(){
+			price=null;
+			name=null;
+			cnt = 6;
+			price = $("#SearchSelect").val();
+			name= $('#Search').val();
+			if(name==''){
+				name= 'all_select';
+			}
+		
 		
 		
 	}
@@ -170,11 +180,8 @@ if (rList==null) {
             
         
           </div>
-          
           <div class="goods_option">
-          
             <p class="blue_text">옵션 선택</p>
-            
             <div class="select_wrap">
               <select class="col-2">
               <option value="색상선택">색상선택</option>
@@ -191,15 +198,13 @@ if (rList==null) {
             </div>
 <!--수정 시작ㅎ  -->
             <p class="blue_text">수량</p>
-            
             <div class="count_input">
-				<a class="incr-btn">–</a>
-					<input class="quantity" type="text" value="1" readonly="true" />
-				<a class="incr-btn">+</a>
+              <a class="incr-btn" onclick="del();">–</a>
+              <input class="quantity" type="text" name="amount" value="1" readonly="true" onchange="change();">
+              <a class="incr-btn" onclick="add();">+</a>
             </div>
-            <div class="price_wrap">총금액<span class="price"><%=CmmUtil.nvl(aDTO.getProd_price()) %></span><span class="won">원</span></div>
+            <div class="price_wrap">총금액<span class="price"></span><span class="won">원</span></div>
           </div>
-          
         </div>
 
         <div class="list_wrap">
