@@ -4,14 +4,15 @@
 	<select id="getCommentList" resultType="TestDTO">
 		SELECT * FROM ACADEMY;
 	</select>
-<!-- 	
-	<insert id="tran1">
-		INSERT INTO USER_INFO(USER_ID,PASSWORD,USER_NAME,EMAIL,TEL)
-		VALUES ('abc111','111111','kim','aaa@naver.com','1111')
-	</insert>
 	
-	<insert id="tran2">
-		INSERT INTO USER_INFO(USER_ID,PASSWORD,USER_NAME,EMAIL,TEL)
-		VALUES ('abc112','2222','yun','a1aa@naver.com')
-	</insert> -->
+	<select id="getfile_grp" resultType="ProductFileDTO">
+		SELECT IFNULL(MAX(FILE_GRP),10000000) +1 AS FILE_GRP FROM PROD_FILE
+	</select>
+	
+	<insert id="file_reg" parameterType="ProductFileDTO">
+		INSERT INTO PROD_FILE
+		 (FILE_NO, FILE_GRP, FILE_PATH, ORG_FILENAME, SRC_FILENAME, REG_USER_NO, REG_DT)
+		VALUES
+		 ((SELECT IFNULL(MAX(FILE_NO),10000000) +1 AS FILE_NO FROM (SELECT FILE_NO FROM PROD_FILE) PRD_FILE), #{file_grp}, #{file_path}, #{org_filename}, #{src_filename}, #{reg_user_no}, NOW())  
+	</insert>
 </mapper>
