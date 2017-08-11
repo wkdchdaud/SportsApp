@@ -39,7 +39,7 @@ public class ProductInfoService implements IProductInfoService {
 	
 	
 	@Override
-	public List<ProductInfoDTO>  getProductInfoDetail(ProductInfoDTO productInfoDTO) throws Exception{
+	public ProductInfoDTO getProductInfoDetail(ProductInfoDTO productInfoDTO) throws Exception{
 		
 		return productInfoMapper.getProductInfoDetail(productInfoDTO);
 	}
@@ -98,10 +98,11 @@ public class ProductInfoService implements IProductInfoService {
 		productInfoMapper.ProductInfoOptionInsert(productInfoOptionDTO);
 		
 	}
-
 	
-
-
+	@Override
+	public List<ProductInfoDTO> getProductInfoFile(ProductInfoDTO rDTO) throws Exception {
+		return null;
+	}
 
 
 

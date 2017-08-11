@@ -17,7 +17,7 @@ public interface ProductInfoMapper {
 	//더보기 구현
 	List<Prod_test_jcmDTO> getReadMore(Prod_test_jcmDTO pdto) throws Exception;
 	
-	List<ProductInfoDTO> getProductInfoDetail(ProductInfoDTO productInfoDTO) throws Exception; 
+	ProductInfoDTO getProductInfoDetail(ProductInfoDTO productInfoDTO) throws Exception; 
 	
 	void ProductInfoInsert(ProductInfoDTO productInfoDTO) throws Exception;
 	
@@ -36,4 +36,5 @@ public interface ProductInfoMapper {
 	
 	//옵션구현 
 	void ProductInfoOptionInsert(ProductInfoOptionDTO productInfoOptionDTO) throws Exception;
+	
 }
