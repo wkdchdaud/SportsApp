@@ -113,7 +113,7 @@ public class UserController {
 		}
 		
 		String msg = "수정되었습니다.";
-		String url = "/user/user_info.do?user_no=" + CmmUtil.nvl(request.getParameter("user_no"));
+		String url = "/admin/user/user_info.do?user_no=" + CmmUtil.nvl(request.getParameter("user_no"));
 		
 		model.addAttribute("url",url);
 		model.addAttribute("msg",msg);
@@ -136,7 +136,7 @@ public class UserController {
 		userService.delete_user(userDTO);
 		
 		String msg = "탈퇴되었습니다.";
-		String url = "/user/user_list.do";
+		String url = "/admin/user/user_list.do";
 		
 		model.addAttribute("url",url);
 		model.addAttribute("msg",msg);

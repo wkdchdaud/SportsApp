@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import sports.com.dto.UserDTO;
 import sports.com.service.IUserService;
-import sports.com.util.AES256Util;
 import sports.com.util.CmmUtil;
 import sports.com.util.MailUtil;
 import sports.com.util.SHAUtill;
@@ -37,11 +36,11 @@ private Logger log = Logger.getLogger(this.getClass());
 		log.info("welcome /user/join_proc start");
 		UserDTO userDTO = new UserDTO();
 		
-		userDTO.setUser_id(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("id"))));
+		userDTO.setUser_id(CmmUtil.nvl(request.getParameter("id")));
 		userDTO.setPassword(SHAUtill.double_encryption(CmmUtil.nvl(request.getParameter("pwd"))));
-		userDTO.setUser_name(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("name"))));
-		userDTO.setEmail(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("email"))));
-		userDTO.setTel(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("tel"))));
+		userDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
+		userDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
+		userDTO.setTel(CmmUtil.nvl(request.getParameter("tel")));
 		UserDTO uDTO = userService.join_proc(userDTO);
 		
 		String subject = "회원가입을 축하합니다.";
@@ -74,7 +73,7 @@ private Logger log = Logger.getLogger(this.getClass());
 			ModelMap model) throws Exception{
 		log.info("welcome /user/user_login_proc start");
 		UserDTO userDTO = new UserDTO();
-		userDTO.setUser_id(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("id"))));
+		userDTO.setUser_id(CmmUtil.nvl(request.getParameter("id")));
 		userDTO.setPassword(SHAUtill.double_encryption(CmmUtil.nvl(request.getParameter("pwd"))));
 		UserDTO ckDTO = userService.login_proc(userDTO); 
 		String msg = "";
@@ -87,7 +86,7 @@ private Logger log = Logger.getLogger(this.getClass());
 			url = "/user/user_login.do";
 		}else{
 			request.getSession().setAttribute("user_no", ckDTO.getUser_no());
-			request.getSession().setAttribute("user_id", AES256Util.strEncode(ckDTO.getUser_id()));
+			request.getSession().setAttribute("user_id", ckDTO.getUser_id());
 			request.getSession().setAttribute("auth", ckDTO.getAuth());
 			log.info(ckDTO.getAuth());
 			url = "/main.do";
@@ -146,8 +145,8 @@ private Logger log = Logger.getLogger(this.getClass());
 			ModelMap model) throws Exception{
 		log.info("welcome /user/email_send_test start");
 		UserDTO uDTO = new UserDTO();
-		uDTO.setUser_name(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("name"))));
-		uDTO.setEmail(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("email"))));
+		uDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
+		uDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
 		
 		if(userService.email_send_id(uDTO)){
 			model.addAttribute("msg","T");
@@ -164,8 +163,8 @@ private Logger log = Logger.getLogger(this.getClass());
 			ModelMap model) throws Exception{
 		log.info("welcome /user/id_found_proc start");
 		UserDTO userDTO = new UserDTO();
-		userDTO.setUser_name(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("name"))));
-		userDTO.setEmail(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("email"))));
+		userDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
+		userDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
 		userDTO.setEmail_ck(CmmUtil.nvl(request.getParameter("email_ck")));
 		
 		UserDTO uDTO = userService.getUser_ID(userDTO);
@@ -203,9 +202,9 @@ private Logger log = Logger.getLogger(this.getClass());
 		log.info("welcome /user/email_send_pw start");
 		
 		UserDTO uDTO = new UserDTO();
-		uDTO.setUser_id(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("id"))));
-		uDTO.setUser_name(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("name"))));
-		uDTO.setEmail(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("email"))));
+		uDTO.setUser_id(CmmUtil.nvl(request.getParameter("id")));
+		uDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
+		uDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
 		
 		if(userService.email_send_pw(uDTO)){
 			model.addAttribute("msg","T");
@@ -222,9 +221,9 @@ private Logger log = Logger.getLogger(this.getClass());
 			ModelMap model) throws Exception{
 		log.info("welcome /user/pw_change_form start");
 		UserDTO userDTO = new UserDTO();
-		userDTO.setUser_id(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("id"))));
-		userDTO.setUser_name(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("name"))));
-		userDTO.setEmail(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("email"))));
+		userDTO.setUser_id(CmmUtil.nvl(request.getParameter("id")));
+		userDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
+		userDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
 		userDTO.setEmail_ck(CmmUtil.nvl(request.getParameter("email_ck")));
 		
 		UserDTO uDTO = userService.get_pwfound(userDTO);
@@ -272,7 +271,7 @@ private Logger log = Logger.getLogger(this.getClass());
 			ModelMap model) throws Exception{
 		log.info("welcome /user/id_check start");
 		UserDTO userDTO = new UserDTO();
-		userDTO.setUser_id(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("id"))));
+		userDTO.setUser_id(CmmUtil.nvl(request.getParameter("id")));
 		
 		UserDTO uDTO = userService.id_check(userDTO);
 		if(uDTO == null){

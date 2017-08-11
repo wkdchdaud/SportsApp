@@ -5,7 +5,8 @@
 		INSERT INTO USER_INFO
 		 (USER_NO,USER_ID, PASSWORD, USER_NAME, EMAIL, EMAIL_FIRST, TEL, AUTH, DELETE_YN, REG_USER_NO, REG_DT)
 		VALUES
-		 (#{user_no},#{user_id},#{password},#{user_name},#{email},'N',#{tel},'U','N',#{user_no},NOW())
+		 (#{user_no},HEX(AES_ENCRYPT(#{user_id},'Super_Developers')),#{password}),HEX(AES_ENCRYPT(#{user_name},'Super_Developers')),
+		 HEX(AES_ENCRYPT(#{email},'Super_Developers')),'N', HEX(AES_ENCRYPT(#{tel},'Super_Developers')),'U','N',#{user_no},NOW())
 	</insert>
 	
 	<select id="get_Max_Userno" resultType="UserDTO">
