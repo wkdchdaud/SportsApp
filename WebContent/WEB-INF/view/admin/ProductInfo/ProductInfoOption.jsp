@@ -171,8 +171,9 @@
 </table>
 
 <button align="center" onclick="location.href='/admin/ProductInfo/ProductInfoReg.do'"> 등록</button>
-<button align="center" type="button" onclick="location.href='/admin/ProductInfo/ProductInfoReg.do';return false;"> 취소</button>
-	
+<!-- <button align="center" type="button" onclick="location.href='/admin/ProductInfo/ProductInfoReg.do';return false;"> 취소</button>
+	 -->
+	 <button align="center" type="button" onclick="self.close();">취소</button>
 </form>
 
 </body>

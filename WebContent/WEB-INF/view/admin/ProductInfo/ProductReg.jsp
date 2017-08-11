@@ -26,7 +26,19 @@
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    
+   	 
+   	  <script type="text/javascript">
+     function optionpopup(){ 
+    	
+    	  var popURL ="/admin/ProductInfo/ProductInfoOptionReg.do";
+    	  var popOption = "width=650, height=360, resizable=no, status=yes;";
+    	   			window.open(popURL,"",popOption);
+     }
+    	 
+    	 
+    	 
+    	 </script>
+     
      <script type="text/javascript">
 		function doAction(gubun) {
 		var f = document.getElementById("form1");
@@ -40,8 +52,12 @@
 			f.action ="/admin/ProductInfo/List.do";
 			
 		}
+		
+		
 	}
 	</script>
+	
+
 
 </head>
 
@@ -143,15 +159,15 @@
             </li>
             <li>
               <p class="blue_text">제품명</p>
-              <input type="text">
+              <input type="text" name="prod_name">
             </li>
             <li>
               <p class="blue_text">제품 가격</p>
-              <input type="text">
+              <input type="text" name="prod_price"> 
             </li>
             <li>
               <p class="blue_text">제품 상세</p>
-              <textarea></textarea>
+              <textarea name="prod_contents"></textarea>
               <div class="input_btn_wrap">
                 <input type="text"><button class="line-btn">파일첨부</button>
               </div>
@@ -159,7 +175,9 @@
             <li>
               <p class="blue_text">옵션</p>
               <div class="input_btn_wrap">
-                <input type="text" placeholder="옵션을 추가"><button class="line-btn" onclick="location.href='/admin/ProductInfo/ProductOptionReg.do';return false;">등록/수정</button>
+                <input type="text" placeholder="옵션을 추가"><!-- <button class="line-btn" onclick="location.href='/admin/ProductInfo/ProductInfoOptionReg.do';return false;">등록/수정</button> -->
+                <input type="button" class="line-btn" onclick="optionpopup();" value="등록/수정"/>
+                
               </div>
 
             </li>
