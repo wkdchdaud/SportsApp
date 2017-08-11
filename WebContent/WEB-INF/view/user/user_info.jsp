@@ -16,7 +16,7 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	function doUpdate() {
-		location.href='/user/user_change.do?user_no=<%=CmmUtil.nvl(userDTO.getUser_no()) %>';
+		location.href='/admin/user/user_change.do?user_no=<%=CmmUtil.nvl(userDTO.getUser_no()) %>';
 	}
 	
 	function doDelete() {
@@ -81,11 +81,11 @@
 	
 	<tr>
 		<td colspan="2" align="center">
-			<form action="/user/user_delete.do" method="post" onsubmit="return doDelete();">
+			<form action="/admin/user/user_delete.do" method="post" onsubmit="return doDelete();">
 				<input type="hidden" value="<%=CmmUtil.nvl(userDTO.getUser_no()) %>" name="user_no"/>
 				<input type="button" value="수정" onclick="doUpdate();"/>
 				<input type="submit" value="삭제"/>
-				<input type="button" value="확인" onclick="location.href='/user/user_list.do'"/>
+				<input type="button" value="확인" onclick="location.href='/admin/user/user_list.do'"/>
 			</form>
 		</td>
 	</tr>

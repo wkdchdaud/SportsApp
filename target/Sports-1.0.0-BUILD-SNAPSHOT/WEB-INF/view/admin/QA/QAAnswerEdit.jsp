@@ -15,26 +15,30 @@ if (rDTO==null) {
 
 int access = 1; 
 
-if (CmmUtil.nvl((String)session.getAttribute("SESSION_USER_NO")).equals(CmmUtil.nvl(rDTO.getReg_user_no()))) {
+if (CmmUtil.nvl((String)session.getAttribute("user_no")).equals(CmmUtil.nvl(rDTO.getReg_user_no()))) {
 	access = 2;
 }
 %> 
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Q&A 답글 수정(스포츠 용품업자)</title>
+<%@include file="/inc/head.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Q&A 답글 수정</title>
 <script type="text/javascript">
 
-<%-- function doOnload() {
+function doOnload() {
 	
 	if ("<%=access%>"=="1") {
 		
-		alert("본인이 작성한 게시글만 수정 가능합니다.");
+		alert("본인이 작성한 답글만 수정 가능합니다.");
 		location.href="/admin/QA/QAList.do";
 		
 	}
 	
-} --%>
+}
 
 function doSubmit(f) {
 	
@@ -56,9 +60,9 @@ function doSubmit(f) {
 	
 	var secretCheck = false;
 	
-	for (var i=0; i<f.secretYn.length; i++) {
+	for (var i=0; i<f.secret_yn.length; i++) {
 		
-		if (f.secretYn[i].checked) {
+		if (f.secret_yn[i].checked) {
 			secretCheck = true;
 		}
 		
@@ -67,7 +71,7 @@ function doSubmit(f) {
 	if (secretCheck==false) {
 		
 		alert("비밀글 여부를 선택하시기 바랍니다.");
-		f.secretYn[0].focus();
+		f.secret_yn[0].focus();
 		return false;
 		
 	}	
@@ -122,47 +126,99 @@ function calBytes(str) {
 </head>
 <body onload="doOnload();">
 
-<form name="f" method="post" action="/admin/QA/QAAnswerUpdate.do" enctype="multipart/form-data" onsubmit="return doSubmit(this);">
+	<div id="wrapper">
+		<!-- 사이드 네비바 및 헤더 부분 시작 -->
+		<%@include file="/inc/side_nav.jsp"%>
+		<!-- 사이드 네비바 및 헤더 부분 끝  -->
 
-<input type="hidden" name="qa_no" value="<%=CmmUtil.nvl(request.getParameter("qa_no")) %>" />
+	<!-- /. NAV SIDE  -->
+		<div id="page-wrapper">
+			<div id="page-inner">
+				<div class="row">
+					<div class="col-md-12">
+						<h2>Q&A</h2>
+					</div>
+				</div>
+			
+	<!-- /. ROW  -->
+		<hr />
+		<div class="row">
+			<div class="col-md-7">
+				<div class="panel panel-default" style="width: 100%">
+					<div class="panel-heading">Q&A 답글 수정</div>
+					
+	<!--    Context Classes  -->
+	<form name="f" method="post" action="/admin/QA/QAAnswerUpdate.do" enctype="multipart/form-data" onsubmit="return doSubmit(this);">
+
+	<input type="hidden" name="qa_no" value="<%=CmmUtil.nvl(request.getParameter("qa_no")) %>" />
+	<input type="hidden" name="secret_yn" value="<%=CmmUtil.nvl(rDTO.getSecret_yn()) %>" />
+	<input type="hidden" name="title" value="<b>[RE]</b> <%=CmmUtil.nvl(rDTO.getTitle()) %>" />
 	
-	<table border="1">
+		<div class="panel panel-default" style="width: 100%">
+			<div class="panel-body">
 	
-		<col width="100px" />
-		<col width="500px" />
+	<table class="table">
+	
+		<tbody>
 		
 		<tr>
-			<td align="center">제목</td>
-			<td><input type="text" name="title" maxlength="100" value="<%=CmmUtil.nvl(rDTO.getTitle()) %>" style="width: 450px" /></td>
+			<td>제목</td>
+			<td><%=CmmUtil.nvl(rDTO.getTitle()) %></td>
 		</tr>
 		
 		<tr>
-			<td align="center">비밀글 여부</td>
+			<td>비밀글 여부</td>
 			<td>
-				예 <input type="radio" name="secret_yn" value="1" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "1") %> />
-				아니오 <input type="radio" name="secret_yn" value="2" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "2") %> />
+				예 <input type="radio" name="secret_yn" value="1" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "1") %> disabled="disabled" />
+				&nbsp;&nbsp;
+				아니오 <input type="radio" name="secret_yn" value="2" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "2") %> disabled="disabled" />
 			</td>
 		</tr>
 		
 		<tr>
-			<td colspan="2"><textarea name="contents" style="width: 550px; height: 400px"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("\r\n", "<br/>") %></textarea></td>
+			<td align="center" colspan="2"><textarea name="contents" style="width: 300px; height: 400px" maxlength="2000" wrap="physical"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("<br>", "\r\n") %></textarea></td>
 		</tr>
 		
 		<tr>
-			<td align="center">첨부파일</td>
-			<td><input type="file" name="file_name" style="width:450px" /></td>
+			<td>첨부파일</td>
+			<td><input type="file" name="file_name" /></td>
 		</tr>
 		
-		<tr>
-			<td align="center" colspan="2">
-				<input type="submit" value="수정" />
-				<input type="button" value="이전으로" onclick="location.href='/admin/QA/QAAnswerDetail.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>' "/>
-			</td>
-		</tr>
+		</tbody>
 			
 	</table>
+	
+			</div>
+		</div>	
+	
+	<input type="submit" value="수정" />
+	<input type="button" value="이전으로" onclick="location.href='/admin/QA/QAAnswerDetail.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>' " />
 
 </form>	
+
+							<!--  end  Context Classes  -->
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- /. ROW  -->
+		</div>
+		
+		<!-- /. PAGE INNER  -->
+	</div>
+	
+	<!-- /. PAGE WRAPPER  -->
+	<!-- /. WRAPPER  -->
+	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+	<!-- JQUERY SCRIPTS -->
+	<script src="/assets/js/jquery-1.10.2.js"></script>
+	<!-- BOOTSTRAP SCRIPTS -->
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<!-- METISMENU SCRIPTS -->
+	<script src="/assets/js/jquery.metisMenu.js"></script>
+	<!-- CUSTOM SCRIPTS -->
+	<script src="/assets/js/custom.js"></script>
 
 </body>
 </html>
