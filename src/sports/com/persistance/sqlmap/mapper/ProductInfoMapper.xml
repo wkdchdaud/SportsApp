@@ -46,13 +46,8 @@
 		<if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
 		ORDER BY PRICE+0 ASC LIMIT 6 
 	 </select>
-
-	<select resultType="Prod_test_jcmDTO" id="getLowpriceSearch" parameterType="Prod_test_jcmDTO">
-	SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO 
-	   <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
-	 ORDER BY PRICE+0 ASC LIMIT 6 
-	 </select>
 	 <!-- 스포츠 용품 조건선택 검색 쿼리 끝-->
+	 
 	<!-- 스포츠 용품 상세 쿼리  -->
 	<select id ="getProductInfoDetail" resultType="ProductInfoDTO">
 		SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS, FILE_GRP FROM PRODUCT_INFO WHERE prod_no = #{prod_no}
