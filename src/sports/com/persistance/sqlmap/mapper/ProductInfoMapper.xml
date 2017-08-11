@@ -92,6 +92,11 @@ SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS FROM PRODUCT_INFO WHERE pro
 
 	</insert>
 	
+	<!-- 옵션 불러오기 -->
 	
-
+	<select id ="getProductInfoOptionInfo" resultType="ProductInfoOptionDTO">
+	SELECT OPT_NO, PROD_NO, OPT_NAME, OPT_KIND, OPT_PRICE, REG_USER_NO, REG_DT, CHG_USER_NO, CHG_DT FROM PROD_OPTION
+	WHERE PROD_NO = #{prod_no}
+	</select>
+	
 </mapper>

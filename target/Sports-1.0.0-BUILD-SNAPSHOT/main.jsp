@@ -548,9 +548,9 @@
                                 </span>
                             </div>
                         </div>
-
+						 	 
                     </div>
-                    
+                     
                 </div>
                     <div class="col-md-6 col-sm-12 col-xs-12">
                          <div class="panel panel-default">
@@ -598,6 +598,5 @@
       <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
     
-   
 </body>
 </html>

@@ -89,9 +89,7 @@ function calBytes(str){
 	<table border="1">
 		<col width="100px" />
 		<col width="500px" />
-		<tr>
-			<td align="center">학원 No.</td>
-			<td><input type="text" name="aca_no"/></td>
+		
 		<tr>
 			<td>학원 이름</td><td><input type="text" name="aca_name" /> </td>
 		</tr>
@@ -100,6 +98,21 @@ function calBytes(str){
 		</tr>
 		<tr>
 			      <td> 학원 주소2</td><td><input type="text" name="aca_area2"/> </td>
+		</tr>
+		<tr>
+			      <td> 학원 주소3</td><td><input type="text" name="aca_area3"/> </td>
+		</tr>
+		<tr>
+			      <td> 학원 이벤트1</td><td><input type="text" name="aca_event1"/> </td>
+		</tr>
+		<tr>
+			      <td> 학원 이벤트2</td><td><input type="text" name="aca_event2"/> </td>
+		</tr>
+		<tr>
+			      <td> 학원 위도</td><td><input type="text" name="aca_lat"/> </td>
+		</tr>
+		<tr>
+			      <td> 학원 경도</td><td><input type="text" name="aca_lng"/> </td>
 		</tr>
 		<tr>
 			<td colspan="2">

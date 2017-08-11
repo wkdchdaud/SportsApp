@@ -13,7 +13,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="main.do">모두의 스포츠</a> 
+                <a class="navbar-brand" href="/main.do">모두의 스포츠</a> 
             </div>
   <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;" id="nowDate">2017년 6월 23일
   <%if(user_id.equals("")){ %>
@@ -32,10 +32,12 @@
 				
 					<!-- 우리가 사용할 메뉴 시작  -->
 					
-					<!--  회원관리 -->		
+					<!--  회원관리 -->
+					<%if(auth.equals("A")){ %>
 					<li>
-                        <a href="ui.do"><i class="fa fa-desktop fa-3x"></i> 회원관리</a>
+                        <a href="/user/user_list.do"><i class="fa fa-desktop fa-3x"></i> 회원관리</a>
                     </li>
+                    <%} %>
                     
                     <!--  권한관리 -->
                     <li>
@@ -54,7 +56,7 @@
                     
                     <!--스포츠용품리스트관리  -->
                     <li>
-                        <a href="table1.do"><i class="fa fa-table fa-3x"></i> 스포츠 용품 리스트 관리</a>
+                        <a href="/admin/ProductInfo/List.do"><i class="fa fa-table fa-3x"></i> 스포츠 용품 리스트 관리</a>
                     </li>
                     
 					<!--매출분석정보-->
@@ -68,10 +70,10 @@
                         <a href="#"><i class="fa fa-sitemap fa-3x"></i> 커뮤니티 관리<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">공지사항</a>
+                                <a href="/admin/notice/NoticeList.do">공지사항</a>
                             </li>
                             <li>
-                                <a href="#">Q&A</a>
+                                <a href="<%=auth.equals("A")?"/admin/QA/QAList.do":"/customer/QA/QAList.do" %>">Q&A</a>
                             </li>
                          </ul>
                         </li>

@@ -1,12 +1,17 @@
+<%@page import="java.util.Set"%>
+<%@page import="java.util.HashSet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    
 <%@ page import="sports.com.util.CmmUtil" %>
 <%@ page import="sports.com.dto.ProductInfoDTO" %>
+<%@ page import="sports.com.dto.ProductInfoOptionDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %> 
 <%
 List<ProductInfoDTO> rList = (List<ProductInfoDTO>) request.getAttribute("dlwkdus");
+
+List<ProductInfoOptionDTO> oList = (List<ProductInfoOptionDTO>) request.getAttribute("olist");
 
 if (rList==null) {
 	rList = new ArrayList<ProductInfoDTO>();
@@ -19,6 +24,9 @@ if (rList==null) {
 				if (aDTO==null) {
 					aDTO = new ProductInfoDTO();
 				}
+		
+		String opt_name="색상";
+		
 		%>    
 <!DOCTYPE html>
 <html lang="ko">
@@ -58,6 +66,22 @@ if (rList==null) {
 			
 		}
 	}
+		
+	function pickOption(){
+		var sop = document.getElementById("secondOpt");
+		
+		alert(document.getElementById("firstOpt").value);
+		
+		sop.removeAttribute("disabled");
+		
+		if(document.getElementById("firstOpt").value == "<%=opt_name%>"){
+			sop.disabled = 'false';
+			$("#secondOpt").find("option").remove();
+
+		}
+		
+		
+	}	
 	</script>
 	
 	<script type="text/javascript">
@@ -67,7 +91,7 @@ if (rList==null) {
 		
 		
 		
-	}
+	})
 	
 		
 		</script>
@@ -167,25 +191,59 @@ if (rList==null) {
               <p class="sub_text">배송비 2,500원 (50,000원 이상 무료배송)</p>
               
             </div>
+            <%
+             	List<String> OptName = new ArrayList();
+             
+
+            	//배열은 선언과 동시에 배열의 크기를 지정해야함
+            	//List는 LinkedList의 구조로 선언시에 List의 크기를 지정하지않고 List에 값을 add할때마다 List의 크기가 커지는 형식
             
+            	for(ProductInfoOptionDTO oDTO: oList){
+            
+            	OptName.add(oDTO.getOpt_name());//List에 값을 넣는 코드 값을 뺄때는 OptName.get(index값);
+            	
+            	
+            	}
+            Set<String> setOptName = new HashSet<String>(OptName);//옵션값 유니크하게 뽑기
+            List<String> alignOptName = new ArrayList(setOptName);
+           
+            String firstOpt = alignOptName.get(0).toString();
+            String secondOpt = alignOptName.get(1).toString();
+            
+            System.out.println("firstOpt"+firstOpt);
+            System.out.println("secondOpt"+secondOpt);
+            	%>
+            	
+            	
         
           </div>
           <div class="goods_option">
             <p class="blue_text">옵션 선택</p>
             <div class="select_wrap">
-              <select class="col-2">
-              <option value="색상선택">색상선택</option>
-              <option value="1">빨강</option>
-              <option value="2">노랑</option>
-              <option value="3">초록</option>
+              <select class="col-2" id="firstOpt" onchange="javascript:pickOption()" >
+              <option value="<%=firstOpt %>"><%=firstOpt %></option>
+              <%for(ProductInfoOptionDTO oDTO: oList) {
+              	if(firstOpt.equals(oDTO.getOpt_name())){%>
+              		<option value="<%=oDTO.getOpt_kind() %>"><%=oDTO.getOpt_kind() %></option>
+              <%
+              			}
+              }
+              %>
               </select>
               
-              <select class="col-2">
-                <option value="선택">사이즈선택</option>
-                <option value="사이즈">사이즈1</option>
-         
+              <select class="col-2" id="secondOpt" disabled='false' >
+                 <option value="<%=secondOpt %>" ><%=secondOpt %></option>
+                 <%for(ProductInfoOptionDTO oDTO: oList) {
+              	if(secondOpt.equals(oDTO.getOpt_name())){%>
+              		<option value="<%=oDTO.getOpt_kind() %>"><%=oDTO.getOpt_kind() %></option>
+              <%
+              			}
+                 }
+              %>
               </select>
             </div>
+            
+           
 <!--수정 시작ㅎ  -->
             <p class="blue_text">수량</p>
             <div class="count_input">

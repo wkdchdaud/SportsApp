@@ -1,3 +1,5 @@
+<%@page import="sports.com.util.AES256Util"%>
+<%@page import="sports.com.util.CmmUtil"%>
 <%@page import="sports.com.dto.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -14,7 +16,7 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	function doUpdate() {
-		location.href='/user/user_update.do?user_no=<%=userDTO.getUser_no() %>';
+		location.href='/user/user_change.do?user_no=<%=CmmUtil.nvl(userDTO.getUser_no()) %>';
 	}
 	
 	function doDelete() {
@@ -28,43 +30,43 @@
 </head>
 <body>
 
-<h1><%=userDTO.getUser_id() %>님의 회원정보</h1>
+<h1><%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getUser_id())) %>님의 회원정보</h1>
 
 <table border="1">
 	<tr>
 		<td>회원번호</td>
-		<td><%=userDTO.getUser_no()%></td>
+		<td><%=CmmUtil.nvl(userDTO.getUser_no())%></td>
 	</tr>
 	
 	<tr>
 		<td>아이디</td>
-		<td><%=userDTO.getUser_id()%></td>
+		<td><%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getUser_id()))%></td>
 	</tr>
 	
 	<tr>
 		<td>이름</td>
-		<td><%=userDTO.getUser_name()%></td>
+		<td><%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getUser_name()))%></td>
 	</tr>
 	
 	<tr>
 		<td>이메일</td>
-		<td><%=userDTO.getEmail()%></td>
+		<td><%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getEmail()))%></td>
 	</tr>
 	
 	<tr>
 		<td>이메일 확인 여부</td>
-		<td><%=userDTO.getEmail_first()%></td>
+		<td><%=CmmUtil.nvl(userDTO.getEmail_first())%></td>
 	</tr>
 	
 	<tr>
 		<td>전화번호</td>
-		<td><%=userDTO.getTel()%></td>
+		<td><%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getTel()))%></td>
 	</tr>
 	
 	<tr>
 		<td>권한</td>
 		<td>
-			<%if(userDTO.getAuth().equals("A")) {%>
+			<%if(CmmUtil.nvl(userDTO.getAuth()).equals("A")) {%>
 				관리자
 			<%}else{ %>
 				고객
@@ -74,16 +76,16 @@
 	
 	<tr>
 		<td>탈퇴여부</td>
-		<td><%=userDTO.getDelete_yn()%></td>
+		<td><%=CmmUtil.nvl(userDTO.getDelete_yn())%></td>
 	</tr>
 	
 	<tr>
 		<td colspan="2" align="center">
 			<form action="/user/user_delete.do" method="post" onsubmit="return doDelete();">
-				<input type="hidden" value="<%=userDTO.getUser_no() %>" name="user_no"/>
+				<input type="hidden" value="<%=CmmUtil.nvl(userDTO.getUser_no()) %>" name="user_no"/>
 				<input type="button" value="수정" onclick="doUpdate();"/>
 				<input type="submit" value="삭제"/>
-				<input type="button" value="확인" onclick="history.back()"/>
+				<input type="button" value="확인" onclick="location.href='/user/user_list.do'"/>
 			</form>
 		</td>
 	</tr>

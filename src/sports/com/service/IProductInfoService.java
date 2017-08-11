@@ -30,4 +30,8 @@ public interface IProductInfoService {
 	
 	//옵션 등록 
 	void ProductInfoOptionInsert(ProductInfoOptionDTO productInfoOptionDTO) throws Exception;
+	
+	List<ProductInfoOptionDTO> getProductInfoOption(ProductInfoOptionDTO productInfoOptionDTO) throws Exception;
+	
+	
 }

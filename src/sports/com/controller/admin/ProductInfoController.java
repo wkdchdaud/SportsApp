@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import sports.com.dto.Prod_test_jcmDTO;
 import sports.com.dto.ProductInfoDTO;
+import sports.com.dto.ProductInfoOptionDTO;
 import sports.com.service.IProductInfoService;
 import sports.com.util.CmmUtil;
 
@@ -223,14 +224,18 @@ public class ProductInfoController {
 		
 		ProductInfoDTO productInfoDTO = new ProductInfoDTO();
 		
+		ProductInfoOptionDTO ProductInfoOptionDTO = new ProductInfoOptionDTO();
 		
 		productInfoDTO.setProd_no(prod_no);
-		
+		ProductInfoOptionDTO.setProd_no(prod_no);
+
 		List<ProductInfoDTO> list = productInfoService.getProductInfoDetail(productInfoDTO) ;
+		
+		List<ProductInfoOptionDTO> olist = productInfoService.getProductInfoOption(ProductInfoOptionDTO) ;
 		
 				
 				model.addAttribute("dlwkdus",list);
-		
+				model.addAttribute("olist",olist);
 		
 					return "/admin/ProductInfo/ProductDetail";	  
 					

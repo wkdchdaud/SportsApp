@@ -13,6 +13,7 @@
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>모두의 스포츠</title>
+  
     <!-- 데이트피커 -->
  
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" type="text/css" />  
@@ -21,12 +22,58 @@
   
 <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>  
 
-<%@include file="/inc/head.jsp"%>
+<script src="/js/sales_moris.js"></script>
+<script src="/js/sales_table.js"></script>
+<!-- BOOTSTRAP STYLES-->
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- FONTAWESOME STYLES-->
+    <link href="/assets/css/font-awesome.css" rel="stylesheet" />
+    
+     <!-- MORRIS CHART STYLES-->
+    <link href="/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    
+     <!-- CUSTOM STYLES-->
+    <link href="/assets/css/custom.css" rel="stylesheet" />
+    
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
+<!-- 일별주별월별분기별 연도별 클릭했을때는 
+	Hide 이용해서 값세팅해주고 datepicker이 ㅊchange될때 그값을 가지고 온다
+	그리고 변수에다 가 그값을 넣어서 보내주면 되겠지-->
+	<style>
+.ui-datepicker{ font-size: 12px; width: 250px; }
+.ui-datepicker select.ui-datepicker-month{ width:28%; font-size: 12px; }
+.ui-datepicker select.ui-datepicker-year{ width:32%; font-size: 12px; }
+</style>
 <script>
-/*  네비바 화면에따른 오픈 클로즈 */
+
+var hid ="";
+
+/*  테이블 제목 주기 */
+var rank_text="";
+
 
 $(function() {
+	
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+
+	if(dd<10) {
+	    dd='0'+dd
+	} 
+
+	if(mm<10) {
+	    mm='0'+mm
+	} 
+
+	today = yyyy+'-'+mm+'-'+dd;
+	$("#rank_text").text('(일별) 매출 종목 순위');
+	$("#testDatepicker").val(today);
+	
     $(window).bind("load resize", function () {
         if ($(this).width() < 768) {
             $('div.sidebar-collapse').addClass('collapse')
@@ -34,21 +81,91 @@ $(function() {
             $('div.sidebar-collapse').removeClass('collapse')
         }
     });
-
-    $( "#testDatepicker" ).datepicker({
+    
+    /*  datepicker 시작 */
+    $("#testDatepicker").datepicker({
     	dateFormat: 'yy-mm-dd',
+    	prevText: '이전 달',
+        nextText: '다음 달',
+        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+        showMonthAfterYear: true,
+        yearSuffix: '년 ',
     	changeMonth:true,
     	changeYear:true,
     	selectOtherMonths:true,
     	showOtherMonths:true,
+    	yearRange: "2017:2020",
+    	autoSize: true
     	/* altField : '#getdate' */
     	});
-
-    /*  datepicker 시작 */
-
+   
+	/* 날짜 변동할때마다 액션 */
+	$("#testDatepicker").change(function() {
+		
+		if(hid==""){
+			hid ='day';	
+		}
+		  $('#morris-bar-chart').html(null);
+		  $('#table_date_ajax').html(null);
+		  
+   		  var sale_date_mo = $('#testDatepicker').val();
+		/* 모리스 js 함수 호출   */
+		sale_moris_day(sale_date_mo,hid);
+		/* 모리스 js 끝  */
+		/* 테이블 아작스 실행 */
+		sale_table_day(sale_date_mo,hid);    	
+		/* 테이블 아작스 끝 */
+	});
 });
 
+/*  일별 주별 월별 분기별 연도별에 따른 합계*/
+function button_day(button_val){
+	$("#rank_text").text(null);
+	hid = null;
+	hid = button_val;
+	$('#morris-bar-chart').html(null);
+  	$('#table_date_ajax').html(null);
+	var button_day_var = $('#testDatepicker').val();
+	var cal_day = button_val;
 
+	if(button_val=="day"){
+		
+    	sale_moris_day(button_day_var,cal_day);
+		sale_table_day(button_day_var,cal_day);
+		$("#rank_text").text('(일별) 매출 종목 순위');
+	}else if(button_val=="week"){
+		
+    	sale_moris_day(button_day_var,cal_day);
+		sale_table_day(button_day_var,cal_day);
+		$("#rank_text").text('(주별) 매출 종목 순위');
+	}else if(button_val=="month"){
+		
+    	sale_moris_day(button_day_var,cal_day);
+		sale_table_day(button_day_var,cal_day);
+		$("#rank_text").text('(월별) 매출 종목 순위');
+	}else if(button_val=="boongi"){
+		
+    	sale_moris_day(button_day_var,cal_day);
+		sale_table_day(button_day_var,cal_day);
+		$("#rank_text").text('(분기별) 매출 종목 순위');
+	}else if(button_val=="year"){
+		
+    	sale_moris_day(button_day_var,cal_day);
+		sale_table_day(button_day_var,cal_day);
+		$("#rank_text").text('(연도별) 매출 종목 순위');
+	}
+	
+}
+/*  네비바 화면에따른 오픈 클로즈 */
+ 
+
+
+
+	
 </script>
 </head>
 <body>
@@ -67,6 +184,9 @@ $(function() {
                      	<hr/>
                     	</div>
                 	</div>        
+                	
+                	<input type="hidden" id="hid" value="day"/>
+                	
                 	  						<center><div class="btn-group">
 											  <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" style="width: 150px">매출 분석 정보 <span class="caret"></span></button>
 											  <ul class="dropdown-menu">
@@ -77,16 +197,16 @@ $(function() {
 											</div></center>
 											<br/>
 											<center>
-											 <a href="#" class="btn btn-warning btn-xs">일별</a>
-											 <a href="#" class="btn btn-warning btn-xs">주별</a>
-											 <a href="#" class="btn btn-warning btn-xs">월별</a>
-											 <a href="#" class="btn btn-warning btn-xs">분기별</a>
-											 <a href="#" class="btn btn-warning btn-xs">연도별</a>
+											 <button id="day" class="btn btn-warning btn-xs" onclick="button_day('day');">일별</button>
+											 <button id="week" class="btn btn-warning btn-xs" onclick="button_day('week');">주별</button>
+											 <button id="month" class="btn btn-warning btn-xs" onclick="button_day('month');">월별</button>
+											 <button id="boongi" class="btn btn-warning btn-xs" onclick="button_day('boongi');">분기별</button>
+											 <button id="year" class="btn btn-warning btn-xs" onclick="button_day('year');">연도별</button>
 											</center>
 					<br/>						
 					
 					<!-- 데이트 피커 달력 버튼  input으로만 가능하다.-->
-					<center><input type="button" class="btn btn-success btn-sm" id="testDatepicker" value="날짜 설정"></a></center>
+					<center><input type="button" class="btn btn-success btn-sm" id="testDatepicker" value=""></a></center>
 					
                 	<!--  진정 본문 시작 -->   
                 	 
@@ -108,8 +228,8 @@ $(function() {
                             <div class="row">
                 				<div class="col-md-12">
                     				<div class="panel panel-default">
-                        				<div class="panel-heading" style="text-align: center">매출 종목 순위
-                        				</div>
+                        				<div class="panel-heading" style="text-align: center" id="rank_text">
+      									</div>
                         
                         				<div class="panel-body">
                             				<div class="table-responsive">
@@ -120,31 +240,18 @@ $(function() {
 				                                            <th style="text-align: center">종목</th>
                                         				</tr>
                                     				</thead>
-                                    				<tbody>
+                                    				<tbody id="table_date_ajax">
+                                    				
+                                    				<% int i = 0;
+                                    				for (R_testDTO qwe : rank_list){
+															i++;%>
+															
 														<tr>
-															<td>1</td>
-															<td><%= rank_list.get(0).getName() %></td>
-														</tr>
+															<td><%=i %></td>
+															<td><%=qwe.getName() %></td>
+														</tr>														
 														
-														<tr>
-															<td>2</td>
-															<td><%= rank_list.get(1).getName() %></td>
-														</tr>
-														
-														<tr>
-															<td>3</td>
-															<td><%= rank_list.get(2).getName() %></td>
-														</tr>
-														
-														<tr>
-															<td>4</td>
-															<td><%= rank_list.get(3).getName() %></td>
-														</tr>
-														
-														<tr>
-															<td>5</td>
-															<td><%= rank_list.get(4).getName() %></td>
-														</tr>
+														<%}%>
 														
                                     				</tbody>
                                 				</table>
@@ -181,74 +288,31 @@ $(function() {
    <!-- <script src="/assets/js/custom.js"></script> --> 
     
     <script type="text/javascript">
+    
+    /* 모리스 js 매출 분석 정보 달력 클릭시 마다 바뀌는 함수*/
+
+    /* 모리스 js 매출 분석 정보 달력 클릭시 마다 바뀌는 함수 끝*/
+    
     $(function() {
     	 Morris.Bar({
              element: 'morris-bar-chart',
-             data: [{
-                 a: '<%=sale_list.get(0).getSum_price()%>',
-                 y: '<%=sale_list.get(0).getSale_date()%>'
-             }, {
-                 a: '<%=sale_list.get(1).getSum_price()%>',
-                 y: '<%=sale_list.get(1).getSale_date()%>'
-             }, {
-                 a: '<%=sale_list.get(2).getSum_price()%>',
-                 y: '<%=sale_list.get(2).getSale_date()%>'
-             }, {
-                 a: '<%=sale_list.get(3).getSum_price()%>',
-                 y: '<%=sale_list.get(3).getSale_date()%>'
-             }, {
-                 a: '<%=sale_list.get(4).getSum_price()%>',
-                 y: '<%=sale_list.get(4).getSale_date()%>'
-             }, {
-                 a: '<%=sale_list.get(5).getSum_price()%>',
-                 y: '<%=sale_list.get(5).getSale_date()%>'
-             }, {
-                 a: '<%=sale_list.get(6).getSum_price()%>',
-                 y: '<%=sale_list.get(6).getSale_date()%>'
-             }
+             data: [ <% int qw = 0 ; 
+                     for(R_testDTO qwe : sale_list){qw++; %>
+             {
+            	 a:'<%=qwe.getSum_price()%>' 
+            	 ,
+                 y: '<%=qwe.getSale_date()%>' 
+              }
+              <%if (qw != 5){%> , <%}%>
+             <%}%>
              ],
              xkey: 'y',
              ykeys: ['a'],
              labels: ['매출'],
              resize: true
          });
-    	 
-      $( "#testDatepicker" ).change(function() {
-    	  $('#morris-bar-chart').html(null);
-    	  var sale_date_mo = $('#testDatepicker').val();
-    	$.ajax({
-    		url: "sale_chart.do",
-    		method: "post",
-    		data: {
-    			'sale_date_mo' : sale_date_mo
-    		},
-    		dataType: "json",
-    		success : function(data){
-    			var dt ="";
-    			var arr = new Array();
-    			$.each(data, function(key, value){
-/*     				if(value.sum_price==null){
-    					dt={y : "2000-11-11", a:0}
-    				} */
-    				dt={y: value.sale_date, a: value.sum_price}
-    				arr.push(dt)
-    	});
-    			console.log(arr)
- 				/*  네비바 */
- 				 Morris.Bar({
-                    element: 'morris-bar-chart',
-                    data: arr,
-                    xkey: 'y',
-                    ykeys: ['a'],
-                    labels: ['매출'],
-                    hideHover: 'auto',
-                    resize: true
-              
-                });
- 			 }      
- 				 });   
-    });
-      });
+
+  });
 </script>
    
 </body>

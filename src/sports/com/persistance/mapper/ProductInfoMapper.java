@@ -36,4 +36,7 @@ public interface ProductInfoMapper {
 	
 	//옵션구현 
 	void ProductInfoOptionInsert(ProductInfoOptionDTO productInfoOptionDTO) throws Exception;
+
+	//옵션 리스트 불러오기
+	List<ProductInfoOptionDTO> getProductInfoOptionInfo(ProductInfoOptionDTO productInfoOptionDTO);
 }
