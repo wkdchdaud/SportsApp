@@ -4,14 +4,14 @@
 
 <!-- 전체 리스트 -->
 <select id ="getProductInfolist" resultType="Prod_test_jcmDTO">
-SELECT PROD_NO, PROD_NAME, PRICE FROM PRODUCT_INFO_TEST
+SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO
 ORDER BY PROD_NO+0 DESC LIMIT 6;
 
 </select>
 
 <!-- 파라미터에 따른 리스트 -->
 <select id ="getParameterList" resultType="Prod_test_jcmDTO" parameterType="Prod_test_jcmDTO">
-SELECT PROD_NO, PROD_NAME, PRICE FROM PRODUCT_INFO_TEST
+SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO
 WHERE PROD_CATEGORY LIKE #{prod_category}
 ORDER BY PROD_NO+0 DESC LIMIT 6;
 
@@ -19,8 +19,8 @@ ORDER BY PROD_NO+0 DESC LIMIT 6;
 
 <!-- 더보기 버튼 구현 -->
 	<select resultType="Prod_test_jcmDTO" id="getReadMore" parameterType="Prod_test_jcmDTO" >
-		SELECT PROD_NO, PROD_NAME, PRICE
-		FROM PRODUCT_INFO_TEST
+		SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE
+		FROM PRODUCT_INFO
 		<if test='search!=""'>WHERE PROD_NAME LIKE CONCAT('%', #{search}, '%')</if>
 		<if test='price=="all"'>ORDER BY PROD_NO DESC</if>
 		<if test='price=="lowprice"'>ORDER BY PRICE ASC</if>
@@ -30,20 +30,20 @@ ORDER BY PROD_NO+0 DESC LIMIT 6;
 	
 	<!-- 조건선택 검색-->
 <select resultType="Prod_test_jcmDTO" id="getAllSearch" parameterType="Prod_test_jcmDTO">
- SELECT PROD_NO, PROD_NAME, PRICE FROM PRODUCT_INFO_TEST 
+ SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO
  	<if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
  	ORDER BY PROD_NO+0 DESC LIMIT 6
   
  </select>
                                         
 <select resultType="Prod_test_jcmDTO" id="getHighpriceSearch" parameterType="Prod_test_jcmDTO">
-SELECT PROD_NO, PROD_NAME, PRICE FROM PRODUCT_INFO_TEST 
+SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO 
   <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
  ORDER BY PRICE+0 DESC LIMIT 6 
  </select>
 
 <select resultType="Prod_test_jcmDTO" id="getLowpriceSearch" parameterType="Prod_test_jcmDTO">
-SELECT PROD_NO, PROD_NAME, PRICE FROM PRODUCT_INFO_TEST 
+SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO 
    <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
  ORDER BY PRICE+0 ASC LIMIT 6 
 

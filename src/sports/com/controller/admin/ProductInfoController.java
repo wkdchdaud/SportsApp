@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import sports.com.dto.Prod_test_jcmDTO;
 import sports.com.dto.ProductInfoDTO;
+import sports.com.dto.ProductInfoOptionDTO;
 import sports.com.service.IProductInfoService;
 import sports.com.util.CmmUtil;
 
@@ -213,9 +214,7 @@ public class ProductInfoController {
 	
 	@RequestMapping(value="admin/ProductInfo/ProductInfoDetail",method=RequestMethod.GET)
 	public String ProductInfoDetail(HttpServletRequest request, HttpServletResponse response, 
-			ModelMap model) throws Exception
-	{
-		
+			ModelMap model) throws Exception{
 		
 		log.info(this.getClass().getName()+"productinfoDetail start");
 		
@@ -229,12 +228,11 @@ public class ProductInfoController {
 		List<ProductInfoDTO> list = productInfoService.getProductInfoDetail(productInfoDTO) ;
 		
 				
-				model.addAttribute("dlwkdus",list);
+		model.addAttribute("dlwkdus",list);
 		
+		log.info(this.getClass().getName()+"productinfoDetail end");
 		
-					return "/admin/ProductInfo/ProductDetail";	  
-					
-					
+		return "/admin/ProductInfo/ProductDetail";	  
        }
 
 
@@ -250,7 +248,7 @@ public class ProductInfoController {
 			
 	
 	log.info(this.getClass().getName()+"productInfoProductinfoRegEnd");
-		return "/admin/ProductInfo/ProductInfoReg";
+		return "/admin/ProductInfo/ProductReg";
 		
 			}
 	
@@ -465,6 +463,86 @@ public class ProductInfoController {
 		 }
 		return "/redirect";
 	}
+	
+	
+	/*옵션 controller*/ 
+	
+	@RequestMapping(value="admin/ProductInfo/ProductInfoOptionReg",method=RequestMethod.GET)
+	public String ProductInfoOptionReg(HttpServletRequest request, HttpServletResponse response, 
+			ModelMap model) throws Exception
+			{
+		
+		log.info(this.getClass().getName()+"productInfoProductinfoRegStart");
+		
+		System.out.println("들어");
+
+		log.info(this.getClass().getName()+"productInfoProductinfoRegEnd");
+		
+		return "/admin/ProductInfo/ProductInfoOption";
+		
+			}
+	
+	/*옵션 등록(insert) controller*/
+	
+	@RequestMapping(value="admin/ProductInfo/ProductInfoOptionInsert",method=RequestMethod.POST)
+	public String ProductInfoOptionInsert(HttpServletRequest request, HttpServletResponse response, 
+			ModelMap model) throws Exception
+			{
+		
+		
+		 log.info(this.getClass().getName()+"productInfoProductinfoInsertStart");
+		 String msg ="";
+		 String url ="/admin/ProductInfo/ProductReg.do";
+		 
+		 try{
+		
+		 ProductInfoOptionDTO rdto = new ProductInfoOptionDTO();
+		 
+	   
+		 String opt_name = CmmUtil.nvl(request.getParameter("opt_name"));
+		 System.out.println("OPT_NAME  : " +  CmmUtil.nvl(request.getParameter("prod_name")));
+		 
+		 String opt_kind =CmmUtil.nvl(request.getParameter("opt_kind"));
+		 System.out.println("OPT_PRICE  : " + CmmUtil.nvl(request.getParameter("opt_kind")));
+		 
+		 String opt_price =CmmUtil.nvl(request.getParameter("opt_price"));
+		 System.out.println("OPT_CONTENTS  : " + CmmUtil.nvl(request.getParameter("opt_price")));
+		 
+	
+		 rdto.setOpt_price(opt_name);	
+		 rdto.setOpt_kind(opt_kind);
+		 rdto.setOpt_price(opt_price);
+		 
+		 
+		 
+		 productInfoService.ProductInfoOptionInsert(rdto);
+		 
+		 
+		 
+		 msg = "옵션 등록 완료";
+		 url ="/admin/ProductInfo/ProductReg.do";
+		 
+		 rdto= null;
+		 
+		 } catch(Exception e){
+			 
+		 msg = "옵션 등록 실패"+ e.toString();
+		 url ="/admin/ProductInfo/ProductReg.do";
+		
+			log.info(e.toString());
+			e.printStackTrace();
+			
+		 }
+		 finally{
+		
+		log.info(this.getClass().getName()+"productInfoProductinfoInsertEnd");
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		 }
+		return "/redirect";
+		
+			}
+
 	
 		
 		

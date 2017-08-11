@@ -105,7 +105,7 @@ if (rList==null) {
                 <img src="/common/images/sample02.png" alt="thumb">
               </div>
               <div class="info">
-                <p class="title" onclick="location.href='/admin/ProductInfo/ProductDetail.do?prod_no1=<%=CmmUtil.nvl(aDTO.getProd_no()) %>';return false;">asdasd <%= CmmUtil.nvl(aDTO.getProd_name()) %></a> </p>
+                <p class="title"><a href="/admin/ProductInfo/ProductInfoDetail.do?prod_no1=<%=CmmUtil.nvl(aDTO.getProd_no()) %>"> <%= CmmUtil.nvl(aDTO.getProd_name()) %></p>
                 <p class="price edit"><%= CmmUtil.nvl(aDTO.getProd_price()) %></p>
                 </div>
                 <button class="edit-btn thumb-btn">편집</button>
