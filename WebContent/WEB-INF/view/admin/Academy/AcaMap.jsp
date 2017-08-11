@@ -244,7 +244,7 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
     
     
  // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-     var iwContent = '<div style="padding:5px;"><input type="text" id="nn" name="123" readonly="true" value="' + acaList[i] + '">'
+     var iwContent = '<div style="padding:5px;">d<input type="text" id="nn" name="123" readonly="true" value="' + acaList[i] + '">'
      +'</div><div style="padding:4px;"><textarea name="1" value="학원 Comment"></textarea></div>',
     
     
@@ -274,7 +274,7 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
  // 커스텀 오버레이를 생성합니다
     var customOverlay = new daum.maps.CustomOverlay({
         position: position,
-        content: '<div id="wrapper"><input type="text" name="123" readonly="true" value="' + acaList[i] + '">'
+        content: '<div class="panel panel-default" "padding:5px;">'+acaList[i]+''
     +'</div>'  
     });
    
@@ -376,7 +376,17 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
 
 }
 //***********************************************************************************
+// 배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다
+function setMarkers(map) {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }            
+}
 
+// "마커 보이기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에 표시하는 함수입니다
+function showMarkers() {
+    setMarkers(map)    
+}
 
 // MakrerImage 객체를 생성하여 반환하는 함수입니다
 function createMarkerImage(markerImageSize, offset, spriteOrigin) {
