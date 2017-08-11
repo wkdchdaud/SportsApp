@@ -1,3 +1,4 @@
+<%@page import="sports.com.dto.ProductInfoOptionDTO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="sports.com.dto.ProductFileDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -15,6 +16,8 @@ ProductInfoDTO rDTO = (ProductInfoDTO) request.getAttribute("dlwkdus");
 	}
 	
 	List<ProductFileDTO> fileList = (List<ProductFileDTO>) request.getAttribute("file");
+	
+	List<ProductInfoOptionDTO> oList = (List<ProductInfoOptionDTO>) request.getAttribute("oList");
 	
 	if (fileList==null) {
 		fileList = new ArrayList<ProductFileDTO>();

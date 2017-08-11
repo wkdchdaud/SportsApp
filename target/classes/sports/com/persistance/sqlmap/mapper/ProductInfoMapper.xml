@@ -92,4 +92,10 @@
 		VALUES ((SELECT IFNULL(MAX(A.OPT_NO), 1000000)+1 FROM PROD_OPTION A), #{prod_no}, #{opt_name}, #{opt_kind}, #{opt_price})
 	</insert>
 	
+	<!-- 옵션리스트 불러오기 -->
+	<select id ="getProductInfoOption" resultType="ProductInfoOptionDTO">
+		SELECT OPT_NO, PROD_NO, OPT_NAME, OPT_KIND, OPT_PRICE, REG_USER_NO, REG_DT, CHG_USER_NO, CHG_DT FROM PROD_OPTION
+		WHERE PROD_NO = #{prod_no}
+	</select>
+	
 </mapper>

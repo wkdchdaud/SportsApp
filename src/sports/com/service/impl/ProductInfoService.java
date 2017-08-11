@@ -86,4 +86,9 @@ public class ProductInfoService implements IProductInfoService {
 		return productInfoMapper.getProductInfoFile(rDTO);
 	}
 
+	@Override
+	public List<ProductInfoOptionDTO> getProductInfoOption(ProductInfoOptionDTO productInfoOptionDTO) throws Exception {
+		return productInfoMapper.getProductInfoOption(productInfoOptionDTO);
+	}
+
 }

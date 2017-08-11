@@ -228,15 +228,21 @@ public class ProductInfoController {
 		String prod_no =CmmUtil.nvl(request.getParameter("prod_no1"));
 		
 		ProductInfoDTO productInfoDTO = new ProductInfoDTO();
+		ProductInfoOptionDTO ProductInfoOptionDTO = new ProductInfoOptionDTO();
 		
+		ProductInfoOptionDTO.setProd_no(prod_no);
 		productInfoDTO.setProd_no(prod_no);
 		
 		ProductInfoDTO rDTO = productInfoService.getProductInfoDetail(productInfoDTO);
 		
+		List<ProductInfoOptionDTO> oDTO = productInfoService.getProductInfoOption(ProductInfoOptionDTO);
+		
 		List<ProductFileDTO> fileList = productInfoService.getProductInfoFile(rDTO);
 		
 		log.info(this.getClass().getName()+"productinfoDetail end");
+		
 		model.addAttribute("dlwkdus", rDTO);
+		model.addAttribute("oList", oDTO);
 		model.addAttribute("file", fileList);
 		
 		return "/admin/ProductInfo/ProductDetail";	  

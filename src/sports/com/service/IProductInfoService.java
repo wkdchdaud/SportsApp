@@ -33,5 +33,8 @@ public interface IProductInfoService {
 	void ProductInfoOptionInsert(ProductInfoOptionDTO productInfoOptionDTO) throws Exception;
 	
 	List<ProductFileDTO> getProductInfoFile(ProductInfoDTO rDTO) throws Exception;
+
+
+	List<ProductInfoOptionDTO> getProductInfoOption(ProductInfoOptionDTO productInfoOptionDTO)throws Exception;
 	
 }
