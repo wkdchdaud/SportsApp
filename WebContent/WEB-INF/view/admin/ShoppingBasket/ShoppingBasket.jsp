@@ -1,17 +1,25 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-<%@ page import="sports.com.util.CmmUtil"
-	import="sports.com.dto.NoticeDTO" import="java.util.ArrayList"
-	import="java.util.List"%>
-
+    pageEncoding="UTF-8"%>    
+<%@ page import="sports.com.util.CmmUtil" %>
+<%@ page import="sports.com.dto.ProductInfoDTO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %> 
 <%
-	NoticeDTO rDTO = (NoticeDTO) request.getAttribute("rDTO");
-%>
+List<ProductInfoDTO> rList = (List<ProductInfoDTO>) request.getAttribute("dlwkdus");
 
+if (rList==null) {
+	rList = new ArrayList<ProductInfoDTO>();
+}
+%> 
+	<%
 
-
+			for (ProductInfoDTO aDTO : rList) {
+			
+				if (aDTO==null) {
+					aDTO = new ProductInfoDTO();
+				}
+		%>    
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -25,78 +33,32 @@
     <!-- JavaScirpt Sorcemap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="/common/js/jquery-ui.js"></script>
-    <script src="/common/js/placeholders.min.js"></script>
+    <script src="/common/js/modernizr.custom.js"></script>
     <!--[if lte IE 9]>
     <script src="/common/js/placeholders.min.js"></script>
     <![endif]-->
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-<script type="text/javascript">
-	function doSubmit(f) {
-
-		if (f.title.value == "") {
-
-			alert("제목을 입력하시기 바랍니다.");
-			f.title.focus();
-			return false;
-
-		}
-
-		if (f.contents.value == "") {
-
-			alert("내용을 입력하시기 바랍니다.");
-			f.contents.focus();
-			return false;
-
-		}
-
-		if (calBytes(f.title.value) > 100) {
-
-			alert("제목은 최대 100Bytes까지만 입력 가능합니다.");
-			f.title.focus();
-			return false;
-
-		}
-
-		if (calBytes(f.contents.value) > 4000) {
-
-			alert("내용은 최대 4000Bytes까지만 입력 가능합니다.");
-			f.contents.focus();
-			return false;
-
-		}
-
-	}
-
-	function calBytes(str) {
-
-		var tcount = 0;
-		var tmpStr = new String(str);
-		var strCnt = tmpStr.length;
-
-		var onechar;
-
-		for (i = 0; i < strCnt; i++) {
-
-			onechar = tmpStr.charAt(i);
-
-			if (escape(onechar).length > 4) {
-
-				tcount += 2;
-
-			} else {
-
-				tcount += 1;
-
+    
+    
+    <script type="text/javascript">
+		function doAction(gubun) {
+		var f = document.getElementById("form1");
+		if (gubun == "U") {
+			f.action = "/admin/ProductInfo/ProductInfoUpdateForm.do";
+			f.submit();
+		} else if (gubun == "D") {
+		  if (confirm("삭제하시겠습니까?")) {
+				f.action = "/admin/ProductInfo/ProductInfoDelete.do";
+				f.submit();
 			}
-
+		}else if(gubun == "L"){
+			f.action ="/admin/ProductInfo/List.do";
+			
 		}
-
-		return tcount;
-
 	}
-</script>
+	</script>
 
 </head>
 
@@ -114,7 +76,7 @@
       </div>
 
       <div class="page_title">
-        <p>공지사항</p>
+        <p>스포츠 용품</p>
       </div>
     </header>
     <nav id="c-menu--slide-left" class="c-menu c-menu--slide-left">
@@ -171,48 +133,72 @@
 </nav>
 
 
-<form method='post' action="/admin/notice/NoticeUpdate.do">
+
+
+
+		<form name="form1" id="form1" method="GET">
+		<input type="hidden" name="prod_no1" value="<%=CmmUtil.nvl(aDTO.getProd_no())%>" />
+
     <div class="container detail">
+      <div class="wrap btn-wrap">
+
         <div class="list_wrap">
-          <ul class="register_list">
-            <li>
-              <p class="blue_text">글 제목</p>
-              <div class="input_btn_wrap">
-                <input type="text" name="title" value="<%=rDTO.getTitle()%>">
-              </div>
+          <div class="goods_detail">
+            <div class="thumb">
+              <img src="/common/images/sample01.png" alt="thumb">
+            </div>
+            <div class="info">
+              <p class="title"><%=CmmUtil.nvl(aDTO.getProd_name()) %></p>
+              <p class="sub_text">배송비 2,500원 (50,000원 이상 무료배송)</p>
+            </div>
+          </div>
+          <div class="goods_option">
+            <p class="blue_text">옵션 선택</p>
+            <div class="select_wrap">
+              <select class="col-2">
+              <option value="색상선택">색상선택</option>
+              <option value="빨강">빨강</option>
+              </select>
+              <select class="col-2">
+                <option value="선택">사이즈선택</option>
+                <option value="사이즈">사이즈1</option>
+              </select>
+            </div>
 
-            </li>
-            <li>
-            	<p class="blue_text">중요 공지글 게시 여부</p>
-            	<%String notice_yn = rDTO.getNotice_yn(); %>
-            	<div>
-            	예<input	type="radio" name="notice_yn" value="1" <%=CmmUtil.checked(notice_yn, "1")%>/>
-            	</div>
-            	<div>
-            	아니오<input type="radio" name="notice_yn" value="2" <%=CmmUtil.checked(notice_yn, "2")%> />
- 				</div>         
-            </li>
-            <li>
-            <%
-			String contents = rDTO.getContents();
-			contents = contents.replace("<br>", "\r\n");//줄바꿈 변환
-			%>
-              <p class="blue_text">글 내용</p>
-              <textarea name="contents"><%=contents%></textarea>
-              <div class="input_btn_wrap">
-              </div>
-            </li>
-          </ul>
-
+            <p class="blue_text">수량</p>
+            <div class="count_input">
+              <a class="incr-btn">–</a>
+              <input class="quantity" type="text" value="1" readonly="true">
+              <a class="incr-btn">+</a>
+            </div>
+            <div class="price_wrap">총금액<span class="price"><%=CmmUtil.nvl(aDTO.getProd_price()) %></span><span class="won">원</span></div>
+          </div>
         </div>
+
+        <div class="list_wrap">
+          <h4 class="goods_detail_title">제품 상세정보</h4>
+          <div class="detail_contents">
+            <img src="/common/images/sample02.png" alt="thumb">
+            <dl>
+              <dt>제품특징</dt>
+              <dd>훈련을 위한 기본 장비로써 가볍고 터칭감이 뛰어나 다양한 훈련에 적합한 제품입니다.
+            내구성이 뛰어난 소재로 제작이 되어 더욱 실용적입니다.</dd>
+              <dt>상품규격정보</dt>
+              <dd>- 재질 : 폴리에스테르 65% + 면 35%<br>
+            - 색상 : 검정/노랑/주황/빨강/파랑/밤색/보라</dd>
+            </dl>
+
+          </div>
+        </div>
+
         <div class="btn-groub">
-          <button class="col-2 blue-btn button" type="submit">수정</button>
-          <button class="col-2 glay-btn button" onclick="location.href='/admin/notice/NoticeInfo.do?notice_no=<%=rDTO.getNotice_no()%>';return false;">취소</button>
+          <button class="col-3 deep-btn button" onclick="doAction('U')">수정</button>
+          <button class="col-3 blue-btn button" onclick="doAction('D')">삭제</button>
+          <button class="col-3 glay-btn button" onclick="doAction('L')">목록</button>
         </div>
       </div>
-      
-      <input type="hidden" name="notice_no" value="<%=CmmUtil.nvl(request.getParameter("notice_no")) %>" />
-     </form> 
+    </div>
+    </form>
     <footer class="footer">
     <a href="#">
       <img src="/common/images/ic_kakao.png" alt="카카오톡" class="kakao">
@@ -230,6 +216,11 @@
   <div id="c-mask" class="c-mask"></div>
   <script src="/common/js/classie.js"></script>
   <script src="/common/js/common.js"></script>
+
+    <%
+}
+%>
+
 </body>
 
 </html>

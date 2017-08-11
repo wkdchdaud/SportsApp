@@ -1,5 +1,6 @@
 package sports.com.controller.admin;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import sports.com.dto.Prod_test_jcmDTO;
 import sports.com.dto.ProductInfoDTO;
-import sports.com.dto.ProductInfoOptionDTO;
 import sports.com.service.IProductInfoService;
 import sports.com.util.CmmUtil;
 
@@ -35,21 +36,22 @@ public class ProductInfoController {
 	    * */   
 	
 	
-	/*리스트 controller*/
+	/* 전체 리스트 controller*/
 	
 	@RequestMapping(value="admin/ProductInfo/List",method=RequestMethod.GET)
 	public String ProductInfoList(HttpServletRequest request, HttpServletResponse response, 
 			ModelMap model) throws Exception
 	
 	{
+		//장총명 8 월 10일 구현중.
 		
-		log.info(this.getClass().getName() + ".ProductInfoList start");
+		log.info(this.getClass().getName() + "전체 .ProductInfoList start");
 		
 		
-		List<ProductInfoDTO> RList = productInfoService.getProductInfoList();
+		List<Prod_test_jcmDTO> RList = productInfoService.getProductInfoList();
 		
 		if(RList==null){
-			RList = new ArrayList<ProductInfoDTO>();
+			RList = new ArrayList<Prod_test_jcmDTO>();
 			
 		}
 		
@@ -61,8 +63,152 @@ public class ProductInfoController {
 		
 		
 		return "/admin/ProductInfo/sports_goods";
+		
+		//장총명 8 월 10일 구현중.
+	}
+	@RequestMapping(value="admin/ProductInfo/List_value",method=RequestMethod.GET)
+	public String parameter_list(HttpServletRequest request, HttpServletResponse response, 
+			ModelMap model) throws Exception
+	
+	{
+		//장총명 8 월 10일 구현중 파라미터에 따른 리스트 값 뽑기.
+		String par = new String(request.getParameter("par").getBytes("ISO-8859-1"), "UTF-8");
+
+		log.info("파라미터에 따른 list gogogo Start!!!!!!!");
+		
+		System.out.println("넘어온 par : "+ par);
+		
+		Prod_test_jcmDTO pdto = new Prod_test_jcmDTO();
+		pdto.setProd_category(par);
+		
+		System.out.println("set 후 get par 값 : " + pdto.getProd_category());
+		
+		List<Prod_test_jcmDTO> RList = productInfoService.getParameterList(pdto);
+		
+		model.addAttribute("DLWKDUS",RList);
+		
+		RList= null;
+		
+		log.info(this.getClass().getName()+"파라미터에 따른 리스트 값 끝");
+		
+		
+		return "/admin/ProductInfo/sports_goods";
+		
+		//장총명 8 월 10일 구현중.
 	}
 	
+    /*더보기 */
+		@RequestMapping(value="admin/ProductInfo/readMore")
+		public @ResponseBody List<Prod_test_jcmDTO> getReadMore(@RequestParam(value="cnt") String cnt,@RequestParam(value="price") String price,@RequestParam(value="name") String name) throws Exception{
+			
+			System.out.println("버튼 리드 모어 고고고고고");
+			
+			Prod_test_jcmDTO pdto = new Prod_test_jcmDTO();
+			pdto.setRead_more(cnt);
+			pdto.setSearch(name);
+			pdto.setDel_price(price);
+			
+			List<Prod_test_jcmDTO> plist = productInfoService.getReadMore(pdto);
+			
+			System.out.println("cnt : : "+pdto.getRead_more());
+			System.out.println("search : "+pdto.getSearch());
+			System.out.println("price : "+pdto.getDel_price());
+			
+			pdto = null;
+			
+			return plist;
+		}
+	
+		
+		/*검색controller*/    
+		
+		@RequestMapping(value = "admin/ProductInfo/allSearch")
+		public @ResponseBody List<Prod_test_jcmDTO> allSearch(@RequestParam(value = "price") String price,@RequestParam(value="name") String name) throws Exception{
+			log.info(this.getClass().getName() + "all Search Start !!");
+			log.info(name);
+			
+	
+			Prod_test_jcmDTO bDTO = new Prod_test_jcmDTO();
+			System.out.println("allSearch");
+			System.out.println("price : " + price);
+			System.out.println("name : " + name);
+			
+			bDTO.setProd_name(name);
+			
+			bDTO.setPrice(price);
+			
+			System.out.println("get name :"+bDTO.getProd_name());
+			System.out.println("get sele : "+ bDTO.getPrice());
+			
+			List<Prod_test_jcmDTO> RList = productInfoService.getAllSearch(bDTO);
+			System.out.println("안녕 : RList size : "+RList.size());
+			
+			if(RList==null){
+				RList = new ArrayList<Prod_test_jcmDTO>();
+				
+			}
+		
+			
+			log.info(this.getClass().getName()+"all Search end");
+			
+				
+		  return RList;
+	}
+	
+		@RequestMapping(value = "admin/ProductInfo/lowpriceSearch")
+		public @ResponseBody List<Prod_test_jcmDTO> lowpriceSearch(@RequestParam(value = "price") String price,@RequestParam(value="name") String name) throws Exception{
+			log.info(this.getClass().getName() + "low Search Start !!");
+			log.info(name);
+			
+	
+			Prod_test_jcmDTO bDTO = new Prod_test_jcmDTO();
+			System.out.println("price : " + price);
+			System.out.println("name : " + name);
+			if(name==""){
+				System.out.println("hello null");
+			}
+			bDTO.setProd_name(name);
+			bDTO.setPrice(price);
+			System.out.println("get name :"+bDTO.getProd_name());
+			System.out.println("get sele : "+ bDTO.getPrice());
+			List<Prod_test_jcmDTO> RList = productInfoService.getLowpriceSearch(bDTO);
+			System.out.println("안녕"+RList.size());
+			
+			if(RList==null){
+				RList = new ArrayList<Prod_test_jcmDTO>();
+				
+			}
+			
+			log.info(this.getClass().getName()+"low Search end");
+			
+				
+			
+		  return RList;
+	}
+		@RequestMapping(value = "admin/ProductInfo/highpriceSearch")
+		public @ResponseBody List<Prod_test_jcmDTO> highpriceSearch(@RequestParam(value = "price") String price, @RequestParam(value="name") String name) throws Exception{
+			log.info(this.getClass().getName() + "highpriceSearch Start !!");
+			log.info(name);
+			
+			
+			Prod_test_jcmDTO bDTO = new Prod_test_jcmDTO();
+			System.out.println("price : " + price);
+			System.out.println("name : " + name);
+			bDTO.setProd_name(name);
+			bDTO.setPrice(price);
+			List<Prod_test_jcmDTO> RList = productInfoService.getHighpriceSearch(bDTO);
+			System.out.println("안녕"+RList.size());
+			if(RList==null){
+				RList = new ArrayList<Prod_test_jcmDTO>();
+				
+			}
+			
+			log.info(this.getClass().getName()+"highpriceSearch end");
+			
+		
+			
+		  return RList;
+	}
 	/*디테일 controller*/
 	
 	@RequestMapping(value="admin/ProductInfo/ProductInfoDetail",method=RequestMethod.GET)
@@ -100,9 +246,11 @@ public class ProductInfoController {
 		
 		log.info(this.getClass().getName()+"productInfoProductinfoRegStart");
 
-		log.info(this.getClass().getName()+"productInfoProductinfoRegEnd");
-		
-		return "/admin/ProductInfo/ProductReg";
+	
+			
+	
+	log.info(this.getClass().getName()+"productInfoProductinfoRegEnd");
+		return "/admin/ProductInfo/ProductInfoReg";
 		
 			}
 	
@@ -319,203 +467,9 @@ public class ProductInfoController {
 	}
 	
 		
-		/*검색controller*/    
-		
-		@RequestMapping(value = "admin/ProductInfo/allSearch")
-		public @ResponseBody List<ProductInfoDTO> allSearch(@RequestParam(value = "price") String price,@RequestParam(value="name") String name) throws Exception{
-			log.info(this.getClass().getName() + "all Search Start !!");
-			log.info(name);
-			
-	
-			ProductInfoDTO bDTO = new ProductInfoDTO();
-			System.out.println("allSearch");
-			System.out.println("price : " + price);
-			System.out.println("name : " + name);
-			
-			bDTO.setProd_name(name);
-			
-			bDTO.setProd_price(price);
-			
-			System.out.println("get name :"+bDTO.getProd_name());
-			System.out.println("get sele : "+ bDTO.getProd_price());
-			
-			List<ProductInfoDTO> RList = productInfoService.getAllSearch(bDTO);
-			System.out.println("안녕 : RList size : "+RList.size());
-			
-			if(RList==null){
-				RList = new ArrayList<ProductInfoDTO>();
-				
-			}
-		
-			
-			log.info(this.getClass().getName()+"all Search end");
-			
-				
-		  return RList;
-	}
-	
-		@RequestMapping(value = "admin/ProductInfo/lowpriceSearch")
-		public @ResponseBody List<ProductInfoDTO> lowpriceSearch(@RequestParam(value = "price") String price,@RequestParam(value="name") String name) throws Exception{
-			log.info(this.getClass().getName() + "low Search Start !!");
-			log.info(name);
-			
-	
-			ProductInfoDTO bDTO = new ProductInfoDTO();
-			System.out.println("price : " + price);
-			System.out.println("name : " + name);
-			if(name==""){
-				System.out.println("hello null");
-			}
-			bDTO.setProd_name(name);
-			bDTO.setProd_price(price);
-			System.out.println("get name :"+bDTO.getProd_name());
-			System.out.println("get sele : "+ bDTO.getProd_price());
-			List<ProductInfoDTO> RList = productInfoService.getLowpriceSearch(bDTO);
-			System.out.println("안녕"+RList.size());
-			
-			if(RList==null){
-				RList = new ArrayList<ProductInfoDTO>();
-				
-			}
-			
-			log.info(this.getClass().getName()+"low Search end");
-			
-				
-			
-		  return RList;
-	}
-		@RequestMapping(value = "admin/ProductInfo/highpriceSearch")
-		public @ResponseBody List<ProductInfoDTO> highpriceSearch(@RequestParam(value = "price") String price,@RequestParam(value="name") String name) throws Exception{
-			log.info(this.getClass().getName() + "highpriceSearch Start !!");
-			log.info(name);
-			
-			
-			ProductInfoDTO bDTO = new ProductInfoDTO();
-			System.out.println("price : " + price);
-			System.out.println("name : " + name);
-			bDTO.setProd_name(name);
-			bDTO.setProd_price(price);
-			List<ProductInfoDTO> RList = productInfoService.getHighpriceSearch(bDTO);
-			System.out.println("안녕"+RList.size());
-			if(RList==null){
-				RList = new ArrayList<ProductInfoDTO>();
-				
-			}
-			
-			log.info(this.getClass().getName()+"highpriceSearch end");
-			
-		
-			
-		  return RList;
-	}
-         /*더보기 */
-		@RequestMapping(value="admin/ProductInfo/readMore")
-		public @ResponseBody List<ProductInfoDTO> getReadMore(@RequestParam(value="cnt") int cnt) throws Exception{
-			
-			System.out.println("버튼 리드 모어 고고고고고");
-			
-			ProductInfoDTO pdto = new ProductInfoDTO();
-		
-			pdto.setRead_more(cnt);
-			
-			List<ProductInfoDTO> plist = productInfoService.getReadMore(pdto);
-			
-			System.out.println("pdto.getRead_more() : "+pdto.getRead_more());
-			
-			for ( ProductInfoDTO tdto : plist){
-				System.out.println("내용 가져오기 : " + tdto.getProd_price());
-			}
-			pdto = null;
-			
-			return plist;
-		}
-		
-		/*옵션등록 controller*/
-		@RequestMapping(value="admin/ProductInfo/ProductOptionReg",method=RequestMethod.GET)
-		public String ProductOptionReg(HttpServletRequest request, HttpServletResponse response, 
-				ModelMap model) throws Exception
-				{
-			
-			log.info(this.getClass().getName()+"productOptionReg start!");
-
-		
-			log.info(this.getClass().getName()+"productOptionRegEnd");
-			return "/admin/ProductInfo/ProductInfoOption";
-			
-				}
-		
-		/*옵션등록(insert) controller*/
-		
-		@RequestMapping(value="admin/ProductInfo/ProductOptionInsert",method=RequestMethod.POST)
-		public String ProductOptionInsert(HttpServletRequest request, HttpServletResponse response, 
-				ModelMap model) throws Exception
-				{
-			
-			
-			log.info(this.getClass().getName()+"ProductOptionInsertStart");
-			 
-			 String msg ="";
-			 String url ="/admin/ProductInfo/List.do";
-			 
-			 try{
-			
-			 ProductInfoOptionDTO rdto = new ProductInfoOptionDTO();
-			 
-		   
-			 String opt_name = CmmUtil.nvl(request.getParameter("opt_name"));
-			 System.out.println("OPT_NAME  : " +  CmmUtil.nvl(request.getParameter("opt_name")));
-			 
-			 String opt_kind =CmmUtil.nvl(request.getParameter("opt_kind"));
-			 System.out.println("OPT_KIND  : " + CmmUtil.nvl(request.getParameter("opt_kind")));
-			 
-			 String opt_price =CmmUtil.nvl(request.getParameter("opt_price"));
-			 System.out.println("OPT_PRICE  : " + CmmUtil.nvl(request.getParameter("opt_price")));
-			 
-			 	
-			 rdto.setOpt_name(opt_name);	
-			 rdto.setOpt_kind(opt_kind);
-			 rdto.setOpt_price(opt_price);
-			 
-			 
-			 
-			 productInfoService.ProductInfoOptionInsert(rdto);
-			 
-			 
-			 
-			 msg = "옵션 완료";
-			 url ="/admin/ProductInfo/ProductInfoReg.do";
-			 
-			 rdto= null;
-			 
-			 } catch(Exception e){
-				 
-			 msg = "등록 실패"+ e.toString();
-			 url ="/admin/ProductInfo/ProductInfoReg.do";
-			
-				log.info(e.toString());
-				e.printStackTrace();
-				
-			 }
-			 finally{
-			
-			log.info(this.getClass().getName()+"productInfoProductinfoInsertEnd");
-			model.addAttribute("msg", msg);
-			model.addAttribute("url", url);
-			 }
-			return "/redirect";
-			
-				}
-	
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
+ 
 			}
 
     

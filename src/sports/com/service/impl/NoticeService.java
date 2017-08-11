@@ -47,7 +47,7 @@ public class NoticeService implements INoticeService{
 	}
 
 	@Override
-	public List<NoticeDTO> getNoticeDetailInfo(NoticeDTO nDTO) throws Exception {
+	public NoticeDTO getNoticeDetailInfo(NoticeDTO nDTO) throws Exception {
 		return noticeMapper.getNoticeDetailInfo(nDTO);
 	}
 	

@@ -2,12 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sports.com.persistance.mapper.ProductInfoMapper">
 
-<select id ="getProductInfolist" resultType="ProductInfoDTO">
-SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
+<!-- 전체 리스트 -->
+<select id ="getProductInfolist" resultType="Prod_test_jcmDTO">
+SELECT PROD_NO, PROD_NAME, PRICE FROM PRODUCT_INFO_TEST
 ORDER BY PROD_NO+0 DESC LIMIT 6;
 
 </select>
 
+<!-- 파라미터에 따른 리스트 -->
+<select id ="getParameterList" resultType="Prod_test_jcmDTO" parameterType="Prod_test_jcmDTO">
+SELECT PROD_NO, PROD_NAME, PRICE FROM PRODUCT_INFO_TEST
+WHERE PROD_CATEGORY LIKE #{prod_category}
+ORDER BY PROD_NO+0 DESC LIMIT 6;
+
+</select>
+
+<!-- 더보기 버튼 구현 -->
+	<select resultType="Prod_test_jcmDTO" id="getReadMore" parameterType="Prod_test_jcmDTO" >
+		SELECT PROD_NO, PROD_NAME, PRICE
+		FROM PRODUCT_INFO_TEST
+		<if test='search!=""'>WHERE PROD_NAME LIKE CONCAT('%', #{search}, '%')</if>
+		<if test='price=="all"'>ORDER BY PROD_NO DESC</if>
+		<if test='price=="lowprice"'>ORDER BY PRICE ASC</if>
+		<if test='price=="highprice"'>ORDER BY PRICE DESC</if>
+		LIMIT 6 OFFSET ${read_more}
+	</select>
+	
+	<!-- 조건선택 검색-->
+<select resultType="Prod_test_jcmDTO" id="getAllSearch" parameterType="Prod_test_jcmDTO">
+ SELECT PROD_NO, PROD_NAME, PRICE FROM PRODUCT_INFO_TEST 
+ 	<if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
+ 	ORDER BY PROD_NO+0 DESC LIMIT 6
+  
+ </select>
+                                        
+<select resultType="Prod_test_jcmDTO" id="getHighpriceSearch" parameterType="Prod_test_jcmDTO">
+SELECT PROD_NO, PROD_NAME, PRICE FROM PRODUCT_INFO_TEST 
+  <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
+ ORDER BY PRICE+0 DESC LIMIT 6 
+ </select>
+
+<select resultType="Prod_test_jcmDTO" id="getLowpriceSearch" parameterType="Prod_test_jcmDTO">
+SELECT PROD_NO, PROD_NAME, PRICE FROM PRODUCT_INFO_TEST 
+   <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
+ ORDER BY PRICE+0 ASC LIMIT 6 
+
+ </select>
+	<!-- 조건선택 검색 끝 -->
 
 <select id ="getProductInfoDetail" resultType="ProductInfoDTO">
 
@@ -42,41 +83,11 @@ SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS FROM PRODUCT_INFO WHERE pro
 	
 	</update>
 	
-<select resultType="ProductInfoDTO" id="getAllSearch" parameterType="ProductInfoDTO">
- SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
- 	<if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
- 	ORDER BY PROD_NO+0 DESC LIMIT 6
-  
- </select>
-                                        
-<select resultType="ProductInfoDTO" id="getHighpriceSearch" parameterType="ProductInfoDTO">
-SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
-  <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
- ORDER BY PROD_PRICE+0 DESC LIMIT 6 
- </select>
-
-<select resultType="ProductInfoDTO" id="getLowpriceSearch" parameterType="ProductInfoDTO">
-SELECT PROD_NO, PROD_NAME, PROD_PRICE FROM PRODUCT_INFO 
-   <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
- ORDER BY PROD_PRICE+0 ASC LIMIT 6 
-
- </select>
-
-<!-- 더보기 버튼 구현 -->
-	<select resultType="ProductInfoDTO" id="getReadMore" parameterType="ProductInfoDTO" >
-		SELECT PROD_NO, PROD_NAME, PROD_PRICE
-		FROM PRODUCT_INFO
-		ORDER BY 
-		PROD_NO DESC
-		LIMIT 6 OFFSET ${read_more}
-	</select>
-
-
 	<!-- 옵션  -->
 	<insert id ="ProductInfoOptionInsert" parameterType="ProductInfoOptionDTO">
 
 	INSERT INTO PROD_OPTION 
-		(PROD_NO, OPT_NO, OPT_NAME, OPT_KIND, OPT_PRICE)
+		(OPT_NO, PROD_NO, OPT_NAME, OPT_KIND, OPT_PRICE)
 	VALUES ((SELECT IFNULL(MAX(A.OPT_NO), 1000000)+1 FROM PROD_OPTION A), #{prod_no}, #{opt_name}, #{opt_kind}, #{opt_price})
 
 	</insert>

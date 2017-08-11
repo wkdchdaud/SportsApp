@@ -17,6 +17,12 @@ if (rList==null) {
 }
 
 String user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
+
+int access = 1;
+
+if (user_no.equals("")) {
+	access = 2;
+}
 %>   
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -177,6 +183,21 @@ function doAnswerDetail(qa_no, secret_yn, reg_user_no) {
 	
 }
 
+//글쓰기 로그인
+function doReg() {
+	
+	if ("<%=access%>"==2) {
+		
+		alert("로그인을 하시기 바랍니다.");
+	
+	} else {
+		
+		location.href="/customer/QA/QAReg.do";
+		
+	}
+	
+}
+
 </script>
 </head>
 <body>
@@ -299,7 +320,7 @@ function doAnswerDetail(qa_no, secret_yn, reg_user_no) {
 	</div>
 	<!--  end  Context Classes  -->
 	
-	<input type="button" onclick="location.href='/customer/QA/QAReg.do' " value="글쓰기" />
+	<input type="button" onclick="javascript:doReg();return false;" value="글쓰기" />
 
 </form>
 

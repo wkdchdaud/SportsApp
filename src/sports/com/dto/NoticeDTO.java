@@ -14,7 +14,21 @@ public class NoticeDTO {
 	private String read_more;
 	private String[] allCheckSeq;
 	private String search;
+	private String new_yn;
+	private String user_name;
 	
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+	public String getNew_yn() {
+		return new_yn;
+	}
+	public void setNew_yn(String new_yn) {
+		this.new_yn = new_yn;
+	}
 	public String getSearch() {
 		return search;
 	}
