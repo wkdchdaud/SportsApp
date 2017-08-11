@@ -2,12 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sports.com.persistance.mapper.ProductInfoMapper">
 
-<!-- 전체 리스트 -->
-<select id ="getProductInfolist" resultType="Prod_test_jcmDTO">
-SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO
-ORDER BY PROD_NO+0 DESC LIMIT 6;
+	<!-- 스포츠 용품 목록 쿼리 -->
+	<select id ="getProductInfolist" resultType="Prod_test_jcmDTO">
+		SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO
+		ORDER BY PROD_NO+0 DESC LIMIT 6;
+	</select>
 
-</select>
+	<!-- 파라미터에 따른 스포츠 용품 목록 쿼리 -->
+	<select id ="getParameterList" resultType="Prod_test_jcmDTO" parameterType="Prod_test_jcmDTO">
+		SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO
+		WHERE PROD_CATEGORY LIKE #{prod_category}
+		ORDER BY PROD_NO+0 DESC LIMIT 6;
+	</select>
 
 <!-- 파라미터에 따른 리스트 -->
 <select id ="getParameterList" resultType="Prod_test_jcmDTO" parameterType="Prod_test_jcmDTO">
@@ -17,7 +23,7 @@ ORDER BY PROD_NO+0 DESC LIMIT 6;
 
 </select>
 
-<!-- 더보기 버튼 구현 -->
+	<!-- 스포츠 용품 목록 더보기 쿼리 -->
 	<select resultType="Prod_test_jcmDTO" id="getReadMore" parameterType="Prod_test_jcmDTO" >
 		SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE
 		FROM PRODUCT_INFO
@@ -30,70 +36,72 @@ ORDER BY PROD_NO+0 DESC LIMIT 6;
 		LIMIT 6 OFFSET ${read_more}
 	</select>
 	
-	<!-- 조건선택 검색-->
-<select resultType="Prod_test_jcmDTO" id="getAllSearch" parameterType="Prod_test_jcmDTO">
- SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO
- 	<if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
- 	ORDER BY PROD_NO+0 DESC LIMIT 6
-  
- </select>
-                                        
-<select resultType="Prod_test_jcmDTO" id="getHighpriceSearch" parameterType="Prod_test_jcmDTO">
-SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO 
-  <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
- ORDER BY PRICE+0 DESC LIMIT 6 
- </select>
 
-<select resultType="Prod_test_jcmDTO" id="getLowpriceSearch" parameterType="Prod_test_jcmDTO">
-SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO 
-   <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
- ORDER BY PRICE+0 ASC LIMIT 6 
+	<!-- 스포츠 용품 조건선택 검색 쿼리 -->
+	<select resultType="Prod_test_jcmDTO" id="getAllSearch" parameterType="Prod_test_jcmDTO">
+		SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO 
+	 	<if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
+	 	ORDER BY PROD_NO+0 DESC LIMIT 6
+	</select>                                      
+	<select resultType="Prod_test_jcmDTO" id="getHighpriceSearch" parameterType="Prod_test_jcmDTO">
+		SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO
+		<if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
+		ORDER BY PRICE+0 DESC LIMIT 6 
+	</select>
+	<select resultType="Prod_test_jcmDTO" id="getLowpriceSearch" parameterType="Prod_test_jcmDTO">
+		SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO 
+		<if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
+		ORDER BY PRICE+0 ASC LIMIT 6 
+	 </select>
 
- </select>
-	<!-- 조건선택 검색 끝 -->
+	<select resultType="Prod_test_jcmDTO" id="getLowpriceSearch" parameterType="Prod_test_jcmDTO">
+	SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO 
+	   <if test='prod_name!="all_select"'> WHERE PROD_NAME LIKE CONCAT('%', #{prod_name}, '%') </if> 
+	 ORDER BY PRICE+0 ASC LIMIT 6 
+	 </select>
+	 <!-- 스포츠 용품 조건선택 검색 쿼리 끝-->
+	<!-- 스포츠 용품 상세 쿼리  -->
+	<select id ="getProductInfoDetail" resultType="ProductInfoDTO">
+		SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS, FILE_GRP FROM PRODUCT_INFO WHERE prod_no = #{prod_no}
+	</select>
+	
+	<!-- 스포츠 -->
+	<select id="getProductInfoFile" resultType="ProductFileDTO" parameterType="ProductInfoDTO">
+		SELECT FILE_NO, FILE_GRP, FILE_PATH, ORG_FILENAME, SRC_FILENAME FROM PROD_FILE
+		 WHERE FILE_GRP = #{file_grp}
+		ORDER BY FILE_NO;
+	</select>
+	
+	<!-- 스포츠 용품 등록 쿼리 -->
+	<insert id ="ProductInfoInsert" parameterType="ProductInfoDTO">
+		INSERT INTO PRODUCT_INFO 
+			(PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS)
+		VALUES ((SELECT IFNULL(MAX(A.PROD_NO), 1000000)+1 FROM PRODUCT_INFO A), #{prod_name}, #{prod_price}, #{prod_contents})
+	</insert>
 
-<select id ="getProductInfoDetail" resultType="ProductInfoDTO">
-
-SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS FROM PRODUCT_INFO WHERE prod_no = #{prod_no}
-
-</select>
-
-<insert id ="ProductInfoInsert" parameterType="ProductInfoDTO">
-
-	INSERT INTO PRODUCT_INFO 
-		(PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS)
-	VALUES ((SELECT IFNULL(MAX(A.PROD_NO), 1000000)+1 FROM PRODUCT_INFO A), #{prod_name}, #{prod_price}, #{prod_contents})
-
-</insert>
-
-
-<delete id="ProductInfoDelect" parameterType="ProductInfoDTO">
+	<!-- 스포츠 용품 삭제 쿼리 -->
+	<delete id="ProductInfoDelect" parameterType="ProductInfoDTO">
 		DELETE FROM PRODUCT_INFO
 		WHERE PROD_NO = #{prod_no}	
 	</delete>
 	
 		<!-- order by <if test="prod_price.equals(lowprice)"> prod_price ASC </if>
 		<if test="prod_price.equals()"> prod_price DESC </if> -->
-		
-<update id="ProductInfoUpdate" parameterType="ProductInfoDTO">
 	
+	<!-- 스포츠 용품 수정 쿼리 -->	
+	<update id="ProductInfoUpdate" parameterType="ProductInfoDTO">
 		UPDATE PRODUCT_INFO
 		SET	PROD_NAME = #{prod_name},
 			PROD_PRICE = #{prod_price},
 			PROD_CONTENTS = #{prod_contents}
 		WHERE PROD_NO = #{prod_no}	
-	
 	</update>
 	
-	<!-- 옵션  -->
+	<!-- 스포츠 용품 옵션 쿼리 -->
 	<insert id ="ProductInfoOptionInsert" parameterType="ProductInfoOptionDTO">
-
-	INSERT INTO PROD_OPTION 
-		(OPT_NO, PROD_NO, OPT_NAME, OPT_KIND, OPT_PRICE)
-	VALUES ((SELECT IFNULL(MAX(A.OPT_NO), 1000000)+1 FROM PROD_OPTION A), #{prod_no}, #{opt_name}, #{opt_kind}, #{opt_price})
-
+		INSERT INTO PROD_OPTION 
+			(OPT_NO, PROD_NO, OPT_NAME, OPT_KIND, OPT_PRICE)
+		VALUES ((SELECT IFNULL(MAX(A.OPT_NO), 1000000)+1 FROM PROD_OPTION A), #{prod_no}, #{opt_name}, #{opt_kind}, #{opt_price})
 	</insert>
 	
-	
-
 </mapper>

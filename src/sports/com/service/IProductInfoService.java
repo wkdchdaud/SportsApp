@@ -3,19 +3,20 @@ package sports.com.service;
 import java.util.List;
 
 import sports.com.dto.Prod_test_jcmDTO;
+import sports.com.dto.ProductFileDTO;
 import sports.com.dto.ProductInfoDTO;
 import sports.com.dto.ProductInfoOptionDTO;
 
 public interface IProductInfoService {
 	
-	
 	List<Prod_test_jcmDTO> getProductInfoList() throws Exception;
+	
 	List<Prod_test_jcmDTO> getParameterList(Prod_test_jcmDTO pdto) throws Exception;
 	
 	//버튼 더보기 구현
 	List<Prod_test_jcmDTO> getReadMore(Prod_test_jcmDTO pdto) throws Exception;
 	
-	List<ProductInfoDTO> getProductInfoDetail(ProductInfoDTO productInfoDTO) throws Exception;
+	ProductInfoDTO getProductInfoDetail(ProductInfoDTO productInfoDTO) throws Exception;
    
 	void ProductInfoInsert(ProductInfoDTO productInfoDTO) throws Exception;
 
@@ -30,4 +31,7 @@ public interface IProductInfoService {
 	
 	//옵션 등록 
 	void ProductInfoOptionInsert(ProductInfoOptionDTO productInfoOptionDTO) throws Exception;
+	
+	List<ProductFileDTO> getProductInfoFile(ProductInfoDTO rDTO) throws Exception;
+	
 }

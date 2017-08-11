@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import sports.com.dto.Prod_test_jcmDTO;
+import sports.com.dto.ProductFileDTO;
 import sports.com.dto.ProductInfoDTO;
 import sports.com.dto.ProductInfoOptionDTO;
 import sports.com.service.IProductInfoService;
@@ -35,14 +36,11 @@ public class ProductInfoController {
 	    * 
 	    * */   
 	
-	
-	/* 전체 리스트 controller*/
-	
+	/* 전체 리스트 Controller */
 	@RequestMapping(value="admin/ProductInfo/List",method=RequestMethod.GET)
 	public String ProductInfoList(HttpServletRequest request, HttpServletResponse response, 
-			ModelMap model) throws Exception
-	
-	{
+			ModelMap model) throws Exception {
+		
 		//장총명 8 월 10일 구현중.
 		
 		log.info(this.getClass().getName() + "전체 .ProductInfoList start");
@@ -65,12 +63,14 @@ public class ProductInfoController {
 		return "/admin/ProductInfo/sports_goods";
 		
 		//장총명 8 월 10일 구현중.
+		
 	}
+	
+	/* 파라미터에 따른 리스트 Controller */
 	@RequestMapping(value="admin/ProductInfo/List_value",method=RequestMethod.GET)
 	public String parameter_list(HttpServletRequest request, HttpServletResponse response, 
-			ModelMap model) throws Exception
-	
-	{
+			ModelMap model) throws Exception {
+		
 		//장총명 8 월 10일 구현중 파라미터에 따른 리스트 값 뽑기.
 		String par = new String(request.getParameter("par").getBytes("ISO-8859-1"), "UTF-8");
 
@@ -91,10 +91,10 @@ public class ProductInfoController {
 		
 		log.info(this.getClass().getName()+"파라미터에 따른 리스트 값 끝");
 		
-		
 		return "/admin/ProductInfo/sports_goods";
 		
 		//장총명 8 월 10일 구현중.
+		
 	}
 	
     /*더보기 */
@@ -119,13 +119,13 @@ public class ProductInfoController {
 			pdto = null;
 			
 			return plist;
-		}
-	
+			
+	}
 		
-		/*검색controller*/    
+	/* 전체 리스트 검색 controller */    
+	@RequestMapping(value = "admin/ProductInfo/allSearch")
+	public @ResponseBody List<Prod_test_jcmDTO> allSearch(@RequestParam(value = "price") String price,@RequestParam(value="name") String name) throws Exception {
 		
-		@RequestMapping(value = "admin/ProductInfo/allSearch")
-		public @ResponseBody List<Prod_test_jcmDTO> allSearch(@RequestParam(value = "price") String price,@RequestParam(value="name") String name) throws Exception{
 			log.info(this.getClass().getName() + "all Search Start !!");
 			log.info(name);
 			
@@ -155,10 +155,13 @@ public class ProductInfoController {
 			
 				
 		  return RList;
+		  
 	}
 	
-		@RequestMapping(value = "admin/ProductInfo/lowpriceSearch")
-		public @ResponseBody List<Prod_test_jcmDTO> lowpriceSearch(@RequestParam(value = "price") String price,@RequestParam(value="name") String name) throws Exception{
+	/* 전체 리스트 낮은 가격순 Controller */
+	@RequestMapping(value = "admin/ProductInfo/lowpriceSearch")
+	public @ResponseBody List<Prod_test_jcmDTO> lowpriceSearch(@RequestParam(value = "price") String price,@RequestParam(value="name") String name) throws Exception {
+		
 			log.info(this.getClass().getName() + "low Search Start !!");
 			log.info(name);
 			
@@ -186,9 +189,13 @@ public class ProductInfoController {
 				
 			
 		  return RList;
+		  
 	}
-		@RequestMapping(value = "admin/ProductInfo/highpriceSearch")
-		public @ResponseBody List<Prod_test_jcmDTO> highpriceSearch(@RequestParam(value = "price") String price, @RequestParam(value="name") String name) throws Exception{
+	
+	/* 전체 리스트 높은 가격순 Controller */
+	@RequestMapping(value = "admin/ProductInfo/highpriceSearch")
+	public @ResponseBody List<Prod_test_jcmDTO> highpriceSearch(@RequestParam(value = "price") String price, @RequestParam(value="name") String name) throws Exception {
+		
 			log.info(this.getClass().getName() + "highpriceSearch Start !!");
 			log.info(name);
 			
@@ -207,15 +214,14 @@ public class ProductInfoController {
 			
 			log.info(this.getClass().getName()+"highpriceSearch end");
 			
-		
 			
 		  return RList;
+		  
 	}
-	/*디테일 controller*/
-	
+		
+	/* 상세 Controller */
 	@RequestMapping(value="admin/ProductInfo/ProductInfoDetail",method=RequestMethod.GET)
-	public String ProductInfoDetail(HttpServletRequest request, HttpServletResponse response, 
-			ModelMap model) throws Exception{
+	public String ProductInfoDetail(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception{
 		
 		log.info(this.getClass().getName()+"productinfoDetail start");
 		
@@ -223,103 +229,92 @@ public class ProductInfoController {
 		
 		ProductInfoDTO productInfoDTO = new ProductInfoDTO();
 		
-		
 		productInfoDTO.setProd_no(prod_no);
 		
-		List<ProductInfoDTO> list = productInfoService.getProductInfoDetail(productInfoDTO) ;
+		ProductInfoDTO rDTO = productInfoService.getProductInfoDetail(productInfoDTO);
 		
-				
-		model.addAttribute("dlwkdus",list);
+		List<ProductFileDTO> fileList = productInfoService.getProductInfoFile(rDTO);
 		
 		log.info(this.getClass().getName()+"productinfoDetail end");
+		model.addAttribute("dlwkdus", rDTO);
+		model.addAttribute("file", fileList);
 		
 		return "/admin/ProductInfo/ProductDetail";	  
        }
+						
 
-
-	/*등록 controller*/
+	/* 등록 Controller */
 	@RequestMapping(value="admin/ProductInfo/ProductInfoReg",method=RequestMethod.GET)
 	public String ProductInfoReg(HttpServletRequest request, HttpServletResponse response, 
-			ModelMap model) throws Exception
-			{
+			ModelMap model) throws Exception {
 		
 		log.info(this.getClass().getName()+"productInfoProductinfoRegStart");
-
-	
 			
 	
-	log.info(this.getClass().getName()+"productInfoProductinfoRegEnd");
-		return "/admin/ProductInfo/ProductReg";
+		log.info(this.getClass().getName()+"productInfoProductinfoRegEnd");
 		
-			}
+		return "/admin/ProductInfo/ProductInfoReg";
+		
+	}
 	
-	/*등록(insert) controller*/
-	
+	/* 등록(Insert) Controller */
 	@RequestMapping(value="admin/ProductInfo/ProductInfoInsert",method=RequestMethod.POST)
 	public String ProductInfoInsert(HttpServletRequest request, HttpServletResponse response, 
-			ModelMap model) throws Exception
-			{
-		
+			ModelMap model) throws Exception {
 		
 		log.info(this.getClass().getName()+"productInfoProductinfoInsertStart");
-		 String msg ="";
-		 String url ="/admin/ProductInfo/List.do";
-		 
-		 try{
 		
-		 ProductInfoDTO rdto = new ProductInfoDTO();
+		String msg ="";
+		String url ="/admin/ProductInfo/List.do";
 		 
-
-
+		try {
 		
-	   
-		 String prod_name = CmmUtil.nvl(request.getParameter("prod_name"));
-		 System.out.println("PROD_NAME  : " +  CmmUtil.nvl(request.getParameter("prod_name")));
+			ProductInfoDTO rdto = new ProductInfoDTO();
 		 
-		 String prod_price =CmmUtil.nvl(request.getParameter("prod_price"));
-		 System.out.println("PROD_PRICE  : " + CmmUtil.nvl(request.getParameter("prod_price")));
+			String prod_name = CmmUtil.nvl(request.getParameter("prod_name"));
+			System.out.println("PROD_NAME  : " +  CmmUtil.nvl(request.getParameter("prod_name")));
 		 
-		 String prod_contents =CmmUtil.nvl(request.getParameter("prod_contents"));
-		 System.out.println("PROD_CONTENTS  : " + CmmUtil.nvl(request.getParameter("prod_contents")));
+			String prod_price =CmmUtil.nvl(request.getParameter("prod_price"));
+			System.out.println("PROD_PRICE  : " + CmmUtil.nvl(request.getParameter("prod_price")));
 		 
-	
-		 rdto.setProd_price(prod_price);	
-		 rdto.setProd_contents(prod_contents);
-		 rdto.setProd_name(prod_name);
+			String prod_contents =CmmUtil.nvl(request.getParameter("prod_contents"));
+			System.out.println("PROD_CONTENTS  : " + CmmUtil.nvl(request.getParameter("prod_contents")));
 		 
+			rdto.setProd_price(prod_price);	
+			rdto.setProd_contents(prod_contents);
+			rdto.setProd_name(prod_name);
 		 
+			productInfoService.ProductInfoInsert(rdto);
 		 
-		 productInfoService.ProductInfoInsert(rdto);
+			msg = "등록 완료";
+			url ="/admin/ProductInfo/List.do";
 		 
+			rdto= null;
 		 
-		 
-		 msg = "등록 완료";
-		 url ="/admin/ProductInfo/List.do";
-		 
-		 rdto= null;
-		 
-		 } catch(Exception e){
+		 } catch (Exception e) {
 			 
-		 msg = "등록 실패"+ e.toString();
-		 url ="/admin/ProductInfo/List.do";
+			 msg = "등록 실패"+ e.toString();
+			 url ="/admin/ProductInfo/List.do";
 		
-			log.info(e.toString());
-			e.printStackTrace();
+			 log.info(e.toString());
+			 e.printStackTrace();
 			
-		 }
-		 finally{
+		 } finally {
 		
-		log.info(this.getClass().getName()+"productInfoProductinfoInsertEnd");
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
+			 log.info(this.getClass().getName()+"productInfoProductinfoInsertEnd");
+			 
+			 model.addAttribute("msg", msg);
+			 model.addAttribute("url", url);
+			 
 		 }
-		return "/redirect";
 		
-			}
+		 return "/redirect";
+		
+	}
 
 	
 	
-	/*삭제 controller*/    
+	/* 삭제 Controller */    
 	@RequestMapping(value="admin/ProductInfo/ProductInfoDelete",method=RequestMethod.GET)
 	public String ProductInfoDelete(HttpServletRequest request, HttpServletResponse response, 
 			ModelMap model) throws Exception
@@ -368,8 +363,7 @@ public class ProductInfoController {
 		
 	
 	
-	/*수정controller*/    
-	                     
+	/* 수정 Controller */      
 	@RequestMapping(value="admin/ProductInfo/ProductInfoUpdateForm",method=RequestMethod.GET)
 	public String ProductInfoUpdateForm(HttpServletRequest request, HttpServletResponse response, 
 			ModelMap model) throws Exception
@@ -383,10 +377,9 @@ public class ProductInfoController {
 		ProductInfoDTO productInfoDTO = new ProductInfoDTO();
 		productInfoDTO.setProd_no(prod_no);
 	
-		List<ProductInfoDTO> list = productInfoService.getProductInfoDetail(productInfoDTO) ;
-		
+		ProductInfoDTO rDTO = productInfoService.getProductInfoDetail(productInfoDTO);
 			
-		model.addAttribute("dlwkdus",list);
+		model.addAttribute("dlwkdus", rDTO);
 		
 		
 	    log.info(this.getClass().getName()+"productInfoProductinfoUpdateEND");
@@ -398,21 +391,17 @@ public class ProductInfoController {
 			}
 	
 	
-	
-	
-	
+	/* 수정(Update) Controller */
 	@RequestMapping(value="admin/ProductInfo/ProductInfoUpdate",method=RequestMethod.POST)
 	public String ProductInfoUpdate(HttpServletRequest request, HttpServletResponse response, 
 			ModelMap model) throws Exception {
-		
-		
 		
 		log.info(this.getClass().getName()+"productInfoProductInfoDelect Start");
 		
 		 String msg ="";
 		 String url ="admin/ProductInfo/ProductInfoDetail.do";
 		 
-		 try{
+		 try {
 		
 		 ProductInfoDTO rdto = new ProductInfoDTO();
 		 
@@ -447,7 +436,7 @@ public class ProductInfoController {
 		 
 		 rdto= null;
 		 
-		 } catch(Exception e){
+		 } catch(Exception e) {
 			 
 		 msg = "수정 실패"+ e.toString();
 		 url ="/admin/ProductInfo/List.do";
@@ -456,15 +445,16 @@ public class ProductInfoController {
 			e.printStackTrace();
 			
 		 }
-		 finally{
+		 finally {
 		
 		log.info(this.getClass().getName()+"productInfoProductinfoInsertEnd");
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		 }
+		 
 		return "/redirect";
+		
 	}
-	
 	
 	/*옵션 controller*/ 
 	
@@ -544,13 +534,5 @@ public class ProductInfoController {
 		
 			}
 
-	
-		
-		
-		
  
-			}
-
-    
-
-
+}
