@@ -274,7 +274,7 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
  // 커스텀 오버레이를 생성합니다
     var customOverlay = new daum.maps.CustomOverlay({
         position: position,
-        content: '<div style="padding:5px;"><input type="text" name="123" readonly="true" value="' + acaList[i] + '">'
+        content: '<div id="wrapper"><input type="text" name="123" readonly="true" value="' + acaList[i] + '">'
     +'</div>'  
     });
    
@@ -374,7 +374,7 @@ function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
     	
     });
 
-
+}
 //***********************************************************************************
 
 
@@ -393,14 +393,7 @@ function createMarkerImage(markerImageSize, offset, spriteOrigin) {
     return markerImage;
 }
 
-		var markerImageUrl = 'http://t1.daumcdn.net/localimg/localimages/07/2012/img/marker_p.png', 
-		    markerImageSize = new daum.maps.Size(40, 42), // 마커 이미지의 크기
-		    markerImageOptions = { 
-		        offset : new daum.maps.Point(22, 31)// 마커 좌표에 일치시킬 이미지 안의 좌표
-		    };
 
-		// 마커 이미지를 생성한다
-		var markerImage = new daum.maps.MarkerImage(markerImageUrl, markerImageSize, markerImageOptions);
  
 	
 
