@@ -13,6 +13,7 @@
      <!-- GOOGLE FONTS-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 <title>Insert title here</title>
+<script src="/js/user_js.js"></script>
 <script type="text/javascript">
 function onSubmit(f) {
 	if(f.id.value == ""){
@@ -54,21 +55,23 @@ function onSubmit(f) {
                                        <br />
                                      <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-tag"  ></i></span>
-                                            <input type="text" class="form-control" placeholder="아이디 " name="id" />
+                                            <input type="text" class="form-control" placeholder="아이디 " name="id" onkeydown="nop_han(this)" style="ime-mode:disabled;"/>
                                         </div>
-                                                                              <div class="form-group input-group">
+                                     <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
                                             <input type="password" class="form-control"  placeholder="비밀번호" name="pwd" />
-                                        </div>
+                                    </div>
                                     <div class="form-group">
                                             <span class="pull-right">
-                                                   <a href="/user/id_found.do" >아이디 찾기</a> / <a href="/user/pw_found.do">비밀번호 찾기</a> 
+                                                   <a href="/user/user_join.do" >회원가입</a> 
                                             </span>
                                         </div>
                                      
                                      <input type="submit" value="Login Now" class="btn btn-primary"/>
                                     <hr />
-                                    Not register ? <a href="registeration.html" >click here </a> 
+                                   <span class="pull-right">
+                                         <a href="/user/id_found.do" >아이디 찾기</a> / <a href="/user/pw_found.do">비밀번호 찾기</a> 
+                                   </span>
                                     </form>
                             </div>
                            
@@ -87,7 +90,5 @@ function onSubmit(f) {
     <script src="/assets/js/bootstrap.min.js"></script>
     <!-- METISMENU SCRIPTS -->
     <script src="/assets/js/jquery.metisMenu.js"></script>
-      <!-- CUSTOM SCRIPTS -->
-    <script src="/assets/js/custom.js"></script>
 </body>
 </html>

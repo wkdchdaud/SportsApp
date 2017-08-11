@@ -32,6 +32,17 @@ public class CustomerComController {
 		model.addAttribute("list",list);
 		return "/main";
 	}
+	
+	@RequestMapping(value="main2",method=RequestMethod.GET)
+	public String busimain2(HttpSession session, HttpServletRequest request, HttpServletResponse response,
+			ModelMap model) throws Exception {
+		log.info("Wellcom user/usermain2");
+		System.out.println("test");
+		List<TestDTO> list = comService.getCommentList();
+		model.addAttribute("list",list);
+		return "/main2";
+	}
+	
 	@RequestMapping(value="ui",method=RequestMethod.GET)
 	public String Ui(HttpSession session, HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws Exception {

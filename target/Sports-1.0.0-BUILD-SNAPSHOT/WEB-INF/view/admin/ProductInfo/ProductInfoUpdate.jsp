@@ -50,7 +50,7 @@ if (rList==null) {
 
 <tr>
 <td>제품내용</td>
-<td><textarea name="prod_contents" rows="600px" cols="400px"> <%=CmmUtil.nvl(aDTO.getProd_contents())%>"</textarea></td>
+<td><textarea name="prod_contents" rows="400px" cols="400px"> <%=CmmUtil.nvl(aDTO.getProd_contents())%>"</textarea></td>
 
 </tr>
 <tr align="center">
