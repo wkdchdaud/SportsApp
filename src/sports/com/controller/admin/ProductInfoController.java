@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import sports.com.dto.Prod_test_jcmDTO;
+import sports.com.dto.ProductFileDTO;
 import sports.com.dto.ProductInfoDTO;
 import sports.com.dto.QADTO;
 import sports.com.service.IProductInfoService;
@@ -232,9 +233,10 @@ public class ProductInfoController {
 		
 		ProductInfoDTO rDTO = productInfoService.getProductInfoDetail(productInfoDTO);
 		
-		List<ProductInfoDTO> pList = productInfoService.getProductInfoFile(rDTO);
+		List<ProductFileDTO> fileList = productInfoService.getProductInfoFile(rDTO);
 		
 		model.addAttribute("dlwkdus", rDTO);
+		model.addAttribute("file", fileList);
 		
 		return "/admin/ProductInfo/ProductDetail";	  
 						

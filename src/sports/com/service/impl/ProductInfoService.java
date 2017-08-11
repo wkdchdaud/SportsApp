@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import sports.com.dto.Prod_test_jcmDTO;
+import sports.com.dto.ProductFileDTO;
 import sports.com.dto.ProductInfoDTO;
 import sports.com.dto.ProductInfoOptionDTO;
 import sports.com.persistance.mapper.ProductInfoMapper;
@@ -81,7 +82,7 @@ public class ProductInfoService implements IProductInfoService {
 	}
 	
 	@Override
-	public List<ProductInfoDTO> getProductInfoFile(ProductInfoDTO rDTO) throws Exception {
+	public List<ProductFileDTO> getProductInfoFile(ProductInfoDTO rDTO) throws Exception {
 		return productInfoMapper.getProductInfoFile(rDTO);
 	}
 

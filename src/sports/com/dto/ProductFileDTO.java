@@ -1,18 +1,16 @@
 package sports.com.dto;
 
-public class ProductInfoDTO {
-
-	private String prod_no;
-	private String prod_name;
-	private String prod_price;
-	private String prod_contents;
+public class ProductFileDTO {
+	
+	private String file_no;
+	private String file_grp;
+	private String file_path;
+	private String org_filename;
+	private String src_filename;
 	private String reg_user_no;
 	private String reg_dt;
 	private String chg_user_no;
 	private String chg_dt;
-	private String file_no;
-	private String file_grp;
-	private int read_more;
 	
 	public String getFile_no() {
 		return file_no;
@@ -29,44 +27,29 @@ public class ProductInfoDTO {
 	public void setFile_grp(String file_grp) {
 		this.file_grp = file_grp;
 	}
-
-	public int getRead_more() {
-		return read_more;
+	
+	public String getFile_path() {
+		return file_path;
 	}
 	
-	public void setRead_more(int read_more) {
-		this.read_more = read_more;
+	public void setFile_path(String file_path) {
+		this.file_path = file_path;
 	}
 	
-	public String getProd_no() {
-		return prod_no;
+	public String getOrg_filename() {
+		return org_filename;
 	}
 	
-	public void setProd_no(String prod_no) {
-		this.prod_no = prod_no;
+	public void setOrg_filename(String org_filename) {
+		this.org_filename = org_filename;
 	}
 	
-	public String getProd_name() {
-		return prod_name;
+	public String getSrc_filename() {
+		return src_filename;
 	}
 	
-	public void setProd_name(String prod_name) {
-		this.prod_name = prod_name;
-	}
-	
-	public String getProd_price() {
-		return prod_price;
-	}
-	
-	public void setProd_price(String prod_price) {
-		this.prod_price = prod_price;
-	}
-	public String getProd_contents() {
-		return prod_contents;
-	}
-	
-	public void setProd_contents(String prod_contents) {
-		this.prod_contents = prod_contents;
+	public void setSrc_filename(String src_filename) {
+		this.src_filename = src_filename;
 	}
 	
 	public String getReg_user_no() {
@@ -100,5 +83,6 @@ public class ProductInfoDTO {
 	public void setChg_dt(String chg_dt) {
 		this.chg_dt = chg_dt;
 	}
+	
 
 }

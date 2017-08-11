@@ -3,6 +3,7 @@ package sports.com.persistance.mapper;
 import java.util.List;
 import config.Mapper;
 import sports.com.dto.Prod_test_jcmDTO;
+import sports.com.dto.ProductFileDTO;
 import sports.com.dto.ProductInfoDTO;
 import sports.com.dto.ProductInfoOptionDTO;
 import sports.com.dto.QADTO;
@@ -34,6 +35,6 @@ public interface ProductInfoMapper {
 	//옵션구현 
 	void ProductInfoOptionInsert(ProductInfoOptionDTO productInfoOptionDTO) throws Exception;
 
-	List<ProductInfoDTO> getProductInfoFile(ProductInfoDTO rDTO);
+	List<ProductFileDTO> getProductInfoFile(ProductInfoDTO rDTO) throws Exception;
 	
 }

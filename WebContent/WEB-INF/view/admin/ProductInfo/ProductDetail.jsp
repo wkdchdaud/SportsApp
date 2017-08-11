@@ -1,3 +1,5 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="sports.com.dto.ProductFileDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    
 <%@ page import="sports.com.util.CmmUtil" %>
@@ -6,20 +8,20 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %> 
 <%
-	List<ProductInfoDTO> rList = (List<ProductInfoDTO>) request.getAttribute("dlwkdus");
+ProductInfoDTO rDTO = (ProductInfoDTO) request.getAttribute("dlwkdus");
 	
-	if (rList==null) {
-		rList = new ArrayList<ProductInfoDTO>();
+	if (rDTO==null) {
+		rDTO = new ProductInfoDTO();
 	}
+	
+	List<ProductFileDTO> fileList = (List<ProductFileDTO>) request.getAttribute("file");
+	
+	if (fileList==null) {
+		fileList = new ArrayList<ProductFileDTO>();
+	}
+	
 %> 
 <%
-	for (ProductInfoDTO aDTO : rList) {
-			
-		if (aDTO==null) {
-			aDTO = new ProductInfoDTO();
-		}
-		
-				
 	String opt_name = "색상";		
 %>  
 <!DOCTYPE html>
@@ -164,7 +166,7 @@ function pickOption() {
 
 		<form name="form1" id="form1" method="GET">
 	
-		<input type="hidden" name="prod_no1" value="<%=CmmUtil.nvl(aDTO.getProd_no())%>" />
+		<input type="hidden" name="prod_no1" value="<%=CmmUtil.nvl(rDTO.getProd_no())%>" />
 	
 		<div class="container detail">
 			<div class="wrap btn-wrap">
@@ -172,9 +174,11 @@ function pickOption() {
 				<div class="list_wrap">
 				
 					<div class="goods_detail">
-						<div class="thumb"><%=CmmUtil.nvl(aDTO.getFile_grp()) %></div>
+						<div class="thumb">
+							<input type="image" src="<%=CmmUtil.nvl(fileList.get(0).getFile_path()+"/"+fileList.get(0).getSrc_filename())%>" style="height: 300px; width: 300px;"/>
+						</div>
 			            <div class="info">
-							<p class="title"><%=CmmUtil.nvl(aDTO.getProd_name()) %></p>
+							<p class="title"><%=CmmUtil.nvl(rDTO.getProd_name()) %></p>
 							<p class="sub_text">배송비 2,500원 (50,000원 이상 무료배송)</p>
 			            </div>
 					</div>
@@ -212,10 +216,16 @@ function pickOption() {
 		
 					<h4 class="goods_detail_title">제품 상세정보</h4>
 					<div class="detail_contents">
-						<%=CmmUtil.nvl(aDTO.getFile_grp()) %>
+					<%
+						Iterator<ProductFileDTO> it = fileList.iterator();
+						while(it.hasNext()){
+							ProductFileDTO pDTO = it.next();
+					%>
+						<input type="image" src="<%=CmmUtil.nvl(pDTO.getFile_path()+"/"+pDTO.getSrc_filename()) %>" style="height: 300px; width: 300px;"/>
+					<%} %>
 						<dl>
 							<dt>제품특징</dt> 
-							<dd><%=CmmUtil.nvl(aDTO.getProd_contents()).replaceAll("\r\n", "<br>") %></dd>
+							<dd><%=CmmUtil.nvl(rDTO.getProd_contents()).replaceAll("\r\n", "<br>") %></dd>
 						</dl>
 					</div>
 	
@@ -248,10 +258,6 @@ function pickOption() {
 	<div id="c-mask" class="c-mask"></div>
 	<script src="/common/js/classie.js"></script>
 	<script src="/common/js/common.js"></script>
-	
-	<%
-	}
-	%>
 
 </body>
 

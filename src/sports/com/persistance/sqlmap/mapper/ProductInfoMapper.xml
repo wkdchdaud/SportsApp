@@ -45,7 +45,14 @@
 
 	<!-- 스포츠 용품 상세 쿼리  -->
 	<select id ="getProductInfoDetail" resultType="ProductInfoDTO">
-		SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS FROM PRODUCT_INFO WHERE prod_no = #{prod_no}
+		SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS, FILE_GRP FROM PRODUCT_INFO WHERE prod_no = #{prod_no}
+	</select>
+	
+	<!-- 스포츠 -->
+	<select id="getProductInfoFile" resultType="ProductFileDTO" parameterType="ProductInfoDTO">
+		SELECT FILE_NO, FILE_GRP, FILE_PATH, ORG_FILENAME, SRC_FILENAME FROM PROD_FILE
+		 WHERE FILE_GRP = #{file_grp}
+		ORDER BY FILE_NO;
 	</select>
 	
 	<!-- 스포츠 용품 등록 쿼리 -->
