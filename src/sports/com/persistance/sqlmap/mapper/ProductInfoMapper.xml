@@ -15,13 +15,6 @@
 		ORDER BY PROD_NO+0 DESC LIMIT 6;
 	</select>
 
-<!-- 파라미터에 따른 리스트 -->
-<select id ="getParameterList" resultType="Prod_test_jcmDTO" parameterType="Prod_test_jcmDTO">
-SELECT PROD_NO, PROD_NAME, PROD_PRICE AS PRICE FROM PRODUCT_INFO
-WHERE PROD_CATEGORY LIKE #{prod_category}
-ORDER BY PROD_NO+0 DESC LIMIT 6;
-
-</select>
 
 	<!-- 스포츠 용품 목록 더보기 쿼리 -->
 	<select resultType="Prod_test_jcmDTO" id="getReadMore" parameterType="Prod_test_jcmDTO" >
