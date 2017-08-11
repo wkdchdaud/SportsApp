@@ -139,7 +139,7 @@
 </script>
 </head>
 <body>
-	<form action="/user/user_update_proc.do" method="post" onsubmit="return doSubmit(this);" id="f" name="f">
+	<form action="/admin/user/user_update_proc.do" method="post" onsubmit="return doSubmit(this);" id="f" name="f">
 		<input type="hidden" value="<%=CmmUtil.nvl(userDTO.getUser_no()) %>" name="user_no"/>
 		<table border="1">
 			<tr>
@@ -187,7 +187,7 @@
 			<tr>
 				<td colspan="2" align="center">
 					<input type="submit" value="수정" /> 
-					<input type="button" value="취소" onclick="location.href='/user/user_info.do?user_no=<%=CmmUtil.nvl(userDTO.getUser_no()) %>'"/>
+					<input type="button" value="취소" onclick="location.href='/admin/user/user_info.do?user_no=<%=CmmUtil.nvl(userDTO.getUser_no()) %>'"/>
 				</td>
 			</tr>
 		</table>

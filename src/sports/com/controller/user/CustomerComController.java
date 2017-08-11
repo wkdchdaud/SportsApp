@@ -17,7 +17,7 @@ import sports.com.dto.TestDTO;
 import sports.com.service.IComService;
 
 @Controller
-public class TestController {
+public class CustomerComController {
 	private Logger log = Logger.getLogger(this.getClass());
 	
 	@Resource(name = "ComService")

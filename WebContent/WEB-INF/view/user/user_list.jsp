@@ -19,7 +19,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form name="f" action="/user/user_list.do" method="post">
+<form name="f" action="/admin/user/user_list.do" method="post">
 	<select name="s_type" >
 		<option value="no">선택하세요</option>
 		<option value="id">아이디</option>
@@ -53,7 +53,7 @@
 		%>
 		<tr>
 			<td><%=CmmUtil.nvl(uDTO.getUser_no()) %></td>
-			<td><a href="/user/user_info.do?user_no=<%=CmmUtil.nvl(uDTO.getUser_no())%>"><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getUser_id())) %></a></td>
+			<td><a href="/admin/user/user_info.do?user_no=<%=CmmUtil.nvl(uDTO.getUser_no())%>"><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getUser_id())) %></a></td>
 			<td><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getUser_name())) %></td>
 			<td><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getEmail())) %></td>
 			<td align="center"><%=CmmUtil.nvl(uDTO.getEmail_first()) %></td>
