@@ -46,18 +46,20 @@ if (rList==null) {
 			
 		var price = '';	//셀렉트박스값을 가져옴 all, lowprice, highrprice
 		var name= '';	//인풋 검색 서취값 가져옴
-		
+		var catname = $("#catname").val();
 		//더보기 버튼 구현 시작 
 		$("#btn_more").add("#as").click(function(){
 /* 			alert("더보기 시작113S");
 			alert(cnt);
- */			$.ajax({
+ */				
+ 				$.ajax({
 				url : "/admin/ProductInfo/readMore.do",
 				method : "post",
 				data : {
 					'cnt' : cnt,
 					'price': price,
-					'name' : name
+					'name' : name,
+					'catname' : catname
 				},
 				
 				dataType : "json",
@@ -109,7 +111,8 @@ if (rList==null) {
 						data : {
 							'price' : price,
 							'name' : name,	
-							'cnt' : cnt
+							'cnt' : cnt,
+							'catname' : catname
 						},
 						dataType : "json",
 						success : function(data){//성공하면 함수실행data 키벨류값
@@ -153,7 +156,8 @@ if (rList==null) {
 					data : {
 						'price' : price,
 						'name' : name,
-						'cnt' : cnt
+						'cnt' : cnt,
+						'catname' : catname
 					},
 					dataType : "json",
 					success : function(data){//성공하면 함수실행data 키벨류값
@@ -193,7 +197,8 @@ if (rList==null) {
 						data : {
 							'price' : price,
 							'name' : name,
-							'cnt' : cnt
+							'cnt' : cnt,
+							'catname' : catname
 						},
 						dataType : "json",
 						success : function(data){//성공하면 함수실행data 키벨류값
@@ -248,7 +253,8 @@ if (rList==null) {
 						data : {
 							'price' : price,
 							'name' : name,
-							'cnt' : cnt
+							'cnt' : cnt,
+							'catname' : catname
 						},
 						dataType : "json",
 						success : function(data){//성공하면 함수실행data 키벨류값
@@ -291,7 +297,8 @@ if (rList==null) {
 					data : {
 						'price' : price,
 						'name' : name,
-						'cnt' : cnt
+						'cnt' : cnt,
+						'catname' : catname
 					},
 					dataType : "json",
 					success : function(data){//성공하면 함수실행data 키벨류값
@@ -334,7 +341,8 @@ if (rList==null) {
 						data : {
 							'price' : price,
 							'name' : name,
-							'cnt' : cnt
+							'cnt' : cnt,
+							'catname' : catname
 						},
 						dataType : "json",
 						success : function(data){//성공하면 함수실행data 키벨류값
@@ -480,6 +488,7 @@ if (rList==null) {
                 <div class="goods_list_wrap">
                     <ul id="menu_list" class="goods_list">
                       	<%for(Prod_test_jcmDTO pdto : rList) {%>
+                            <input type="hidden" id="catname" name="catname" value="<%=pdto.getProd_category()%>" />
                         <li>
                             <div class="register">
                                 <a href="#">

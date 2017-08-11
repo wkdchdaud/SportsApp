@@ -11,7 +11,8 @@ ORDER BY PROD_NO+0 DESC LIMIT 6;
 
 <!-- 파라미터에 따른 리스트 -->
 <select id ="getParameterList" resultType="Prod_test_jcmDTO" parameterType="Prod_test_jcmDTO">
-SELECT PROD_NO, PROD_NAME, PRICE FROM PRODUCT_INFO_TEST
+SELECT PROD_NO, PROD_NAME, PRICE, PROD_CATEGORY
+FROM PRODUCT_INFO_TEST
 WHERE PROD_CATEGORY LIKE #{prod_category}
 ORDER BY PROD_NO+0 DESC LIMIT 6;
 
@@ -22,6 +23,8 @@ ORDER BY PROD_NO+0 DESC LIMIT 6;
 		SELECT PROD_NO, PROD_NAME, PRICE
 		FROM PRODUCT_INFO_TEST
 		<if test='search!=""'>WHERE PROD_NAME LIKE CONCAT('%', #{search}, '%')</if>
+		<if test='prod_category!="null" and search!="" '>AND PROD_CATEGORY LIKE #{prod_category}</if>
+		<if test='prod_category!="null" and search=="" '>WHERE PROD_CATEGORY LIKE #{prod_category}</if>
 		<if test='del_price=="all"'>ORDER BY PROD_NO DESC</if>
 		<if test='del_price=="lowprice"'>ORDER BY PRICE+0 ASC</if>
 		<if test='del_price=="highprice"'>ORDER BY PRICE+0 DESC</if>

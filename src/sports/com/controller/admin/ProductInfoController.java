@@ -1,6 +1,5 @@
 package sports.com.controller.admin;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,7 +98,7 @@ public class ProductInfoController {
 	
     /*더보기 */
 		@RequestMapping(value="admin/ProductInfo/readMore")
-		public @ResponseBody List<Prod_test_jcmDTO> getReadMore(@RequestParam(value="cnt") String cnt,@RequestParam(value="price") String price,@RequestParam(value="name") String name) throws Exception{
+		public @ResponseBody List<Prod_test_jcmDTO> getReadMore(@RequestParam(value="cnt") String cnt,@RequestParam(value="price") String price,@RequestParam(value="name") String name,@RequestParam(value="catname") String catname) throws Exception{
 			
 			System.out.println("버튼 리드 모어 고고고고고");
 			
@@ -107,12 +106,14 @@ public class ProductInfoController {
 			pdto.setRead_more(cnt);
 			pdto.setSearch(name);
 			pdto.setDel_price(price);
+			pdto.setProd_category(catname);
 			
 			List<Prod_test_jcmDTO> plist = productInfoService.getReadMore(pdto);
 			
 			System.out.println("cnt : : "+pdto.getRead_more());
 			System.out.println("search : "+pdto.getSearch());
 			System.out.println("price : "+pdto.getDel_price());
+			System.out.println("catname : "+pdto.getProd_category());
 			
 			pdto = null;
 			
