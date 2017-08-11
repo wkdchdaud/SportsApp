@@ -8,8 +8,8 @@ import sports.com.dto.ProductInfoOptionDTO;
 
 public interface IProductInfoService {
 	
-	
 	List<Prod_test_jcmDTO> getProductInfoList() throws Exception;
+	
 	List<Prod_test_jcmDTO> getParameterList(Prod_test_jcmDTO pdto) throws Exception;
 	
 	//버튼 더보기 구현
@@ -32,4 +32,5 @@ public interface IProductInfoService {
 	void ProductInfoOptionInsert(ProductInfoOptionDTO productInfoOptionDTO) throws Exception;
 	
 	List<ProductInfoDTO> getProductInfoFile(ProductInfoDTO rDTO) throws Exception;
+	
 }

@@ -88,7 +88,7 @@ function pickOption() {
 	      
 	sop.removeAttribute("disabled");
 	      
-	if(document.getElementById("firstOpt").value == "<%=opt_name%>") {
+	if (document.getElementById("firstOpt").value == "<%=opt_name%>") {
 		sop.disabled = 'false';
 	}
 	      

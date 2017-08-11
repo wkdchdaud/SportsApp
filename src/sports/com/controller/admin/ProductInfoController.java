@@ -240,7 +240,6 @@ public class ProductInfoController {
 						
 	}
 
-
 	/* 등록 Controller */
 	@RequestMapping(value="admin/ProductInfo/ProductInfoReg",method=RequestMethod.GET)
 	public String ProductInfoReg(HttpServletRequest request, HttpServletResponse response, 
@@ -256,65 +255,57 @@ public class ProductInfoController {
 	/* 등록(Insert) Controller */
 	@RequestMapping(value="admin/ProductInfo/ProductInfoInsert",method=RequestMethod.POST)
 	public String ProductInfoInsert(HttpServletRequest request, HttpServletResponse response, 
-			ModelMap model) throws Exception
-			{
-		
+			ModelMap model) throws Exception {
 		
 		log.info(this.getClass().getName()+"productInfoProductinfoInsertStart");
-		 String msg ="";
-		 String url ="/admin/ProductInfo/List.do";
-		 
-		 try{
 		
-		 ProductInfoDTO rdto = new ProductInfoDTO();
+		String msg ="";
+		String url ="/admin/ProductInfo/List.do";
 		 
-
-
+		try {
 		
-	   
-		 String prod_name = CmmUtil.nvl(request.getParameter("prod_name"));
-		 System.out.println("PROD_NAME  : " +  CmmUtil.nvl(request.getParameter("prod_name")));
+			ProductInfoDTO rdto = new ProductInfoDTO();
 		 
-		 String prod_price =CmmUtil.nvl(request.getParameter("prod_price"));
-		 System.out.println("PROD_PRICE  : " + CmmUtil.nvl(request.getParameter("prod_price")));
+			String prod_name = CmmUtil.nvl(request.getParameter("prod_name"));
+			System.out.println("PROD_NAME  : " +  CmmUtil.nvl(request.getParameter("prod_name")));
 		 
-		 String prod_contents =CmmUtil.nvl(request.getParameter("prod_contents"));
-		 System.out.println("PROD_CONTENTS  : " + CmmUtil.nvl(request.getParameter("prod_contents")));
+			String prod_price =CmmUtil.nvl(request.getParameter("prod_price"));
+			System.out.println("PROD_PRICE  : " + CmmUtil.nvl(request.getParameter("prod_price")));
 		 
-	
-		 rdto.setProd_price(prod_price);	
-		 rdto.setProd_contents(prod_contents);
-		 rdto.setProd_name(prod_name);
+			String prod_contents =CmmUtil.nvl(request.getParameter("prod_contents"));
+			System.out.println("PROD_CONTENTS  : " + CmmUtil.nvl(request.getParameter("prod_contents")));
 		 
+			rdto.setProd_price(prod_price);	
+			rdto.setProd_contents(prod_contents);
+			rdto.setProd_name(prod_name);
 		 
+			productInfoService.ProductInfoInsert(rdto);
 		 
-		 productInfoService.ProductInfoInsert(rdto);
+			msg = "등록 완료";
+			url ="/admin/ProductInfo/List.do";
 		 
+			rdto= null;
 		 
-		 
-		 msg = "등록 완료";
-		 url ="/admin/ProductInfo/List.do";
-		 
-		 rdto= null;
-		 
-		 } catch(Exception e){
+		 } catch (Exception e) {
 			 
-		 msg = "등록 실패"+ e.toString();
-		 url ="/admin/ProductInfo/List.do";
+			 msg = "등록 실패"+ e.toString();
+			 url ="/admin/ProductInfo/List.do";
 		
-			log.info(e.toString());
-			e.printStackTrace();
+			 log.info(e.toString());
+			 e.printStackTrace();
 			
-		 }
-		 finally{
+		 } finally {
 		
-		log.info(this.getClass().getName()+"productInfoProductinfoInsertEnd");
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
+			 log.info(this.getClass().getName()+"productInfoProductinfoInsertEnd");
+			 
+			 model.addAttribute("msg", msg);
+			 model.addAttribute("url", url);
+			 
 		 }
-		return "/redirect";
 		
-			}
+		 return "/redirect";
+		
+	}
 
 	
 	

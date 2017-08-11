@@ -25,16 +25,15 @@ public interface ProductInfoMapper {
 	
 	void ProductInfoUpdate(ProductInfoDTO productInfoDTO) throws Exception;
 	
-	
 	//조건선택 검색
 	List<Prod_test_jcmDTO> getAllSearch(Prod_test_jcmDTO bDTO) throws Exception;
-	
 	List<Prod_test_jcmDTO> getHighpriceSearch(Prod_test_jcmDTO bDTO) throws Exception;
-	
 	List<Prod_test_jcmDTO> getLowpriceSearch(Prod_test_jcmDTO bDTO) throws Exception;
 	//조건선택 검색 끝
 	
 	//옵션구현 
 	void ProductInfoOptionInsert(ProductInfoOptionDTO productInfoOptionDTO) throws Exception;
+
+	List<ProductInfoDTO> getProductInfoFile(ProductInfoDTO rDTO);
 	
 }
