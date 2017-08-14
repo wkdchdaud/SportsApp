@@ -131,6 +131,11 @@ public class DataAnalysisController {
 //		System.out.println("R_list.get(0): "+ R_list.get(0).getPrice());
 		RUtil auels_util = new RUtil();
 		
+		for(Ord_testDTO qqq : R_list){
+			System.out.println("qqq.getOp_no() : " +qqq.getOp_no());
+			System.out.println("qqq.getOrd_no() : " + qqq.getOrd_no());
+		}
+		
 		auels_util.R_list(R_list);
 		
 		System.out.println(R_list.size());

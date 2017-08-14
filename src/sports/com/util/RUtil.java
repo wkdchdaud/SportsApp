@@ -21,53 +21,47 @@ public class RUtil {
 	 }
 	 
 	 //제대로 출력중 
+	 int i=0;
 	 for(Ord_testDTO qwe : list){
-		 
-		 System.out.println(qwe.getOp_no());
-		 System.out.println(qwe);
-		 re.eval("df <- c(df , ' " + qwe.getOp_no() + "' ) " );
-		System.out.println(list.size());
+		
+		 if(i==0){
+			 re.eval("id <- c(" + qwe.getOrd_no() + ") " );
+			 re.eval("name <- factor(c('"+ qwe.getOp_no() +"')) " );
+			 	 
+		 }
+		 else{
+			 re.eval("id <- c(id ," + qwe.getOrd_no() + " ) " );
+			 re.eval("name <- factor(c(name , '"+ qwe.getOp_no() +"' )) " );
+		 }
+		 i++;
 	 
 	 }
 	 
-	 REXP y =re.eval("df");
-	 System.out.println(y.asVector());
-	 
-	 /*System.out.println("list: " + list);*/
-	/* re.eval("install.packages('arulesViz')");*/
-//	 System.out.println("library : " + re.eval("library(arulesViz)"));
+	 System.out.println(list.size());
 	 
 	 re.eval("library(arules)");
-	 re.eval("data(Epub)");
-	 re.eval("Epub_rule_2 <- apriori(data = Epub, parameter = list(support = 0.001, confidence = 0.20, minlen = 2))");
-	 re.eval("df <- inspect(Epub_rule_2[1:20])");
-	 re.eval("df$lift");
-	 re.eval("df2 <- df$lift");
 	 
-	 Object obj = re.eval("df$lift");
+	 re.eval("dtfr <- data.frame(id,name)");
+
+	 //id별 list로 쪼갠뒤 transaction 타입 변환
+	 re.eval("dt.list <- split(dtfr$name , dtfr$id)");
+	 re.eval("dt.tran <- as(dt.list, 'transactions')");
+	 re.eval("dt.rule <- apriori(dt.tran ,  parameter = list(support = 0.2, confidence = 0.6))");
+	 // apriori알고리즘 적용후 향상도만 뽑아보기
+	 re.eval("dt.ins <- inspect(dt.rule)");
+	 re.eval("dt.li <- dt.ins$lift");
 	 
-	 System.out.println("return type=" + obj.getClass().getName());
-	 System.out.println("obj.toString() : " + obj.toString());
-	 
-//	 for (int i = 0 ; i  < obj.toString().length(); i++){
-//		 System.out.println("for obj.toString() : " + obj.toString());
-//	 }
-	 
-	 System.out.println("ver : " + obj.toString());
-	 
-	 REXP x =re.eval("df2");
+	 REXP x =re.eval("dt.li");
 	 
 	 System.out.println("x.toString() : " + x.asDoubleArray());
 	 
 	 double[] qwe = x.asDoubleArray();
-	 int i = 0;
+	 int s = 0;
 	 for (double a : qwe){
-		 i++;
-		 System.out.println(i+ "번째는 :" + a + "   값 입니다  ");
+		 s++;
+		 System.out.println(s+ "번째는 :" + a + "   값 입니다  ");
 	 }
 	 
-	
-	/*REXP x =re.eval("df[1]");*/
 	System.out.println();
 	
 	 return 1.1;

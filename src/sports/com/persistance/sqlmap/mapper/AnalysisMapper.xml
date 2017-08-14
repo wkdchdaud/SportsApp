@@ -68,7 +68,7 @@
 
 
 <select id="getAnalysis" resultType="Ord_testDTO">
-SELECT ORD_NO, GROUP_CONCAT(OP_NO) AS OP_NO  FROM ORD_PRO_TEST GROUP BY ORD_NO ;
+SELECT ORD_NO, OP_NO FROM ORD_PRO_TEST;
 </select>
 
 </mapper>
