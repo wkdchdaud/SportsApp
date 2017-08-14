@@ -20,11 +20,12 @@ public class RUtil {
 	 	System.out.println("R 연동 안되고 있어 .");
 	 }
 	 
+	 //제대로 출력중 
 	 for(Ord_testDTO qwe : list){
 		 
 		 System.out.println(qwe.getOp_no());
 		 System.out.println(qwe);
-		 re.eval("df <- c(" + qwe.getOp_no() + ", df ) " );
+		 re.eval("df <- c(df , ' " + qwe.getOp_no() + "' ) " );
 		System.out.println(list.size());
 	 
 	 }
