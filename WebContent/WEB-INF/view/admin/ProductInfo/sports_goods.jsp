@@ -16,6 +16,7 @@ if (rList==null) {
 <html lang="ko">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,6 +53,7 @@ if (rList==null) {
 /* 			alert("더보기 시작113S");
 			alert(cnt);
  */				
+ 				
  				$.ajax({
 				url : "/admin/ProductInfo/readMore.do",
 				method : "post",
@@ -103,7 +105,7 @@ if (rList==null) {
 			
 			if(price=='all'){ //만약 셀렉트value 값이 all이면
 				$('#menu_list').html(null);
-			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more1' style='width: 300px'>더보기</button></center>");
 			
 					$.ajax({//아작스 실행
 						url : "/admin/ProductInfo/allSearch.do",
@@ -149,7 +151,7 @@ if (rList==null) {
 				else if(price=='lowprice'){
 			  //만약 select박스 벨류값이 lowprice라면
 				$('#menu_list').html(null);
-			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more1' style='width: 300px'>더보기</button></center>");
 				$.ajax({//아작스 실행
 					url : "/admin/ProductInfo/lowpriceSearch.do",
 					method : "post",
@@ -189,7 +191,7 @@ if (rList==null) {
 			}
 			else if(price=='highprice'){
 				$('#menu_list').html(null);
-			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more1' style='width: 300px'>더보기</button></center>");
 					$.ajax({//아작스 실행
 					
 						url : "/admin/ProductInfo/highpriceSearch.do",
@@ -246,7 +248,7 @@ if (rList==null) {
 		
 			if(price=='all'){ //만약 셀렉트value 값이 all이면
 				$('#menu_list').html(null);
-			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more1' style='width: 300px'>더보기</button></center>");
 					$.ajax({//아작스 실행
 						url : "/admin/ProductInfo/allSearch.do",
 						method : "post",
@@ -290,7 +292,7 @@ if (rList==null) {
 				else if(price=='lowprice'){
 			  //만약 select박스 벨류값이 lowprice라면
 				$('#menu_list').html(null);
-			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more1' style='width: 300px'>더보기</button></center>");
 				$.ajax({//아작스 실행
 					url : "/admin/ProductInfo/lowpriceSearch.do",
 					method : "post",
@@ -332,7 +334,7 @@ if (rList==null) {
 			}
 			else if(price=='highprice'){
 				$('#menu_list').html(null);
-			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more' style='width: 300px'>더보기</button></center>");
+			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more1' style='width: 300px'>더보기</button></center>");
 
 					$.ajax({//아작스 실행
 					
@@ -488,12 +490,12 @@ if (rList==null) {
                 <div class="goods_list_wrap">
                     <ul id="menu_list" class="goods_list">
                       	<%for(Prod_test_jcmDTO pdto : rList) {%>
-                            <input type="hidden" id="catname" name="catname" value="<%=pdto.getProd_category()%>" />
                         <li>
                             <div class="register">
                                 <a href="#">
                                     <div class="thumb">
                                         <img src="/common/images/sample01.png" alt="thumb">
+                                        <input type="hidden" id="catname" name="catname" value="<%=pdto.getProd_category()%>" />
                                     </div>
                                     <div class="info">
                                       
@@ -503,6 +505,7 @@ if (rList==null) {
                                 </a>
                             </div>
                         </li>
+                         
                      <%} %>
                      
                     </ul>

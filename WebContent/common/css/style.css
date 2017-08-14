@@ -918,6 +918,10 @@ body {
   margin-right: 2%;
 } */
 
+.goods_list_wrap .goods_list li:nth-child(2n-1) { /* 총명수정 .goods_list_wrap .goods_list li:first-child*/
+  margin-right: 2%;
+}
+	
 .goods_list_wrap .goods_list li .thumb {
   width: 100%;
   max-width: 140px;
