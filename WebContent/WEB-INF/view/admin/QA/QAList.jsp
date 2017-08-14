@@ -1,3 +1,5 @@
+<!-- for Administrator -->
+
 <%@ page import="sports.com.util.AES256Util"%>
 <%@ page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -73,12 +75,11 @@ $('#searchbox').keyup(function() {
 			
 			$.each(data,function (key,value) {
 				
-				contents += "<div style='float:left'><input type='checkbox' name='deleteSelect' class='deleteSelect' value="+value.qa_no+" />&nbsp;&nbsp;&nbsp;</div>";
-				contents += "<p class='title'>"
+				var nw = value.new_yn;
+				var lock = value.secret_yn;
 				
-				if (value.answer_yn == "Y") {
-					contents += "<img src='/common/images/ic_reply.png' alt='답글' class='ic_reply'>";
-				}
+				contents += "<li>";
+				contents += "<div style='float:left'><input type='checkbox' name='deleteSelect' class='deleteSelect' value="+value.qa_no+" /></div>";
 				
 				if (value.answer_yn == "Y") {
 					contents += "<a href='/admin/QA/QAAnswerDetail.do?qa_no="+value.qa_no+"'>";
@@ -86,8 +87,26 @@ $('#searchbox').keyup(function() {
 					contents += "<a href='/admin/QA/QADetail.do?qa_no="+value.qa_no+"'>";
 				}
 				
-				contents += value.title+"</a></p>";
+				contents += "<p class='title'>";
+				
+				if (value.answer_yn == "Y") {
+					contents += "<img src='/common/images/ic_reply.png' alt='답글' class='ic_reply'>";
+				}
+				
+				contents += "<span>"+value.title+"</span>";
+				
+				if (nw == 'Y') {	
+					contents += "<img src='/common/images/ic_new.png' alt='new' class='ic_new'>";
+				}
+				
+				if (lock == '1') {
+					contents += "<img src='/common/images/ic_lock.png' class='ic_lock' alt='lock'>";
+				}
+				
+				contents += "</p>";
+				contents += "</a>"
 				contents += "<p class='sub_text'>"+value.user_name+"<span>"+value.reg_dt+"</span></p>";
+				contents += "</li>";
 				
 			});
 			
@@ -138,12 +157,11 @@ $("#addview").add("#searchadd").click(function() {
 			
 			$.each(data,function (key,value) {
 				
-				contents += "<div style='float:left'><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.qa_no + " />&nbsp;&nbsp;&nbsp;</div>";
-				contents += "<p class='title'>"
+				var nw = value.new_yn;
+				var lock = value.secret_yn;
 				
-				if (value.answer_yn == "Y") {
-					contents += "<img src='/common/images/ic_reply.png' alt='답글' class='ic_reply'>";
-				}
+				contents += "<li>";
+				contents += "<div style='float:left'><input type='checkbox' name='deleteSelect' class='deleteSelect' value=" + value.qa_no + " /></div>";
 				
 				if (value.answer_yn == "Y") {
 					contents += "<a href='/admin/QA/QAAnswerDetail.do?qa_no="+value.qa_no+"'>";
@@ -151,8 +169,26 @@ $("#addview").add("#searchadd").click(function() {
 					contents += "<a href='/admin/QA/QADetail.do?qa_no="+value.qa_no+"'>";
 				}
 				
-				contents += value.title+"</a></p>";
+				contents += "<p class='title'>"
+				
+				if (value.answer_yn == "Y") {
+					contents += "<img src='/common/images/ic_reply.png' alt='답글' class='ic_reply'>";
+				}
+				
+				contents += "<span>"+value.title+"</span>";
+				
+				if (nw == 'Y') {	
+					contents += "<img src='/common/images/ic_new.png' alt='new' class='ic_new'>";
+				}
+				
+				if (lock == '1') {
+					contents += "<img src='/common/images/ic_lock.png' class='ic_lock' alt='lock'>";
+				}
+					
+				contents += "</p>"
+				contents += "</a>"
 				contents += "<p class='sub_text'>"+value.user_name+"<span>"+value.reg_dt+"</span></p>";
+				contents += "</li>"
 				
 			});
 			
@@ -386,7 +422,7 @@ function deleteConfirm(f) {
 		<div class="container detail">
 			<div class="wrap search-wrap btn-wrap">
 			
-				<div class="search type"><input type="text" placeholder="제목 입력" id="searchbox" /></div>
+				<div class="search type"><input type="text" placeholder="제목 입력" id="searchbox" style="width:200px" /></div>
 	
 				<div class="list_wrap">
 					<ul class="list-groub" id="list_more">
@@ -398,67 +434,59 @@ function deleteConfirm(f) {
 							}
 						%>
 			            <li>
-							<div style="float:left"><input type="checkbox" name="deleteSelect" class="deleteSelect" value="<%=rDTO.getQa_no()%>" />&nbsp;&nbsp;&nbsp;</div>
+							<div style="float:left"><input type="checkbox" name="deleteSelect" class="deleteSelect" value="<%=rDTO.getQa_no()%>" /></div>
+
 							<% if (CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")) {%>
 							
+								<a href="javascript:doAnswerDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');">
+								
 								<p class="title">
 								
 								<img src="/common/images/ic_reply.png" alt="답글" class="ic_reply">
-					
-								<a href="javascript:doAnswerDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');"><%=CmmUtil.nvl(rDTO.getTitle()) %></a>
+				
+								<span><%=CmmUtil.nvl(rDTO.getTitle()) %></span>
 								
 								<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {%>
 									<img src="/common/images/ic_lock.png" class="ic_lock" alt="lock">
 								<%} %>
 					
-								<%
-								String reg_dt = CmmUtil.nvl(rDTO.getReg_dt());
-								SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-								Date to = transFormat.parse(reg_dt);
-								
-								long now = System.currentTimeMillis();
-								long inputDate = to.getTime();
-								String mark = "";
-								 
-								if (now - inputDate < (1000*60*60*24*3)) {%>
+								<% if (CmmUtil.nvl(rDTO.getNew_yn()).equals("Y")) {%>
 									<img src="/common/images/ic_new.png" alt="new" class="ic_new">
 								<%} %>
 								
 								</p>
+								
+								</a>
 								
 							<%} else {%>
 								
+								<a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');">
+								
 								<p class="title">
 								
-								<a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getQa_no())%>');"><%=CmmUtil.nvl(rDTO.getTitle()) %></a>
+								<span><%=CmmUtil.nvl(rDTO.getTitle()) %></span>
 								
 								<% if (CmmUtil.nvl(rDTO.getSecret_yn()).equals("1")) {%>
 									<img src="/common/images/ic_lock.png" class="ic_lock" alt="lock">
 								<%} %>
 								
-								<%
-								String reg_dt = CmmUtil.nvl(rDTO.getReg_dt());
-								SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-								Date to = transFormat.parse(reg_dt);
-								
-								long now = System.currentTimeMillis();
-								long inputDate = to.getTime();
-								String mark = "";
-								 
-								if (now - inputDate < (1000*60*60*24*7)) {%>
+								<% if (CmmUtil.nvl(rDTO.getNew_yn()).equals("Y")) {%>
 									<img src="/common/images/ic_new.png" alt="new" class="ic_new">
 								<%} %>
 								
 								</p>
 								
-							<%} %>	
+								</a>
+								
+							<%} %>
+								
 							<p class="sub_text"><%=CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")?"관리자":AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name())) %><span><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></span></p>
 			            </li>
 						<%
 						}
 						%>
 		          	</ul>
-					<label class="all_select" id="alltext"><input type="checkbox" name="all" id="all" onclick="allCheck(this.form);" />&nbsp;&nbsp;&nbsp;전체 선택</label>
+					<label class="all_select" id="alltext"><input type="checkbox" name="all" id="all" onclick="allCheck(this.form);" />전체 선택</label>
 					<div id="searchadd"><button class="add_btn" value="더보기" id="addview">더보기</button></div>
 		        </div>
 		        

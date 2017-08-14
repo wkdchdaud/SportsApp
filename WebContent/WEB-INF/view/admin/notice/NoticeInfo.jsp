@@ -39,7 +39,8 @@
     <![endif]-->
 <script type="text/javascript">
 	function deleteConfirm(){
-		if(<%=user_no%> != "10000001"){//관리자만 글 등록가능
+		var user_no =	"<%=CmmUtil.nvl(user_no)%>";
+		if(user_no != "10000001"){
 		alert("관리자만 할 수 있습니다.");
 		return false;
 		}
@@ -52,7 +53,8 @@
 	}
 	
 	function editConfirm(){
-		if(<%=user_no%> != "10000001"){//관리자만 글 등록가능
+		var user_no =	"<%=CmmUtil.nvl(user_no)%>";
+		if(user_no != "10000001"){
 		alert("관리자만 할 수 있습니다.");
 		return false;
 		}

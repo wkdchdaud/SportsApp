@@ -39,4 +39,6 @@ public interface ProductInfoMapper {
 
 	List<ProductInfoOptionDTO> getProductInfoOption(ProductInfoOptionDTO productInfoOptionDTO)throws Exception;
 	
+	List<ProductInfoDTO> getProductDetailOption(ProductInfoDTO productInfoDTO) throws Exception;
+	
 }

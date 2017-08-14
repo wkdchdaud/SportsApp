@@ -12,11 +12,7 @@ public class ProductInfoOptionDTO {
 	private String chg_user_no;
 	private String chg_dt;
 	
-	
 	public String getProd_no() {
-		
-		
-	
 		return prod_no;
 	}
 	public void setProd_no(String prod_no) {

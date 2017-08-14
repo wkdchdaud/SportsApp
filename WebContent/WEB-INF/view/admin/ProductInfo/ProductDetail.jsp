@@ -1,3 +1,5 @@
+<%@page import="java.util.Set"%>
+<%@page import="java.util.HashSet"%>
 <%@page import="sports.com.dto.ProductInfoOptionDTO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="sports.com.dto.ProductFileDTO"%>
@@ -11,22 +13,53 @@
 <%
 ProductInfoDTO rDTO = (ProductInfoDTO) request.getAttribute("dlwkdus");
 	
-	if (rDTO==null) {
-		rDTO = new ProductInfoDTO();
-	}
+if (rDTO==null) {
+	rDTO = new ProductInfoDTO();
+}
 	
-	List<ProductFileDTO> fileList = (List<ProductFileDTO>) request.getAttribute("file");
+List<ProductFileDTO> fileList = (List<ProductFileDTO>) request.getAttribute("file");
+
+if (fileList==null) {
+	fileList = new ArrayList<ProductFileDTO>();
+}
+
+List<ProductInfoOptionDTO> oList = (List<ProductInfoOptionDTO>) request.getAttribute("oList");
 	
-	List<ProductInfoOptionDTO> oList = (List<ProductInfoOptionDTO>) request.getAttribute("oList");
-	
-	if (fileList==null) {
-		fileList = new ArrayList<ProductFileDTO>();
-	}
-	
-%> 
+if (oList==null) {
+	oList = new ArrayList<ProductInfoOptionDTO>();
+}
+%>
+
 <%
-	String opt_name = "색상";		
-%>  
+List<String> OptName = new ArrayList();
+					
+//배열은 선언과 동시에 배열의 크기를 지정해야함
+//List는 LinkedList의 구조로 선언시에 List의 크기를 지정하지않고 List에 값을 add할때마다 List의 크기가 커지는 형식
+		            
+for (ProductInfoOptionDTO oDTO : oList) {
+	OptName.add(oDTO.getOpt_name());	//List에 값을 넣는 코드 값을 뺄때는 OptName.get(index값);
+}
+					
+Set<String> setOptName = new HashSet<String>(OptName);	//옵션값 유니크하게 뽑기
+List<String> alignOptName = new ArrayList(setOptName);
+		           
+String firstOpt = "";
+String secondOpt = "";
+		            
+if (alignOptName.size() == 2) {
+	
+	firstOpt = alignOptName.get(0).toString();
+	secondOpt = alignOptName.get(1).toString();
+
+} else if (alignOptName.size() == 1) {
+	
+	firstOpt =	alignOptName.get(0).toString(); 
+	
+}
+		            
+System.out.println("firstOpt" + firstOpt);
+System.out.println("secondOpt" + secondOpt);
+%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -86,24 +119,69 @@ $(function() {
 })
 	
 function pickOption() {
-		
+	
 	var sop = document.getElementById("secondOpt");
-	      
+		
 	alert(document.getElementById("firstOpt").value);
-	      
+		
 	sop.removeAttribute("disabled");
-	      
-	if (document.getElementById("firstOpt").value == "<%=opt_name%>") {
+		
+	if (document.getElementById("firstOpt").value == document.getElementById("firstOpt")[0].value) {
+		
 		sop.disabled = 'false';
+		sop.options[0].selected = true;	//선택값 초기화
+
 	}
-	      
-}   
+			
+}
+
+function chkOptVal() {
+	
+	var firstOpt = "<%=firstOpt %>";
+	var secondOpt = "<%=secondOpt %>";
+	
+	if (firstOpt == "") {
+		
+		document.getElementById("firstOpt").style.display = "none";
+		document.getElementById("secondOpt").style.display = "none";
+		document.getElementById("OptText").style.display = "none";
+		
+	} else if (secondOpt == "") {
+		
+		document.getElementById("secondOpt").style.display = "none";
+		
+	}
+	
+}
+
+/*
+$(function() {
+
+$('#secondOpt').keyup(function() {
+
+	$.ajax({
+		
+		url : "/admin/Product/ProductDetailOpt.do",
+		method : "post",
+		data : {'option' : option},
+		datatype :	"json",
+		success : function(data) {
+		
+		
+		
+		
+	}	//ajax closed
+	
+});	//"secondOpt" function closed	
+
+});	//jQuery function closed
+*/
 
 </script>
 	
 </head>
 
-<body>
+<body onload="javascript:chkOptVal();return false;">
 
 	<section id="wrapper" class="wrapper">
 	
@@ -186,52 +264,60 @@ function pickOption() {
 			            </div>
 					</div>
 					
-					<div class="goods_option">
-			            <p class="blue_text">옵션 선택</p>
-			            
-			            <div class="select_wrap">
-							<select class="col-2" id="firstOpt" onchange="javascript:pickOption()" >
-								<option value="색상">색상선택</option>
-								<option value="1">빨강</option>
-								<option value="2">노랑</option>
-								<option value="3">초록</option>
-							</select>
-							<select class="col-2" id="secondOpt" disabled="false">
-								<option value="선택">사이즈선택</option>
-								<option value="사이즈">사이즈1</option>
-			              </select>
-						</div>
+							
 					
-						<!--수정 시작ㅎ  -->
-			            <p class="blue_text">수량</p>
-			            <div class="count_input">
-							<a class="incr-btn" onclick="del();">–</a>
-							<input class="quantity" type="text" name="amount" value="1" readonly="true" onchange="change();" />
-							<a class="incr-btn" onclick="add();">+</a>
-						</div>
-			            <div class="price_wrap">총금액<span class="price"></span><span class="won">원</span></div>
+					<div class="goods_option">
+					
+            			<p class="blue_text" id="OptText">옵션 선택</p>
+            				<div class="select_wrap">
+              					<select class="col-2" id="firstOpt" onchange="javascript:pickOption()" >
+									<option value="<%=firstOpt %>"><%=firstOpt %></option>
+									<% for (ProductInfoOptionDTO oDTO: oList) {
+										if (firstOpt.equals(oDTO.getOpt_name())) {%>
+              						<option value="<%=oDTO.getOpt_kind() %>"><%=oDTO.getOpt_kind() %></option>
+              						<%
+              							}
+              						}%>
+              					</select>
+              					<select class="col-2" id="secondOpt" disabled='false'>
+                 					<option value="<%=secondOpt %>" ><%=secondOpt %></option>
+                 					<% for (ProductInfoOptionDTO oDTO : oList) {
+              							if (secondOpt.equals(oDTO.getOpt_name())) {%>
+              						<option value="<%=oDTO.getOpt_kind() %>"><%=oDTO.getOpt_kind() %></option>
+              						<%
+              							}
+                 					}%>
+              					</select>
+            				</div>
+									
+						<!-- 수정 시작ㅎ  -->
+						<p class="blue_text">수량</p>
+							<div class="count_input">
+								<a class="incr-btn" onclick="del();">–</a>
+								<input class="quantity" type="text" name="amount" value="1" readonly="true" onchange="change();" />
+								<a class="incr-btn" onclick="add();">+</a>
+							</div>
+			            	<div class="price_wrap">총금액<span class="price"></span><span class="won">원</span></div>
 			            
 					</div>
 				
 				</div>
 		
 				<div class="list_wrap">
-		
 					<h4 class="goods_detail_title">제품 상세정보</h4>
 					<div class="detail_contents">
-					<%
+						<%
 						Iterator<ProductFileDTO> it = fileList.iterator();
-						while(it.hasNext()){
+						while (it.hasNext()) {
 							ProductFileDTO pDTO = it.next();
-					%>
+						%>
 						<input type="image" src="<%=CmmUtil.nvl(pDTO.getFile_path()+"/"+pDTO.getSrc_filename()) %>" style="height: 300px; width: 300px;"/>
-					<%} %>
+						<%} %>
 						<dl>
 							<dt>제품특징</dt> 
 							<dd><%=CmmUtil.nvl(rDTO.getProd_contents()).replaceAll("\r\n", "<br>") %></dd>
 						</dl>
 					</div>
-	
 				</div>
 	
 				<div class="btn-groub">
@@ -252,7 +338,7 @@ function pickOption() {
 		      <p>사업자등록번호 : 567-36-00142</p>
 		      <p>통신판매업신고 : 2017-인천서구-0309호</p>
 		      <p>인천시 서구 보도진로 18번길 12(가좌동) 진성테크2층</p>
-		      <p>Copyright © <strong>모두의 스포츠</strong> All rights reserved. </p>
+		      <p>Copyright © <strong>모두의 스포츠</strong> All rights reserved.</p>
 		    </div>
 		</footer>
 
