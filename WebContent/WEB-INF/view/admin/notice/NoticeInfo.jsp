@@ -38,6 +38,8 @@
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 <script type="text/javascript">
+var user_no = "<%=user_no%>";
+	
 	function deleteConfirm(){
 		var user_no =	"<%=CmmUtil.nvl(user_no)%>";
 		if(user_no != "10000001"){
