@@ -38,8 +38,12 @@
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 <script type="text/javascript">
+var user_no = "<%=user_no%>";
+	
 	function deleteConfirm(){
-		if(<%=user_no%> != "10000001"){//관리자만 글 등록가능
+		
+	
+		if(user_no != "10000001"){//관리자만 글 등록가능
 		alert("관리자만 할 수 있습니다.");
 		return false;
 		}
@@ -52,7 +56,7 @@
 	}
 	
 	function editConfirm(){
-		if(<%=user_no%> != "10000001"){//관리자만 글 등록가능
+		if(user_no != "10000001"){//관리자만 글 등록가능
 		alert("관리자만 할 수 있습니다.");
 		return false;
 		}
