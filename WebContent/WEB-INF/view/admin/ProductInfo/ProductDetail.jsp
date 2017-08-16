@@ -256,7 +256,9 @@ $('#secondOpt').keyup(function() {
 				
 					<div class="goods_detail">
 						<div class="thumb">
-							<input type="image" src="<%=CmmUtil.nvl(fileList.get(0).getFile_path()+"/"+fileList.get(0).getSrc_filename())%>" style="height: 300px; width: 300px;"/>
+							<% if (fileList.size() > 0) {%>
+								<input type="image" src="<%=CmmUtil.nvl(fileList.get(0).getFile_path()+"/"+fileList.get(0).getSrc_filename())%>" style="height: 300px; width: 300px;" />
+							<%} %>						
 						</div>
 			            <div class="info">
 							<p class="title"><%=CmmUtil.nvl(rDTO.getProd_name()) %></p>
