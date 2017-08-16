@@ -244,7 +244,7 @@ function calBytes(str) {
 
 			</div>
 		</div>
-		
+
 		<footer class="footer">
 		    <a href="#"><img src="/common/images/ic_kakao.png" alt="카카오톡" class="kakao"></a>
 		    <div class="company_info">
