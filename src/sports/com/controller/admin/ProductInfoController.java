@@ -253,7 +253,7 @@ public class ProductInfoController {
 	
 		log.info(this.getClass().getName()+"productInfoProductinfoRegEnd");
 		
-		return "/admin/ProductInfo/ProductInfoReg";
+		return "/admin/ProductInfo/ProductReg";
 		
 	}
 	
