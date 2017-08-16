@@ -125,7 +125,6 @@ public class NoticeController {
 		}
 		
 		nDTO= null;
-		
 		return viewMore_list;
 	}
 	

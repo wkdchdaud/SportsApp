@@ -19,7 +19,8 @@
 		nList = new ArrayList<NoticeDTO>();
 	}
 
-	String user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
+	/* String user_no = CmmUtil.nvl((String)session.getAttribute("user_no")); */
+	String user_no = "10000001";
 %>
 
 <!DOCTYPE html>
@@ -35,7 +36,7 @@
     <!-- JavaScirpt Sorcemap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="/common/js/jquery-ui.js"></script>
-    <script src="/common/js/placeholders.min.js"></script>
+    <script src="/common/js/modernizr.custom.js"></script>
     <!--[if lte IE 9]>
     <script src="/common/js/placeholders.min.js"></script>
     <![endif]-->
@@ -119,7 +120,6 @@
 	$("#addview").hide();
 <%}%>
 	$("#addview").add("#searchadd").click(function() {
-									
 									
 									$.ajax({
 										url : "/admin/notice/readMore.do",
@@ -382,10 +382,7 @@
 
     <div class="container detail">
       <div class="wrap search-wrap btn-wrap">
-        <div class="search type">
-          <input  type="text" placeholder="제목입력" id="searchbox" />
-        </div>
-	
+    	<div class="search type"><input type="text" placeholder="제목 입력" id="searchbox" style="width:200px"/></div>
         <div class="list_wrap" >
           <ul class="list-groub" id="list_more">
           

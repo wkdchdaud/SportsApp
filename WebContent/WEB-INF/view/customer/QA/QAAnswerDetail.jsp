@@ -1,3 +1,5 @@
+<!-- for Customer -->
+
 <%@ page import="sports.com.util.AES256Util"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
