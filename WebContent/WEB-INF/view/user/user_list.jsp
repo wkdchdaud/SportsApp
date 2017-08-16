@@ -1,4 +1,3 @@
-<%@page import="sports.com.util.AES256Util"%>
 <%@page import="sports.com.util.CmmUtil"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
@@ -11,6 +10,8 @@
 	if(rList == null){
 		rList = new ArrayList<UserDTO>();
 	}
+	String s_type = CmmUtil.nvl((String)request.getAttribute("s_type"));
+	String s_text = CmmUtil.nvl((String)request.getAttribute("s_text"));
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -22,12 +23,12 @@
 <form name="f" action="/admin/user/user_list.do" method="post">
 	<select name="s_type" >
 		<option value="no">선택하세요</option>
-		<option value="id">아이디</option>
-		<option value="name">이름</option>
-		<option value="email">이메일</option>
-		<option value="tel">연락처</option>
+		<option value="id" <%=CmmUtil.checked("id", s_type) %>>아이디</option>
+		<option value="name" <%=CmmUtil.checked("name", s_type) %>>이름</option>
+		<option value="email" <%=CmmUtil.checked("email", s_type) %>>이메일</option>
+		<option value="tel" <%=CmmUtil.checked("tel", s_type) %>>연락처</option>
 	</select>
-	<input type="text" name="s_text"/>
+	<input type="text" name="s_text" value="<%=s_text %>"/>
 	<input type="submit" value="검색"/>
 </form>
 <hr/>
@@ -53,11 +54,11 @@
 		%>
 		<tr>
 			<td><%=CmmUtil.nvl(uDTO.getUser_no()) %></td>
-			<td><a href="/admin/user/user_info.do?user_no=<%=CmmUtil.nvl(uDTO.getUser_no())%>"><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getUser_id())) %></a></td>
-			<td><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getUser_name())) %></td>
-			<td><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getEmail())) %></td>
+			<td><a href="/admin/user/user_info.do?user_no=<%=CmmUtil.nvl(uDTO.getUser_no())%>"><%=CmmUtil.nvl(uDTO.getUser_id()) %></a></td>
+			<td><%=CmmUtil.nvl(uDTO.getUser_name()) %></td>
+			<td><%=CmmUtil.nvl(uDTO.getEmail()) %></td>
 			<td align="center"><%=CmmUtil.nvl(uDTO.getEmail_first()) %></td>
-			<td><%=AES256Util.strDecode(CmmUtil.nvl(uDTO.getTel())) %></td>
+			<td><%=CmmUtil.nvl(uDTO.getTel()) %></td>
 		</tr>
 		<% }%>
 	
