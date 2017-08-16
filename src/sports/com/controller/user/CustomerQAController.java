@@ -42,6 +42,29 @@ public class CustomerQAController {
 			rList = new ArrayList<QADTO>();
 		}
 		
+		for (QADTO qaDTO : rList) {
+			
+			String reg_dt = CmmUtil.nvl(qaDTO.getReg_dt());
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date to = transFormat.parse(reg_dt);
+
+			long now = System.currentTimeMillis();
+			long inputDate = to.getTime();
+			
+			if (now - inputDate < (1000*60*60*24*3)) {
+				qaDTO.setNew_yn("Y");
+			} else {
+				qaDTO.setNew_yn("");	
+			}
+		
+			String title = CmmUtil.nvl(qaDTO.getTitle());	//제목이 14자 이상이면 ...붙여주기
+		
+			if (title.length() >= 14) {
+				title = title.substring(0, 14) + "...";
+			}
+		
+		}
+		
 		model.addAttribute("rList", rList);
 		
 		rList = null;
@@ -363,18 +386,14 @@ public class CustomerQAController {
 			String title = CmmUtil.nvl(qaDT.getTitle());	//제목이 14자 이상이면 ...붙여주기
 			
 			if (title.length() >= 14) {
+				
 				title = title.substring(0, 14) + "...";
 				qaDT.setTitle(title);
-			}
-			
-			if (qaDT.getSecret_yn().equals("1")) {
-				title += "<img src='/common/images/ic_lock.png' class='ic_lock' alt='lock'>";
-				qaDT.setTitle(title);
+				
 			}
 			
 			if (now - inputDate < (1000*60*60*24*3)) {
-				title += "<img src='/common/images/ic_new.png' alt='new' class='ic_new'>";
-				qaDT.setTitle(title);
+				qaDT.setNew_yn("Y");
 			}
 			
 			qaDT.setUser_name(AES256Util.strDecode(CmmUtil.nvl(qaDT.getUser_name())));
@@ -422,18 +441,8 @@ public class CustomerQAController {
 				
 			}
 			
-			if (qaDT.getSecret_yn().equals("1")) {
-				
-				title += "<img src='/common/images/ic_lock.png' class='ic_lock' alt='lock'>";
-				qaDT.setTitle(title);
-				
-			}
-			
 			if (now - inputDate < (1000*60*60*24*3)) {
-				
-				title += "<img src='/common/images/ic_new.png' alt='new' class='ic_new'>";
-				qaDT.setTitle(title);
-				
+				qaDT.setNew_yn("Y");
 			}
 			
 			qaDT.setUser_name(AES256Util.strDecode(CmmUtil.nvl(qaDT.getUser_name())));

@@ -1,6 +1,8 @@
 package sports.com.controller.admin;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -19,7 +21,9 @@ import sports.com.dto.Prod_test_jcmDTO;
 import sports.com.dto.ProductFileDTO;
 import sports.com.dto.ProductInfoDTO;
 import sports.com.dto.ProductInfoOptionDTO;
+import sports.com.dto.QADTO;
 import sports.com.service.IProductInfoService;
+import sports.com.util.AES256Util;
 import sports.com.util.CmmUtil;
 
 @Controller
@@ -97,7 +101,7 @@ public class ProductInfoController {
 		
 	}
 	
-    /*더보기 */
+    /* 더보기 Controller */
 		@RequestMapping(value="admin/ProductInfo/readMore")
 		public @ResponseBody List<Prod_test_jcmDTO> getReadMore(@RequestParam(value="cnt") String cnt,@RequestParam(value="price") String price,@RequestParam(value="name") String name,@RequestParam(value="catname") String catname) throws Exception{
 			
@@ -228,20 +232,54 @@ public class ProductInfoController {
 		String prod_no =CmmUtil.nvl(request.getParameter("prod_no1"));
 		
 		ProductInfoDTO productInfoDTO = new ProductInfoDTO();
+		ProductInfoOptionDTO ProductInfoOptionDTO = new ProductInfoOptionDTO();
 		
+		ProductInfoOptionDTO.setProd_no(prod_no);
 		productInfoDTO.setProd_no(prod_no);
 		
 		ProductInfoDTO rDTO = productInfoService.getProductInfoDetail(productInfoDTO);
 		
+		List<ProductInfoOptionDTO> oDTO = productInfoService.getProductInfoOption(ProductInfoOptionDTO);
+		
 		List<ProductFileDTO> fileList = productInfoService.getProductInfoFile(rDTO);
 		
 		log.info(this.getClass().getName()+"productinfoDetail end");
+		
 		model.addAttribute("dlwkdus", rDTO);
+		model.addAttribute("oList", oDTO);
 		model.addAttribute("file", fileList);
 		
 		return "/admin/ProductInfo/ProductDetail";	  
        }
-						
+		
+	
+	/* 상세 옵션&수량 Controller */
+	@RequestMapping(value="/admin/Product/ProductDetailOpt")
+	public @ResponseBody List<ProductInfoDTO> getProductDetailOption(@RequestParam(value="option") String option) throws Exception {
+		
+		System.out.println("option: " + option);
+		
+		ProductInfoDTO productInfoDTO = new ProductInfoDTO();
+		
+		productInfoDTO.setOption(option);
+		
+		List<ProductInfoDTO> detail_option = productInfoService.getProductDetailOption(productInfoDTO);
+		
+		for (ProductInfoDTO optDTO : detail_option) {
+			
+			
+			
+		}	
+		
+		System.out.println("option: " + option);
+		
+		productInfoDTO = null;
+		
+		return detail_option;
+		
+	}
+	
+	
 
 	/* 등록 Controller */
 	@RequestMapping(value="admin/ProductInfo/ProductInfoReg",method=RequestMethod.GET)
@@ -253,7 +291,7 @@ public class ProductInfoController {
 	
 		log.info(this.getClass().getName()+"productInfoProductinfoRegEnd");
 		
-		return "/admin/ProductInfo/ProductInfoReg";
+		return "/admin/ProductInfo/ProductReg";
 		
 	}
 	
@@ -366,8 +404,7 @@ public class ProductInfoController {
 	/* 수정 Controller */      
 	@RequestMapping(value="admin/ProductInfo/ProductInfoUpdateForm",method=RequestMethod.GET)
 	public String ProductInfoUpdateForm(HttpServletRequest request, HttpServletResponse response, 
-			ModelMap model) throws Exception
-			{
+			ModelMap model) throws Exception {
 		
 		log.info(this.getClass().getName()+"productInfoProductinfoUpdateStart");
 
@@ -384,12 +421,9 @@ public class ProductInfoController {
 		
 	    log.info(this.getClass().getName()+"productInfoProductinfoUpdateEND");
 	    
-	    
-	    
-		 return "/admin/ProductInfo/ProductInfoUpdate";
+		return "/admin/ProductInfo/ProductInfoUpdate";
 		
-			}
-	
+	}
 	
 	/* 수정(Update) Controller */
 	@RequestMapping(value="admin/ProductInfo/ProductInfoUpdate",method=RequestMethod.POST)
@@ -456,8 +490,7 @@ public class ProductInfoController {
 		
 	}
 	
-	/*옵션 controller*/ 
-	
+	/* 옵션 등록 Controller */ 
 	@RequestMapping(value="admin/ProductInfo/ProductInfoOptionReg",method=RequestMethod.GET)
 	public String ProductInfoOptionReg(HttpServletRequest request, HttpServletResponse response, 
 			ModelMap model) throws Exception
@@ -473,8 +506,7 @@ public class ProductInfoController {
 		
 			}
 	
-	/*옵션 등록(insert) controller*/
-	
+	/* 옵션 등록(Insert) Controller */
 	@RequestMapping(value="admin/ProductInfo/ProductInfoOptionInsert",method=RequestMethod.POST)
 	public String ProductInfoOptionInsert(HttpServletRequest request, HttpServletResponse response, 
 			ModelMap model) throws Exception
