@@ -4,13 +4,13 @@
 <%@ page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="sports.com.util.CmmUtil" %>
-<%@ page import="sports.com.dto.QADTO" %>
+<%@ page import="sports.com.util.CmmUtil"%>
+<%@ page import="sports.com.dto.QADTO"%>
 <%@ page import="java.util.List"%>   
 <%@ page import="java.util.ArrayList"%> 
 <%@ page import="java.util.HashMap"%>  
-<%@ page import="java.util.Date" %>  
-<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date"%>  
+<%@ page import="java.text.SimpleDateFormat"%>
 <%
 List<QADTO> rList =	(List<QADTO>) request.getAttribute("rList");
 
@@ -234,7 +234,7 @@ function doAnswerDetail(qa_no, answer_yn) {
 //글쓰기 로그인
 function doReg() {
 	
-	if ("<%=access%>"==2) {
+	if ("<%=access %>"==2) {
 		
 		alert("로그인을 하시기 바랍니다.");
 	

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sports.com.persistance.mapper.QAMapper">
 
-	<!-- 게시판 목록 쿼리 -->
+	<!-- 게시글 목록 쿼리 -->
 	<select id="getQAList" resultType="QADTO">
 		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, QA.REG_USER_NO, USER.USER_NAME, DATE_FORMAT(QA.REG_DT, '%Y-%m-%d %T') AS REG_DT
 	    FROM QA_INFO QA, USER_INFO USER
@@ -96,7 +96,7 @@
 		WHERE QA_NO = #{qa_no} AND ANSWER_YN = 'Y'
 	</delete>
 	
-	<!-- 더보기 쿼리 -->
+	<!-- 게시글&답글 더보기 쿼리 -->
 	<select id="getQAMoreView" resultType="QADTO" parameterType="QADTO">
 		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, QA.REG_USER_NO, USER.USER_NAME, DATE_FORMAT(QA.REG_DT, '%Y-%m-%d') AS REG_DT
 	    FROM QA_INFO QA, USER_INFO USER
@@ -106,7 +106,7 @@
 		LIMIT 6 OFFSET ${read_more};
 	</select>
 	
-	<!-- 검색 쿼리 -->
+	<!-- 게시글&답글 검색 쿼리 -->
 	<select id="getQASearchList" resultType="QADTO" parameterType="QADTO">
 		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, QA.REG_USER_NO, USER.USER_NAME, DATE_FORMAT(QA.REG_DT, '%Y-%m-%d') AS REG_DT
 	    FROM QA_INFO QA, USER_INFO USER
