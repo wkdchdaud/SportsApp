@@ -13,7 +13,16 @@ public class ProductInfoDTO {
 	private String file_no;
 	private String file_grp;
 	private int read_more;
+	private String option;
 	
+	public String getOption() {
+		return option;
+	}
+
+	public void setOption(String option) {
+		this.option = option;
+	}
+
 	public String getFile_no() {
 		return file_no;
 	}

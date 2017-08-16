@@ -7,22 +7,12 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %> 
 <%
+ProductInfoDTO rDTO = (ProductInfoDTO) request.getAttribute("dlwkdus");
 
-
-List<ProductInfoDTO> rList = (List<ProductInfoDTO>) request.getAttribute("dlwkdus");
-
-if (rList==null) {
-	rList = new ArrayList<ProductInfoDTO>();
+if (rDTO==null) {
+	rDTO = new ProductInfoDTO();
 }
-%> 
-	
-		<%
-			for (ProductInfoDTO aDTO : rList) {
-
-				if (aDTO==null) {
-					aDTO = new ProductInfoDTO();
-				}
-		%>
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -36,21 +26,21 @@ if (rList==null) {
 <form action="/admin/ProductInfo/ProductInfoUpdate.do" method='post'>
 <table border="1">
 
-<input type="hidden" name="prod_no" value="<%=CmmUtil.nvl(aDTO.getProd_no()) %>"/>
+<input type="hidden" name="prod_no" value="<%=CmmUtil.nvl(rDTO.getProd_no()) %>"/>
 <tr>
 <td>제품이름 </td>
 <td>
-<input type="text" name="prod_name" value="<%=CmmUtil.nvl(aDTO.getProd_name()) %>"/></td>
+<input type="text" name="prod_name" value="<%=CmmUtil.nvl(rDTO.getProd_name()) %>"/></td>
 </tr>
 
 <tr>
 <td>제품가격 </td>
-<td><input type="text" name="prod_price" value="<%=CmmUtil.nvl(aDTO.getProd_price())%>"/></td>
+<td><input type="text" name="prod_price" value="<%=CmmUtil.nvl(rDTO.getProd_price())%>"/></td>
 </tr>
 
 <tr>
 <td>제품내용</td>
-<td><textarea name="prod_contents" rows="400px" cols="400px"> <%=CmmUtil.nvl(aDTO.getProd_contents())%>"</textarea></td>
+<td><textarea name="prod_contents" rows="400px" cols="400px"> <%=CmmUtil.nvl(rDTO.getProd_contents())%>"</textarea></td>
 
 </tr>
 <tr align="center">
@@ -62,9 +52,7 @@ if (rList==null) {
 </table>
 <input type=submit value="등록"> 
 <input type=button value="취소" OnClick="location.href='/admin/ProductInfo/List.do' ">
-<%
-			}
-			%>
-			</form>
+
+</form>
 </body>
 </html>

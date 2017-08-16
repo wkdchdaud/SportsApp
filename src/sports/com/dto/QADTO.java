@@ -5,7 +5,8 @@ public class QADTO {
 	private String qa_no; 
 	private String q_no;
 	private String answer_yn;
-	private String secret_yn;	
+	private String secret_yn;
+	private String new_yn;
 	private String title;	
 	private String contents; 
 	private String file_path;	
@@ -18,6 +19,14 @@ public class QADTO {
 	private String user_name;
 	private String[] allCheckSeq;
 	private String search; 
+	
+	public String getNew_yn() {
+		return new_yn;
+	}
+
+	public void setNew_yn(String new_yn) {
+		this.new_yn = new_yn;
+	}
 	
 	public String getUser_name() {
 		return user_name;

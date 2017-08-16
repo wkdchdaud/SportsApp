@@ -1,3 +1,5 @@
+<!-- for Administrator -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="sports.com.util.CmmUtil" %>
@@ -14,13 +16,10 @@ if (rDTO==null) {
 String user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
 %>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Q&A 답글 등록(스포츠 용품업자)</title>
-<%@include file="/inc/head.jsp"%>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+
 <script type="text/javascript">
 
 function doSubmit(f) {
