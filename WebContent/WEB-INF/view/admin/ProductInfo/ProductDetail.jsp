@@ -1,15 +1,15 @@
-<%@page import="java.util.Set"%>
-<%@page import="java.util.HashSet"%>
-<%@page import="sports.com.dto.ProductInfoOptionDTO"%>
-<%@page import="java.util.Iterator"%>
-<%@page import="sports.com.dto.ProductFileDTO"%>
+<%@ page import="java.util.Set"%>
+<%@ page import="java.util.HashSet"%>
+<%@ page import="sports.com.dto.ProductInfoOptionDTO"%>
+<%@ page import="java.util.Iterator"%>
+<%@ page import="sports.com.dto.ProductFileDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    
-<%@ page import="sports.com.util.CmmUtil" %>
-<%@ page import="sports.com.dto.ProductInfoDTO" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.HashMap" %> 
+<%@ page import="sports.com.util.CmmUtil"%>
+<%@ page import="sports.com.dto.ProductInfoDTO"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.HashMap"%> 
 <%
 ProductInfoDTO rDTO = (ProductInfoDTO) request.getAttribute("dlwkdus");
 	
@@ -122,8 +122,6 @@ function pickOption() {
 	
 	var sop = document.getElementById("secondOpt");
 		
-	alert(document.getElementById("firstOpt").value);
-		
 	sop.removeAttribute("disabled");
 		
 	if (document.getElementById("firstOpt").value == document.getElementById("firstOpt")[0].value) {
@@ -154,28 +152,67 @@ function chkOptVal() {
 	
 }
 
-/*
 $(function() {
+	
+	var prod_no = "";
+	var firstOpt = "";
+	var secondOpt = "";
 
-$('#secondOpt').keyup(function() {
+$('#secondOpt').change(function() {
+	
+	prod_no = $('#prod_no').val();
+	firstOpt = $('#firstOpt').val();
+	secondOpt = $('#secondOpt').val();
 
 	$.ajax({
 		
 		url : "/admin/Product/ProductDetailOpt.do",
 		method : "post",
-		data : {'option' : option},
+		data : {'prod_no' : prod_no},
 		datatype :	"json",
 		success : function(data) {
+			
+			var contents ="";
+			var i = 0;
+			
+			contents +="<div class='list_wrap'>";
+			contents += firstOpt + "+" +secondOpt;
+			contents += "<div style='float:right' align='right'><font class='blue_text' >수량</font>";
+			contents += "<select id='cnt' class='col-2' style='width:70px'>";
+			
+			for (i = 1; i <= 10 ; i++) {
+				contents += "<option value='"+ i +"'>"+ i +"</option>";
+			}
+			
+			contents += "<option value=''>직접입력</option>";
+			contents += "</select>";
+			contents += "<p>총금액<span class='price' id='price' >"+<%=rDTO.getProd_price()%>+"</span><span class='won'>원</span></p>";
+			contents += "</div>";
+			contents += "</div>";
+			
+			$('#optionBox').append(contents);
 		
+		}
 		
-		
-		
-	}	//ajax closed
+	});	//ajax closed	
 	
-});	//"secondOpt" function closed	
+});	//"secondOpt" function closed
+
+$("#optionBox").on('change',$('#cnt'),(function() {
+	
+	var prod_price = <%=rDTO.getProd_price()%>;
+	var cnt =  $('#cnt').val();
+	var result = prod_price * cnt;
+	
+	alert(result);
+	
+	$('#price').html(result);
+	
+})	//"optionBox" function closed
+
+)
 
 });	//jQuery function closed
-*/
 
 </script>
 	
@@ -247,6 +284,7 @@ $('#secondOpt').keyup(function() {
 
 		<form name="form1" id="form1" method="GET">
 	
+		<input type="hidden" id="prod_no" value="<%=rDTO.getProd_no() %>" />
 		<input type="hidden" name="prod_no1" value="<%=CmmUtil.nvl(rDTO.getProd_no())%>" />
 	
 		<div class="container detail">
@@ -266,44 +304,43 @@ $('#secondOpt').keyup(function() {
 			            </div>
 					</div>
 					
-							
-					
 					<div class="goods_option">
 					
             			<p class="blue_text" id="OptText">옵션 선택</p>
             				<div class="select_wrap">
-              					<select class="col-2" id="firstOpt" onchange="javascript:pickOption()" >
+              					<select class="col-2" id="firstOpt" onchange="javascript:pickOption()">
 									<option value="<%=firstOpt %>"><%=firstOpt %></option>
 									<% for (ProductInfoOptionDTO oDTO: oList) {
 										if (firstOpt.equals(oDTO.getOpt_name())) {%>
-              						<option value="<%=oDTO.getOpt_kind() %>"><%=oDTO.getOpt_kind() %></option>
-              						<%
-              							}
+              								<option value="<%=oDTO.getOpt_kind() %>"><%=oDTO.getOpt_kind() %></option>
+              							<%}
               						}%>
               					</select>
               					<select class="col-2" id="secondOpt" disabled='false'>
-                 					<option value="<%=secondOpt %>" ><%=secondOpt %></option>
+                 					<option value="<%=secondOpt %>"><%=secondOpt %></option>
                  					<% for (ProductInfoOptionDTO oDTO : oList) {
               							if (secondOpt.equals(oDTO.getOpt_name())) {%>
-              						<option value="<%=oDTO.getOpt_kind() %>"><%=oDTO.getOpt_kind() %></option>
-              						<%
-              							}
+              								<option value="<%=oDTO.getOpt_kind() %>"><%=oDTO.getOpt_kind() %></option>
+              							<%}
                  					}%>
               					</select>
             				</div>
 									
 						<!-- 수정 시작ㅎ  -->
-						<p class="blue_text">수량</p>
+						<!-- <p class="blue_text">수량</p>
 							<div class="count_input">
-								<a class="incr-btn" onclick="del();">–</a>
+								<a class="incr-btn" onclick="del();">-</a>
 								<input class="quantity" type="text" name="amount" value="1" readonly="true" onchange="change();" />
 								<a class="incr-btn" onclick="add();">+</a>
-							</div>
-			            	<div class="price_wrap">총금액<span class="price"></span><span class="won">원</span></div>
+							</div> -->
+							<br />
+			            	<div class="price_wrap">금액<span class="price"><%=rDTO.getProd_price() %></span><span class="won">원</span></div>
 			            
 					</div>
 				
 				</div>
+		
+				<div id="optionBox"></div>
 		
 				<div class="list_wrap">
 					<h4 class="goods_detail_title">제품 상세정보</h4>

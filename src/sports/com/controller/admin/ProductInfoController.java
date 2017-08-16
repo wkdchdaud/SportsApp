@@ -252,35 +252,24 @@ public class ProductInfoController {
 		return "/admin/ProductInfo/ProductDetail";	  
        }
 		
-	
 	/* 상세 옵션&수량 Controller */
 	@RequestMapping(value="/admin/Product/ProductDetailOpt")
-	public @ResponseBody List<ProductInfoDTO> getProductDetailOption(@RequestParam(value="option") String option) throws Exception {
+	public @ResponseBody List<ProductInfoOptionDTO> getProductDetailOption(@RequestParam(value="prod_no") String prod_no) throws Exception {
 		
-		System.out.println("option: " + option);
+		System.out.println("prod_no: " + prod_no);
 		
-		ProductInfoDTO productInfoDTO = new ProductInfoDTO();
+		ProductInfoOptionDTO productInfoOptionDTO = new ProductInfoOptionDTO();
 		
-		productInfoDTO.setOption(option);
+		productInfoOptionDTO.setProd_no(prod_no);
 		
-		List<ProductInfoDTO> detail_option = productInfoService.getProductDetailOption(productInfoDTO);
+		List<ProductInfoOptionDTO> oDTO = productInfoService.getProductInfoOption(productInfoOptionDTO);
 		
-		for (ProductInfoDTO optDTO : detail_option) {
-			
-			
-			
-		}	
+		productInfoOptionDTO = null;
 		
-		System.out.println("option: " + option);
-		
-		productInfoDTO = null;
-		
-		return detail_option;
+		return oDTO;
 		
 	}
 	
-	
-
 	/* 등록 Controller */
 	@RequestMapping(value="admin/ProductInfo/ProductInfoReg",method=RequestMethod.GET)
 	public String ProductInfoReg(HttpServletRequest request, HttpServletResponse response, 
