@@ -173,11 +173,13 @@ public class ProductInfoController {
 			Prod_test_jcmDTO bDTO = new Prod_test_jcmDTO();
 			System.out.println("price : " + price);
 			System.out.println("name : " + name);
+		
 			if(name==""){
 				System.out.println("hello null");
 			}
 			bDTO.setProd_name(name);
 			bDTO.setPrice(price);
+
 			System.out.println("get name :"+bDTO.getProd_name());
 			System.out.println("get sele : "+ bDTO.getPrice());
 			List<Prod_test_jcmDTO> RList = productInfoService.getLowpriceSearch(bDTO);
