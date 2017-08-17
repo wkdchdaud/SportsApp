@@ -30,4 +30,6 @@ public interface IQAService {
 	
 	List<QADTO> getQASearchList(QADTO qaDTO) throws Exception;
 
+	void insertQA_file(QADTO qaDTO) throws Exception;
+
 }

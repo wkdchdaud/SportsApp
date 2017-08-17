@@ -1,6 +1,5 @@
 <!-- for Administrator -->
 
-<%@ page import="sports.com.util.AES256Util"%>
 <%@ page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -480,7 +479,7 @@ function deleteConfirm(f) {
 								
 							<%} %>
 								
-							<p class="sub_text"><%=CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")?"관리자":AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name())) %><span><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></span></p>
+							<p class="sub_text"><%=CmmUtil.nvl(rDTO.getAnswer_yn()).equals("Y")?"관리자":CmmUtil.nvl(rDTO.getUser_name()) %><span><%=CmmUtil.nvl(rDTO.getReg_dt().substring(0, 10)) %></span></p>
 			            </li>
 						<%
 						}

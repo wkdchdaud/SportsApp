@@ -1,14 +1,15 @@
 package sports.com.controller.user;
 
-import java.util.List;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -17,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import sports.com.dto.QADTO;
 import sports.com.service.IQAService;
 import sports.com.util.AES256Util;
 import sports.com.util.CmmUtil;
+import sports.com.util.DateUtil;
 
 @Controller
 public class CustomerQAController {
@@ -88,7 +91,7 @@ public class CustomerQAController {
 	}
 	
 	@RequestMapping(value="customer/QA/QAInsert", method=RequestMethod.POST)
-	public String QAInsert(HttpSession session, HttpServletRequest request, HttpServletResponse response, 
+	public String QAInsert(HttpSession session, HttpServletRequest request, @RequestParam("qa_file") MultipartFile file, 
 			ModelMap model) throws Exception {
 		
 		log.info(this.getClass().getName() + ".QAInsert start!");
@@ -116,8 +119,40 @@ public class CustomerQAController {
 			qaDTO.setSecret_yn(secret_yn);
 			qaDTO.setTitle(title);
 			qaDTO.setContents(contents);
-	
-			qaService.insertQADetail(qaDTO);
+			
+			if(!file.getOriginalFilename().equals("")){
+				String FileSaveRootPath = "C:/Users/data8316-23/git/SportsApp/WebContent"; //저장될 웹루트
+				String fileOrgName = file.getOriginalFilename(); //파일 원본 이름 저장
+				int pos = fileOrgName.lastIndexOf( "." ); //파일 저장되는 확장자 추출
+				String ext = fileOrgName.substring( pos + 1 ).toLowerCase(); //확장자
+				
+				//이미지 파일이 아니라면 에러 처리
+				if (!(ext.equals("jpg")||ext.equals("jpeg")||ext.equals("png")||ext.equals("gif"))){
+					throw new Exception("이미지 파일이 아닙니다.");
+				}
+				
+				String fileSaveName = reg_user_no +"_FILE_"+ DateUtil.getDate("yyyyMMddHHmmss") +"."+ ext;
+				
+				//저장 경로
+				String savePath = "/upload/qa_file/" + DateUtil.getTodayYYYY() + "/" + DateUtil.getTodayMM() + "/" + DateUtil.getTodayDD();
+				
+				File f = new File(FileSaveRootPath + savePath + "/"+ fileSaveName);
+				
+				//폴더가 없다면 폴더 생성
+				if (!f.exists()) {
+					f.mkdirs();
+				}
+				
+				//파일 저장
+				file.transferTo(f);
+				
+				qaDTO.setFile_name(fileSaveName);
+				qaDTO.setFile_path(savePath);
+				
+				qaService.insertQA_file(qaDTO);
+			}else{
+				qaService.insertQADetail(qaDTO);
+			}
 
 			msg = "게시글 등록에 성공하였습니다.";
 			url = "/customer/QA/QAList.do";
