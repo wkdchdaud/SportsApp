@@ -4,7 +4,7 @@ import java.util.List;
 
 import sports.com.dto.ShoppingBasketDTO;
 
-public interface IShoppingBasketService {
+public interface IBasketService {
 
 	List<ShoppingBasketDTO> getShoppingBasketList() throws Exception;
 

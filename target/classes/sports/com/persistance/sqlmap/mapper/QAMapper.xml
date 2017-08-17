@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sports.com.persistance.mapper.QAMapper">
 
-	<!-- 게시판 목록 쿼리 -->
+	<!-- 게시글 목록 쿼리 -->
 	<select id="getQAList" resultType="QADTO">
 		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, QA.REG_USER_NO, USER.USER_NAME, DATE_FORMAT(QA.REG_DT, '%Y-%m-%d %T') AS REG_DT
 	    FROM QA_INFO QA, USER_INFO USER
@@ -26,6 +26,16 @@
 		(
 		(SELECT IFNULL(MAX(QA.QA_NO),10000000)+1 FROM QA_INFO QA), (SELECT IFNULL(MAX(QA.Q_NO),10000000)+1 FROM QA_INFO QA), 
 		'N', #{secret_yn}, #{title}, #{contents}, #{reg_user_no}, NOW(), #{reg_user_no}, NOW()
+		)
+	</insert>
+	
+	<insert id="insertQA_file" parameterType="QADTO">
+		INSERT INTO QA_INFO
+		(QA_NO, Q_NO, ANSWER_YN, SECRET_YN, TITLE, CONTENTS, FILE_PATH, FILE_NAME, REG_USER_NO, REG_DT, CHG_USER_NO, CHG_DT)
+		VALUES
+		(
+		(SELECT IFNULL(MAX(QA.QA_NO),10000000)+1 FROM QA_INFO QA), (SELECT IFNULL(MAX(QA.Q_NO),10000000)+1 FROM QA_INFO QA), 
+		'N', #{secret_yn}, #{title}, #{contents}, #{file_path}, #{file_name}, #{reg_user_no}, NOW(), #{reg_user_no}, NOW()
 		)
 	</insert>
 	
@@ -96,7 +106,7 @@
 		WHERE QA_NO = #{qa_no} AND ANSWER_YN = 'Y'
 	</delete>
 	
-	<!-- 더보기 쿼리 -->
+	<!-- 게시글&답글 더보기 쿼리 -->
 	<select id="getQAMoreView" resultType="QADTO" parameterType="QADTO">
 		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, QA.REG_USER_NO, USER.USER_NAME, DATE_FORMAT(QA.REG_DT, '%Y-%m-%d') AS REG_DT
 	    FROM QA_INFO QA, USER_INFO USER
@@ -106,7 +116,7 @@
 		LIMIT 6 OFFSET ${read_more};
 	</select>
 	
-	<!-- 검색 쿼리 -->
+	<!-- 게시글&답글 검색 쿼리 -->
 	<select id="getQASearchList" resultType="QADTO" parameterType="QADTO">
 		SELECT QA.QA_NO, QA.Q_NO, QA.ANSWER_YN, QA.SECRET_YN, QA.TITLE, QA.REG_USER_NO, USER.USER_NAME, DATE_FORMAT(QA.REG_DT, '%Y-%m-%d') AS REG_DT
 	    FROM QA_INFO QA, USER_INFO USER

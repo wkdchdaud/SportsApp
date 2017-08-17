@@ -1,4 +1,3 @@
-<%@page import="sports.com.util.AES256Util"%>
 <%@page import="sports.com.util.CmmUtil"%>
 <%@page import="sports.com.dto.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -26,7 +25,7 @@
 			return false;
 		}
 		
-		if(f.id.value != "<%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getUser_id()))%>" && id_ck == 0){
+		if(f.id.value != "<%=CmmUtil.nvl(userDTO.getUser_id())%>" && id_ck == 0){
 			f.id.focus();
 			alert("아이디 중복확인을 해주세요.");
 			return false;
@@ -100,7 +99,7 @@
 			return false;
 		}
 		
-		if(id == "<%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getUser_id()))%>"){
+		if(id == "<%=CmmUtil.nvl(userDTO.getUser_id())%>"){
 			alert('아이디가 변경되지 않았습니다.');
 			$('#id').focus();
 			return false;
@@ -145,7 +144,7 @@
 			<tr>
 				<td>아이디</td>
 				<td>
-					<input type="text" value="<%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getUser_id()))%>" name="id" id="id"/>
+					<input type="text" value="<%=CmmUtil.nvl(userDTO.getUser_id())%>" name="id" id="id"/>
 					<input type="button" value="중복확인" onclick="id_reck()"/>
 				</td>
 			</tr>
@@ -169,19 +168,19 @@
 			<tr>
 				<td>이름</td>
 				<td>
-					<input type="text" value="<%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getUser_name()))%>" name="name" /></td>
+					<input type="text" value="<%=CmmUtil.nvl(userDTO.getUser_name())%>" name="name" /></td>
 			</tr>
 
 			<tr>
 				<td>이메일</td>
 				<td>
-					<input type="text" value="<%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getEmail()))%>" name="email" /></td>
+					<input type="text" value="<%=CmmUtil.nvl(userDTO.getEmail())%>" name="email" /></td>
 			</tr>
 
 			<tr>
 				<td>전화번호</td>
 				<td>
-					<input type="text" value="<%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getTel()))%>" name="tel" /></td>
+					<input type="text" value="<%=CmmUtil.nvl(userDTO.getTel())%>" name="tel" /></td>
 			</tr>
 
 			<tr>

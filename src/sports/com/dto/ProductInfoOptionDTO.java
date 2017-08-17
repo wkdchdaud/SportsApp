@@ -2,7 +2,7 @@ package sports.com.dto;
 
 public class ProductInfoOptionDTO {
 
-	private String prod_no;
+	private String opt_grp;
 	private String opt_no;
 	private String opt_name;
 	private String opt_kind;
@@ -13,17 +13,11 @@ public class ProductInfoOptionDTO {
 	private String chg_user_no;
 	private String chg_dt;
 	
-	public String getOpt_cnt() {
-		return opt_cnt;
+	public String getOpt_grp() {
+		return opt_grp;
 	}
-	public void setOpt_cnt(String opt_cnt) {
-		this.opt_cnt = opt_cnt;
-	}
-	public String getProd_no() {
-		return prod_no;
-	}
-	public void setProd_no(String prod_no) {
-		this.prod_no = prod_no;
+	public void setOpt_grp(String opt_grp) {
+		this.opt_grp = opt_grp;
 	}
 	public String getOpt_no() {
 		return opt_no;
@@ -49,6 +43,12 @@ public class ProductInfoOptionDTO {
 	public void setOpt_price(String opt_price) {
 		this.opt_price = opt_price;
 	}
+	public String getOpt_cnt() {
+		return opt_cnt;
+	}
+	public void setOpt_cnt(String opt_cnt) {
+		this.opt_cnt = opt_cnt;
+	}
 	public String getReg_user_no() {
 		return reg_user_no;
 	}
@@ -73,7 +73,7 @@ public class ProductInfoOptionDTO {
 	public void setChg_dt(String chg_dt) {
 		this.chg_dt = chg_dt;
 	}
-	
 
+	
 	
 }

@@ -88,7 +88,7 @@ public class ProductInfoService implements IProductInfoService {
 	}
 
 	@Override
-	public List<ProductInfoOptionDTO> getProductInfoOption(ProductInfoOptionDTO productInfoOptionDTO) throws Exception {
+	public List<ProductInfoOptionDTO> getProductInfoOption(ProductInfoDTO productInfoOptionDTO) throws Exception {
 		return productInfoMapper.getProductInfoOption(productInfoOptionDTO);
 	}
 	

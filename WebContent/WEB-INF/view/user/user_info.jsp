@@ -1,4 +1,3 @@
-<%@page import="sports.com.util.AES256Util"%>
 <%@page import="sports.com.util.CmmUtil"%>
 <%@page import="sports.com.dto.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -30,7 +29,7 @@
 </head>
 <body>
 
-<h1><%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getUser_id())) %>님의 회원정보</h1>
+<h1><%=CmmUtil.nvl(userDTO.getUser_id()) %>님의 회원정보</h1>
 
 <table border="1">
 	<tr>
@@ -40,17 +39,17 @@
 	
 	<tr>
 		<td>아이디</td>
-		<td><%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getUser_id()))%></td>
+		<td><%=CmmUtil.nvl(userDTO.getUser_id())%></td>
 	</tr>
 	
 	<tr>
 		<td>이름</td>
-		<td><%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getUser_name()))%></td>
+		<td><%=CmmUtil.nvl(userDTO.getUser_name())%></td>
 	</tr>
 	
 	<tr>
 		<td>이메일</td>
-		<td><%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getEmail()))%></td>
+		<td><%=CmmUtil.nvl(userDTO.getEmail())%></td>
 	</tr>
 	
 	<tr>
@@ -60,7 +59,7 @@
 	
 	<tr>
 		<td>전화번호</td>
-		<td><%=AES256Util.strDecode(CmmUtil.nvl(userDTO.getTel()))%></td>
+		<td><%=CmmUtil.nvl(userDTO.getTel())%></td>
 	</tr>
 	
 	<tr>

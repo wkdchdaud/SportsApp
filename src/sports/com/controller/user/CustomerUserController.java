@@ -41,6 +41,9 @@ private Logger log = Logger.getLogger(this.getClass());
 		userDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
 		userDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
 		userDTO.setTel(CmmUtil.nvl(request.getParameter("tel")));
+		
+		log.info("email : " + userDTO.getEmail());
+		
 		UserDTO uDTO = userService.join_proc(userDTO);
 		
 		String subject = "회원가입을 축하합니다.";

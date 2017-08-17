@@ -81,7 +81,7 @@ public class UserService implements IUserService{
 			
 			String subject = "인증번호 입니다.";
 			String body = "인증번호 : " + ck;
-			MailUtil.sendMail(AES256Util.strDecode(userDTO.getEmail()), subject, body);
+			MailUtil.sendMail(userDTO.getEmail(), subject, body);
 			
 			subject = null;
 			body = null;
@@ -115,7 +115,7 @@ public class UserService implements IUserService{
 			
 			String subject = "인증번호 입니다.";
 			String body = "인증번호 : " + ck;
-			MailUtil.sendMail(AES256Util.strDecode(userDTO.getEmail()), subject, body);
+			MailUtil.sendMail(userDTO.getEmail(), subject, body);
 			
 			subject = null;
 			body = null;
@@ -143,30 +143,7 @@ public class UserService implements IUserService{
 
 	@Override
 	public List<UserDTO> getUser_list_search(UserDTO userDTO) throws Exception {
-		List<UserDTO> list = userMapper.getUser_list();
-		List<UserDTO> rList = new ArrayList<UserDTO>();
-		
-		Iterator<UserDTO> it = list.iterator();
-		while(it.hasNext()){
-			UserDTO uDTO = it.next();
-			if(uDTO == null){
-				uDTO = new UserDTO();
-			}
-			
-			if(userDTO.getS_type().equals("id")){
-				if(AES256Util.strEncode(CmmUtil.nvl(uDTO.getUser_id())).contains(userDTO.getS_text()))
-					rList.add(uDTO);
-			}else if(userDTO.getS_type().equals("name")){
-				if(AES256Util.strEncode(CmmUtil.nvl(uDTO.getUser_name())).contains(userDTO.getS_text()))
-					rList.add(uDTO);
-			}else if(userDTO.getS_type().equals("email")){
-				if(AES256Util.strEncode(CmmUtil.nvl(uDTO.getEmail())).contains(userDTO.getS_text()))
-					rList.add(uDTO);
-			}else if(userDTO.getS_type().equals("tel")){
-				if(AES256Util.strEncode(CmmUtil.nvl(uDTO.getTel())).contains(userDTO.getS_text()))
-					rList.add(uDTO);
-			} 
-		}
-		return rList;
+		List<UserDTO> rlist = userMapper.getUser_list_search(userDTO);
+		return rlist;
 	}
 }

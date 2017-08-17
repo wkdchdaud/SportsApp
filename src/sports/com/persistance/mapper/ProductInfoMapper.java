@@ -37,7 +37,7 @@ public interface ProductInfoMapper {
 
 	List<ProductFileDTO> getProductInfoFile(ProductInfoDTO rDTO) throws Exception;
 
-	List<ProductInfoOptionDTO> getProductInfoOption(ProductInfoOptionDTO productInfoOptionDTO)throws Exception;
+	List<ProductInfoOptionDTO> getProductInfoOption(ProductInfoDTO productInfoOptionDTO)throws Exception;
 	
 	List<ProductInfoDTO> getProductDetailOption(ProductInfoDTO productInfoDTO) throws Exception;
 	

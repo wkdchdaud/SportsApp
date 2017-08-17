@@ -47,7 +47,8 @@ if (rList==null) {
 			
 		var price = '';	//셀렉트박스값을 가져옴 all, lowprice, highrprice
 		var name= '';	//인풋 검색 서취값 가져옴
-		var catname = $("#catname").val();
+		var catname = $("#catname").val(); //카테고리 선택 요소 가져옴 
+		
 		//더보기 버튼 구현 시작 
 		$("#btn_more").add("#as").click(function(){
 /* 			alert("더보기 시작113S");
@@ -93,6 +94,7 @@ if (rList==null) {
 			cnt += 6;
 		});
 		
+		//상품검색시 
 		$("#Search").keyup(function(){
 			price=null;
 			name=null;
@@ -228,13 +230,16 @@ if (rList==null) {
 							if ((data).length<6) {
 								$('#btn_more').remove();
 							}
+							
+							
+							
 						}
 					});
 			}
 		});
 		
 		
-		
+		//-----------------------------------------------------------------------------------------------------------------------------
 		//select 값 high, all , lowprice 바뀜에 따라 실행하는 아작스 시작
 		$("#SearchSelect").change(function(){ //셀렉트 값이 바뀌면 실행됨
 			price=null;
@@ -370,6 +375,7 @@ if (rList==null) {
 								
 							});
 							$('#menu_list').html(contents);
+							
 							if ((data).length<6) {
 								$('#btn_more').remove();
 							}

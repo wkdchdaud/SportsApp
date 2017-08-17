@@ -1,46 +1,49 @@
-<!-- Customer 페이지 입니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<!-- Customer 페이지 입니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<!-- Customer 페이지 입니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<!-- Customer 페이지 입니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-
+<!-- for Customer -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ page import="sports.com.util.CmmUtil"
 	import="sports.com.dto.NoticeDTO" import="java.util.ArrayList"
 	import="java.util.List"%>
-
 <%
-	NoticeDTO rDTO = (NoticeDTO) request.getAttribute("rDTO");
+NoticeDTO rDTO = (NoticeDTO) request.getAttribute("rDTO");
 
-	String user_no = CmmUtil.nvl((String)session.getAttribute("user_no")); 
+String user_no = CmmUtil.nvl((String)session.getAttribute("user_no")); 
 %>
 <!DOCTYPE html>
-<html lang="ko">
-
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>모두의 스포츠</title>
-    <!-- Styles : CSS & SASS Sorcemap -->
-    <link rel="stylesheet" href="/common/css/style.css">
-    <!-- JavaScirpt Sorcemap -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="/common/js/jquery-ui.js"></script>
-    <script src="/common/js/placeholders.min.js"></script>
-    <!--[if lte IE 9]>
-    <script src="/common/js/placeholders.min.js"></script>
-    <![endif]-->
-    <!--[if lt IE 9]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-</head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>모두의 스포츠</title>
+<!-- Styles : CSS & SASS Sorcemap -->
+<link rel="stylesheet" href="/common/css/style.css">
+<!-- JavaScirpt Sorcemap -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="/common/js/jquery-ui.js"></script>
+<script src="/common/js/modernizr.custom.js"></script>
+<!--[if lte IE 9]>
+<script src="/common/js/placeholders.min.js"></script>
+<![endif]-->
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+
+function doList() {
+	location.href="/customer/notice/NoticeList.do";
+}
+
+</script>
 
 <body>
+
   <section id="wrapper" class="wrapper">
+  
     <header class="header">
 	<div class="wrap">
 		<div class="left_menu">
@@ -102,8 +105,8 @@
 		<li>
 			<a href="#">고객센터 관리</a>
 			<ul class="col-2">
-				<li><a href="#">공지사항 관리</a></li>
-				<li><a href="#">Q&amp;A 관리</a></li>
+				<li><a href="/admin/notice/NoticeList.do">공지사항 관리</a></li>
+				<li><a href="/admin/QA/QAList.do">Q&amp;A 관리</a></li>
 			</ul>
 		</li>
 	</ul>
@@ -115,15 +118,21 @@
         <div class="list_wrap qna_detail">
         
           <div class="top">
-            <p class="title"><%=rDTO.getTitle()%></p>
-            <p class="sub_text"><%=rDTO.getUser_name()%><span><%=rDTO.getReg_dt()%></span></p>
+            <p class="title"><%=CmmUtil.nvl(rDTO.getTitle())%></p>
+            <p class="sub_text"><%=CmmUtil.nvl(rDTO.getUser_name())%><span><%=CmmUtil.nvl(rDTO.getReg_dt())%></span></p>
           </div>
           <div class="content">
-            <%=rDTO.getContents()%>
+            <%=CmmUtil.nvl(rDTO.getContents())%>
           </div>
          
-          
         </div>
+        
+		<div class="btn-groub">
+        	<button class="col-3 glay-btn button" onclick="javascript:doList();return false;"></button>
+			<button class="col-3 glay-btn button" onclick="javascript:doList();return false;">목록</button>
+			<button class="col-3 glay-btn button" onclick="javascript:doList();return false;"></button>
+        </div>
+        
       </div>
     </div>
     <footer class="footer">
@@ -146,4 +155,3 @@
 </body>
 
 </html>
-

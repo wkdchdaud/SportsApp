@@ -1,6 +1,5 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="sports.com.dto.UserDTO"%>
-<%@page import="sports.com.util.AES256Util"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -176,8 +175,8 @@ function allCheck(f) {
                                         <tr class="success">
                                             <td>&nbsp;&nbsp;<input type="checkbox" name="deleteSelect"
 														class="deleteSelect" value="<%=list.getUser_no()%>" />&nbsp;<%=list.getUser_no()%></td>
-                                            <td><%=AES256Util.strDecode(list.getUser_name())%></td>
-                                            <td><%=AES256Util.strDecode(list.getUser_id())%></td>
+                                            <td><%=list.getUser_name()%></td>
+                                            <td><%=list.getUser_id()%></td>
                                             <td>
                                             
                                             <select class="btn btn-info" name="qwe" id="authselect" size="1"  disabled='false' style="-webkit-appearance: none;">

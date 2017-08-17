@@ -1,6 +1,5 @@
 <!-- for Customer -->
 
-<%@ page import="sports.com.util.AES256Util"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="sports.com.util.CmmUtil" %>
@@ -111,8 +110,8 @@ function doList() {
 				<li>
 					<a href="#">고객센터 관리</a>
 					<ul class="col-2">
-						<li><a href="#">공지사항 관리</a></li>
-						<li><a href="#">Q&amp;A 관리</a></li>
+						<li><a href="/admin/notice/NoticeList.do">공지사항 관리</a></li>
+						<li><a href="/admin/QA/QAList.do">Q&amp;A 관리</a></li>
 					</ul>
 				</li>
 			</ul>

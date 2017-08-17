@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 
 import sports.com.dto.ShoppingBasketDTO;
 import sports.com.persistance.mapper.NoticeMapper;
-import sports.com.persistance.mapper.ShoppingBasketMapper;
+import sports.com.persistance.mapper.BasketMapper;
 import sports.com.service.INoticeService;
-import sports.com.service.IShoppingBasketService;
+import sports.com.service.IBasketService;
 
-@Service("ShoppingBasketService")
-public class ShoppingBasketService implements IShoppingBasketService{
+@Service("BasketService")
+public class BasketService implements IBasketService{
 
-	@Resource(name="ShoppingBasket")
-	private ShoppingBasketMapper shoppingBasket;
+	@Resource(name="BasketMapper")
+	private BasketMapper basketMapper;
 
 	@Override
 	public List<ShoppingBasketDTO> getShoppingBasketList() throws Exception {

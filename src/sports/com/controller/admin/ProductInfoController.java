@@ -173,13 +173,14 @@ public class ProductInfoController {
 			Prod_test_jcmDTO bDTO = new Prod_test_jcmDTO();
 			System.out.println("price : " + price);
 			System.out.println("name : " + name);
+		
 			if(name==""){
 				System.out.println("hello null");
 			}
 			
 			bDTO.setProd_name(name);
 			bDTO.setPrice(price);
-			
+
 			System.out.println("get name : "+bDTO.getProd_name());
 			System.out.println("get sele : "+ bDTO.getPrice());
 			
@@ -233,62 +234,48 @@ public class ProductInfoController {
 		
 	/* 상세 Controller */
 	@RequestMapping(value="admin/ProductInfo/ProductInfoDetail",method=RequestMethod.GET)
-	public String ProductInfoDetail(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception{
+	public String ProductInfoDetail(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
 		
 		log.info(this.getClass().getName()+"productinfoDetail start");
 		
-		String prod_no =CmmUtil.nvl(request.getParameter("prod_no1"));
+		String prod_no = CmmUtil.nvl(request.getParameter("prod_no1"));
 		
 		ProductInfoDTO productInfoDTO = new ProductInfoDTO();
-		ProductInfoOptionDTO ProductInfoOptionDTO = new ProductInfoOptionDTO();
-		
-		ProductInfoOptionDTO.setProd_no(prod_no);
 		productInfoDTO.setProd_no(prod_no);
 		
 		ProductInfoDTO rDTO = productInfoService.getProductInfoDetail(productInfoDTO);
-		
-		List<ProductInfoOptionDTO> oDTO = productInfoService.getProductInfoOption(ProductInfoOptionDTO);
+		List<ProductInfoOptionDTO> oList = productInfoService.getProductInfoOption(rDTO);
 		
 		List<ProductFileDTO> fileList = productInfoService.getProductInfoFile(rDTO);
 		
 		log.info(this.getClass().getName()+"productinfoDetail end");
 		
-		model.addAttribute("dlwkdus", rDTO);
-		model.addAttribute("oList", oDTO);
-		model.addAttribute("file", fileList);
+		model.addAttribute("rDTO", rDTO);
+		model.addAttribute("oList", oList);
+		model.addAttribute("fileList", fileList);
 		
-		return "/admin/ProductInfo/ProductDetail";	  
-       }
-		
-	
-	/* 상세 옵션&수량 Controller */
-	@RequestMapping(value="/admin/Product/ProductDetailOpt")
-	public @ResponseBody List<ProductInfoDTO> getProductDetailOption(@RequestParam(value="option") String option) throws Exception {
-		
-		System.out.println("option: " + option);
-		
-		ProductInfoDTO productInfoDTO = new ProductInfoDTO();
-		
-		productInfoDTO.setOption(option);
-		
-		List<ProductInfoDTO> detail_option = productInfoService.getProductDetailOption(productInfoDTO);
-		
-		for (ProductInfoDTO optDTO : detail_option) {
-			
-			
-			
-		}	
-		
-		System.out.println("option: " + option);
-		
-		productInfoDTO = null;
-		
-		return detail_option;
+		return "/admin/ProductInfo/ProductDetail";	 
 		
 	}
+		
+	/* 상세 옵션&수량 Controller */
+	/*@RequestMapping(value="/admin/Product/ProductDetailOpt")
+	public @ResponseBody List<ProductInfoOptionDTO> getProductDetailOption(@RequestParam(value="prod_no") String prod_no) throws Exception {
+		
+		System.out.println("prod_no: " + prod_no);
+		
+		ProductInfoOptionDTO productInfoOptionDTO = new ProductInfoOptionDTO();
+		
+		productInfoOptionDTO.setOpt_grp(prod_no);
+		
+		List<ProductInfoOptionDTO> oDTO = productInfoService.getProductInfoOption(productInfoOptionDTO);
+		
+		productInfoOptionDTO = null;
+		
+		return oDTO;
+		
+	}*/
 	
-	
-
 	/* 등록 Controller */
 	@RequestMapping(value="admin/ProductInfo/ProductInfoReg",method=RequestMethod.GET)
 	public String ProductInfoReg(HttpServletRequest request, HttpServletResponse response, 
