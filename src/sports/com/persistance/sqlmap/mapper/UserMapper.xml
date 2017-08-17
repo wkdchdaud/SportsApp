@@ -5,7 +5,7 @@
 		INSERT INTO USER_INFO
 		 (USER_NO,USER_ID, PASSWORD, USER_NAME, EMAIL, EMAIL_FIRST, TEL, AUTH, DELETE_YN, REG_USER_NO, REG_DT)
 		VALUES
-		 (#{user_no},HEX(AES_ENCRYPT(#{user_id},'Super_Developers')),#{password}),HEX(AES_ENCRYPT(#{user_name},'Super_Developers')),
+		 (#{user_no},HEX(AES_ENCRYPT(#{user_id},'Super_Developers')),#{password},HEX(AES_ENCRYPT(#{user_name},'Super_Developers')),
 		 HEX(AES_ENCRYPT(#{email},'Super_Developers')),'N', HEX(AES_ENCRYPT(#{tel},'Super_Developers')),'U','N',#{user_no},NOW())
 	</insert>
 	
@@ -14,27 +14,33 @@
 	</select>
 	
 	<select id="login_proc" resultType="UserDTO" parameterType="UserDTO">
-		SELECT USER_NO, USER_ID, AUTH, EMAIL_FIRST FROM USER_INFO
-		 WHERE USER_ID = #{user_id} AND PASSWORD = #{password} AND DELETE_YN='N' 
+		SELECT USER_NO, CAST(AES_DECRYPT(UNHEX(USER_ID),'Super_Developers')AS CHAR (50)) AS USER_ID, AUTH, EMAIL_FIRST FROM USER_INFO
+		 WHERE CAST(AES_DECRYPT(UNHEX(USER_ID),'Super_Developers')AS CHAR (50)) = #{user_id} AND PASSWORD = #{password} AND DELETE_YN='N' 
 	</select>
 	
 	<select id="getUser_list" resultType="UserDTO">
-		SELECT USER_NO, USER_ID, USER_NAME, EMAIL, EMAIL_FIRST, TEL FROM USER_INFO
+		SELECT USER_NO, CAST(AES_DECRYPT(UNHEX(USER_ID),'Super_Developers')AS CHAR (50)) AS USER_ID, 
+		 CAST(AES_DECRYPT(UNHEX(USER_NAME),'Super_Developers')AS CHAR (50)) AS USER_NAME, 
+		CAST(AES_DECRYPT(UNHEX(EMAIL),'Super_Developers')AS CHAR (50)) AS EMAIL, EMAIL_FIRST, 
+		CAST(AES_DECRYPT(UNHEX(TEL),'Super_Developers')AS CHAR (50)) AS TEL FROM USER_INFO
 	</select>
 	
 	<select id="getUser_info" resultType="UserDTO" parameterType="UserDTO">
-		SELECT USER_NO, USER_ID, USER_NAME, EMAIL, EMAIL_FIRST, TEL, AUTH, DELETE_YN
-		 FROM USER_INFO
-		WHERE USER_NO = #{user_no}
+		SELECT USER_NO, CAST(AES_DECRYPT(UNHEX(USER_ID),'Super_Developers')AS CHAR (50)) AS USER_ID, 
+		 CAST(AES_DECRYPT(UNHEX(USER_NAME),'Super_Developers')AS CHAR (50)) AS USER_NAME, 
+		CAST(AES_DECRYPT(UNHEX(EMAIL),'Super_Developers')AS CHAR (50)) AS EMAIL, EMAIL_FIRST, 
+		 CAST(AES_DECRYPT(UNHEX(TEL),'Super_Developers')AS CHAR (50)) AS TEL, AUTH, DELETE_YN
+		FROM USER_INFO
+		 WHERE USER_NO = #{user_no}
 	</select>
 	
 	<update id="update_User" parameterType="UserDTO">
 		UPDATE USER_INFO
 		 SET PASSWORD = #{password},
-		USER_NAME = #{user_name},
-		 TEL = #{tel},
-		USER_ID = #{user_id},
-		 EMAIL = #{email},
+		USER_NAME = HEX(AES_ENCRYPT(#{user_name},'Super_Developers')),
+		 TEL = HEX(AES_ENCRYPT(#{tel},'Super_Developers')),
+		USER_ID = HEX(AES_ENCRYPT(#{user_id},'Super_Developers')),
+		 EMAIL = HEX(AES_ENCRYPT(#{email},'Super_Developers')),
 		CHG_USER_NO = #{user_no},
 		 CHG_DT = NOW()
 		WHERE USER_NO = #{user_no}
@@ -42,10 +48,10 @@
 	
 	<update id="update_User_NP" parameterType="UserDTO">
 		UPDATE USER_INFO
-		 SET USER_NAME = #{user_name},
-		TEL = #{tel},
-		 USER_ID = #{user_id},
-		EMAIL = #{email},
+		 SET USER_NAME = HEX(AES_ENCRYPT(#{user_name},'Super_Developers')),
+		TEL = HEX(AES_ENCRYPT(#{tel},'Super_Developers')),
+		 USER_ID = HEX(AES_ENCRYPT(#{user_id},'Super_Developers')),
+		EMAIL = HEX(AES_ENCRYPT(#{email},'Super_Developers')),
 		 CHG_USER_NO = #{user_no},
 		CHG_DT = NOW()
 		 WHERE USER_NO = #{user_no}
@@ -65,29 +71,36 @@
 	</update>
 	
 	<select id="getID_found" parameterType="UserDTO" resultType="UserDTO">
-		SELECT USER_ID, EMAIL FROM USER_INFO
-		 WHERE USER_NAME = #{user_name} AND EMAIL = #{email} AND DELETE_YN = 'N'
+		SELECT CAST(AES_DECRYPT(UNHEX(USER_ID),'Super_Developers')AS CHAR (50)) AS USER_ID, 
+		 CAST(AES_DECRYPT(UNHEX(EMAIL),'Super_Developers')AS CHAR (50)) AS EMAIL FROM USER_INFO
+		WHERE CAST(AES_DECRYPT(UNHEX(USER_NAME),'Super_Developers')AS CHAR (50)) = #{user_name} AND 
+		 CAST(AES_DECRYPT(UNHEX(EMAIL),'Super_Developers')AS CHAR (50)) = #{email} AND DELETE_YN = 'N'
 	</select>
 	
 	<update id="email_send_id" parameterType="UserDTO">
 		UPDATE USER_INFO
 		 SET EMAIL_CK = #{email_ck}
-		WHERE USER_ID = #{user_id} AND DELETE_YN = 'N'
+		WHERE CAST(AES_DECRYPT(UNHEX(USER_ID),'Super_Developers')AS CHAR (50)) = #{user_id} AND DELETE_YN = 'N'
 	</update>
 	
 	<select id="getUser_ID" parameterType="UserDTO" resultType="UserDTO">
-		SELECT USER_ID FROM USER_INFO
-		 WHERE USER_NAME = #{user_name} AND EMAIL = #{email} AND EMAIL_CK = #{email_ck} AND DELETE_YN = 'N'
+		SELECT CAST(AES_DECRYPT(UNHEX(USER_ID),'Super_Developers')AS CHAR (50)) AS USER_ID FROM USER_INFO
+		 WHERE CAST(AES_DECRYPT(UNHEX(USER_NAME),'Super_Developers')AS CHAR (50)) = #{user_name} AND 
+		  CAST(AES_DECRYPT(UNHEX(EMAIL),'Super_Developers')AS CHAR (50)) = #{email} AND EMAIL_CK = #{email_ck} AND DELETE_YN = 'N'
 	</select>
 	
 	<select id="getpw_found" parameterType="UserDTO" resultType="UserDTO">
-		SELECT USER_NO, EMAIL FROM USER_INFO
-		 WHERE USER_ID = #{user_id} AND USER_NAME = #{user_name} AND EMAIL = #{email} AND DELETE_YN = 'N'
+		SELECT USER_NO, CAST(AES_DECRYPT(UNHEX(EMAIL),'Super_Developers')AS CHAR (50)) AS EMAIL FROM USER_INFO
+		 WHERE CAST(AES_DECRYPT(UNHEX(USER_ID),'Super_Developers')AS CHAR (50)) = #{user_id} AND 
+		CAST(AES_DECRYPT(UNHEX(USER_NAME),'Super_Developers')AS CHAR (50)) = #{user_name} AND 
+		 CAST(AES_DECRYPT(UNHEX(EMAIL),'Super_Developers')AS CHAR (50)) = #{email} AND DELETE_YN = 'N'
 	</select>
 	
 	<select id="get_pwfound" parameterType="UserDTO" resultType="UserDTO">
-		SELECT USER_NO FROM USER_INFO
-		 WHERE USER_NAME = #{user_name} AND EMAIL = #{email} AND EMAIL_CK = #{email_ck} AND USER_ID = #{user_id} AND DELETE_YN = 'N'
+		SELECT USER_NO, CAST(AES_DECRYPT(UNHEX(EMAIL),'Super_Developers')AS CHAR (50)) AS EMAIL FROM USER_INFO
+		 WHERE CAST(AES_DECRYPT(UNHEX(USER_NAME),'Super_Developers')AS CHAR (50)) = #{user_name} AND 
+		CAST(AES_DECRYPT(UNHEX(EMAIL),'Super_Developers')AS CHAR (50)) = #{email} AND EMAIL_CK = #{email_ck} AND 
+		 CAST(AES_DECRYPT(UNHEX(USER_ID),'Super_Developers')AS CHAR (50)) = #{user_id} AND DELETE_YN = 'N'
 	</select>
 	
 	<update id="email_send_pw" parameterType="UserDTO">
@@ -107,7 +120,29 @@
 	</update>
 	
 	<select id="id_check" parameterType="UserDTO" resultType="UserDTO">
-		SELECT USER_NO, USER_ID, DELETE_YN, DATE_FORMAT(CHG_DT,'%Y%m%d') AS CHG_DT FROM USER_INFO
-		 WHERE USER_ID = #{user_id} AND DELETE_YN = 'N'
+		SELECT USER_NO, CAST(AES_DECRYPT(UNHEX(USER_ID),'Super_Developers')AS CHAR (50)) AS USER_ID, DELETE_YN, 
+		 DATE_FORMAT(CHG_DT,'%Y%m%d') AS CHG_DT FROM USER_INFO
+		WHERE CAST(AES_DECRYPT(UNHEX(USER_ID),'Super_Developers')AS CHAR (50)) = #{user_id} AND DELETE_YN = 'N'
+	</select>
+	
+	<select id="getUser_list_search" parameterType="UserDTO" resultType="UserDTO">
+		SELECT USER_NO, CAST(AES_DECRYPT(UNHEX(USER_ID),'Super_Developers')AS CHAR (50)) AS USER_ID, 
+		 CAST(AES_DECRYPT(UNHEX(USER_NAME),'Super_Developers')AS CHAR (50)) AS USER_NAME, 
+		CAST(AES_DECRYPT(UNHEX(EMAIL),'Super_Developers')AS CHAR (50)) AS EMAIL, EMAIL_FIRST, 
+		 CAST(AES_DECRYPT(UNHEX(TEL),'Super_Developers')AS CHAR (50)) AS TEL 
+		FROM USER_INFO
+		 WHERE
+		 <if test="s_type=='id'">
+		 	CAST(AES_DECRYPT(UNHEX(USER_ID),'Super_Developers')AS CHAR (50)) LIKE CONCAT('%' , #{s_text} , '%')
+		 </if>
+		 <if test="s_type=='name'">
+		 	CAST(AES_DECRYPT(UNHEX(USER_NAME),'Super_Developers')AS CHAR (50)) LIKE CONCAT('%' , #{s_text} , '%')
+		 </if>
+		 <if test="s_type=='email'">
+		 	CAST(AES_DECRYPT(UNHEX(EMAIL),'Super_Developers')AS CHAR (50)) LIKE CONCAT('%' , #{s_text} , '%')
+		 </if>
+		 <if test="s_type=='tel'">
+		 	CAST(AES_DECRYPT(UNHEX(TEL),'Super_Developers')AS CHAR (50)) LIKE CONCAT('%' , #{s_text} , '%')
+		 </if>
 	</select>
 </mapper>

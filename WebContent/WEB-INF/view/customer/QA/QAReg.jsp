@@ -153,7 +153,7 @@ function calBytes(str) {
 			
 		<tr>
 			<td>첨부파일</td>
-			<td><input type="file" name="file_name" /></td>
+			<td><input type="file" name="qa_file" /></td>
 		</tr>
 		
 		</tbody>

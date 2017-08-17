@@ -118,6 +118,6 @@ public class ComController {
 
 		model.addAttribute("msg", msg); //메시지 보여주기
 		
-		return "test/file_aa";
+		return "test/file_result";
 	}
 }

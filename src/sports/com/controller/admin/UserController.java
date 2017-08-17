@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import sports.com.dto.UserDTO;
 import sports.com.service.IUserService;
-import sports.com.util.AES256Util;
 import sports.com.util.CmmUtil;
-import sports.com.util.MailUtil;
 import sports.com.util.SHAUtill;
 
 @Controller
@@ -45,16 +43,22 @@ public class UserController {
 			ModelMap model) throws Exception{
 		log.info("welcome /admin/user/user_list_search start");
 		UserDTO userDTO = new UserDTO();
-		userDTO.setS_type(CmmUtil.nvl(request.getParameter("s_type")));
-		userDTO.setS_text(CmmUtil.nvl(request.getParameter("s_text")));
 		
-		if(CmmUtil.nvl(request.getParameter("s_type")).equals("no") || CmmUtil.nvl(request.getParameter("s_type")).equals("")){
+		String s_type = CmmUtil.nvl(request.getParameter("s_type"));
+		String s_text = CmmUtil.nvl(request.getParameter("s_text"));
+		
+		userDTO.setS_type(s_type);
+		userDTO.setS_text(s_text);
+		
+		if(s_type.equals("no") || s_type.equals("") || s_text.equals("")){
 			List<UserDTO> rList = userService.getUser_list();
 			model.addAttribute("rList",rList);
 			rList = null;
 		}else{
 			List<UserDTO> rList = userService.getUser_list_search(userDTO);
 			model.addAttribute("rList",rList);
+			model.addAttribute("s_type",s_type);
+			model.addAttribute("s_text",s_text);
 			rList = null;
 		}
 		log.info("welcome /admin/user/user_list_search end");
@@ -100,10 +104,10 @@ public class UserController {
 		
 		UserDTO userDTO = new UserDTO();
 		userDTO.setUser_no(CmmUtil.nvl(request.getParameter("user_no")));
-		userDTO.setUser_id(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("id"))));
-		userDTO.setUser_name(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("name"))));
-		userDTO.setEmail(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("email"))));
-		userDTO.setTel(AES256Util.strEncode(CmmUtil.nvl(request.getParameter("tel"))));
+		userDTO.setUser_id(CmmUtil.nvl(request.getParameter("id")));
+		userDTO.setUser_name(CmmUtil.nvl(request.getParameter("name")));
+		userDTO.setEmail(CmmUtil.nvl(request.getParameter("email")));
+		userDTO.setTel(CmmUtil.nvl(request.getParameter("tel")));
 		
 		if(CmmUtil.nvl(request.getParameter("pwd_change")).equals("o")){
 			userDTO.setPassword(SHAUtill.double_encryption(CmmUtil.nvl(request.getParameter("pwd"))));

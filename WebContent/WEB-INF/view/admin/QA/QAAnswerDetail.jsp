@@ -1,6 +1,5 @@
 <!-- for Administrator -->
 
-<%@ page import="sports.com.util.AES256Util"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="sports.com.util.CmmUtil" %>
@@ -174,7 +173,7 @@ function doList() {
 				<div class="list_wrap qna_detail">
 					<div class="top">
 						<p class="title"><%=CmmUtil.nvl(rDTO.getTitle())%></p>
-						<p class="sub_text"><%=AES256Util.strDecode(CmmUtil.nvl(rDTO.getUser_name()))%><span><%=CmmUtil.nvl(rDTO.getReg_dt())%></span></p>
+						<p class="sub_text"><%=CmmUtil.nvl(rDTO.getUser_name())%><span><%=CmmUtil.nvl(rDTO.getReg_dt())%></span></p>
 					</div>
           			<div class="content"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("\r\n", "<br>") %></div>
 				</div>
