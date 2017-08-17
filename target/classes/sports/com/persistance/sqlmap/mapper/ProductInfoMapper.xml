@@ -86,8 +86,8 @@
 	<!-- 스포츠 용품 옵션 등록 쿼리 -->
 	<insert id ="ProductInfoOptionInsert" parameterType="ProductInfoOptionDTO">
 		INSERT INTO PROD_OPTION 
-			(OPT_NO, PROD_NO, OPT_NAME, OPT_KIND, OPT_PRICE)
-		VALUES ((SELECT IFNULL(MAX(A.OPT_NO), 1000000)+1 FROM PROD_OPTION A), #{prod_no}, #{opt_name}, #{opt_kind}, #{opt_price})
+			(OPT_NO, OPT_GRP, OPT_NAME, OPT_KIND, OPT_PRICE, OPT_CNT)
+		VALUES ((SELECT IFNULL(MAX(A.OPT_NO), 1000000)+1 FROM PROD_OPTION A), '2222222', #{opt_name}, #{opt_kind}, #{opt_price}, #{opt_cnt})
 	</insert>
 	
 	<!-- 스포츠 용품 상세 옵션 쿼리 -->

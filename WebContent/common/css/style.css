@@ -1115,15 +1115,15 @@ body {
   padding-bottom: 15px;
   font-size: 0;
 }
-
+/*  총명 수정 */
 select.col-2 {
-  width: 49%;
+  width: 100%;
 }
 
-select.col-2:first-child {
+/* select.col-2:first-child {
   margin-right: 2%;
-}
-
+} */
+/* ㅊ총명 수정 끝  */
 .price_wrap {
   font-size: 14px;
   color: #1777cb;

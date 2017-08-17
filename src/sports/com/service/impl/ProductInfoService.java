@@ -71,6 +71,7 @@ public class ProductInfoService implements IProductInfoService {
 
 	@Override
 	public List<Prod_test_jcmDTO> getLowpriceSearch(Prod_test_jcmDTO bDTO) throws Exception {
+		System.out.println("!!!!getLowpriceSearch 서비스!!!!!");
 		return productInfoMapper.getLowpriceSearch(bDTO);
 	}
 	//조건선택검색 끝

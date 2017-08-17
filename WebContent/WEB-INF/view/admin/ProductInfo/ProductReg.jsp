@@ -28,25 +28,61 @@
     <![endif]-->
    	 
    	  <script type="text/javascript">
+   		function SetComma(str) { 
+   		        
+   		      var regMustNumberComma = /^[\t|0-9|,]+$/; 
+   		       str = str.replace(/,/g,''); 
+   		        
+   		       var retValue = ""; 
+   		        
+   		       for( i = 1; i <= str.length; i++ ) { 
+   		          if(i>1 && (i%3)== 1){ 
+   		             retValue = str.charAt(str.length - i) + "," + retValue; 
+   		              
+   		          }else{ 
+   		             retValue = str.charAt(str.length - i) + retValue; 
+   		              
+   		          } 
+   		       } 
+   		        
+   		       if( regMustNumberComma.test(retValue) == false ) 
+   		       {
+   		    	   alert("숫자만  입력하실 수 있습니다.");
+   		       return "";
+   		       } 
+   		        
+   		       return retValue; 
+   		    } 
+
      function optionpopup(){ 
     	
     	  var popURL ="/admin/ProductInfo/ProductInfoOptionReg.do";
     	  var popOption = "width=650, height=360, resizable=no, status=yes;";
     	   			window.open(popURL,"",popOption);
+    	  $("#place").attr("placeholder","등록/수정을 이미 클릭 했었습니다.");
+
      }
     	 
-    	 
+     
     	 
     	 </script>
      
      <script type="text/javascript">
 		function doAction(gubun) {
+			
 		var f = document.getElementById("form1");
+		
+		//카테고리 선택해라 
+		if($("#select").val()=='NA'){
+			alert("카테고리를 선택해주세요");
+			return false;
+		}
 		
 		if (gubun == "U") {
 			f.method = "POST";
 			f.action = "/admin/ProductInfo/ProductInfoInsert.do";
 			f.submit();
+			
 		}else if(gubun == "L"){
 			f.method = "GET"
 			f.action ="/admin/ProductInfo/List.do";
@@ -138,13 +174,27 @@
       
         <form name="form1" id="form1">
         <div class="select_wrap">
-          <select class="col-2">
-          <option value="태권도">태권도</option>
-          <option value="태권도">태권도</option>
-          </select>
-          <select class="col-2">
-            <option value="태권도 띠">태권도 띠</option>
-            <option value="사이즈">사이즈1</option>
+          <select class="col-2" id="select">
+          <option value="NA">카테고리를 선택해주세요.</option>
+          <option value="헬스">헬스</option>
+          <option value="축구">축구</option>
+          <option value="농구">농구</option>
+          <option value="야구">야구</option>
+          <option value="보호용품">보호용품</option>
+          <option value="무술용품">무술용품</option>
+          <option value="수련용품">수련용품</option>
+          <option value="권투">권투</option>
+          <option value="검도">검도</option>
+          <option value="배구">배구</option>
+          <option value="족구">족구</option>
+          <option value="배드민턴">배드민턴</option>
+          <option value="테니스">테니스</option>
+          <option value="탁구">탁구</option>
+          <option value="수영">수영</option>
+          <option value="요가/필라테스">요가/필라테스</option>
+          <option value="자전거">자전거</option>
+          <option value="스포츠액세서리">스포츠액세서리</option>
+          <option value="기타">기타</option>
           </select>
         </div>
 
@@ -163,7 +213,7 @@
             </li>
             <li>
               <p class="blue_text">제품 가격</p>
-              <input type="text" name="prod_price"> 
+              <input onkeyup="this.value=SetComma(this.value)" type="text" name="prod_price"/> 
             </li>
             <li>
               <p class="blue_text">제품 상세</p>
@@ -175,7 +225,7 @@
             <li>
               <p class="blue_text">옵션</p>
               <div class="input_btn_wrap">
-                <input type="text" placeholder="옵션을 추가"><!-- <button class="line-btn" onclick="location.href='/admin/ProductInfo/ProductInfoOptionReg.do';return false;">등록/수정</button> -->
+                <input type="text" id="place" placeholder="옵션을 추가해주세요"><!-- <button class="line-btn" onclick="location.href='/admin/ProductInfo/ProductInfoOptionReg.do';return false;">등록/수정</button> -->
                 <input type="button" class="line-btn" onclick="optionpopup();" value="등록/수정"/>
                 
               </div>

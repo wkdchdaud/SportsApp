@@ -176,11 +176,18 @@ public class ProductInfoController {
 			if(name==""){
 				System.out.println("hello null");
 			}
+			
 			bDTO.setProd_name(name);
 			bDTO.setPrice(price);
-			System.out.println("get name :"+bDTO.getProd_name());
+			
+			System.out.println("get name : "+bDTO.getProd_name());
 			System.out.println("get sele : "+ bDTO.getPrice());
+			
 			List<Prod_test_jcmDTO> RList = productInfoService.getLowpriceSearch(bDTO);
+			
+			for (Prod_test_jcmDTO pdto : RList){
+				System.out.println("pdto.getPrice() : " + pdto.getPrice());
+			}
 			System.out.println("안녕"+RList.size());
 			
 			if(RList==null){
@@ -209,6 +216,7 @@ public class ProductInfoController {
 			System.out.println("name : " + name);
 			bDTO.setProd_name(name);
 			bDTO.setPrice(price);
+			
 			List<Prod_test_jcmDTO> RList = productInfoService.getHighpriceSearch(bDTO);
 			System.out.println("안녕"+RList.size());
 			if(RList==null){
@@ -288,7 +296,6 @@ public class ProductInfoController {
 		
 		log.info(this.getClass().getName()+"productInfoProductinfoRegStart");
 			
-	
 		log.info(this.getClass().getName()+"productInfoProductinfoRegEnd");
 		
 		return "/admin/ProductInfo/ProductReg";
@@ -515,42 +522,32 @@ public class ProductInfoController {
 		
 		 log.info(this.getClass().getName()+"productInfoProductinfoInsertStart");
 		 String msg ="";
-		 String url ="/admin/ProductInfo/ProductReg.do";
 		 
 		 try{
+
+		 String[] opt_name = request.getParameterValues("opt_name");
+		 String[] opt_kind = request.getParameterValues("opt_kind");
+		 String[] opt_price = request.getParameterValues("opt_price");
+		 String[] opt_cnt = request.getParameterValues("opt_cnt");
+		 
+		ProductInfoOptionDTO rdto = new ProductInfoOptionDTO();
 		
-		 ProductInfoOptionDTO rdto = new ProductInfoOptionDTO();
-		 
-	   
-		 String opt_name = CmmUtil.nvl(request.getParameter("opt_name"));
-		 System.out.println("OPT_NAME  : " +  CmmUtil.nvl(request.getParameter("prod_name")));
-		 
-		 String opt_kind =CmmUtil.nvl(request.getParameter("opt_kind"));
-		 System.out.println("OPT_PRICE  : " + CmmUtil.nvl(request.getParameter("opt_kind")));
-		 
-		 String opt_price =CmmUtil.nvl(request.getParameter("opt_price"));
-		 System.out.println("OPT_CONTENTS  : " + CmmUtil.nvl(request.getParameter("opt_price")));
-		 
-	
-		 rdto.setOpt_price(opt_name);	
-		 rdto.setOpt_kind(opt_kind);
-		 rdto.setOpt_price(opt_price);
-		 
-		 
-		 
-		 productInfoService.ProductInfoOptionInsert(rdto);
-		 
-		 
-		 
+		for(int i=0; i<opt_name.length; i++){
+			 rdto.setOpt_name(opt_name[i]);
+			 rdto.setOpt_kind(opt_kind[i]);
+			 rdto.setOpt_price(opt_price[i]);
+			 rdto.setOpt_cnt(opt_cnt[i]);
+			 
+			 productInfoService.ProductInfoOptionInsert(rdto);
+			
+		}
 		 msg = "옵션 등록 완료";
-		 url ="/admin/ProductInfo/ProductReg.do";
 		 
 		 rdto= null;
 		 
 		 } catch(Exception e){
 			 
 		 msg = "옵션 등록 실패"+ e.toString();
-		 url ="/admin/ProductInfo/ProductReg.do";
 		
 			log.info(e.toString());
 			e.printStackTrace();
@@ -560,9 +557,8 @@ public class ProductInfoController {
 		
 		log.info(this.getClass().getName()+"productInfoProductinfoInsertEnd");
 		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
 		 }
-		return "/redirect";
+		return "/redirect3";
 		
 			}
 

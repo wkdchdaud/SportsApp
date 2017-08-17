@@ -7,11 +7,18 @@ public class ProductInfoOptionDTO {
 	private String opt_name;
 	private String opt_kind;
 	private String opt_price;
+	private String opt_cnt;
 	private String reg_user_no;
 	private String reg_dt;
 	private String chg_user_no;
 	private String chg_dt;
 	
+	public String getOpt_cnt() {
+		return opt_cnt;
+	}
+	public void setOpt_cnt(String opt_cnt) {
+		this.opt_cnt = opt_cnt;
+	}
 	public String getProd_no() {
 		return prod_no;
 	}

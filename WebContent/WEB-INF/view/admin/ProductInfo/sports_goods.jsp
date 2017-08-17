@@ -291,6 +291,7 @@ if (rList==null) {
 				}		
 				else if(price=='lowprice'){
 			  //만약 select박스 벨류값이 lowprice라면
+			  alert('lowprice');
 				$('#menu_list').html(null);
 			  	$("#as").html("<center><button class='btn btn-primary btn-lg' id='btn_more1' style='width: 300px'>더보기</button></center>");
 				$.ajax({//아작스 실행
