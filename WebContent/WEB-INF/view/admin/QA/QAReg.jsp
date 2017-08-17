@@ -8,6 +8,7 @@ String user_no = CmmUtil.nvl((String)session.getAttribute("user_no"));
 %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 
 <meta charset="UTF-8">
@@ -127,9 +128,7 @@ function calBytes(str) {
 				<div class="left_menu"><img src="/common/images/btn_gnb.png" alt="메뉴" id="c-button--slide-left" class="c-button"></div>
 				<div class="logo"><a href="/main.do"><h2 class="title">모두의 스포츠</h2></a></div>
 			</div>
-			<div class="page_title" style=" float: left; width: 33%;"><span class="sub_text" id="delete" onclick="javascript:deleteConfirm(this.form);">삭제하기</span>&nbsp;</div>
-			<div class="page_title" style=" float: left; width: 33%;"><p>Q&amp;A</p></div>
-			<div class="page_title" style=" float: left; width: 33%;"></div>
+			<div class="page_title"><p>Q&amp;A</p></div>
 		</header>
 	
 	    <nav id="c-menu--slide-left" class="c-menu c-menu--slide-left">
@@ -191,73 +190,53 @@ function calBytes(str) {
 					<ul class="register_list">
 						<li>
 							<p class="blue_text">제목</p>
-							<div class="input_btn_wrap"><input type="text" name="title"></div>				
+							<div><input type="text" name="title" maxlength="50" /></div>				
 						</li>
-						
-						
-						
-	<table class="table">
-	
-		<tbody>
-		
-		<tr>
-			<td>제목</td>
-			<td><input type="text" name="title" maxlength="50" /></td>
-		</tr>
-		
-		<tr>
-			<td>비밀글 여부</td>
-			<td>
-				예 <input type="radio" name="secret_yn" value="1" />
-				&nbsp;&nbsp;
-				아니오 <input type="radio" name="secret_yn" value="2" />
-			</td>
-		</tr>
-		
-		<tr>
-			<td align="center" colspan="2"><textarea name="contents" style="width:300px; height:400px" maxlength="2000" wrap="physical"></textarea></td>
-		</tr>
-			
-		<tr>
-			<td>첨부파일</td>
-			<td><input type="file" name="file_name" /></td>
-		</tr>
-		
-		</tbody>
+						<li>
+							<p class="blue_text">비밀글 여부</p>
+							<div>
+								예 <input type="radio" name="secret_yn" value="1" style="MARGIN: 0px 3px 1px 0px; WIDTH: 13px; HEIGHT: 13px" />
+								아니오 <input type="radio" name="secret_yn" value="2" style="MARGIN: 0px 3px 1px 0px; WIDTH: 13px; HEIGHT: 13px" />
+							</div>
+						</li>
+						<li>
+							<p class="blue_text">내용</p>
+							<textarea name="contents" maxlength="2000" wrap="physical"></textarea>
+						</li>
+						<li>
+							<p class="blue_text">첨부파일</p>
+							<div><input type="file" name="file_name" /></div>
+						</li>
+					</ul>
+				</div>	
 				
-	</table>
-	
+				<div class="btn-groub">
+					<button class="col-2 blue-btn button" type="submit">등록</button>
+					<button class="col-2 glay-btn button" onclick="location.href='/admin/QA/QAList.do';return false;">목록</button>
+				</div>	
+						
 			</div>
 		</div>
-
-	<input type="submit" value="등록" />
-	<input type="button" value="목록" onclick="location.href='/admin/QA/QAList.do' " />
-	
-</form>
-
-							<!--  end  Context Classes  -->
-						</div>
-					</div>
-				</div>
+	    
+		<footer class="footer">
+		    <a href="#"><img src="/common/images/ic_kakao.png" alt="카카오톡" class="kakao"></a>
+		    <div class="company_info">
+				<p>대표이사 : 장명훈 ㅣ 대표번호 : 010-9057-6156</p>
+				<p>사업자등록번호 : 567-36-00142</p>
+				<p>통신판매업신고 : 2017-인천서구-0309호</p>
+				<p>인천시 서구 보도진로 18번길 12(가좌동) 진성테크2층</p>
+				<p>Copyright © <strong>모두의 스포츠</strong> All rights reserved. </p>
 			</div>
-			
-			<!-- /. ROW  -->
-		</div>
-		
-		<!-- /. PAGE INNER  -->
-	</div>
+		</footer>
 	
-	<!-- /. PAGE WRAPPER  -->
-	<!-- /. WRAPPER  -->
-	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-	<!-- JQUERY SCRIPTS -->
-	<script src="/assets/js/jquery-1.10.2.js"></script>
-	<!-- BOOTSTRAP SCRIPTS -->
-	<script src="/assets/js/bootstrap.min.js"></script>
-	<!-- METISMENU SCRIPTS -->
-	<script src="/assets/js/jquery.metisMenu.js"></script>
-	<!-- CUSTOM SCRIPTS -->
-	<script src="/assets/js/custom.js"></script>
+	</form>	
 
+	</section>
+  
+	<div id="c-mask" class="c-mask"></div>
+	<script src="/common/js/classie.js"></script>
+	<script src="/common/js/common.js"></script>
+  
 </body>
+
 </html>

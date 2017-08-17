@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sports.com.persistance.mapper.NoticeMapper">
+
+	<!-- 게시글 목록 쿼리 -->
 	<select id="getNoticeList" resultType="NoticeDTO">
 		SELECT NOTICE_NO, TITLE,
 		N.CONTENTS, N.NOTICE_YN , N.REG_USER_NO, N.REG_DT,
@@ -11,6 +13,7 @@
 		LIMIT 6;
 	</select>
 
+	<!-- 게시글 등록 쿼리 -->
 	<insert id="InsertNoticeInfo" parameterType="NoticeDTO">
 		INSERT INTO
 		NOTICE_INFO_A
@@ -23,23 +26,26 @@
 		NOW()
 		)
 	</insert>
-
-	<select id="getNoticeDetailInfo" resultType="NoticeDTO">
+	
+	<!-- 게시글 상세 쿼리 -->
+	<select id="getNoticeDetailInfo" resultType="NoticeDTO" parameterType="NoticeDTO">
 		SELECT NOTICE_NO,
 		N.TITLE, N.CONTENTS, N.NOTICE_YN , N.REG_USER_NO, DATE_FORMAT(N.REG_DT,
-		'%Y-%m-%d') AS REG_DT, 
+		'%Y-%m-%d %T') AS REG_DT, 
 		N.CHG_USER_NO, N.CHG_DT, U.USER_NAME FROM NOTICE_INFO_A N
 		JOIN USER_INFO U ON N.USER_NO = U.USER_NO
 		WHERE NOTICE_NO=#{notice_no}
 		ORDER BY NOTICE_YN, REG_DT DESC
 	</select>
-
+	
+	<!-- 게시글 삭제 쿼리 -->
 	<update id="deleteNoticeInfo" parameterType="NoticeDTO">
 		DELETE FROM
 		NOTICE_INFO_A
 		WHERE NOTICE_NO = #{notice_no}
 	</update>
 	
+	<!-- 게시글 체크박스 삭제 쿼리  -->
 	<update id="deleteCheckList" parameterType="NoticeDTO">
 		DELETE FROM
 		NOTICE_INFO_A
@@ -49,13 +55,14 @@
 		</foreach>
 	</update>
 
+	<!-- 게시글 수정 쿼리 -->
 	<update id="updateNoticeInfo" parameterType="NoticeDTO">
 		UPDATE NOTICE_INFO_A
 		SET TITLE=#{title}, CONTENTS=#{contents}, NOTICE_YN=#{notice_yn},
 		CHG_DT=NOW() WHERE NOTICE_NO = #{notice_no}
 	</update>
 
-	<!-- 더보기 -->
+	<!-- 게시글 더보기 쿼리 -->
 	<select id="getNotice_MoreView" resultType="NoticeDTO" parameterType="NoticeDTO"	>
 		SELECT NOTICE_NO,
 		N.TITLE, N.CONTENTS, N.NOTICE_YN , N.REG_USER_NO, N.REG_DT,
@@ -67,15 +74,14 @@
 		LIMIT 6 OFFSET ${read_more};
 	</select>
 
+	<!-- 게시글 검색 쿼리 -->
 	<select id="getSearchList" resultType="NoticeDTO" parameterType="NoticeDTO">
-	
 		SELECT N.NOTICE_NO, N.NOTICE_YN, N.TITLE, N.USER_NO, N.REG_USER_NO, DATE_FORMAT(N.REG_DT, '%Y-%m-%d %T') AS REG_DT, U.USER_NAME
 	    FROM NOTICE_INFO_A N
 	    JOIN USER_INFO U ON N.USER_NO=U.USER_NO 
 	    WHERE N.TITLE LIKE CONCAT('%', #{search}, '%')
 	 	ORDER BY N.NOTICE_YN ASC, N.NOTICE_NO DESC
 	 	LIMIT 6;
-	
 	</select>
 
 </mapper>

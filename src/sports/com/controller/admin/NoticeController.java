@@ -48,7 +48,7 @@ public class NoticeController {
 		for(NoticeDTO nDTO : nList){
 		
 		String reg_dt = CmmUtil.nvl(nDTO.getReg_dt());//new 붙히는 시간 계산해서 nList의 title에 new 붙여주기
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date to = transFormat.parse(reg_dt);
 
 		long now = System.currentTimeMillis();
@@ -68,9 +68,7 @@ public class NoticeController {
 		nDTO.setUser_name(AES256Util.strDecode(CmmUtil.nvl(nDTO.getUser_name())));//암호화된 유저이름 풀기
 		
 		}
-		
-		
-		
+
 		model.addAttribute("nList",nList);
 		
 		nList = null;
@@ -89,7 +87,7 @@ public class NoticeController {
 		System.out.println("넘어온 cnt : " +cnt);
 		
 		nDTO.setSearch(search);
-		System.out.println("넘어온search : " +search);
+		System.out.println("넘어온 search : " +search);
 		
 		
 		List <NoticeDTO> viewMore_list = noticeService.Notice_MoreView(nDTO);
@@ -318,7 +316,8 @@ public class NoticeController {
 	
 	@RequestMapping(value="/admin/notice/NoticeCheckboxDelete",method=RequestMethod.POST)
 	public String NoticeCheckboxDelete(HttpServletRequest request, HttpServletResponse response,
-			ModelMap model) throws Exception{
+			ModelMap model) throws Exception {
+		
 		log.info("welcome /admin/NoticeCheckboxDelete");
 
 		String[] deleteSelect = request.getParameterValues("checkbox");
@@ -334,9 +333,8 @@ public class NoticeController {
 		model.addAttribute("url","/admin/notice/NoticeList.do");
 		
 		return "/admin/notice/redirect";
+		
 	}
 	
 	
 }
-
-

@@ -2,10 +2,10 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="sports.com.util.CmmUtil" %>
-<%@ page import="sports.com.dto.QADTO" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.List" %>
+<%@ page import="sports.com.util.CmmUtil"%>
+<%@ page import="sports.com.dto.QADTO"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List"%>
 <%
 QADTO rDTO = (QADTO)request.getAttribute("rDTO");
 
@@ -24,11 +24,25 @@ if (CmmUtil.nvl((String)session.getAttribute("user_no")).equals(CmmUtil.nvl(rDTO
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Q&A 답글 수정(스포츠 용품업자)</title>
-<%@include file="/inc/head.jsp"%>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>모두의 스포츠</title>
+<!-- Styles : CSS & SASS Sorcemap -->
+<link rel="stylesheet" href="/common/css/style.css">
+<!-- JavaScirpt Sorcemap -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="/common/js/jquery-ui.js"></script>
+<script src="/common/js/modernizr.custom.js"></script>
+<!--[if lte IE 9]>
+<script src="/common/js/placeholders.min.js"></script>
+<![endif]-->
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
 <script type="text/javascript">
 
 function doOnload() {
@@ -124,103 +138,134 @@ function calBytes(str) {
 	
 }
 
-</script>	
+</script>
+	
 </head>
+
 <body onload="doOnload();">
 
-	<div id="wrapper">
-		<!-- 사이드 네비바 및 헤더 부분 시작 -->
-		<%@include file="/inc/side_nav.jsp"%>
-		<!-- 사이드 네비바 및 헤더 부분 끝  -->
+	<section id="wrapper" class="wrapper">	
 
-	<!-- /. NAV SIDE  -->
-		<div id="page-wrapper">
-			<div id="page-inner">
-				<div class="row">
-					<div class="col-md-12">
-						<h2>Q&A</h2>
-					</div>
-				</div>
-			
-	<!-- /. ROW  -->
-		<hr />
-		<div class="row">
-			<div class="col-md-7">
-				<div class="panel panel-default" style="width: 100%">
-					<div class="panel-heading">Q&A 답글 수정</div>
-					
-	<!--    Context Classes  -->
 	<form name="f" method="post" action="/admin/QA/QAAnswerUpdate.do" enctype="multipart/form-data" onsubmit="return doSubmit(this);">
 
 	<input type="hidden" name="qa_no" value="<%=CmmUtil.nvl(request.getParameter("qa_no")) %>" />
 	<input type="hidden" name="secret_yn" value="<%=CmmUtil.nvl(rDTO.getSecret_yn()) %>" />
 	<input type="hidden" name="title" value="<b>[RE]</b> <%=CmmUtil.nvl(rDTO.getTitle()) %>" />
 	
-		<div class="panel panel-default" style="width: 100%">
-			<div class="panel-body">
+	    <header class="header">
+			<div class="wrap">
+				<div class="left_menu"><img src="/common/images/btn_gnb.png" alt="메뉴" id="c-button--slide-left" class="c-button"></div>
+				<div class="logo"><a href="/main.do"><h2 class="title">모두의 스포츠</h2></a></div>
+			</div>
+			<div class="page_title"><p>Q&amp;A</p></div>
+		</header>
 	
-	<table class="table">
-	
-		<tbody>
-		
-		<tr>
-			<td>제목</td>
-			<td><%=CmmUtil.nvl(rDTO.getTitle()) %></td>
-		</tr>
-		
-		<tr>
-			<td>비밀글 여부</td>
-			<td>
-				예 <input type="radio" name="secret_yn" value="1" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "1") %> disabled="disabled" />
-				&nbsp;&nbsp;
-				아니오 <input type="radio" name="secret_yn" value="2" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "2") %> disabled="disabled" />
-			</td>
-		</tr>
-		
-		<tr>
-			<td align="center" colspan="2"><textarea name="contents" style="width: 300px; height: 400px" maxlength="2000" wrap="physical"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("<br>", "\r\n") %></textarea></td>
-		</tr>
-		
-		<tr>
-			<td>첨부파일</td>
-			<td><input type="file" name="file_name" /></td>
-		</tr>
-		
-		</tbody>
+	    <nav id="c-menu--slide-left" class="c-menu c-menu--slide-left">
+			<div class="profile">
+				<p><img src="/common/images/menu/user.png" class="photo">로그인을 해주세요</p>
+				<button class="c-menu__close"><img src="/common/images/menu/cancel.png" alt="닫기"></button>
+				<div class="login_wrap"><a href="#">로그인</a><a href="#">회원가입</a></div>
+			</div>
+			<ul class="menu_list">
+				<li><a href="#">주문관리</a></li>
+				<li>
+					<a href="#">학원관리</a>
+					<ul class="col-2">
+						<li><a href="#">학원 밀집도 정보</a></li>
+						<li><a href="#">거래처 관리</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">매출 분석 정보</a>
+					<ul class="col-3">
+						<li><a href="#"><img src="/common/images/menu/001.png" class="icon"><p>매출분석 정보</p></a></li>
+						<li><a href="#"><img src="/common/images/menu/002.png" class="icon"><p>연관성 분석 정보</p></a></li>
+						<li><a href="#"><img src="/common/images/menu/003.png" class="icon"><p>장바구니 분석 정보</p></a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">스포츠 용품 리스트 관리</a>
+					<ul class="col-2 more">
+						<li><a href="#"><img src="/common/images/menu/ic_01.png" class="icon">전체상품</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_02.png" class="icon">태권도</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_03.png" class="icon">합기도</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_04.png" class="icon">검도</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_05.png" class="icon">복싱, MMA</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_06.png" class="icon">스포츠의류</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_07.png" class="icon">스포츠용품(구기)</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_08.png" class="icon">네트&amp;골대</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_09.png" class="icon">휘트니스</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_10.png" class="icon">학교체육용품</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_11.png" class="icon">체육대회용품</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_12.png" class="icon">측정용품&amp;호각</a></li>
+						<li><a href="#"><img src="/common/images/menu/ic_13.png" class="icon">펌프</a></li>
+		        		<li><a href="#"><img src="/common/images/menu/ic_13.png" class="icon">정리용품</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">고객센터 관리</a>
+					<ul class="col-2">
+						<li><a href="/admin/notice/NoticeList.do">공지사항 관리</a></li>
+						<li><a href="/admin/QA/QAList.do">Q&amp;A 관리</a></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+
+		<div class="container detail">
+			<div class="wrap search-wrap btn-wrap">
 			
-	</table>
+				<div class="list_wrap">
+					<ul class="register_list">
+						<li>
+							<p class="blue_text">제목</p>
+							<div><%=CmmUtil.nvl(rDTO.getTitle()) %></div>				
+						</li>	
+						<li>
+							<p class="blue_text">비밀글 여부</p>
+							<div>
+								예 <input type="radio" name="secret_yn" value="1" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "1") %> disabled="disabled" style="MARGIN: 0px 3px 1px 0px; WIDTH: 13px; HEIGHT: 13px" />
+								아니오 <input type="radio" name="secret_yn" value="2" <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getSecret_yn()), "2") %> disabled="disabled" style="MARGIN: 0px 3px 1px 0px; WIDTH: 13px; HEIGHT: 13px" />
+							</div>
+						</li>
+						<li>
+							<p class="blue_text">내용</p>
+							<textarea name="contents" maxlength="2000" wrap="physical"><%=CmmUtil.nvl(rDTO.getContents()).replaceAll("<br>", "\r\n") %></textarea>
+						</li>
+						<li>
+							<p class="blue_text">첨부파일</p>
+							<div><input type="file" name="file_name" /></div>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="btn-groub">
+					<button class="col-2 blue-btn button" type="submit">수정</button>
+					<button class="col-2 glay-btn button" onclick="location.href='/admin/QA/QAAnswerDetail.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>';return false;">이전으로</button>
+				</div>					
 	
 			</div>
 		</div>	
-	
-	<input type="submit" value="수정" />
-	<input type="button" value="이전으로" onclick="location.href='/admin/QA/QAAnswerDetail.do?qa_no=<%=CmmUtil.nvl(rDTO.getQa_no())%>' " />
 
-</form>	
-
-							<!--  end  Context Classes  -->
-						</div>
-					</div>
-				</div>
+		<footer class="footer">
+		    <a href="#"><img src="/common/images/ic_kakao.png" alt="카카오톡" class="kakao"></a>
+		    <div class="company_info">
+				<p>대표이사 : 장명훈 ㅣ 대표번호 : 010-9057-6156</p>
+				<p>사업자등록번호 : 567-36-00142</p>
+				<p>통신판매업신고 : 2017-인천서구-0309호</p>
+				<p>인천시 서구 보도진로 18번길 12(가좌동) 진성테크2층</p>
+				<p>Copyright © <strong>모두의 스포츠</strong> All rights reserved. </p>
 			</div>
-			
-			<!-- /. ROW  -->
-		</div>
-		
-		<!-- /. PAGE INNER  -->
-	</div>
+		</footer>
 	
-	<!-- /. PAGE WRAPPER  -->
-	<!-- /. WRAPPER  -->
-	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-	<!-- JQUERY SCRIPTS -->
-	<script src="/assets/js/jquery-1.10.2.js"></script>
-	<!-- BOOTSTRAP SCRIPTS -->
-	<script src="/assets/js/bootstrap.min.js"></script>
-	<!-- METISMENU SCRIPTS -->
-	<script src="/assets/js/jquery.metisMenu.js"></script>
-	<!-- CUSTOM SCRIPTS -->
-	<script src="/assets/js/custom.js"></script>
+	</form>	
 
+	</section>
+  
+	<div id="c-mask" class="c-mask"></div>
+	<script src="/common/js/classie.js"></script>
+	<script src="/common/js/common.js"></script>
+  
 </body>
+
 </html>

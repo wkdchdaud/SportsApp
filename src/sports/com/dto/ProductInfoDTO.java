@@ -14,7 +14,17 @@ public class ProductInfoDTO {
 	private String file_grp;
 	private int read_more;
 	private String option;
+	private String opt_grp;
 	
+	
+	public String getOpt_grp() {
+		return opt_grp;
+	}
+
+	public void setOpt_grp(String opt_grp) {
+		this.opt_grp = opt_grp;
+	}
+
 	public String getOption() {
 		return option;
 	}

@@ -1,64 +1,45 @@
-<%@page import="java.util.Set"%>
-<%@page import="java.util.HashSet"%>
-<%@page import="sports.com.dto.ProductInfoOptionDTO"%>
-<%@page import="java.util.Iterator"%>
-<%@page import="sports.com.dto.ProductFileDTO"%>
+<%@ page import="java.util.Set"%>
+<%@ page import="java.util.HashSet"%>
+<%@ page import="sports.com.dto.ProductInfoOptionDTO"%>
+<%@ page import="java.util.Iterator"%>
+<%@ page import="sports.com.dto.ProductFileDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    
-<%@ page import="sports.com.util.CmmUtil" %>
-<%@ page import="sports.com.dto.ProductInfoDTO" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.HashMap" %> 
+<%@ page import="sports.com.util.CmmUtil"%>
+<%@ page import="sports.com.dto.ProductInfoDTO"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.HashMap"%> 
 <%
-ProductInfoDTO rDTO = (ProductInfoDTO) request.getAttribute("dlwkdus");
-	
+ProductInfoDTO rDTO = (ProductInfoDTO) request.getAttribute("rDTO");
 if (rDTO==null) {
 	rDTO = new ProductInfoDTO();
 }
 	
-List<ProductFileDTO> fileList = (List<ProductFileDTO>) request.getAttribute("file");
-
+List<ProductFileDTO> fileList = (List<ProductFileDTO>) request.getAttribute("fileList");
 if (fileList==null) {
 	fileList = new ArrayList<ProductFileDTO>();
 }
 
 List<ProductInfoOptionDTO> oList = (List<ProductInfoOptionDTO>) request.getAttribute("oList");
-	
 if (oList==null) {
 	oList = new ArrayList<ProductInfoOptionDTO>();
 }
-%>
 
-<%
-List<String> OptName = new ArrayList();
-					
-//배열은 선언과 동시에 배열의 크기를 지정해야함
-//List는 LinkedList의 구조로 선언시에 List의 크기를 지정하지않고 List에 값을 add할때마다 List의 크기가 커지는 형식
-		            
-for (ProductInfoOptionDTO oDTO : oList) {
-	OptName.add(oDTO.getOpt_name());	//List에 값을 넣는 코드 값을 뺄때는 OptName.get(index값);
-}
-					
-Set<String> setOptName = new HashSet<String>(OptName);	//옵션값 유니크하게 뽑기
-List<String> alignOptName = new ArrayList(setOptName);
-		           
-String firstOpt = "";
-String secondOpt = "";
-		            
-if (alignOptName.size() == 2) {
-	
-	firstOpt = alignOptName.get(0).toString();
-	secondOpt = alignOptName.get(1).toString();
+List<ProductInfoOptionDTO> fir_option = new ArrayList<ProductInfoOptionDTO>();
+List<ProductInfoOptionDTO> sec_option = new ArrayList<ProductInfoOptionDTO>();
 
-} else if (alignOptName.size() == 1) {
-	
-	firstOpt =	alignOptName.get(0).toString(); 
-	
+ProductInfoOptionDTO zDTO = oList.get(0);
+for(ProductInfoOptionDTO infoDTO : oList){
+	if(CmmUtil.nvl(infoDTO.getOpt_name()).equals(CmmUtil.nvl(zDTO.getOpt_name()))){
+		fir_option.add(infoDTO);
+	}else{
+		sec_option.add(infoDTO);
+	}
 }
-		            
-System.out.println("firstOpt" + firstOpt);
-System.out.println("secondOpt" + secondOpt);
+
+String firstOpt = CmmUtil.nvl(fir_option.get(0).getOpt_name());
+String secondOpt = CmmUtil.nvl(sec_option.get(0).getOpt_name());
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -84,99 +65,76 @@ System.out.println("secondOpt" + secondOpt);
 <![endif]-->
 
 <script type="text/javascript">
-    
+var num = 0;
+
 function doAction(gubun) {
-			
 	var f = document.getElementById("form1");
-		
 	if (gubun == "U") {
-		
 		f.action = "/admin/ProductInfo/ProductInfoUpdateForm.do";
 		f.submit();
-		
 	} else if (gubun == "D") {
-		
 		if (confirm("삭제하시겠습니까?")) {
-			
 			f.action = "/admin/ProductInfo/ProductInfoDelete.do";
 			f.submit();
-			
 		}
-		
 	} else if(gubun == "L") {
-		
 		f.action ="/admin/ProductInfo/List.do";
-			
 	}
-	
-}
-
-$(function() {
-		
-	var sell_price;
-	var amount;
-
-})
-	
-function pickOption() {
-	
-	var sop = document.getElementById("secondOpt");
-		
-	alert(document.getElementById("firstOpt").value);
-		
-	sop.removeAttribute("disabled");
-		
-	if (document.getElementById("firstOpt").value == document.getElementById("firstOpt")[0].value) {
-		
-		sop.disabled = 'false';
-		sop.options[0].selected = true;	//선택값 초기화
-
-	}
-			
 }
 
 function chkOptVal() {
-	
 	var firstOpt = "<%=firstOpt %>";
 	var secondOpt = "<%=secondOpt %>";
-	
 	if (firstOpt == "") {
-		
 		document.getElementById("firstOpt").style.display = "none";
 		document.getElementById("secondOpt").style.display = "none";
 		document.getElementById("OptText").style.display = "none";
-		
 	} else if (secondOpt == "") {
-		
 		document.getElementById("secondOpt").style.display = "none";
-		
 	}
-	
 }
 
-/*
-$(function() {
+function fir_pick() {
+	document.getElementById("secondOpt").disabled=false;
+}
 
-$('#secondOpt').keyup(function() {
-
-	$.ajax({
-		
-		url : "/admin/Product/ProductDetailOpt.do",
-		method : "post",
-		data : {'option' : option},
-		datatype :	"json",
-		success : function(data) {
-		
-		
-		
-		
-	}	//ajax closed
+function sec_pick() {
+	var contents ="";
+	var firstOpt = document.getElementById("firstOpt");
+	var secondOpt = document.getElementById("secondOpt");
 	
-});	//"secondOpt" function closed	
+	contents += "<div class='list_wrap' id='div_"+num+"'>";
+	contents += "<center>"+firstOpt.value + " + " +secondOpt.value+"</center>"+"<br />";
+	contents += "<div style='float:left' align='left'><p><font class='blue_text'>수량&nbsp;</font>";
+	contents += "<select id='cnt_"+num+"' class='col-2' style='width:70px' onChange='javascript:ch_price("+num+")'>";
+	for (i = 1; i <= 10 ; i++) {
+		contents += "<option value='"+ i +"'>"+ i +"</option>";
+	}
+	/* contents += "<option value=''>직접입력</option>"; */
+	contents += "</select>";
+	contents += "<font class='blue_text'>금액&nbsp;</font><span class='price' id='price_"+num+"'>"+<%=rDTO.getProd_price()%>+"</span><span class='won'>원</span>"
+	contents += "</p>";
+	contents += "</div>";
+	contents += "</div>";
+	
+	num++;
+	
+	$('#optionBox').append(contents);
+	
+	document.getElementById("firstOpt")[0].selected = true;
+	document.getElementById("secondOpt")[0].selected = true;
+	document.getElementById("secondOpt").disabled=true;
+}
 
-});	//jQuery function closed
-*/
-
+function ch_price(number) {
+	var price = <%=rDTO.getProd_price()%>;
+	var cnt =  document.getElementById("cnt_"+number).value;
+	var re_price = price * cnt;
+	alert(re_price);
+	
+	var span_price = document.getElementById("price_"+number);
+	span_price.innerHTML=re_price;
+}
 </script>
 	
 </head>
@@ -246,8 +204,8 @@ $('#secondOpt').keyup(function() {
 		</nav>
 
 		<form name="form1" id="form1" method="GET">
-	
-		<input type="hidden" name="prod_no1" value="<%=CmmUtil.nvl(rDTO.getProd_no())%>" />
+
+		<input type="hidden" name="prod_no1" id="prod_no" value="<%=CmmUtil.nvl(rDTO.getProd_no())%>" />
 	
 		<div class="container detail">
 			<div class="wrap btn-wrap">
@@ -266,44 +224,39 @@ $('#secondOpt').keyup(function() {
 			            </div>
 					</div>
 					
-							
-					
 					<div class="goods_option">
 					
             			<p class="blue_text" id="OptText">옵션 선택</p>
             				<div class="select_wrap">
-              					<select class="col-2" id="firstOpt" onchange="javascript:pickOption()" >
-									<option value="<%=firstOpt %>"><%=firstOpt %></option>
-									<% for (ProductInfoOptionDTO oDTO: oList) {
-										if (firstOpt.equals(oDTO.getOpt_name())) {%>
-              						<option value="<%=oDTO.getOpt_kind() %>"><%=oDTO.getOpt_kind() %></option>
-              						<%
-              							}
-              						}%>
+              					<select class="col-2" id="firstOpt" onchange="javascript:fir_pick()">
+									<option value="no"><%=firstOpt %></option>
+									<%for(ProductInfoOptionDTO infoDTO : fir_option){ %>
+										<option value="<%=CmmUtil.nvl(infoDTO.getOpt_kind())%>"><%=CmmUtil.nvl(infoDTO.getOpt_kind())%></option>
+									<%} %>
               					</select>
-              					<select class="col-2" id="secondOpt" disabled='false'>
-                 					<option value="<%=secondOpt %>" ><%=secondOpt %></option>
-                 					<% for (ProductInfoOptionDTO oDTO : oList) {
-              							if (secondOpt.equals(oDTO.getOpt_name())) {%>
-              						<option value="<%=oDTO.getOpt_kind() %>"><%=oDTO.getOpt_kind() %></option>
-              						<%
-              							}
-                 					}%>
+              					<select class="col-2" id="secondOpt" disabled onchange="javascript:sec_pick()">
+                 					<option value="no"><%=secondOpt %></option>
+                 					<%for(ProductInfoOptionDTO infoDTO : sec_option){ %>
+										<option value="<%=CmmUtil.nvl(infoDTO.getOpt_kind())%>"><%=CmmUtil.nvl(infoDTO.getOpt_kind())%></option>
+									<%} %>
               					</select>
             				</div>
 									
 						<!-- 수정 시작ㅎ  -->
-						<p class="blue_text">수량</p>
+						<!-- <p class="blue_text">수량</p>
 							<div class="count_input">
-								<a class="incr-btn" onclick="del();">–</a>
+								<a class="incr-btn" onclick="del();">-</a>
 								<input class="quantity" type="text" name="amount" value="1" readonly="true" onchange="change();" />
 								<a class="incr-btn" onclick="add();">+</a>
-							</div>
-			            	<div class="price_wrap">총금액<span class="price"></span><span class="won">원</span></div>
+							</div> -->
+							<br />
+			            	<div class="price_wrap">금액<span class="price"><%=rDTO.getProd_price() %></span><span class="won">원</span></div>
 			            
 					</div>
 				
 				</div>
+		
+				<div id="optionBox"></div>
 		
 				<div class="list_wrap">
 					<h4 class="goods_detail_title">제품 상세정보</h4>

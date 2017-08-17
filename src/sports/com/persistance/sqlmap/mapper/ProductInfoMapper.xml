@@ -48,13 +48,13 @@
 	 
 	<!-- 스포츠 용품 상세 쿼리  -->
 	<select id ="getProductInfoDetail" resultType="ProductInfoDTO">
-		SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS, FILE_GRP FROM PRODUCT_INFO WHERE prod_no = #{prod_no}
+		SELECT PROD_NO, PROD_NAME, PROD_PRICE, PROD_CONTENTS, FILE_GRP, OPT_GRP FROM PRODUCT_INFO WHERE prod_no = #{prod_no}
 	</select>
 	
 	<!-- 스포츠 용품 상세 파일 업로드 쿼리 -->
 	<select id="getProductInfoFile" resultType="ProductFileDTO" parameterType="ProductInfoDTO">
 		SELECT FILE_NO, FILE_GRP, FILE_PATH, ORG_FILENAME, SRC_FILENAME FROM PROD_FILE
-		 WHERE FILE_GRP = #{file_grp}
+		WHERE FILE_GRP = #{file_grp}
 		ORDER BY FILE_NO;
 	</select>
 	
@@ -91,11 +91,10 @@
 	</insert>
 	
 	<!-- 스포츠 용품 상세 옵션 쿼리 -->
-	<select id ="getProductInfoOption" resultType="ProductInfoOptionDTO">
-		SELECT OPT_NO, OPT_NAME, OPT_KIND, OPT_PRICE, REG_USER_NO, REG_DT, CHG_USER_NO, CHG_DT FROM PROD_OPTION
-		WHERE PROD_NO = #{prod_no}
+	<select id ="getProductInfoOption" resultType="ProductInfoOptionDTO" parameterType="ProductInfoDTO">
+		SELECT OPT_NO, OPT_GRP, OPT_NAME, OPT_KIND, OPT_PRICE, OPT_CNT, REG_USER_NO, REG_DT, CHG_USER_NO, CHG_DT FROM PROD_OPTION
+		WHERE OPT_GRP = #{opt_grp}
+		 ORDER BY OPT_NO
 	</select>
-	
-	
 	
 </mapper>
