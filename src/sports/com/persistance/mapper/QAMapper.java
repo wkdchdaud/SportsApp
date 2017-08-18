@@ -23,6 +23,8 @@ public interface QAMapper {
 	
 	void insertQAAnswerDetail(QADTO qaDTO) throws Exception;
 	
+	void insertQA_file(QADTO qaDTO) throws Exception;
+	
 	QADTO getQAAnswerDetail(QADTO qaDTO) throws Exception;
 	
 	void updateQAAnswerDetail(QADTO qaDTO) throws Exception;

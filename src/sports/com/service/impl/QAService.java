@@ -53,6 +53,11 @@ public class QAService implements IQAService {
 	}
 	
 	@Override
+	public void insertQA_file(QADTO qaDTO) throws Exception {
+		qaMapper.insertQA_file(qaDTO);
+	}
+	
+	@Override
 	public QADTO getQAAnswerDetail(QADTO qaDTO) throws Exception {
 		return qaMapper.getQAAnswerDetail(qaDTO);
 	}

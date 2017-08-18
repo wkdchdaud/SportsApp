@@ -99,34 +99,63 @@ function fir_pick() {
 }
 
 function sec_pick() {
+	
 	var contents ="";
 	var firstOpt = document.getElementById("firstOpt");
 	var secondOpt = document.getElementById("secondOpt");
 	
-	contents += "<div class='list_wrap' id='div_"+num+"'>";
-	contents += "<center>"+firstOpt.value + " + " +secondOpt.value+"</center>"+"<br />";
-	contents += "<div style='float:left' align='left'><p><font class='blue_text'>수량&nbsp;</font>";
-	contents += "<select id='cnt_"+num+"' class='col-2' style='width:70px' onChange='javascript:ch_price("+num+")'>";
-	for (i = 1; i <= 10 ; i++) {
-		contents += "<option value='"+ i +"'>"+ i +"</option>";
+	var t_f = false;
+	var number = -1;
+	
+	for(i=0;i<num;i++){
+		if(document.getElementById("sumop_"+i)!=null) {
+			if(document.getElementById("sumop_"+i).innerHTML == firstOpt.value + " + " +secondOpt.value){
+				number = i;
+				t_f = true;
+			}
+		}
 	}
-	/* contents += "<option value=''>직접입력</option>"; */
-	contents += "</select>";
-	contents += "<font class='blue_text'>금액&nbsp;</font><span class='price' id='price_"+num+"'>"+<%=rDTO.getProd_price()%>+"</span><span class='won'>원</span>"
-	contents += "</p>";
-	contents += "</div>";
-	contents += "</div>";
 	
-	num++;
+	if(t_f){
+		add_one(number);
+	}else{
+		contents += "<div class='list_wrap' id='div_"+num+"'>";
+		contents += "<center id='sumop_"+num+"'>"+firstOpt.value + " + " +secondOpt.value+"</center>"+"<br />";
+		contents += "<div style='float:left' align='left'><p><font class='blue_text'>수량&nbsp;</font>";
+		contents += "<div class='count_input'>";
+		contents += "<a class='incr-btn' onclick='del_one("+num+");'>-</a>";
+		contents += "<input id='cnt_"+num+"' class='quantity' type='text' name='amount' value='1' readonly='true' onchange='change();' />";
+		contents += "<a class='incr-btn' onclick='add_one("+num+");'>+</a>";
+		contents += "</div>";
+		contents += "<font class='blue_text'>금액&nbsp;</font><span class='price' id='price_"+num+"'>"+<%=rDTO.getProd_price()%>+"</span><span class='won'>원</span>"
+		contents += "<a href='javascript:div_delete("+num+")'>";
+		contents += "<img src='/common/images/ic_delete.png' style='width: 40px;height: 40px'>";
+		contents += "</a>";
+		contents += "</p>";
+		contents += "</div>";
+		contents += "</div>";
+		num++;
+		$('#optionBox').append(contents);
+	}
+	var total = 0;
+	for(i=0;i<num;i++){
+		if(document.getElementById("price_"+i)!=null){
+			total += Number(document.getElementById("price_"+i).innerHTML);
+		}
+	}
 	
-	$('#optionBox').append(contents);
+	document.getElementById("total_price").innerHTML = total;
 	
 	document.getElementById("firstOpt")[0].selected = true;
 	document.getElementById("secondOpt")[0].selected = true;
 	document.getElementById("secondOpt").disabled=true;
+	
 }
 
+
+
 function ch_price(number) {
+	
 	var price = <%=rDTO.getProd_price()%>;
 	var cnt =  document.getElementById("cnt_"+number).value;
 	var re_price = price * cnt;
@@ -134,13 +163,78 @@ function ch_price(number) {
 	
 	var span_price = document.getElementById("price_"+number);
 	span_price.innerHTML=re_price;
+	
+	var total = 0;
+	for (i=0;i<num;i++) {
+		if(document.getElementById("price_"+i)!=null) {
+			total += Number(document.getElementById("price_"+i).innerHTML);
+		}
+	}
+	document.getElementById("total_price").innerHTML = total;
+}
+
+function div_delete(number) {
+	var div_del = document.getElementById("div_"+number);
+	div_del.remove(div_del);
+	var total = 0;
+	for (i=0;i<num;i++) {
+		if(document.getElementById("price_"+i)!=null) {
+			total += Number(document.getElementById("price_"+i).innerHTML);
+		}
+	}
+	document.getElementById("total_price").innerHTML = total;
+}
+
+function add_one(number) {
+	
+	document.getElementById("cnt_"+number).value = Number(document.getElementById("cnt_"+number).value)+1;
+	
+	var price = <%=rDTO.getProd_price()%>;
+	var cnt =  document.getElementById("cnt_"+number).value;
+	var re_price = price * cnt;
+	
+	var span_price = document.getElementById("price_"+number);
+	span_price.innerHTML=re_price;
+	var total = 0;
+	
+	for (i=0;i<num;i++) {
+		if(document.getElementById("price_"+i)!=null) {
+			total += Number(document.getElementById("price_"+i).innerHTML);
+		}
+	}
+	
+	document.getElementById("total_price").innerHTML = total;
+	
+}
+
+function del_one(number) {
+	
+	if(Number(document.getElementById("cnt_"+number).value)>1){
+		document.getElementById("cnt_"+number).value = Number(document.getElementById("cnt_"+number).value) - 1;
+	}
+	
+	var price = <%=rDTO.getProd_price()%>;
+	var cnt =  document.getElementById("cnt_"+number).value;
+	var re_price = price * cnt;
+	
+	var span_price = document.getElementById("price_"+number);
+	span_price.innerHTML=re_price;
+	var total = 0;
+	
+	for (i=0;i<num;i++) {
+		if(document.getElementById("price_"+i)!=null) {
+			total += Number(document.getElementById("price_"+i).innerHTML);
+		}
+	}
+	
+	document.getElementById("total_price").innerHTML = total;
+	
 }
 </script>
 	
 </head>
 
 <body onload="javascript:chkOptVal();return false;">
-
 	<section id="wrapper" class="wrapper">
 	
 		<header class="header">
@@ -241,16 +335,8 @@ function ch_price(number) {
 									<%} %>
               					</select>
             				</div>
-									
-						<!-- 수정 시작ㅎ  -->
-						<!-- <p class="blue_text">수량</p>
-							<div class="count_input">
-								<a class="incr-btn" onclick="del();">-</a>
-								<input class="quantity" type="text" name="amount" value="1" readonly="true" onchange="change();" />
-								<a class="incr-btn" onclick="add();">+</a>
-							</div> -->
 							<br />
-			            	<div class="price_wrap">금액<span class="price"><%=rDTO.getProd_price() %></span><span class="won">원</span></div>
+			            	<div class="price_wrap">금액<span class="price" id="total_price"><%=rDTO.getProd_price() %></span><span class="won">원</span></div>
 			            
 					</div>
 				
