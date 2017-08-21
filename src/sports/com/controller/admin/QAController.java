@@ -2,6 +2,7 @@ package sports.com.controller.admin;
 
 import java.util.List;
 import java.util.Map;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,12 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import sports.com.dto.QADTO;
 import sports.com.service.IQAService;
 import sports.com.util.AES256Util;
 import sports.com.util.CmmUtil;
+import sports.com.util.DateUtil;
 
 @Controller
 public class QAController {
@@ -93,7 +96,7 @@ public class QAController {
 	}
 	
 	@RequestMapping(value="admin/QA/QAInsert", method=RequestMethod.POST)
-	public String QAInsert(HttpSession session, HttpServletRequest request, HttpServletResponse response, 
+	public String QAInsert(HttpSession session, HttpServletRequest request, @RequestParam("qa_file") MultipartFile file, 
 			ModelMap model) throws Exception {
 		
 		log.info(this.getClass().getName() + ".QAInsert start!");
@@ -121,8 +124,44 @@ public class QAController {
 			qaDTO.setSecret_yn(secret_yn);
 			qaDTO.setTitle(title);
 			qaDTO.setContents(contents);
-	
-			qaService.insertQADetail(qaDTO);
+			
+			if (!file.getOriginalFilename().equals("")) {
+				
+				String FileSaveRootPath = "C:/Users/data8316-26/git/SportsApp/WebContent"; //저장될 웹루트
+				String fileOrgName = file.getOriginalFilename(); //파일 원본 이름 저장
+				int pos = fileOrgName.lastIndexOf( "." ); //파일 저장되는 확장자 추출
+				String ext = fileOrgName.substring( pos + 1 ).toLowerCase(); //확장자
+				
+				//이미지 파일이 아니라면 에러 처리
+				if (!(ext.equals("jpg")||ext.equals("jpeg")||ext.equals("png")||ext.equals("gif"))) {
+					throw new Exception("이미지 파일이 아닙니다.");
+				}
+				
+				String fileSaveName = reg_user_no +"_FILE_"+ DateUtil.getDate("yyyyMMddHHmmss") +"."+ ext;
+				
+				//저장 경로
+				String savePath = "/upload/qa_file/" + DateUtil.getTodayYYYY() + "/" + DateUtil.getTodayMM() + "/" + DateUtil.getTodayDD();
+				
+				File f = new File(FileSaveRootPath + savePath + "/"+ fileSaveName);
+				
+				//폴더가 없다면 폴더 생성
+				if (!f.exists()) {
+					f.mkdirs();
+				}
+				
+				//파일 저장
+				file.transferTo(f);
+				
+				qaDTO.setFile_name(fileSaveName);
+				qaDTO.setFile_path(savePath);
+				
+				qaService.insertQA_file(qaDTO);
+				
+			} else {
+				
+				qaService.insertQADetail(qaDTO);
+				
+			}
 
 			msg = "게시글 등록에 성공하였습니다.";
 			url = "/admin/QA/QAList.do";
@@ -302,7 +341,7 @@ public class QAController {
 	}
 	
 	@RequestMapping(value="admin/QA/QAAnswerInsert", method=RequestMethod.POST)
-	public String QAAnswerInsert(HttpSession session, HttpServletRequest request, HttpServletResponse response, 
+	public String QAAnswerInsert(HttpSession session, HttpServletRequest request, @RequestParam("qa_file") MultipartFile file,
 			ModelMap model) throws Exception {
 		
 		log.info(this.getClass().getName() + ".QAAnswerInsert start!");
@@ -341,8 +380,44 @@ public class QAController {
 			qaDTO.setSecret_yn(secret_yn);
 			qaDTO.setTitle(title);
 			qaDTO.setContents(contents);
-	
-			qaService.insertQAAnswerDetail(qaDTO);
+			
+			if (!file.getOriginalFilename().equals("")) {
+				
+				String FileSaveRootPath = "C:/Users/data8316-26/git/SportsApp/WebContent"; //저장될 웹루트
+				String fileOrgName = file.getOriginalFilename(); //파일 원본 이름 저장
+				int pos = fileOrgName.lastIndexOf( "." ); //파일 저장되는 확장자 추출
+				String ext = fileOrgName.substring( pos + 1 ).toLowerCase(); //확장자
+				
+				//이미지 파일이 아니라면 에러 처리
+				if (!(ext.equals("jpg")||ext.equals("jpeg")||ext.equals("png")||ext.equals("gif"))) {
+					throw new Exception("이미지 파일이 아닙니다.");
+				}
+				
+				String fileSaveName = reg_user_no +"_FILE_"+ DateUtil.getDate("yyyyMMddHHmmss") +"."+ ext;
+				
+				//저장 경로
+				String savePath = "/upload/qa_file/" + DateUtil.getTodayYYYY() + "/" + DateUtil.getTodayMM() + "/" + DateUtil.getTodayDD();
+				
+				File f = new File(FileSaveRootPath + savePath + "/"+ fileSaveName);
+				
+				//폴더가 없다면 폴더 생성
+				if (!f.exists()) {
+					f.mkdirs();
+				}
+				
+				//파일 저장
+				file.transferTo(f);
+				
+				qaDTO.setFile_name(fileSaveName);
+				qaDTO.setFile_path(savePath);
+				
+				qaService.insertQAAnswer_file(qaDTO);
+				
+			} else {
+				
+				qaService.insertQAAnswerDetail(qaDTO);
+				
+			}
 
 			msg = "답글 등록에 성공하였습니다.";
 			url = "/admin/QA/QAList.do";
@@ -438,7 +513,7 @@ public class QAController {
 	}
 	
 	@RequestMapping(value="admin/QA/QAAnswerUpdate", method=RequestMethod.POST)
-	public String QAAnswerUpdate(HttpSession session, HttpServletRequest request, HttpServletResponse response, 
+	public String QAAnswerUpdate(HttpSession session, HttpServletRequest request, @RequestParam("qa_file") MultipartFile file, 
 			ModelMap model) throws Exception {
 		
 		log.info(this.getClass().getName() + ".QAAnswerUpdate start!");
@@ -475,8 +550,44 @@ public class QAController {
 			qaDTO.setSecret_yn(secret_yn);
 			qaDTO.setTitle(title);
 			qaDTO.setContents(contents);
-	
-			qaService.updateQAAnswerDetail(qaDTO);
+			
+			if (!file.getOriginalFilename().equals("")) {
+				
+				String FileSaveRootPath = "C:/Users/data8316-26/git/SportsApp/WebContent"; //저장될 웹루트
+				String fileOrgName = file.getOriginalFilename(); //파일 원본 이름 저장
+				int pos = fileOrgName.lastIndexOf( "." ); //파일 저장되는 확장자 추출
+				String ext = fileOrgName.substring( pos + 1 ).toLowerCase(); //확장자
+				
+				//이미지 파일이 아니라면 에러 처리
+				if (!(ext.equals("jpg")||ext.equals("jpeg")||ext.equals("png")||ext.equals("gif"))) {
+					throw new Exception("이미지 파일이 아닙니다.");
+				}
+				
+				String fileSaveName = reg_user_no +"_FILE_"+ DateUtil.getDate("yyyyMMddHHmmss") +"."+ ext;
+				
+				//저장 경로
+				String savePath = "/upload/qa_file/" + DateUtil.getTodayYYYY() + "/" + DateUtil.getTodayMM() + "/" + DateUtil.getTodayDD();
+				
+				File f = new File(FileSaveRootPath + savePath + "/"+ fileSaveName);
+				
+				//폴더가 없다면 폴더 생성
+				if (!f.exists()) {
+					f.mkdirs();
+				}
+				
+				//파일 저장
+				file.transferTo(f);
+				
+				qaDTO.setFile_name(fileSaveName);
+				qaDTO.setFile_path(savePath);
+				
+				qaService.updateQAAnswer_file(qaDTO);
+				
+			} else {
+				
+				qaService.updateQAAnswerDetail(qaDTO);
+				
+			}
 			
 			msg = "답글 수정에 성공하였습니다.";
 			url = "/admin/QA/QAAnswerDetail.do?qa_no=" + qa_no;

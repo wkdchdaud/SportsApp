@@ -28,6 +28,11 @@ public class QAService implements IQAService {
 	}
 	
 	@Override
+	public void insertQA_file(QADTO qaDTO) throws Exception {
+		qaMapper.insertQA_file(qaDTO);
+	}
+	
+	@Override
 	public QADTO getQADetail(QADTO qaDTO) throws Exception {
 		return qaMapper.getQADetail(qaDTO);
 	}
@@ -35,6 +40,11 @@ public class QAService implements IQAService {
 	@Override
 	public void updateQADetail(QADTO qaDTO) throws Exception {
 		qaMapper.updateQADetail(qaDTO);
+	}
+	
+	@Override
+	public void updateQA_file(QADTO qaDTO) throws Exception {
+		qaMapper.updateQA_file(qaDTO);
 	}
 	
 	@Override
@@ -53,8 +63,8 @@ public class QAService implements IQAService {
 	}
 	
 	@Override
-	public void insertQA_file(QADTO qaDTO) throws Exception {
-		qaMapper.insertQA_file(qaDTO);
+	public void insertQAAnswer_file(QADTO qaDTO) throws Exception {
+		qaMapper.insertQAAnswer_file(qaDTO);
 	}
 	
 	@Override
@@ -65,6 +75,11 @@ public class QAService implements IQAService {
 	@Override
 	public void updateQAAnswerDetail(QADTO qaDTO) throws Exception {
 		qaMapper.updateQAAnswerDetail(qaDTO);
+	}
+	
+	@Override
+	public void updateQAAnswer_file(QADTO qaDTO) throws Exception {
+		qaMapper.updateQAAnswer_file(qaDTO);
 	}
 	
 	@Override
