@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>모두의 스포츠</title>
+    <title>모두의 dmd</title>
     <!-- Styles : CSS & SASS Sorcemap -->
     <link rel="stylesheet" href="./common/css/style.css">
     <!-- JavaScirpt Sorcemap -->
