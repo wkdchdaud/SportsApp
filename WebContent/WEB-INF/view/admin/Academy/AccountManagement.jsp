@@ -25,7 +25,7 @@ if (rlist==null){
 
 //상세보기 이동
 function doDetail(aca_no){ 
-	location.href="/accountinfo.do?aca_no="+ aca_no;
+	location.href="/test1/accountinfo.do?aca_no="+ aca_no;
 }
 
 </script>	
@@ -70,6 +70,6 @@ for (int i=0; i<rlist.size(); i++){
 }
 %>
 </table>
-<a href="/accountreg.do">[글쓰기]</a>
+<a href="/test1/accountreg.do">[글쓰기]</a>
 </body>
 </html>

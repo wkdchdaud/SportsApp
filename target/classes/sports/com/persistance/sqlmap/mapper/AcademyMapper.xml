@@ -3,7 +3,7 @@
 <mapper namespace="sports.com.persistance.mapper.AcademyMapper">
 
 	<select id="getAcaList" resultType="AcademyDTO">
-		SELECT ACA_NO, ACA_NAME, ACA_AREA1, ACA_AREA2, ACA_AREA3, ACA_EVENT1, ACA_EVENT2, ACA_LAT, ACA_LNG FROM ACADEMY
+		SELECT ACA_NO, ACA_NAME, ACA_AREA1, ACA_AREA2, ACA_AREA3, ACA_EVENT1, ACA_EVENT2, ACA_LAT, ACA_LNG, ACA_VISIT FROM ACADEMY
 	</select>
 	
 	<select id="getAccountList" resultType="AcademyDTO">

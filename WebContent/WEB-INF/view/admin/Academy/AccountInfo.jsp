@@ -44,11 +44,11 @@ if (rDTO==null){
    function doAction(gubun) {
       var f = document.getElementById("form1");
       if (gubun == "U") {
-          f.action = "accountupdate.do";
+          f.action = "/test1/accountupdate.do";
          f.submit();
       } else if (gubun == "D") {
          if (confirm("삭제하시겠습니까?")) {
-            f.action = "accountdelete.do";
+            f.action = "test/1accountdelete.do";
             f.submit();
          }
       }
