@@ -28,6 +28,18 @@
     <![endif]-->
    	 
    	  <script type="text/javascript">
+   	  
+   	  $(function(){
+   		  
+   		  $("#optionInsert").click(function(){
+   			optionpopup();
+   			
+   	
+   		  });
+   		  
+   	  });
+   	  
+   	  
    		function SetComma(str) { 
    		        
    		      var regMustNumberComma = /^[\t|0-9|,]+$/; 
@@ -55,9 +67,15 @@
    		    } 
 
      function optionpopup(){ 
-    	
+    	 
+    	 var popX = (window.screen.width / 2);
+    	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+    	var popY= (window.screen.height /2);
+    	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+    	  window.name="옵션 등록/수정";
     	  var popURL ="/admin/ProductInfo/ProductInfoOptionReg.do";
-    	  var popOption = "width=650, height=360, resizable=no, status=yes;";
+    	  var popOption = "width=300, height=250, location=no, menubar=no, top="+popY+", left="+popX+",toolbar=no, resizable=no, status=yes;";
     	   			window.open(popURL,"",popOption);
     	  $("#place").attr("placeholder","등록/수정을 이미 클릭 했었습니다.");
 
@@ -226,7 +244,7 @@
               <p class="blue_text">옵션</p>
               <div class="input_btn_wrap">
                 <input type="text" id="place" placeholder="옵션을 추가해주세요"><!-- <button class="line-btn" onclick="location.href='/admin/ProductInfo/ProductInfoOptionReg.do';return false;">등록/수정</button> -->
-                <input type="button" class="line-btn" onclick="optionpopup();" value="등록/수정"/>
+                <input type="button" class="line-btn" id="optionInsert" value="등록/수정"/>
                 
               </div>
 

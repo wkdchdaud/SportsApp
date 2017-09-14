@@ -166,10 +166,10 @@
 </table>
 </div>
 </div>
-<button align="center" class="btn btn-primary btn-xs"onclick="doAction('C')"> 등록</button>
+<center><button  class="btn btn-primary btn-xs"onclick="doAction('C')"> 등록</button>
 <!-- <button align="center" type="button" onclick="location.href='/admin/ProductInfo/ProductInfoReg.do';return false;"> 취소</button>
 	 -->
-<button align="center" class="btn btn-danger btn-xs" type="button" onclick="self.close();">취소</button>
+<button  class="btn btn-danger btn-xs" type="button" onclick="self.close();">취소</button></center>
 </form>
 
 </body>
